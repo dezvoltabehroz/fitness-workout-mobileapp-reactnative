@@ -1,20 +1,13 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, ImageBackground } from 'react-native';
 
-import { Button, Container } from '../../components';
+import { Button, CheckBox, Container } from '../../components';
 import { route, screen } from '../../lib/utils/constants';
 
 import HeaderView from './components/headerView';
 import Target from '../../assets/svg/706.svg';
-import Fit from '../../assets/svg/1029.svg';
-import Muscles from '../../assets/svg/dumbell-weight.svg';
-import Weight from '../../assets/svg/gym-equipment.svg';
-import Band from '../../assets/svg/band.svg';
 
 import styles from './style';
-
-const SVG_HEIGHT = 36;
-const SVG_WIDTH = 36;
 
 class AppIntro extends Component {
     constructor(props) {
@@ -22,65 +15,19 @@ class AppIntro extends Component {
         this.state = {
             timer: false,
             value: 0,
+            shoulder: false,
+            chest: false,
+            arm: false,
+            back: false,
+            glute: false,
+            leg: false
         };
     }
 
-    style_Func_1 = () => {
-        let style = {};
-        switch (this.state.value) {
-            case 0:
-                style = styles.selectedButtonStyle;
-                break;
-            default:
-                style = styles.unSelectedButtonStyle
-                break;
-        }
-        return style
-    }
-
-    style_Func_2 = () => {
-        let style = {};
-        switch (this.state.value) {
-            case 1:
-                style = styles.selectedButtonStyle;
-                break;
-            default:
-                style = styles.unSelectedButtonStyle
-                break;
-        }
-        return style
-    }
-
-    style_Func_3 = () => {
-        let style = {};
-        switch (this.state.value) {
-            case 2:
-                style = styles.selectedButtonStyle;
-                break;
-            default:
-                style = styles.unSelectedButtonStyle
-                break;
-        }
-        return style
-    }
-
-    style_Func_4 = () => {
-        let style = {};
-        switch (this.state.value) {
-            case 3:
-                style = styles.selectedButtonStyle;
-                break;
-            default:
-                style = styles.unSelectedButtonStyle
-                break;
-        }
-        return style
-    }
-
-    setValue = (value) => { this.setState({ value }) }
 
     render() {
         const { navigate, goBack } = this.props.navigation;
+        const { shoulder, chest, glute, back, arm, leg } = this.state;
         return (
             <Container>
                 <HeaderView goBack={() => goBack()} />
@@ -92,7 +39,45 @@ class AppIntro extends Component {
                     <View style={styles.headingContainer}>
                         <Text style={styles.headingTextStyle}>{screen.APP_INTRO_Heading_5}</Text>
                     </View>
-                   
+
+                    <ImageBackground style={styles.imageStyle} resizeMode="contain" source={require('../../assets/images/girl.png')}>
+                        <View style={styles.shoulderContainer}>
+                            <View style={styles.shoulderStyle}>
+                                <CheckBox isChecked={shoulder} label="Shoulders" onPress={() => this.setState({ shoulder: !shoulder })} />
+                            </View>
+                        </View>
+                        <View style={styles.chestContainer}>
+                            <View style={styles.chestStyle}>
+                                <CheckBox isChecked={chest} label="Chests" onPress={() => this.setState({ chest: !chest })} />
+                            </View>
+                        </View>
+                        <View style={styles.armContainer}>
+                            <View style={styles.armStyle}>
+                                <CheckBox isChecked={arm} label="Arms" onPress={() => this.setState({ arm: !arm })} />
+                            </View>
+                        </View>
+                        <View style={styles.gluteContainer}>
+                            <View style={styles.gluteStyle}>
+                                <CheckBox isChecked={glute} label="Glutes" onPress={() => this.setState({ glute: !glute })} />
+                            </View>
+                        </View>
+                        <View style={styles.backContainer}>
+                            <View style={styles.backStyle}>
+                                <CheckBox
+                                    isChecked={back}
+                                    label="Back"
+                                    onPress={() => this.setState({ back: !back })} />
+                            </View>
+                        </View>
+                        <View style={styles.legContainer}>
+                            <View style={styles.legStyle}>
+                                <CheckBox
+                                    isChecked={leg}
+                                    label="Legs"
+                                    onPress={() => this.setState({ leg: !leg })} />
+                            </View>
+                        </View>
+                    </ImageBackground>
                 </View>
                 <View style={styles.buttonContainer}>
                     <Button title={'DONE'} onPress={() => navigate(route.APPINTRO2nd)} />

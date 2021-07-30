@@ -9,3 +9,6 @@ export const Icon = _Icon;
 
 import _Container from './Container';
 export const Container = _Container;
+
+import _CheckBox from './CheckBox';
+export const CheckBox = _CheckBox;

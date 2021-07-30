@@ -1,8 +1,9 @@
 import { StyleSheet } from 'react-native';
 import THEME from '../../assets/styles/theme.style';
+import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../../lib/utils/constants';
 export default StyleSheet.create({
     container: {
-        flex: 0.9,
+        flex: 1,
         marginHorizontal: "5%",
         justifyContent: "center",
     },
@@ -18,51 +19,103 @@ export default StyleSheet.create({
         alignItems: "center"
     },
     buttonContainer: {
-        // flex:0.3,
-        // marginTop: "10%",
+        marginBottom: "5%",
         marginHorizontal: "10%",
         justifyContent: "flex-end"
     },
-    selectedButtonStyle: {
-        marginTop: "5%",
-        flexDirection: "row",
-        backgroundColor: THEME.COLOR_WHITE,
-        height: 67,
-        borderRadius: 34,
-        alignItems: "center",
-        paddingHorizontal: "5%",
-        elevation: 5,
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
+    shoulderContainer: {
+        position: "absolute",
+        borderBottomWidth: 2,
+        borderColor: THEME.DASH_DARK,
+        width: 100,
+        borderRightWidth: 2,
+        height: 30,
+        left: "65%",
+        top: "20%"
     },
-    unSelectedButtonStyle: {
-        flexDirection: "row",
-        borderWidth: 1,
-        borderColor: THEME.PRIMARY_TEXT_COLOR,
-        backgroundColor: 'transparent',
-        height: 67,
-        borderRadius: 34,
-        alignItems: "center",
-        paddingHorizontal: "5%",
-        marginTop: '5%'
+    shoulderStyle: {
+        position: "absolute",
+        bottom: "80%",
+        left: '45%'
     },
-    decsHeading: {
-        fontWeight: "bold"
+    armContainer: {
+        position: "absolute",
+        borderBottomWidth: 2,
+        borderColor: THEME.DASH_DARK,
+        width: 100,
+        borderLeftWidth: 2,
+        height: 30,
+        right: "55%",
+        top: "40%"
+    },
+    armStyle: {
+        position: "absolute",
+        bottom: "80%",
+        right: '62.5%'
+    },
+    chestContainer: {
+        position: "absolute",
+        borderBottomWidth: 2,
+        borderColor: THEME.DASH_DARK,
+        width: 100,
+        borderLeftWidth: 2,
+        height: 30,
+        right: "62%",
+        top: "23%"
+    },
+    chestStyle: {
+        position: "absolute",
+        bottom: "80%",
+        right: '60%'
+    },
+    gluteContainer: {
+        position: "absolute",
+        borderTopWidth: 2,
+        borderColor: THEME.DASH_DARK,
+        width: 70,
+        borderRightWidth: 2,
+        height: 30,
+        left: "95%",
+        top: "55%"
+    },
+    gluteStyle: {
+        position: "absolute",
+        top: "80%",
+        left: '40%'
+    },
+    backContainer: {
+        position: "absolute",
+        borderBottomWidth: 2,
+        borderColor: THEME.DASH_DARK,
+        width: 100,
+        borderRightWidth: 2,
+        height: 30,
+        left: "77%",
+        top: "40%"
+    },
+    backStyle: {
+        position: "absolute",
+        bottom: "80%",
+        left: '60%'
+    },
+    legContainer: {
+        position: "absolute",
+        borderBottomWidth: 2,
+        borderColor: THEME.DASH_DARK,
+        width: 75,
+        borderLeftWidth: 2,
+        height: 30,
+        right: "79%",
+        top: "60%"
+    },
+    legStyle: {
+        position: "absolute",
+        bottom: "80%",
+        left: '-55%'
     },
     decsTextStyle: {
         fontSize: THEME.FONT_SIZE_SMALL,
         color: THEME.PRIMARY_TEXT_COLOR
-    },
-    marginHorizontal1: {
-        marginHorizontal: "2.5%",
-    },
-    marginHorizontal: {
-        marginHorizontal: "2.5%",
     },
     dashContainer: {
         flex: 0.8,
@@ -80,4 +133,10 @@ export default StyleSheet.create({
     rowContainer: {
         flexDirection: "row"
     },
+    imageStyle:{
+         width: SCREEN_WIDTH * 0.4,
+          height: SCREEN_HEIGHT * 0.6,
+           alignSelf: "center",
+            marginRight: "5%" 
+    }
 })

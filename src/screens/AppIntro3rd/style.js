@@ -19,7 +19,7 @@ export default StyleSheet.create({
     },
     buttonContainer: {
         // flex:0.3,
-        // marginTop: "10%",
+        marginTop: "5%",
         marginHorizontal: "10%",
         justifyContent: "flex-end"
     },
