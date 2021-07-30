@@ -131,7 +131,7 @@ class AppIntro extends Component {
                     </TouchableOpacity>
                 </View>
                 <View style={styles.buttonContainer}>
-                    <Button title={screen.NEXT} onPress={() => navigate(route.APPINTRO2nd)} />
+                    <Button title={screen.NEXT} onPress={() => navigate(route.APPINTRO4th)} />
                 </View>
             </Container>
 

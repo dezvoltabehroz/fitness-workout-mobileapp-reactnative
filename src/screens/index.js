@@ -13,3 +13,9 @@ export const AppIntro2nd = _AppIntro2nd;
 
 import _AppIntro3rd from './AppIntro3rd';
 export const AppIntro3rd = _AppIntro3rd;
+
+import _AppIntro4th from './AppIntro4th';
+export const AppIntro4th = _AppIntro4th;
+
+import _AppIntro5th from './AppIntro5th';
+export const AppIntro5th = _AppIntro5th;

@@ -32,6 +32,9 @@ const screen = {
     APP_INTRO_Button_DESCRIPTION_2_3:'I want to see my original muscles growth',
     APP_INTRO_Button_DESCRIPTION_3_3:'I want to slim and feel better',
     APP_INTRO_Button_DESCRIPTION_4_3:'I want to slim and feel better',
+    APP_INTRO_Heading_4: "SELECT YOUR GENDER",
+    APP_INTRO_DESCRIPTION_4:"Select your gender so that we can lorem ipsum dolor",
+    APP_INTRO_Heading_5: "SELECT FOCUS AREAS",
     NEXT:"NEXT"
 
 };
