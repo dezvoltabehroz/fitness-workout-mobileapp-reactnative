@@ -4,6 +4,7 @@ import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../../lib/utils/constants';
 export default StyleSheet.create({
     container: {
         flex: 1,
+       
     },
     headingTextStyle: {
         fontSize: 22,
@@ -14,6 +15,7 @@ export default StyleSheet.create({
         alignItems: "center"
     },
     headingContainer: {
+         paddingTop: Platform.OS == 'ios' ? '10%' : '5%',
         backgroundColor: THEME.BAR_COLOR,
         padding: "5%",
         // borderBottomStartRadius: 25,
