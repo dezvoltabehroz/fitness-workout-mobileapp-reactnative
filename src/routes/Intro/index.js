@@ -2,7 +2,7 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { View, Text, StyleSheet } from 'react-native';
 import { route } from '../../lib/utils/constants';
-import { AppIntro1st, AppIntro2nd, AppIntro3rd,AppIntro4th,AppIntro5th } from '../../screens';
+import { AppIntro1st, AppIntro2nd, AppIntro3rd,AppIntro4th,AppIntro5th, CreatingPlan } from '../../screens';
 
 
 const Stack = createStackNavigator();
@@ -23,6 +23,9 @@ function IntroRoutes() {
                 headerShown: false
             }} />
             <Stack.Screen name={route.APPINTRO5th} component={AppIntro5th} options={{
+                headerShown: false
+            }} />
+             <Stack.Screen name={route.CREATINGPLAN} component={CreatingPlan} options={{
                 headerShown: false
             }} />
         </Stack.Navigator>

@@ -35,6 +35,8 @@ const screen = {
     APP_INTRO_Heading_4: "SELECT YOUR GENDER",
     APP_INTRO_DESCRIPTION_4:"Select your gender so that we can lorem ipsum dolor",
     APP_INTRO_Heading_5: "SELECT FOCUS AREAS",
+    CREATINGPLAN_HEADING:'CREATING YOUR PERSONALIZED PLAN',
+    CREATINGPLAN_DESCRIPTION:'Calculating and analyzing your...',
     NEXT:"NEXT"
 
 };
@@ -50,8 +52,10 @@ const route = {
     APPINTRO3rd: "AppIntro3rd",
     APPINTRO4th: "AppIntro4th",
     APPINTRO5th: "AppIntro5th",
+    CREATINGPLAN:"CreatingPlan",
     AUTH_LOADING: "AuthLoading",
     APPINTRO: "AppIntro",
+    HOME:'Home'
   
 }
 const TOKEN = "token";

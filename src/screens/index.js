@@ -19,3 +19,6 @@ export const AppIntro4th = _AppIntro4th;
 
 import _AppIntro5th from './AppIntro5th';
 export const AppIntro5th = _AppIntro5th;
+
+import _CreatingPlan from './CreatingPlan';
+export const CreatingPlan = _CreatingPlan;

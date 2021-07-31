@@ -80,7 +80,7 @@ class AppIntro extends Component {
                     </ImageBackground>
                 </View>
                 <View style={styles.buttonContainer}>
-                    <Button title={'DONE'} onPress={() => navigate(route.APPINTRO2nd)} />
+                    <Button title={'DONE'} onPress={() => navigate(route.CREATINGPLAN)} />
                 </View>
             </Container>
 
