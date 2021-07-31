@@ -1,24 +1,17 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text } from 'react-native';
 import CircularProgress from 'react-native-circular-progress-indicator';
 
 import { Button, Container } from '../../components';
 import { route, screen } from '../../lib/utils/constants';
-import Target from '../../assets/svg/target.svg';
-
-import THEME from '../../assets/styles/theme.style';
 
 import styles from './style';
 
-const SVG_HEIGHT = 36;
-const SVG_WIDTH = 36;
-
-class AppIntro extends Component {
+class CreatingPlan extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            timer: false,
-            value: 0,
+            value: false,
         };
     }
 
@@ -39,7 +32,7 @@ class AppIntro extends Component {
                     <View style={styles.progressContainer}>
                         <CircularProgress
                             value={100}
-                            duration={4000}
+                            duration={10000}
                             radius={120}
                             textColor={'#1F2729'}
                             textStyle={styles.textStyle}
@@ -55,11 +48,11 @@ class AppIntro extends Component {
 
                 </View>
                 <View style={styles.buttonContainer}>
-                    <Button title={value ? 'FINISHED' : 'PLEASE WAIT...'} onPress={() => navigate(route.HOME)} />
+                    <Button disabled={!value} title={value ? 'FINISHED' : 'PLEASE WAIT...'} onPress={() => navigate(route.HOME)} />
                 </View>
             </Container>
 
         )
     }
 }
-export default AppIntro;
+export default CreatingPlan;

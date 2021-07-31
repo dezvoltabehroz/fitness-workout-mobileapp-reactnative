@@ -22,3 +22,7 @@ export const AppIntro5th = _AppIntro5th;
 
 import _CreatingPlan from './CreatingPlan';
 export const CreatingPlan = _CreatingPlan;
+
+
+import _Home from './Home';
+export const Home = _Home;
