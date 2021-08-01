@@ -66,14 +66,14 @@ export default StyleSheet.create({
     },
     dashContainer: {
         flex: 0.8,
-        // marginTop: "10%",
+        paddingTop: Platform.OS == 'ios' ? '10%' : '5%',
         alignItems: "center",
         flexDirection: "row",
         justifyContent: "center"
     },
     backButton: {
         flex: 0.2,
-        // marginHorizontal: "5%",
+        paddingTop: Platform.OS == 'ios' ? '10%' : '5%',
         alignItems: "center",
         justifyContent: "center"
     },

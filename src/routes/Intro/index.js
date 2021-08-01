@@ -2,7 +2,7 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { View, Text, StyleSheet } from 'react-native';
 import { route } from '../../lib/utils/constants';
-import { AppIntro1st, AppIntro2nd, AppIntro3rd,AppIntro4th,AppIntro5th, CreatingPlan } from '../../screens';
+import { AppIntro1st, AppIntro2nd, AppIntro3rd,AppIntro4th,AppIntro5th, CreatingPlan, Home } from '../../screens';
 
 
 const Stack = createStackNavigator();
@@ -26,6 +26,9 @@ function IntroRoutes() {
                 headerShown: false
             }} />
              <Stack.Screen name={route.CREATINGPLAN} component={CreatingPlan} options={{
+                headerShown: false
+            }} />
+              <Stack.Screen name={route.HOME} component={Home} options={{
                 headerShown: false
             }} />
         </Stack.Navigator>

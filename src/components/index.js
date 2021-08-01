@@ -12,3 +12,6 @@ export const Container = _Container;
 
 import _CheckBox from './CheckBox';
 export const CheckBox = _CheckBox;
+
+import _HorizontalList from './HorizontalList';
+export const HorizontalList = _HorizontalList;

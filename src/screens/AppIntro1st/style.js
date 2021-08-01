@@ -18,7 +18,7 @@ export default StyleSheet.create({
         alignItems: "center"
     },
     dashContainer: {
-        // marginTop: "10%",
+        paddingTop: Platform.OS == 'ios' ? '10%' : '5%',
         alignItems: "center",
         flexDirection: "row",
         justifyContent: "center"
