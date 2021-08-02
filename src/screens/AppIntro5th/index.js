@@ -78,10 +78,11 @@ class AppIntro extends Component {
                             </View>
                         </View>
                     </ImageBackground>
+                    <View style={styles.buttonContainer}>
+                        <Button title={'DONE'} onPress={() => navigate(route.CREATINGPLAN)} />
+                    </View>
                 </View>
-                <View style={styles.buttonContainer}>
-                    <Button title={'DONE'} onPress={() => navigate(route.CREATINGPLAN)} />
-                </View>
+
             </Container>
 
         )

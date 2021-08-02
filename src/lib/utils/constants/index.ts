@@ -55,7 +55,11 @@ const route = {
     CREATINGPLAN:"CreatingPlan",
     AUTH_LOADING: "AuthLoading",
     APPINTRO: "AppIntro",
-    HOME:'Home'
+    MAIN: "Main",
+    HOME:'Home',
+    DIET:'Diet',
+    PROGRESS:'Progress',
+    SETTING:'Setting'
   
 }
 const TOKEN = "token";

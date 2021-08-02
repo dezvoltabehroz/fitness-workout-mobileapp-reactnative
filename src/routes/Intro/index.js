@@ -28,9 +28,6 @@ function IntroRoutes() {
              <Stack.Screen name={route.CREATINGPLAN} component={CreatingPlan} options={{
                 headerShown: false
             }} />
-              <Stack.Screen name={route.HOME} component={Home} options={{
-                headerShown: false
-            }} />
         </Stack.Navigator>
     );
 }

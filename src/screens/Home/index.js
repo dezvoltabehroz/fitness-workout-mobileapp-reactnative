@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, StatusBar, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, StatusBar, ScrollView, ImageBackground } from 'react-native';
 import ProgressBarAnimated from 'react-native-progress-bar-animated';
 
 import { Button, Container, HorizontalList } from '../../components';
@@ -9,8 +9,10 @@ import Target from '../../assets/svg/target.svg';
 import THEME from '../../assets/styles/theme.style';
 
 import styles from './style';
+
 const SVG_HEIGHT = 15;
 const SVG_WIDTH = 15;
+
 class Home extends Component {
     constructor(props) {
         super(props);
@@ -81,7 +83,7 @@ class Home extends Component {
                                 </View>
                             </View>
                         </View>
-                        <View style={styles.workoutDayContainer}>
+                        <ImageBackground source={require('../../assets/images/rob.jpg')}  style={styles.workoutDayContainer}>
                             <Text style={styles.whiteTextStyle}>30 DAY'S WORKOUT</Text>
                             <View style={styles.rowStyle}>
                                 <View style={styles.row}>
@@ -102,7 +104,7 @@ class Home extends Component {
                             <View style={styles.goButtonContainer}>
                                 <Button title={'GO'} />
                             </View>
-                        </View>
+                        </ImageBackground>
                         <View style={{bottom:"5%"}}>
                             <Text style={[styles.whiteTextStyle, { color: THEME.COLOR_BLACK, margin: '5%' }]}>CHALLENGES</Text>
                             <HorizontalList data={data} />
@@ -121,17 +123,10 @@ class Home extends Component {
                             <View style={styles.starContainer}>
                                 <Target />
                             </View>
-
                         </View>
                     </ScrollView>
-
-
-
                 </View>
-
-
             </Container>
-
         )
     }
 }

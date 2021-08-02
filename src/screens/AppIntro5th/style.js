@@ -15,13 +15,13 @@ export default StyleSheet.create({
         alignItems: "center"
     },
     headingContainer: {
-        marginVertical: "5%",
+        // marginVertical: "5%",
         alignItems: "center"
     },
     buttonContainer: {
-        marginBottom: "5%",
+        // marginBottom: "5%",
         marginHorizontal: "10%",
-        justifyContent: "flex-end"
+        // justifyContent: "flex-end"
     },
     shoulderContainer: {
         position: "absolute",
@@ -133,10 +133,10 @@ export default StyleSheet.create({
     rowContainer: {
         flexDirection: "row"
     },
-    imageStyle:{
-         width: SCREEN_WIDTH * 0.4,
-          height: SCREEN_HEIGHT * 0.6,
-           alignSelf: "center",
-            marginRight: "5%" 
+    imageStyle: {
+        width: SCREEN_WIDTH * 0.4,
+        height: SCREEN_HEIGHT * 0.55,
+        alignSelf: "center",
+        marginRight: "5%"
     }
 })

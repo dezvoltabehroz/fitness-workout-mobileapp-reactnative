@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, FlatList, StyleSheet } from 'react-native';
+import { View, Text, FlatList, StyleSheet, ImageBackground } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Icon } from "..";
 import THEME from '../../assets/styles/theme.style';
@@ -32,10 +32,10 @@ const CheckedBox = ({ data, onPress }) => {
     const _renderItems = (item, index) => {
 
         return (
-            <View style={styles.contentContainer}>
+            <ImageBackground source={require('../../assets/images/rob.jpg')} style={styles.contentContainer}>
                 <Text style={styles.whiteTextStyle1}>{item.title}</Text>
                 {handleRating(item.rating)}
-            </View>
+            </ImageBackground>
         )
     }
     return (
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
         color: THEME.COLOR_WHITE,
         marginHorizontal: 5
     },
-    contentContainer: { backgroundColor: THEME.DASH_LIGHT, borderRadius: 25, padding: 30, justifyContent: "space-between", height: SCREEN_HEIGHT * 0.2, width: SCREEN_WIDTH * 0.7 }
+    contentContainer: { backgroundColor: THEME.DASH_LIGHT, borderRadius: 25, padding: 30, justifyContent: "space-between", overflow: "hidden", height: SCREEN_HEIGHT * 0.2, width: SCREEN_WIDTH * 0.7 }
 })
 
 export default CheckedBox;

@@ -4,7 +4,7 @@ import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../../lib/utils/constants';
 export default StyleSheet.create({
     container: {
         flex: 1,
-       
+
     },
     headingTextStyle: {
         fontSize: 22,
@@ -15,15 +15,14 @@ export default StyleSheet.create({
         alignItems: "center"
     },
     headingContainer: {
-         paddingTop: Platform.OS == 'ios' ? '10%' : '5%',
+        paddingTop: Platform.OS == 'ios' ? '10%' : '5%',
         backgroundColor: THEME.BAR_COLOR,
-        padding: "5%",
-        // borderBottomStartRadius: 25,
-        // borderBottomEndRadius: 25
+        paddingHorizontal: "5%",
     },
     headingContainer1: {
         backgroundColor: THEME.BAR_COLOR,
-        padding: "5%",
+        paddingHorizontal: "5%",
+        paddingBottom: "5%",
         borderBottomStartRadius: 25,
         borderBottomEndRadius: 25
     },
@@ -81,6 +80,8 @@ export default StyleSheet.create({
         marginHorizontal: "5%",
         padding: "5%",
         borderRadius: 15,
+        overflow:"hidden",
+        width: SCREEN_WIDTH * 0.9,
         bottom: "5%"
     },
     goButtonContainer: {
@@ -107,11 +108,11 @@ export default StyleSheet.create({
         // marginHorizontal: 5
     },
     cardContainer: {
-        bottom:"5%",
+        bottom: "5%",
         backgroundColor: THEME.DASH_LIGHT, margin: "5%", borderRadius: 25, padding: 30, justifyContent: "space-between", height: SCREEN_HEIGHT * 0.2, width: SCREEN_WIDTH * 0.9
     },
     cardContainer1: {
-        bottom:"5%",
+        bottom: "5%",
         backgroundColor: THEME.DASH_LIGHT,
         margin: "5%",
         borderRadius: 25,

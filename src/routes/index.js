@@ -4,6 +4,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { AuthLoading } from '../screens';
 import { route } from '../lib/utils/constants';
 import IntroRoutes from './Intro';
+import MainRoutes from './Main';
 
 
 const Stack = createStackNavigator();
@@ -14,9 +15,10 @@ function AppRoutes() {
             <Stack.Screen name={route.AUTH_LOADING} component={AuthLoading} options={{
                 headerShown: false
             }} />
-            <Stack.Screen name={route.APPINTRO} component={IntroRoutes} options={{
-                headerShown: false
-            }} />
+            <Stack.Screen name={route.APPINTRO} component={IntroRoutes} options={{ headerShown: false }} />
+            <Stack.Screen name={route.MAIN} component={MainRoutes}
+                options={{ headerShown: false }} />
+
 
         </Stack.Navigator>
     );

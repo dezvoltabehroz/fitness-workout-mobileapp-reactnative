@@ -5,106 +5,55 @@ import { Button, Container } from '../../components';
 import { route, screen } from '../../lib/utils/constants';
 
 import HeaderView from './components/headerView';
-import Target from '../../assets/svg/symbol.svg';
-import Fit from '../../assets/svg/1029.svg';
-import Muscles from '../../assets/svg/dumbell-weight.svg';
-import Weight from '../../assets/svg/gym-equipment.svg';
-import Band from '../../assets/svg/band.svg';
+import Gender from '../../assets/svg/706.svg';
+import Male from '../../assets/svg/male.svg';
+import SelectedMale from '../../assets/svg/male-active.svg';
+import Female from '../../assets/svg/female.svg';
+import SelectedFemale from '../../assets/svg/female-active.svg';
 
 import styles from './style';
+import themeStyle from '../../assets/styles/theme.style';
 
-const SVG_HEIGHT = 36;
-const SVG_WIDTH = 36;
+const SVG_HEIGHT = 100;
+const SVG_WIDTH = 100;
 
 class AppIntro extends Component {
     constructor(props) {
         super(props);
         this.state = {
             timer: false,
-            value: 0,
+            male: false,
+            female: false
         };
     }
 
-    style_Func_1 = () => {
-        let style = {};
-        switch (this.state.value) {
-            case 0:
-                style = styles.selectedButtonStyle;
-                break;
-            default:
-                style = styles.unSelectedButtonStyle
-                break;
-        }
-        return style
-    }
-
-    style_Func_2 = () => {
-        let style = {};
-        switch (this.state.value) {
-            case 1:
-                style = styles.selectedButtonStyle;
-                break;
-            default:
-                style = styles.unSelectedButtonStyle
-                break;
-        }
-        return style
-    }
-
-    style_Func_3 = () => {
-        let style = {};
-        switch (this.state.value) {
-            case 2:
-                style = styles.selectedButtonStyle;
-                break;
-            default:
-                style = styles.unSelectedButtonStyle
-                break;
-        }
-        return style
-    }
-
-    style_Func_4 = () => {
-        let style = {};
-        switch (this.state.value) {
-            case 3:
-                style = styles.selectedButtonStyle;
-                break;
-            default:
-                style = styles.unSelectedButtonStyle
-                break;
-        }
-        return style
-    }
-
-    setValue = (value) => { this.setState({ value }) }
-
     render() {
         const { navigate, goBack } = this.props.navigation;
+        const { male, female } = this.state;
         return (
             <Container>
                 <HeaderView goBack={() => goBack()} />
 
                 <View style={styles.container}>
                     <View style={styles.targetContainer}>
-                        <Target />
+                        <Gender />
                     </View>
                     <View style={styles.headingContainer}>
                         <Text style={styles.headingTextStyle}>{screen.APP_INTRO_Heading_4}</Text>
                         <Text style={[styles.decsTextStyle, { textAlign: "center" }]}>{screen.APP_INTRO_DESCRIPTION_4}</Text>
                     </View>
                     <View style={styles.rowContainer1}>
-                        <TouchableOpacity onPress={() => this.setValue(0)} >
-                            <View style={this.style_Func_1()}>
-                                <Muscles height={SVG_HEIGHT} width={SVG_WIDTH} />
+                        <TouchableOpacity onPress={() => this.setState({ male: true, female: false })} >
+                            <View>
+                                {male ? <SelectedMale height={SVG_HEIGHT} width={SVG_WIDTH} /> : <Male height={SVG_HEIGHT} width={SVG_WIDTH} />}
                             </View>
-                            <Text style={{textAlign:"center"}}>Male</Text>
+                            <Text style={{ textAlign: "center", color: male ? themeStyle.BAR_COLOR : themeStyle.PRIMARY_TEXT_COLOR }}>Male</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => this.setValue(1)}>
-                            <View style={this.style_Func_2()}>
-                                <Band height={SVG_HEIGHT} width={SVG_WIDTH} />
+                        <TouchableOpacity onPress={() => this.setState({ male: false, female: true })}>
+                            <View>
+                                {female ? <SelectedFemale height={SVG_HEIGHT} width={SVG_WIDTH} /> : <Female height={SVG_HEIGHT} width={SVG_WIDTH} />}
                             </View>
-                            <Text style={{textAlign:"center"}}>Female</Text>
+                            <Text style={{ textAlign: "center", color: female ? themeStyle.BAR_COLOR : themeStyle.PRIMARY_TEXT_COLOR }}>Female</Text>
                         </TouchableOpacity>
                     </View>
 

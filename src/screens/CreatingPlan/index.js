@@ -17,7 +17,7 @@ class CreatingPlan extends Component {
 
     render() {
 
-        const { navigate } = this.props.navigation;
+        const { navigate,replace } = this.props.navigation;
         const { value } = this.state;
 
         return (
@@ -32,7 +32,7 @@ class CreatingPlan extends Component {
                     <View style={styles.progressContainer}>
                         <CircularProgress
                             value={100}
-                            duration={10000}
+                            duration={100}
                             radius={120}
                             textColor={'#1F2729'}
                             textStyle={styles.textStyle}
@@ -48,7 +48,7 @@ class CreatingPlan extends Component {
 
                 </View>
                 <View style={styles.buttonContainer}>
-                    <Button disabled={!value} title={value ? 'FINISHED' : 'PLEASE WAIT...'} onPress={() => navigate(route.HOME)} />
+                    <Button disabled={!value} title={value ? 'FINISHED' : 'PLEASE WAIT...'} onPress={() => replace(route.MAIN)} />
                 </View>
             </Container>
 
