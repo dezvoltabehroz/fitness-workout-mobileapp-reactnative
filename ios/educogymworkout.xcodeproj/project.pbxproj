@@ -30,6 +30,8 @@
 		00E356EE1AD99517003FC87E /* educogymworkoutTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = educogymworkoutTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* educogymworkoutTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = educogymworkoutTests.m; sourceTree = "<group>"; };
+		03FAFD0DC85B06FBBF7E8669 /* Pods-educogymworkout.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-educogymworkout.debug.xcconfig"; path = "Target Support Files/Pods-educogymworkout/Pods-educogymworkout.debug.xcconfig"; sourceTree = "<group>"; };
+		04AF63BCF68EBDE5ECDC74BB /* libPods-educogymworkout.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-educogymworkout.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07F961A680F5B00A75B9A /* educogymworkout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = educogymworkout.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = educogymworkout/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = educogymworkout/AppDelegate.m; sourceTree = "<group>"; };
@@ -44,6 +46,7 @@
 		ABA11857823670F66B85D308 /* libPods-educogymworkout-educogymworkoutTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-educogymworkout-educogymworkoutTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B677DC4D4E275A4E8966F921 /* Pods-educogymworkout-educogymworkoutTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-educogymworkout-educogymworkoutTests.debug.xcconfig"; path = "Target Support Files/Pods-educogymworkout-educogymworkoutTests/Pods-educogymworkout-educogymworkoutTests.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		F69A5CEB81BE4C45ED8F7DE6 /* Pods-educogymworkout-educogymworkoutTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-educogymworkout-educogymworkoutTests.debug.xcconfig"; path = "Target Support Files/Pods-educogymworkout-educogymworkoutTests/Pods-educogymworkout-educogymworkoutTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +107,18 @@
 				ABA11857823670F66B85D308 /* libPods-educogymworkout-educogymworkoutTests.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4007C030B379A22BEC8D8EA9 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				03FAFD0DC85B06FBBF7E8669 /* Pods-educogymworkout.debug.xcconfig */,
+				81C60921F32416CA91D75397 /* Pods-educogymworkout.release.xcconfig */,
+				F69A5CEB81BE4C45ED8F7DE6 /* Pods-educogymworkout-educogymworkoutTests.debug.xcconfig */,
+				D01BCD716E2C7CB4D9D19239 /* Pods-educogymworkout-educogymworkoutTests.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
