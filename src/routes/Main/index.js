@@ -30,7 +30,7 @@ function MainRoutes(props) {
             screenOptions={({ route }) => ({
                 headerShown: false,
                 tabBarStyle: {
-                    height: 60,
+                    // height: 60,
                     borderTopWidth: 0,
                 },
                 tabBarIcon: ({ focused, color, size }) => {

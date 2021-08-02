@@ -119,7 +119,7 @@ export default StyleSheet.create({
     },
     dashContainer: {
         flex: 1,
-        paddingTop: Platform.OS == 'ios' ? '10%' : '10%',
+        paddingTop: Platform.OS == 'ios' ? screenHeight >= 812 ? '22.5%' : '15%' : '12.5%',
         alignItems: "center",
         flexDirection: "row",
         justifyContent: "center"
