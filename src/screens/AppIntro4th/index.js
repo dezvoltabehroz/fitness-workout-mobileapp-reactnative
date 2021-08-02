@@ -5,7 +5,7 @@ import { Button, Container } from '../../components';
 import { route, screen } from '../../lib/utils/constants';
 
 import HeaderView from './components/headerView';
-import Gender from '../../assets/svg/706.svg';
+import Gender from '../../assets/svg/gender.svg';
 import Male from '../../assets/svg/male.svg';
 import SelectedMale from '../../assets/svg/male-active.svg';
 import Female from '../../assets/svg/female.svg';
@@ -45,24 +45,33 @@ class AppIntro extends Component {
                     <View style={styles.rowContainer1}>
                         <TouchableOpacity onPress={() => this.setState({ male: true, female: false })} >
                             <View>
-                                {male ? <SelectedMale height={SVG_HEIGHT} width={SVG_WIDTH} /> : <Male height={SVG_HEIGHT} width={SVG_WIDTH} />}
+                                {
+                                    male
+                                        ?
+                                        <SelectedMale height={SVG_HEIGHT} width={SVG_WIDTH} />
+                                        :
+                                        <Male height={SVG_HEIGHT} width={SVG_WIDTH} />
+                                }
                             </View>
                             <Text style={{ textAlign: "center", color: male ? themeStyle.BAR_COLOR : themeStyle.PRIMARY_TEXT_COLOR }}>Male</Text>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => this.setState({ male: false, female: true })}>
                             <View>
-                                {female ? <SelectedFemale height={SVG_HEIGHT} width={SVG_WIDTH} /> : <Female height={SVG_HEIGHT} width={SVG_WIDTH} />}
+                                {
+                                    female ?
+                                        <SelectedFemale height={SVG_HEIGHT} width={SVG_WIDTH} />
+                                        :
+                                        <Female height={SVG_HEIGHT} width={SVG_WIDTH} />
+                                }
                             </View>
                             <Text style={{ textAlign: "center", color: female ? themeStyle.BAR_COLOR : themeStyle.PRIMARY_TEXT_COLOR }}>Female</Text>
                         </TouchableOpacity>
                     </View>
-
                 </View>
                 <View style={styles.buttonContainer}>
                     <Button title={screen.NEXT} onPress={() => navigate(route.APPINTRO5th)} />
                 </View>
             </Container>
-
         )
     }
 }

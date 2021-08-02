@@ -69,8 +69,8 @@ export default StyleSheet.create({
         marginHorizontal: "2.5%",
     },
     dashContainer: {
-        flex: 0.8,
-        paddingTop: Platform.OS == 'ios' ? '10%' : '5%',
+        flex: 1,
+        // paddingTop: Platform.OS == 'ios' ? '10%' : '5%',
         alignItems: "center",
         flexDirection: "row",
         justifyContent: "center"

@@ -31,7 +31,7 @@ export default StyleSheet.create({
         borderRightWidth: 2,
         height: 30,
         left: "65%",
-        top: "20%"
+        top: "25%"
     },
     shoulderStyle: {
         position: "absolute",
@@ -45,8 +45,8 @@ export default StyleSheet.create({
         width: 100,
         borderLeftWidth: 2,
         height: 30,
-        right: "55%",
-        top: "40%"
+        right: "50%",
+        top: "55%"
     },
     armStyle: {
         position: "absolute",
@@ -61,7 +61,7 @@ export default StyleSheet.create({
         borderLeftWidth: 2,
         height: 30,
         right: "62%",
-        top: "23%"
+        top: "35%"
     },
     chestStyle: {
         position: "absolute",
@@ -75,8 +75,8 @@ export default StyleSheet.create({
         width: 70,
         borderRightWidth: 2,
         height: 30,
-        left: "95%",
-        top: "55%"
+        left: "85%",
+        top: "70%"
     },
     gluteStyle: {
         position: "absolute",
@@ -90,8 +90,8 @@ export default StyleSheet.create({
         width: 100,
         borderRightWidth: 2,
         height: 30,
-        left: "77%",
-        top: "40%"
+        left: "70%",
+        top: "50%"
     },
     backStyle: {
         position: "absolute",
@@ -105,8 +105,8 @@ export default StyleSheet.create({
         width: 75,
         borderLeftWidth: 2,
         height: 30,
-        right: "79%",
-        top: "60%"
+        right: "59%",
+        top: "80%"
     },
     legStyle: {
         position: "absolute",
@@ -118,25 +118,31 @@ export default StyleSheet.create({
         color: THEME.PRIMARY_TEXT_COLOR
     },
     dashContainer: {
-        flex: 0.8,
-        paddingTop: Platform.OS == 'ios' ? '10%' : '5%',
+        flex: 1,
+        paddingTop: Platform.OS == 'ios' ? '10%' : '10%',
         alignItems: "center",
         flexDirection: "row",
         justifyContent: "center"
     },
     backButton: {
         flex: 0.2,
-        paddingTop: Platform.OS == 'ios' ? '10%' : '5%',
+        paddingTop: Platform.OS == 'ios' ? '15%' : '15%',
         alignItems: "center",
         justifyContent: "center"
     },
     rowContainer: {
         flexDirection: "row"
     },
+    bgStyle: {
+        width: SCREEN_WIDTH,
+        height: SCREEN_HEIGHT
+    },
     imageStyle: {
-        width: SCREEN_WIDTH * 0.4,
+        // marginBottom:100 ,
+        width: SCREEN_WIDTH * 0.6,
         height: SCREEN_HEIGHT * 0.55,
         alignSelf: "center",
-        marginRight: "5%"
+        marginRight: "5%",
+        marginBottom:"5%"
     }
 })

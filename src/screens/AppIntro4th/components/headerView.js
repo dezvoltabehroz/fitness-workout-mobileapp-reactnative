@@ -15,9 +15,7 @@ class AppIntro extends Component {
     render() {
         return (
             <View onPress={this.props.goBack} style={styles.rowContainer}>
-                <TouchableOpacity onPress={this.props.goBack} style={styles.backButton} >
-                    <Icon.AntDesign name="arrowleft" size={35} color={'#1F2729'} />
-                </TouchableOpacity>
+                
                 <View style={styles.dashContainer}>
                     <Icon.AntDesign name="minus" size={55} color={THEME.DASH_DARK} />
                     <Icon.AntDesign name="minus" size={55} color={THEME.DASH_DARK} />
@@ -25,7 +23,7 @@ class AppIntro extends Component {
                     <Icon.AntDesign name="minus" size={55} color={THEME.DASH_DARK} />
                     <Icon.AntDesign name="minus" size={55} color={THEME.DASH_LIGHT} />
                 </View>
-                <View style={styles.backButton}></View>
+               
             </View>
 
 
