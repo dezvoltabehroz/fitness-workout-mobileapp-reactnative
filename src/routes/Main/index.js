@@ -7,7 +7,10 @@ import { Container, Icon, } from '../../components';
 
 import THEME from '../../assets/styles/theme.style'
 import { route } from '../../lib/utils/constants';
-import Bell from '../../assets/svg/target.svg';
+import Home from '../../assets/svg/home.svg';
+import Diet from '../../assets/svg/diet.svg';
+import Progress from '../../assets/svg/progress.svg';
+import Setting from '../../assets/svg/setting.svg';
 import HomeRoutes from '../Home';
 const Bottom = createBottomTabNavigator();
 
@@ -39,56 +42,48 @@ function MainRoutes(props) {
                         icon = focused
                             ?
                             <View style={styles.circleStyle} >
-                                <Bell height={size} width={size} fill={color} />
+                                <Home height={size} width={size} fill={color} />
                                 <Text style={styles.colorText}>{route.name}</Text>
                             </View>
-                            : <View style={styles.simpleStyle} >
-                                <Bell height={size} width={size} fill={color} />
+                            :
+                            <View style={styles.simpleStyle} >
+                                <Home height={20} width={20} fill={color} />
                                 <Text style={styles.grayColor}>{route.name}</Text>
                             </View>
                     } else if (route.name === 'Diet') {
                         icon = focused
                             ?
                             <View style={styles.circleStyle}>
-                                <Bell height={size} width={size} fill={color} />
+                                <Diet height={size} width={size} fill={color} />
                                 <Text style={styles.colorText}>{route.name}</Text>
                             </View>
-                            : <View style={styles.simpleStyle} >
-                                <Bell height={size} width={size} fill={color} />
+                            :
+                            <View style={styles.simpleStyle} >
+                                <Diet height={20} width={20} fill={color} />
                                 <Text style={styles.grayColor}>{route.name}</Text>
                             </View>
                     } else if (route.name === 'Progress') {
                         icon = focused
                             ?
                             <View style={styles.circleStyle} >
-                                <Bell height={size} width={size} fill={color} />
+                                <Progress height={size} width={size} fill={color} />
                                 <Text style={styles.colorText}>{route.name}</Text>
                             </View>
-                            : <View style={styles.simpleStyle} >
-                                <Bell height={size} width={size} fill={color} />
-                                <Text style={styles.grayColor}>{route.name}</Text>
-                            </View>
-                    } else if (route.name === 'Market') {
-                        icon = focused
-                            ?
-                            <View style={styles.circleStyle}>
-                                <Bell height={size} width={size} fill={color} />
-                                <Text style={styles.colorText} >{route.name}</Text>
-                            </View>
-                            : <View style={styles.simpleStyle} >
-                                <Bell height={size} width={size} fill={color} />
+                            :
+                            <View style={styles.simpleStyle} >
+                                <Progress height={20} width={20} fill={color} />
                                 <Text style={styles.grayColor}>{route.name}</Text>
                             </View>
                     } else if (route.name === 'Setting') {
                         icon = focused
                             ?
                             <View style={styles.circleStyle} >
-                                <Bell height={size} width={size} fill={color} />
+                                <Setting height={size} width={size} fill={color} />
                                 <Text style={styles.colorText}>{route.name}</Text>
                             </View>
                             :
                             <View style={styles.simpleStyle} >
-                                <Bell height={size} width={size} fill={color} />
+                                <Setting height={20} width={20} fill={color} />
                                 <Text style={styles.grayColor}>{route.name}</Text>
                             </View>
                     }
@@ -97,21 +92,13 @@ function MainRoutes(props) {
             })}
             tabBarOptions={{
                 showLabel: false,
-
-                labelStyle: {
-                    fontSize: 12,
-                    fontWeight: "bold"
-                },
                 activeTintColor: THEME.BAR_COLOR,
-                inactiveTintColor: THEME.COLOR_WHITE,
-
-            }}
-        >
+                inactiveTintColor: '#9B9B9B',
+            }}>
             <Bottom.Screen name={route.HOME} component={HomeRoutes} />
             <Bottom.Screen name={route.DIET} component={CreatePlaceholder} />
             <Bottom.Screen name={route.PROGRESS} component={CreatePlaceholder} />
             <Bottom.Screen name={route.SETTING} component={CreatePlaceholder} />
-
         </Bottom.Navigator>
     )
 
@@ -128,14 +115,12 @@ const styles = StyleSheet.create({
     },
     colorText: {
         color: THEME.BAR_COLOR,
-        fontSize: 12,
-        fontWeight: 'bold',
+        fontFamily: THEME.FONT_REGULAR,
         marginTop: 5
     },
     grayColor: {
         color: THEME.PRIMARY_TEXT_COLOR,
-        fontSize: 12,
-        fontWeight: 'bold'
+        fontFamily: THEME.FONT_REGULAR,
     }
 })
 

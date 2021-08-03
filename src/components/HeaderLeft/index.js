@@ -7,7 +7,7 @@ export const NavigationHeaderLeftButton = (props) => {
         <TouchableOpacity
             style={{ marginLeft: 15 }}
             onPress={() => props?.navigation?.goBack()}>
-            <Icon.AntDesign name="arrowleft" size={25} color={"black"} />
+            <Icon.AntDesign name="arrowleft" size={25} color={props?.color ? "white" : "black"} />
         </TouchableOpacity>
     );
 };

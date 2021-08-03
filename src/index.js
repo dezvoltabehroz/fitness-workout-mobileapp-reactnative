@@ -27,7 +27,7 @@ export default function App() {
             <Provider store={store}>
                 <NavigationContainer  onReady={onNavigationReady}>
                     <SafeAreaProvider style={{backgroundColor:THEME.PRIMARY_BACKGROUND_COLOR}}>
-                        <StatusBar backgroundColor={THEME.PRIMARY_BACKGROUND_COLOR} barStyle={"dark-content"} />
+                        <StatusBar backgroundColor={THEME.BAR_COLOR} barStyle={"light-content"} />
                         <AppRoutes />
                     </SafeAreaProvider>
                 </NavigationContainer>

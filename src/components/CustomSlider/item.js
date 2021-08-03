@@ -27,7 +27,7 @@ export class Item extends Component {
     render() {
         console.log(this.props.value)
         return (
-            <View style={{ marginTop: '15%' }}>
+            <View style={{ marginTop: '15%' ,justifyContent:"center"}}>
                 <Text style={this.checkActive() ? [styles.lineStyle, styles.active] : [styles.line, styles.inactive, { backgroundColor: "#D3D3D3", }]}> {`${this.style_Func()}`}</Text>
             </View>
         );
@@ -54,8 +54,8 @@ const styles = StyleSheet.create({
     },
     line: {
         top: 10,
-        height: 10, width: 10,
+        height: 5, width: 5,
         borderRadius: 5,
     },
-    lineStyle: { backgroundColor: themeStyle.DASH_DARK, borderRadius: 5, top: 10, padding: 5, height: 25, }
+    lineStyle: { backgroundColor: themeStyle.DASH_DARK, borderRadius: 15, top: 10, padding: 5,textAlign:"center", height: 25, }
 });

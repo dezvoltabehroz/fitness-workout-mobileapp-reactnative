@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, StatusBar } from 'react-native';
 
 import { Button, Container } from '../../components';
 import { route, screen } from '../../lib/utils/constants';
@@ -32,6 +32,7 @@ class AppIntro extends Component {
         const { male, female } = this.state;
         return (
             <Container>
+                 <StatusBar backgroundColor={themeStyle.PRIMARY_BACKGROUND_COLOR} barStyle={"dark-content"} />
                 <HeaderView goBack={() => goBack()} />
 
                 <View style={styles.container}>

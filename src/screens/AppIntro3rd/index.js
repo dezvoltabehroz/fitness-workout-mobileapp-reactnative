@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, StatusBar } from 'react-native';
 
 import { Button, Container } from '../../components';
 import { route, screen } from '../../lib/utils/constants';
@@ -12,6 +12,7 @@ import Weight from '../../assets/svg/gym-equipment.svg';
 import Band from '../../assets/svg/band.svg';
 
 import styles from './style';
+import themeStyle from '../../assets/styles/theme.style';
 
 const SVG_HEIGHT = 36;
 const SVG_WIDTH = 36;
@@ -83,6 +84,7 @@ class AppIntro extends Component {
         const { navigate, goBack } = this.props.navigation;
         return (
             <Container>
+                 <StatusBar backgroundColor={themeStyle.PRIMARY_BACKGROUND_COLOR} barStyle={"dark-content"} />
                 <HeaderView goBack={() => goBack()} />
 
                 <View style={styles.container}>

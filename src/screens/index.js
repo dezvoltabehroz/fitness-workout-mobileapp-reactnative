@@ -26,3 +26,9 @@ export const CreatingPlan = _CreatingPlan;
 
 import _Home from './Home';
 export const Home = _Home;
+
+import _PowerOfMind from './PowerOfMind';
+export const PowerOfMind = _PowerOfMind;
+
+import _30DaysWorkout from './30DaysWorkout';
+export const DaysWorkout = _30DaysWorkout;

@@ -7,6 +7,15 @@ export default StyleSheet.create({
         elevation: 0,
         borderBottomWidth: 0,
         backgroundColor: themeStyle.PRIMARY_BACKGROUND_COLOR
+    },
+    headerStyle1: {
+        elevation: 0,
+        borderBottomWidth: 0,
+        backgroundColor: themeStyle.BAR_COLOR
+    },
+    headerTextStyle:{
+        color: "#fff",
+        textTransform:"uppercase"
     }
 
 })

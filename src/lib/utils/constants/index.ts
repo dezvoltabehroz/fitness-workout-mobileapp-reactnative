@@ -17,27 +17,28 @@ const screen = {
     APP_INTRO_Button_1: "Sculpt & Tone",
     APP_INTRO_Button_2: "Muscle Gain",
     APP_INTRO_Button_3: "Fat Loss",
-    APP_INTRO_Button_DESCRIPTION_1:'I want to sculpt, tone up & improve my health',
-    APP_INTRO_Button_DESCRIPTION_2:'I want to build muscle & get stronger',
-    APP_INTRO_Button_DESCRIPTION_3:'I want to slim down, lose fat & feel better',
+    APP_INTRO_Button_DESCRIPTION_1: 'I want to sculpt, tone up & improve my health',
+    APP_INTRO_Button_DESCRIPTION_2: 'I want to build muscle & get stronger',
+    APP_INTRO_Button_DESCRIPTION_3: 'I want to slim down, lose fat & feel better',
     APP_INTRO_Heading_2: "SET YOUR FITNESS LEVEL",
-    APP_INTRO_DESCRIPTION_2:"Choose the description that best suits your current fitness level so we can create a personal plan that offers the right challenge for you.",
+    APP_INTRO_DESCRIPTION_2: "Choose the description that best suits your current fitness level so we can create a personal plan that offers the right challenge for you.",
     APP_INTRO_Heading_3: "SELECT EQUIPMENT'S",
-    APP_INTRO_DESCRIPTION_3:"Select the equipment you would like to use in your personal workout program.",
+    APP_INTRO_DESCRIPTION_3: "Select the equipment you would like to use in your personal workout program.",
     APP_INTRO_Button_1_3: "Body Weights",
     APP_INTRO_Button_2_3: "Dumbbell",
     APP_INTRO_Button_3_3: "Bands",
     APP_INTRO_Button_4_3: "All Equipment's",
-    APP_INTRO_Button_DESCRIPTION_1_3:'I want to improve my lorem....',
-    APP_INTRO_Button_DESCRIPTION_2_3:'I want to see my original muscles growth',
-    APP_INTRO_Button_DESCRIPTION_3_3:'I want to slim and feel better',
-    APP_INTRO_Button_DESCRIPTION_4_3:'I want to slim and feel better',
+    APP_INTRO_Button_DESCRIPTION_1_3: 'I want to improve my lorem....',
+    APP_INTRO_Button_DESCRIPTION_2_3: 'I want to see my original muscles growth',
+    APP_INTRO_Button_DESCRIPTION_3_3: 'I want to slim and feel better',
+    APP_INTRO_Button_DESCRIPTION_4_3: 'I want to slim and feel better',
     APP_INTRO_Heading_4: "SELECT YOUR GENDER",
-    APP_INTRO_DESCRIPTION_4:"Select your gender so that we can lorem ipsum dolor",
+    APP_INTRO_DESCRIPTION_4: "Select your gender so that we can lorem ipsum dolor",
     APP_INTRO_Heading_5: "SELECT FOCUS AREAS",
-    CREATINGPLAN_HEADING:'CREATING YOUR PERSONALIZED PLAN',
-    CREATINGPLAN_DESCRIPTION:'Calculating and analyzing your...',
-    NEXT:"NEXT"
+    CREATINGPLAN_HEADING: 'CREATING YOUR PERSONALIZED PLAN',
+    CREATINGPLAN_DESCRIPTION: 'Calculating and analyzing your...',
+    NEXT: "NEXT",
+    POWER_OF_MIND: "Power Of Mind"
 
 };
 const Fonts = {
@@ -52,15 +53,17 @@ const route = {
     APPINTRO3rd: "AppIntro3rd",
     APPINTRO4th: "AppIntro4th",
     APPINTRO5th: "AppIntro5th",
-    CREATINGPLAN:"CreatingPlan",
+    CREATINGPLAN: "CreatingPlan",
     AUTH_LOADING: "AuthLoading",
     APPINTRO: "AppIntro",
     MAIN: "Main",
-    HOME:'Home',
-    DIET:'Diet',
-    PROGRESS:'Progress',
-    SETTING:'Setting'
-  
+    HOME: 'Home',
+    DIET: 'Diet',
+    PROGRESS: 'Progress',
+    SETTING: 'Setting',
+    POWER_OF_MIND: "PowerOfMind",
+    DAYS_WORLOUT:"DaysWorkout"
+
 }
 const TOKEN = "token";
 const MULTIPART = "multipart";

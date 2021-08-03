@@ -5,10 +5,10 @@ import { Icon } from "..";
 import THEME from '../../assets/styles/theme.style';
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../../lib/utils/constants';
 import { HorizontalSpacer } from '../../lib/utils/global';
-import Target from '../../assets/svg/target.svg';
-import Dumbell from '../../assets/svg/dumbell.svg';
+import Target from '../../assets/svg/white-fire.svg';
+import Dumbell from '../../assets/svg/gray-fire.svg';
 
-const CheckedBox = ({ data, onPress }) => {
+const CheckedBox = ({ data, onPress, video }) => {
     let array = [1, 2, 3, 4, 5]
     console.log(array)
     const handleRating = (value) => {
@@ -38,6 +38,17 @@ const CheckedBox = ({ data, onPress }) => {
             </ImageBackground>
         )
     }
+
+    const _renderVideosItems = (item, index) => {
+        return (
+            <ImageBackground source={require('../../assets/images/back.jpg')} style={styles.contentVideoContainer}>
+                <Text style={styles.whiteTextStyle2}>{item.title}</Text>
+                <View style={{ alignItems: "center", justifyContent: "center", flex: 1 }}>
+                    <Icon.AntDesign name="play" size={35} color={THEME.COLOR_WHITE} />
+                </View>
+            </ImageBackground>
+        )
+    }
     return (
 
         <FlatList
@@ -45,7 +56,7 @@ const CheckedBox = ({ data, onPress }) => {
             horizontal={true}
             contentContainerStyle={{ paddingHorizontal: "5%" }}
             showsHorizontalScrollIndicator={false}
-            renderItem={({ item, index }) => _renderItems(item, index)}
+            renderItem={({ item, index }) => video ? _renderVideosItems(item, index) : _renderItems(item, index)}
             ItemSeparatorComponent={(HorizontalSpacer)} />
 
 
@@ -55,12 +66,35 @@ const CheckedBox = ({ data, onPress }) => {
 
 const styles = StyleSheet.create({
     whiteTextStyle1: {
-        fontSize: 16,
-        fontWeight: "bold",
+        fontFamily: THEME.FONT_MEDIUM,
         color: THEME.COLOR_WHITE,
-        marginHorizontal: 5
+        marginHorizontal: 5,
+        textTransform: "uppercase",
     },
-    contentContainer: { backgroundColor: THEME.DASH_LIGHT, borderRadius: 25, padding: 30, justifyContent: "space-between", overflow: "hidden", height: SCREEN_HEIGHT * 0.2, width: SCREEN_WIDTH * 0.7 }
+    whiteTextStyle2: {
+        fontFamily: THEME.FONT_MEDIUM,
+        color: THEME.COLOR_WHITE,
+        marginHorizontal: 5,
+        textTransform: "uppercase",
+
+    },
+    contentContainer: {
+        backgroundColor: THEME.DASH_LIGHT,
+        borderRadius: 25,
+        padding: 30,
+        justifyContent: "space-between",
+        overflow: "hidden",
+        height: SCREEN_HEIGHT * 0.2,
+        width: SCREEN_WIDTH * 0.7
+    },
+    contentVideoContainer: {
+        backgroundColor: THEME.DASH_LIGHT,
+        borderRadius: 25,
+        padding: "5%",
+        overflow: "hidden",
+        height: SCREEN_HEIGHT * 0.2,
+        width: SCREEN_WIDTH * 0.7
+    }
 })
 
 export default CheckedBox;

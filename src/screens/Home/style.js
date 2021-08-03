@@ -52,6 +52,7 @@ export default StyleSheet.create({
     },
     decsTextStyle: {
         fontSize: THEME.FONT_SIZE_SMALL,
+        fontFamily: THEME.FONT_REGULAR,
         color: THEME.PRIMARY_TEXT_COLOR
     },
     rowContainer: {
@@ -80,7 +81,7 @@ export default StyleSheet.create({
         marginHorizontal: "5%",
         padding: "5%",
         borderRadius: 15,
-        overflow:"hidden",
+        overflow: "hidden",
         width: SCREEN_WIDTH * 0.9,
         bottom: "5%"
     },
@@ -89,21 +90,34 @@ export default StyleSheet.create({
         width: SCREEN_WIDTH * 0.3,
 
     },
-    rowStyle: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginVertical: "5%", paddingRight: '25%' },
+    rowStyle: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        paddingRight: '25%',
+        marginVertical: "5%",
+    },
+
     barTextStyle: {
         color: THEME.BAR_COLOR,
-        fontWeight: "bold",
+        fontFamily: THEME.FONT_MEDIUM,
         fontSize: 18,
         marginHorizontal: 5
     },
     whiteTextStyle: {
-        fontSize: 16,
+        fontSize: 18,
         color: THEME.COLOR_WHITE,
-        fontWeight: "bold",
+        fontFamily: THEME.FONT_MEDIUM,
     },
     whiteTextStyle1: {
         fontSize: 14,
-        fontWeight: "bold",
+        fontFamily: THEME.FONT_REGULAR,
+        color: THEME.COLOR_WHITE,
+        // marginHorizontal: 5
+    },
+    whiteTextStyle2: {
+        fontSize: 13,
+        fontFamily: THEME.FONT_MEDIUM,
         color: THEME.COLOR_WHITE,
         // marginHorizontal: 5
     },
@@ -119,8 +133,7 @@ export default StyleSheet.create({
         paddingHorizontal: 30,
         justifyContent: "center",
         height: SCREEN_HEIGHT * 0.2,
-        width: SCREEN_WIDTH * 0.9
-
+        width: SCREEN_WIDTH * 0.9,
     },
     starContainer: {
         position: "absolute", top: '-15%', left: '5%'

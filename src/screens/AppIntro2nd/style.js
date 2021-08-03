@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 import THEME from '../../assets/styles/theme.style';
-import { SCREEN_WIDTH } from '../../lib/utils/constants';
+import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../../lib/utils/constants';
 export default StyleSheet.create({
     container: {
         flex: 0.9,
@@ -75,5 +75,9 @@ export default StyleSheet.create({
     },
     firstContainer: {
         width: SCREEN_WIDTH * 0.25
+    },
+    imageStyle: {
+        height: SCREEN_HEIGHT * 0.45,
+        width:SCREEN_WIDTH*0.55
     }
 })

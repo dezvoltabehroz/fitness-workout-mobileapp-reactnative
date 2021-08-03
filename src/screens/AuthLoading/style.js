@@ -3,7 +3,7 @@ import THEME from '../../assets/styles/theme.style';
 export default StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR,
+        backgroundColor: THEME.BAR_COLOR,
         justifyContent: "center",
         alignItems: "center"
     },
@@ -11,6 +11,6 @@ export default StyleSheet.create({
         height: 300,
     },
     textStyle: {
-        color: THEME.BUTTON_COLOR
+        color: THEME.COLOR_WHITE
     }
 })

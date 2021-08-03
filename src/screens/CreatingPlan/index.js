@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, StatusBar } from 'react-native';
 import CircularProgress from 'react-native-circular-progress-indicator';
 
 import { Button, Container } from '../../components';
@@ -7,6 +7,7 @@ import { route, screen } from '../../lib/utils/constants';
 import Tick from '../../assets/svg/Tick.svg';
 
 import styles from './style';
+import themeStyle from '../../assets/styles/theme.style';
 
 class CreatingPlan extends Component {
     constructor(props) {
@@ -23,7 +24,7 @@ class CreatingPlan extends Component {
 
         return (
             <Container>
-
+                <StatusBar backgroundColor={themeStyle.PRIMARY_BACKGROUND_COLOR} barStyle={"dark-content"} />
                 <View style={styles.container}>
                     <View style={styles.headingContainer}>
                         {value ? <Tick /> : null}

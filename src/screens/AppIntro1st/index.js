@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, StatusBar } from 'react-native';
 
 import { Button, Container } from '../../components';
 import HeaderView from './components/headerView';
@@ -10,6 +10,7 @@ import Muscles from '../../assets/svg/muscles.svg';
 import Weight from '../../assets/svg/lose-weight.svg';
 
 import styles from './style';
+import themeStyle from '../../assets/styles/theme.style';
 
 const SVG_HEIGHT = 36;
 const SVG_WIDTH = 36;
@@ -71,6 +72,7 @@ class AppIntro extends Component {
 
         return (
             <Container>
+                <StatusBar backgroundColor={themeStyle.PRIMARY_BACKGROUND_COLOR} barStyle={"dark-content"} />
                 <HeaderView navigation={this.props.navigation} />
                 <View style={styles.container}>
                     <View style={styles.targetContainer}>
