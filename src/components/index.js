@@ -18,3 +18,6 @@ export const HorizontalList = _HorizontalList;
 
 import { NavigationHeaderLeftButton } from './HeaderLeft';
 export const HeaderLeft = NavigationHeaderLeftButton;
+
+import _CustomSlider from './CustomSlider/index';
+export const CustomSlider = _CustomSlider;

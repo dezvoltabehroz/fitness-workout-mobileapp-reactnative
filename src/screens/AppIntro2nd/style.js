@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import THEME from '../../assets/styles/theme.style';
+import { SCREEN_WIDTH } from '../../lib/utils/constants';
 export default StyleSheet.create({
     container: {
         flex: 0.9,
@@ -71,5 +72,8 @@ export default StyleSheet.create({
     buttonContainer: {
         marginHorizontal: "10%",
         justifyContent: "flex-end"
+    },
+    firstContainer: {
+        width: SCREEN_WIDTH * 0.25
     }
 })
