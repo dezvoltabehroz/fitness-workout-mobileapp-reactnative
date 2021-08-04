@@ -24,3 +24,6 @@ export const CustomSlider = _CustomSlider;
 
 import _UpgradeModal from './Modals/UpgradeModal';
 export const UpgradeModal = _UpgradeModal;
+
+import _DietModal from './Modals/DietModal';
+export const DietModal = _DietModal;

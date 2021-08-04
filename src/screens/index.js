@@ -32,3 +32,9 @@ export const PowerOfMind = _PowerOfMind;
 
 import _30DaysWorkout from './30DaysWorkout';
 export const DaysWorkout = _30DaysWorkout;
+
+import _DietScreen from './DietScreen';
+export const DietScreen = _DietScreen;
+
+import _PowerOfMindAudio from './PowerOfMindAudio';
+export const PowerOfMindAudio = _PowerOfMindAudio;

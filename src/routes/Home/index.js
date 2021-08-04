@@ -3,7 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { View, Text, StyleSheet } from 'react-native';
 
 import { route, screen } from '../../lib/utils/constants';
-import { DaysWorkout, Home, PowerOfMind } from '../../screens';
+import { DaysWorkout, Home, PowerOfMind, PowerOfMindAudio } from '../../screens';
 import LogoWhite from '../../assets/svg/white-logo.svg'
 import styles from '../style';
 import THEME from '../../assets/styles/theme.style';
@@ -34,6 +34,13 @@ function HomeRoutes() {
                 headerTitle: () => (<HeaderWhiteLogo />),
                 headerStyle: styles.headerStyle1,
                 headerTitleAlign: screen.SCREEN_TITLE_ALIGN_CENTER,
+                headerTintColor: THEME.COLOR_WHITE,
+                headerTitleStyle: styles.headerTextStyle,
+            })} />
+              <Stack.Screen name={route.POWEROFMINDAUDIO} component={PowerOfMindAudio}  options={({ navigation, route }) => ({
+                headerLeft: () => (<HeaderLeft navigation={navigation} color />),
+                headerTitle: screen.POWER_OF_MIND,
+                headerStyle: styles.headerStyle1,
                 headerTintColor: THEME.COLOR_WHITE,
                 headerTitleStyle: styles.headerTextStyle,
             })} />

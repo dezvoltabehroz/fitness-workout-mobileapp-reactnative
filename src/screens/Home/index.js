@@ -45,7 +45,7 @@ class Home extends Component {
             borderRadius: 10,
             borderWidth: 0,
             justifyContent: "center",
-            backgroundColor:THEME.BAR_COLOR
+            backgroundColor: THEME.BAR_COLOR
         };
         return (
             <Container>
@@ -115,12 +115,12 @@ class Home extends Component {
                             <Text style={[styles.whiteTextStyle, { color: THEME.COLOR_BLACK, margin: '5%' }]}>CHALLENGES</Text>
                             <HorizontalList data={data} />
                         </View>
-                        <View style={styles.cardContainer} >
+                        <ImageBackground imageStyle={{ borderRadius: 25 }} source={require('../../assets/images/bowlofsalad.jpg')} style={styles.cardContainer} >
                             <Text style={styles.whiteTextStyle1}>DIET PLAN IS READY!</Text>
                             <View style={styles.goButtonContainer}>
-                                <Button title={'GO!'} />
+                                <Button title={'GO!'} onPress={() => navigate(route.DIET)} />
                             </View>
-                        </View>
+                        </ImageBackground>
                         <TouchableOpacity onPress={() => navigate(route.POWER_OF_MIND)} >
                             <ImageBackground imageStyle={{ borderRadius: 25 }} source={require('../../assets/images/rob.jpg')} style={styles.cardContainer1}>
                                 <View>

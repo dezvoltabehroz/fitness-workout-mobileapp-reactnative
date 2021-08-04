@@ -1,21 +1,26 @@
 
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { Container, Icon, } from '../../components';
+import { DietScreen } from '../../screens'
 
 import THEME from '../../assets/styles/theme.style'
 import { route } from '../../lib/utils/constants';
 import Home from '../../assets/svg/home.svg';
 import Diet from '../../assets/svg/diet.svg';
+
 import Progress from '../../assets/svg/progress.svg';
 import Setting from '../../assets/svg/setting.svg';
 import HomeRoutes from '../Home';
+import DietRoutes from '../Diet';
 const Bottom = createBottomTabNavigator();
 
 
 function MainRoutes(props) {
+
+
     const CreatePlaceholder = () => {
         return (
             <Container>
@@ -96,7 +101,7 @@ function MainRoutes(props) {
                 inactiveTintColor: '#9B9B9B',
             }}>
             <Bottom.Screen name={route.HOME} component={HomeRoutes} />
-            <Bottom.Screen name={route.DIET} component={CreatePlaceholder} />
+            <Bottom.Screen name={route.DIET} component={DietRoutes} />
             <Bottom.Screen name={route.PROGRESS} component={CreatePlaceholder} />
             <Bottom.Screen name={route.SETTING} component={CreatePlaceholder} />
         </Bottom.Navigator>
