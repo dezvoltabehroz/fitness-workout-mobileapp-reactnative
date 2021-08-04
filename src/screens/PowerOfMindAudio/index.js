@@ -91,7 +91,7 @@ class PowerOfMindAudio extends Component {
                         </View>
                         <Image source={require('../../assets/images/rob.jpg')} style={styles.imageStyle} />
                         <View style={styles.textContainer}>
-                            <Text style={styles.textStyle1} >Weight Loss</Text>
+                            <Text style={styles.textStyle1}>Weight Loss</Text>
                             <Text style={styles.textStyle}>Maroon 5</Text>
                         </View>
                         <View style={styles.rowContainer}>
@@ -101,9 +101,7 @@ class PowerOfMindAudio extends Component {
                             <SoundCloudWaveform
                                 waveformUrl={"https://w1.sndcdn.com/PP3Eb34ToNki_m.png"}
                                 percentPlayed={this.state.progress}
-                                setTime={(time) => {
-
-                                }}
+                                setTime={(time) => { }}
                                 active={themeStyle.BAR_COLOR}
                                 activeInverse={themeStyle.BAR_COLOR}
                                 inactive={'lightgray'}
