@@ -118,7 +118,7 @@ class Home extends Component {
                         <ImageBackground imageStyle={{ borderRadius: 25 }} source={require('../../assets/images/bowlofsalad.jpg')} style={styles.cardContainer} >
                             <Text style={styles.whiteTextStyle1}>DIET PLAN IS READY!</Text>
                             <View style={styles.goButtonContainer}>
-                                <Button title={'GO!'} />
+                                <Button title={'GO!'} onPress={() => navigate(route.DIET)} />
                             </View>
                         </ImageBackground>
                         <TouchableOpacity onPress={() => navigate(route.POWER_OF_MIND)} >
