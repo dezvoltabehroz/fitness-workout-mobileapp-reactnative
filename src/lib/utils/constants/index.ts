@@ -64,6 +64,7 @@ const route = {
     POWER_OF_MIND: "PowerOfMind",
     DAYS_WORLOUT:"DaysWorkout",
     DIETSCREEN:"DietScreen",
+    POWEROFMINDAUDIO:"PowerOfMindAudio",
 
 }
 const TOKEN = "token";

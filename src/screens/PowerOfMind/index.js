@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, FlatList, ScrollView, ImageBackground, TouchableOpacity } from 'react-native';
 import { Container, HorizontalList } from '../../components';
+import { route } from '../../lib/utils/constants';
 import { VerticalSpacer } from '../../lib/utils/global';
 import styles from './style';
 
@@ -39,7 +40,7 @@ class PowerOfMind extends Component {
 
     _renderMenuItem = ({ item, index }) => {
         return (
-            <TouchableOpacity onPress={() => { }} style={styles.itemContainer} >
+            <TouchableOpacity onPress={() => { this.props.navigation.navigate(route.POWEROFMINDAUDIO) }} style={styles.itemContainer} >
                 <ImageBackground source={require('../../assets/images/you.png')} style={styles.contentContainer1}>
                     <View style={styles.opacity}>
 
