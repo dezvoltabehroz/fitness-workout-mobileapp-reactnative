@@ -143,6 +143,6 @@ export default StyleSheet.create({
         height: SCREEN_HEIGHT * 0.55,
         alignSelf: "center",
         marginRight: "5%",
-        marginBottom:"5%"
+        marginBottom: "5%"
     }
 })

@@ -32,9 +32,8 @@ class AppIntro extends Component {
         const { male, female } = this.state;
         return (
             <Container>
-                 <StatusBar backgroundColor={themeStyle.PRIMARY_BACKGROUND_COLOR} barStyle={"dark-content"} />
+                <StatusBar backgroundColor={themeStyle.PRIMARY_BACKGROUND_COLOR} barStyle={"dark-content"} />
                 <HeaderView goBack={() => goBack()} />
-
                 <View style={styles.container}>
                     <View style={styles.targetContainer}>
                         <Gender />
@@ -70,7 +69,7 @@ class AppIntro extends Component {
                     </View>
                 </View>
                 <View style={styles.buttonContainer}>
-                    <Button title={screen.NEXT} onPress={() => navigate(route.APPINTRO5th)} />
+                    <Button title={screen.NEXT} onPress={() => navigate(route.APPINTRO5th,{gender:male?'male':'female'})} />
                 </View>
             </Container>
         )
