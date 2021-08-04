@@ -112,10 +112,11 @@ class PowerOfMindAudio extends Component {
                         </View>
                     </View>
                     <TouchableOpacity onPress={this.changestate} style={{ alignItems: 'center', marginTop: '5%' }}>
-                        {this.state.playAudio ?
-                            <Icon.AntDesign name={'play'} size={80} color={themeStyle.BAR_COLOR} />
-                            :
-                            <Icon.AntDesign name={'pausecircle'} size={80} color={themeStyle.BAR_COLOR} />
+                        {
+                            this.state.playAudio ?
+                                <Icon.AntDesign name={'play'} size={80} color={themeStyle.BAR_COLOR} />
+                                :
+                                <Icon.AntDesign name={'pausecircle'} size={80} color={themeStyle.BAR_COLOR} />
                         }
                     </TouchableOpacity>
                 </View>
