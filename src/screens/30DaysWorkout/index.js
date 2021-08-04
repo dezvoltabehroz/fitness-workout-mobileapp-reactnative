@@ -199,7 +199,7 @@ class PowerOfMind extends Component {
                         <View style={{ flex: 0.2, alignItems: "center" }} >
                             {
                                 item.locked ?
-                                    <View style={{ top: -50 }}>
+                                    <View style={{ top: -42 }}>
                                         <Mark />
                                     </View>
                                     :
@@ -284,7 +284,7 @@ class PowerOfMind extends Component {
                         />
                     </ScrollView>
                 </View>
-                <UpgradeModal visible={this.state.upgradeModal} />
+                <UpgradeModal visible={this.state.upgradeModal} onSkip={() => this.setState({ upgradeModal: false })} />
             </Container>
 
         )

@@ -62,7 +62,8 @@ const route = {
     PROGRESS: 'Progress',
     SETTING: 'Setting',
     POWER_OF_MIND: "PowerOfMind",
-    DAYS_WORLOUT:"DaysWorkout"
+    DAYS_WORLOUT:"DaysWorkout",
+    DIETSCREEN:"DietScreen",
 
 }
 const TOKEN = "token";
