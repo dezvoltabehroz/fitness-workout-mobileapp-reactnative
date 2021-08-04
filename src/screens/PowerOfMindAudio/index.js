@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Image, View, Text, TouchableOpacity } from "react-native";
+import { Image, View, Text, TouchableOpacity, ScrollView } from "react-native";
 import Sound from 'react-native-sound';
 import SoundCloudWaveform from 'react-native-soundcloud-waveform';
 
@@ -85,40 +85,45 @@ class PowerOfMindAudio extends Component {
         return (
             <Container>
                 <View style={styles.container}>
-                    <View style={{ backgroundColor: themeStyle.BAR_COLOR, height: SCREEN_HEIGHT * 0.1 }}>
-
-                    </View>
-                    <Image source={require('../../assets/images/rob.jpg')} style={styles.imageStyle} />
-
-                    <View style={styles.rowContainer}>
-                        <View style={styles.timerContainer} >
-                            <Text>{this.state.duration}</Text>
+                    <ScrollView contentContainerStyle={{ paddingBottom: "15%" }}>
+                        <View style={styles.boxView}>
+                            <Text> </Text>
                         </View>
-                        <SoundCloudWaveform
-                            waveformUrl={"https://w1.sndcdn.com/PP3Eb34ToNki_m.png"}
-                            percentPlayed={this.state.progress}
-                            setTime={(time) => {
-
-                            }}
-                            active={themeStyle.BAR_COLOR}
-                            activeInverse={themeStyle.BAR_COLOR}
-                            inactive={'lightgray'}
-                            inactiveInverse={'lightgray'}
-                            height={55}
-                            width={SCREEN_WIDTH * 0.8}
-                        />
-                        <View style={styles.timerContainer} >
-                            <Text>{this.state.progress}</Text>
+                        <Image source={require('../../assets/images/rob.jpg')} style={styles.imageStyle} />
+                        <View style={styles.textContainer}>
+                            <Text style={styles.textStyle1} >Weight Loss</Text>
+                            <Text style={styles.textStyle}>Maroon 5</Text>
                         </View>
-                    </View>
-                    <TouchableOpacity onPress={this.changestate} style={{ alignItems: 'center', marginTop: '5%' }}>
-                        {
-                            this.state.playAudio ?
-                                <Icon.AntDesign name={'play'} size={80} color={themeStyle.BAR_COLOR} />
-                                :
-                                <Icon.AntDesign name={'pausecircle'} size={80} color={themeStyle.BAR_COLOR} />
-                        }
-                    </TouchableOpacity>
+                        <View style={styles.rowContainer}>
+                            <View style={styles.timerContainer} >
+                                <Text>{this.state.duration}</Text>
+                            </View>
+                            <SoundCloudWaveform
+                                waveformUrl={"https://w1.sndcdn.com/PP3Eb34ToNki_m.png"}
+                                percentPlayed={this.state.progress}
+                                setTime={(time) => {
+
+                                }}
+                                active={themeStyle.BAR_COLOR}
+                                activeInverse={themeStyle.BAR_COLOR}
+                                inactive={'lightgray'}
+                                inactiveInverse={'lightgray'}
+                                height={55}
+                                width={SCREEN_WIDTH * 0.8}
+                            />
+                            <View style={styles.timerContainer} >
+                                <Text>{this.state.progress}</Text>
+                            </View>
+                        </View>
+                        <TouchableOpacity onPress={this.changestate} style={styles.buttonContainer}>
+                            {
+                                this.state.playAudio ?
+                                    <Icon.AntDesign name={'play'} size={80} color={themeStyle.BAR_COLOR} />
+                                    :
+                                    <Icon.AntDesign name={'pausecircle'} size={80} color={themeStyle.BAR_COLOR} />
+                            }
+                        </TouchableOpacity>
+                    </ScrollView>
                 </View>
 
             </Container>
