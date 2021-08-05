@@ -7,6 +7,7 @@ MediaControls, { PLAYER_STATES }
     from 'react-native-media-controls';
 
 import { Container } from '../../components';
+import Volume from '../../assets/svg/audio'
 
 import styles from './style'
 
@@ -20,10 +21,23 @@ export default class DayWorkoutVideoPlayer extends Component {
             isLoading: true,
             paused: false,
             playerState: PLAYER_STATES.PLAYING,
-            screenType: 'cover'
+            screenType: 'cotain'
         }
         this.videoPlayer = null
     }
+
+    componentDidMount = () => {
+        this.props.navigation.setOptions({
+            headerRight: () => this.headerRight(),
+        });
+    }
+
+    headerRight = () => {
+        return (
+            <TouchableOpacity style={{ marginRight: 20 }} onPress={() => {  this.videoPlayer.mute() }} ><Volume /></TouchableOpacity>
+        )
+    }
+
 
 
     onSeek = (seek) => {
@@ -99,7 +113,7 @@ export default class DayWorkoutVideoPlayer extends Component {
                         source={{
                             uri: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
                         }}
-                        style={styles.mediaPlayer}
+                        style={styles.videoContainer}
                         volume={10}
                     />
                     <MediaControls
