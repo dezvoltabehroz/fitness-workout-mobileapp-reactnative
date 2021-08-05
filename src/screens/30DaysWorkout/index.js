@@ -4,7 +4,7 @@ import ProgressBarAnimated from 'react-native-progress-bar-animated';
 import CircularProgress from 'react-native-circular-progress-indicator';
 
 import { Container, HorizontalList, Icon, UpgradeModal } from '../../components';
-import { SCREEN_WIDTH } from '../../lib/utils/constants';
+import { route, SCREEN_WIDTH } from '../../lib/utils/constants';
 import { VerticalSpacer } from '../../lib/utils/global';
 import WFire from '../../assets/svg/white-fire.svg';
 import Fire from '../../assets/svg/stopwatch.svg';
@@ -237,7 +237,7 @@ class PowerOfMind extends Component {
                     </View>
                     {
                         moment(item.date).format('YYYY-MM-DD') == moment().format('YYYY-MM-DD') ?
-                            <Button title={'GO'} />
+                            <Button title={'GO'} onPress={() => this.props.navigation.navigate(route.DAYSWORKOUTVIDEOS)} />
                             :
                             null
                     }

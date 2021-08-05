@@ -58,13 +58,15 @@ const route = {
     APPINTRO: "AppIntro",
     MAIN: "Main",
     HOME: 'Home',
+    HOMESCREEN: 'HomeScreen',
     DIET: 'Diet',
     PROGRESS: 'Progress',
     SETTING: 'Setting',
     POWER_OF_MIND: "PowerOfMind",
-    DAYS_WORLOUT:"DaysWorkout",
-    DIETSCREEN:"DietScreen",
-    POWEROFMINDAUDIO:"PowerOfMindAudio",
+    DAYS_WORLOUT: "DaysWorkout",
+    DIETSCREEN: "DietScreen",
+    POWEROFMINDAUDIO: "PowerOfMindAudio",
+    DAYSWORKOUTVIDEOS: "DaysWorkoutVideos"
 
 }
 const TOKEN = "token";
