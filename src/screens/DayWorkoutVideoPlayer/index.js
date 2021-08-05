@@ -34,7 +34,7 @@ export default class DayWorkoutVideoPlayer extends Component {
 
     headerRight = () => {
         return (
-            <TouchableOpacity style={{ marginRight: 20 }} onPress={() => {  this.videoPlayer.mute() }} ><Volume /></TouchableOpacity>
+            <TouchableOpacity style={{ marginRight: 20 }} onPress={() => { }} ><Volume /></TouchableOpacity>
         )
     }
 
@@ -101,36 +101,36 @@ export default class DayWorkoutVideoPlayer extends Component {
             <Container>
                 <View style={styles.container}>
                     <View style={styles.mediaPlayer}>
-                    <Video
-                        onEnd={this.onEnd}
-                        onLoad={this.onLoad}
-                        onLoadStart={this.onLoadStart}
-                        onProgress={this.onProgress}
-                        paused={this.state.paused}
-                        ref={(e) => this.videoPlayer = e}
-                        resizeMode={this.state.screenType}
-                        onFullScreen={this.state.isFullScreen}
-                        source={{
-                            uri: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-                        }}
-                        style={styles.videoContainer}
-                        volume={10}
-                    />
-                    <MediaControls
-                        duration={this.state.duration}
-                        isLoading={this.state.isLoading}
-                        mainColor="#333"
-                        onFullScreen={this.onFullScreen}
-                        onPaused={this.onPaused}
-                        onReplay={this.onReplay}
-                        onSeek={this.onSeek}
-                        onSeeking={this.onSeeking}
-                        playerState={this.state.playerState}
-                        progress={this.state.currentTime}
+                        <Video
+                            onEnd={this.onEnd}
+                            onLoad={this.onLoad}
+                            onLoadStart={this.onLoadStart}
+                            onProgress={this.onProgress}
+                            paused={this.state.paused}
+                            ref={(e) => this.videoPlayer = e}
+                            resizeMode={this.state.screenType}
+                            onFullScreen={this.state.isFullScreen}
+                            source={{
+                                uri: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+                            }}
+                            style={styles.videoContainer}
+                            volume={10}
+                        />
+                        <MediaControls
+                            duration={this.state.duration}
+                            isLoading={this.state.isLoading}
+                            mainColor="#333"
+                            onFullScreen={this.onFullScreen}
+                            onPaused={this.onPaused}
+                            onReplay={this.onReplay}
+                            onSeek={this.onSeek}
+                            onSeeking={this.onSeeking}
+                            playerState={this.state.playerState}
+                            progress={this.state.currentTime}
                         // toolbar={this.renderToolbar()}
-                    />
+                        />
                     </View>
-                    
+
                 </View>
             </Container>
         )
