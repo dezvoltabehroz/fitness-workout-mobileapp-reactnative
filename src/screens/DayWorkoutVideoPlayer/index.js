@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import Video from 'react-native-video';
 import
 MediaControls, { PLAYER_STATES }
@@ -29,12 +29,13 @@ export default class DayWorkoutVideoPlayer extends Component {
     componentDidMount = () => {
         this.props.navigation.setOptions({
             headerRight: () => this.headerRight(),
+            tabBarVisible: false
         });
     }
 
     headerRight = () => {
         return (
-            <TouchableOpacity style={{ marginRight: 20 }} onPress={() => { }} ><Volume /></TouchableOpacity>
+            <TouchableOpacity style={{ marginRight: 20 }} ><Volume fill={'#000000'} /></TouchableOpacity>
         )
     }
 

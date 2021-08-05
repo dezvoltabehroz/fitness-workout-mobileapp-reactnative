@@ -54,7 +54,6 @@ function HomeRoutes() {
             })} />
              <Stack.Screen name={route.DAYSWORKOUTVIDEOPLAYER} component={DayWorkoutVideoPlayer} options={({ navigation, route }) => ({
                 headerLeft: () => (<HeaderLeft navigation={navigation} cross />),
-                headerRight: () => (<HeaderLeft navigation={navigation} cross />),
                 headerTitle: '',
                 tabBarVisible: false,
                 headerStyle: styles.headerStyle,

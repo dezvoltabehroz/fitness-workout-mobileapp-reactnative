@@ -136,7 +136,7 @@ export default StyleSheet.create({
         width: SCREEN_WIDTH * 0.9,
     },
     starContainer: {
-        position: "absolute", top: '-15%', left: '5%'
+        position: "absolute", top: '-5%', left: '5%'
     }
 
 })

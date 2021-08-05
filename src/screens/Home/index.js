@@ -9,7 +9,8 @@ import WFire from '../../assets/svg/white-fire.svg';
 import Fire from '../../assets/svg/fire.svg';
 import BMI from '../../assets/svg/bmi.svg';
 import Apple from '../../assets/svg/apple.svg';
-import Target from '../../assets/svg/target.svg';
+import Target from '../../assets/svg/pro-btn.svg';
+import Blue from '../../assets/svg/blue-bg-star.svg';
 
 import THEME from '../../assets/styles/theme.style';
 
@@ -128,7 +129,7 @@ class Home extends Component {
                                     <Text style={{ color: THEME.COLOR_WHITE }}>Lorem ipsum dolor sir</Text>
                                 </View>
                                 <View style={styles.starContainer}>
-                                    <Target />
+                                    <Blue />
                                 </View>
                             </ImageBackground>
                         </TouchableOpacity>
