@@ -22,7 +22,7 @@ class AppIntro extends Component {
     }
 
     multiSliderValueCallback = (values) => {
-        console.log(values)
+        // console.log(values)
 
     }
 

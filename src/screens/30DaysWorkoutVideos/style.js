@@ -38,5 +38,10 @@ export default StyleSheet.create({
         color: '#1F2729',
         textTransform: "uppercase",
         fontFamily: themeStyle.FONT_REGULAR
+    },
+    rowContentContainer: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center"
     }
 })

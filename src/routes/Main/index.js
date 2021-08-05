@@ -112,7 +112,6 @@ function MainRoutes(props) {
                 //        tabBarVisible,
                 //    }
                 const { routes, index } = navigation.getState();
-                console.log(routes[index])
                 const { state: exploreState } = routes[index];
 
                 let tabBarVisible = true;
