@@ -6,10 +6,11 @@ import
 MediaControls, { PLAYER_STATES }
     from 'react-native-media-controls';
 
-import { Container } from '../../components';
+import { CompletedModal, CompleteModal, Container, Icon, QuitModal } from '../../components';
 import Volume from '../../assets/svg/audio'
 
 import styles from './style'
+import themeStyle from '../../assets/styles/theme.style';
 
 export default class DayWorkoutVideoPlayer extends Component {
     constructor(props) {
@@ -17,9 +18,14 @@ export default class DayWorkoutVideoPlayer extends Component {
         this.state = {
             currentTime: 0,
             duration: 0,
+            volume: 10,
+            quitModal: false,
+            completeModal: false,
             isFullScreen: false,
+            mute: false,
             isLoading: true,
             paused: false,
+            completedModal: false,
             playerState: PLAYER_STATES.PLAYING,
             screenType: 'cotain'
         }
@@ -29,13 +35,31 @@ export default class DayWorkoutVideoPlayer extends Component {
     componentDidMount = () => {
         this.props.navigation.setOptions({
             headerRight: () => this.headerRight(),
+            headerLeft: () => this.headerLeft(),
             tabBarVisible: false
         });
     }
 
     headerRight = () => {
         return (
-            <TouchableOpacity style={{ marginRight: 20 }} ><Volume fill={'#000000'} /></TouchableOpacity>
+            <TouchableOpacity onPress={() => this.setState({ mute: !this.state.mute }, () => this.componentDidMount())
+            } style={{ marginRight: 20 }} >
+                {
+                    this.state.mute ?
+                        <Icon.Ionicons name="volume-off" size={25} color="#797B7B" />
+                        :
+                        <Icon.Ionicons name="volume-high" size={25} color="#797B7B" />
+                }
+            </TouchableOpacity >
+        )
+    }
+
+    headerLeft = () => {
+        return (
+            <TouchableOpacity onPress={() => { this.setState({ paused: !this.state.paused, playerState: this.state.playerState, quitModal: true }) }
+            } style={{ marginLeft: 20 }} >
+                <Icon.AntDesign name="close" size={25} color="#797B7B" />
+            </TouchableOpacity >
         )
     }
 
@@ -48,7 +72,7 @@ export default class DayWorkoutVideoPlayer extends Component {
 
     onPaused = (playerState) => {
         //Handler for Video Pause
-        this.setState({ paused: !this.state.paused, playerState: playerState });
+        this.setState({ paused: !this.state.paused, playerState: this.state.playerState });
 
     };
 
@@ -72,7 +96,7 @@ export default class DayWorkoutVideoPlayer extends Component {
 
     onLoadStart = (data) => this.setState({ isLoading: true });
 
-    onEnd = () => this.setState({ playerState: PLAYER_STATES.ENDED });
+    onEnd = () => this.setState({ playerState: PLAYER_STATES.ENDED, completeModal: true });
 
     onError = () => alert('Oh! ', error);
 
@@ -107,6 +131,7 @@ export default class DayWorkoutVideoPlayer extends Component {
                             onLoad={this.onLoad}
                             onLoadStart={this.onLoadStart}
                             onProgress={this.onProgress}
+                            useNativeControls={true}
                             paused={this.state.paused}
                             ref={(e) => this.videoPlayer = e}
                             resizeMode={this.state.screenType}
@@ -115,25 +140,62 @@ export default class DayWorkoutVideoPlayer extends Component {
                                 uri: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
                             }}
                             style={styles.videoContainer}
-                            volume={10}
+                            volume={this.state.volume}
+                            muted={this.state.mute}
                         />
                         <MediaControls
                             duration={this.state.duration}
                             isLoading={this.state.isLoading}
                             mainColor="#333"
                             onFullScreen={this.onFullScreen}
+                            sliderStyle={{
+                                //     containerStyle:{
+                                //     backgroundColor:themeStyle.BAR_COLOR
+                                // },
+                                trackStyle: {
+                                    backgroundColor: themeStyle.BAR_COLOR,
+
+                                }
+                            }}
                             onPaused={this.onPaused}
                             onReplay={this.onReplay}
                             onSeek={this.onSeek}
                             onSeeking={this.onSeeking}
                             playerState={this.state.playerState}
                             progress={this.state.currentTime}
-                        // toolbar={this.renderToolbar()}
+                            toolbar={this.renderToolbar()}
                         />
                     </View>
-
+                    <View style={styles.lowerContainer}>
+                        <Text style={styles.headingStyle}>PUSH-UPS</Text>
+                        <View style={styles.rowContainer}>
+                            <Icon.Octicons name="primitive-dot" size={20} color={'lightgray'} />
+                            <Text style={styles.textStyle} >Keep your hips down and in line with your body.v</Text>
+                        </View>
+                        <View style={styles.rowContainer}>
+                            <Icon.Octicons name="primitive-dot" size={20} color={'lightgray'} />
+                            <Text style={styles.textStyle}>Have your hands parallel with your chest.</Text>
+                        </View>
+                        <View style={styles.rowContainer}>
+                            <Icon.Octicons name="primitive-dot" size={20} color={'lightgray'} />
+                            <Text style={styles.textStyle}>Focus your mind on your chest. Exhale as you push up and inhale while you lower yourself down</Text>
+                        </View>
+                        <View style={styles.rowContainer}>
+                            <Icon.Octicons name="primitive-dot" size={20} color={'lightgray'} />
+                            <Text style={styles.textStyle}>Push up fast and go down slowly.</Text>
+                        </View>
+                    </View>
                 </View>
-            </Container>
+                <QuitModal visible={this.state.quitModal}
+                    onQuit={() => { this.videoPlayer.seek(0); this.props.navigation.goBack() }}
+                    onResume={() => { this.setState({ quitModal: false, paused: !this.state.paused, playerState: this.state.playerState }) }}
+                    onRestart={() => { this.setState({ quitModal: false, playerState: PLAYER_STATES.PLAYING }, () => this.videoPlayer.seek(0)) }}
+                />
+                <CompleteModal visible={this.state.completeModal}
+                    onReplay={() => this.setState({ quitModal: false, playerState: PLAYER_STATES.PLAYING }, () => this.videoPlayer.seek(0))}
+                    onComplete={() => { this.setState({ completeModal: false, completedModal: true }) }} />
+                <CompletedModal visible={this.state.completedModal} onComplete={() => this.setState({ completedModal: false })} />
+            </Container >
         )
     }
 }
