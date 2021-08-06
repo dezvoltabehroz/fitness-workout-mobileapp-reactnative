@@ -11,6 +11,7 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		155A0BE726BD866300C32D8A /* Educogym_Logo_2018_fin_blue2@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 155A0BE626BD866300C32D8A /* Educogym_Logo_2018_fin_blue2@3x.png */; };
 		15D7D68726B9AD4E00EF0033 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 15D7D67B26B9AD4E00EF0033 /* Roboto-Medium.ttf */; };
 		15D7D68826B9AD4E00EF0033 /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 15D7D67C26B9AD4E00EF0033 /* Roboto-Light.ttf */; };
 		15D7D68926B9AD4E00EF0033 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 15D7D67D26B9AD4E00EF0033 /* Roboto-Regular.ttf */; };
@@ -51,6 +52,7 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = educogymworkout/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = educogymworkout/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = educogymworkout/main.m; sourceTree = "<group>"; };
+		155A0BE626BD866300C32D8A /* Educogym_Logo_2018_fin_blue2@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Educogym_Logo_2018_fin_blue2@3x.png"; sourceTree = "<group>"; };
 		15D7D67B26B9AD4E00EF0033 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
 		15D7D67C26B9AD4E00EF0033 /* Roboto-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Light.ttf"; sourceTree = "<group>"; };
 		15D7D67D26B9AD4E00EF0033 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 		13B07FAE1A68108700A75B9A /* educogymworkout */ = {
 			isa = PBXGroup;
 			children = (
+				155A0BE626BD866300C32D8A /* Educogym_Logo_2018_fin_blue2@3x.png */,
 				15D7D67A26B9AD4E00EF0033 /* fonts */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -363,6 +366,7 @@
 				15D7D68E26B9AD4E00EF0033 /* Roboto-Italic.ttf in Resources */,
 				15D7D68A26B9AD4E00EF0033 /* Roboto-MediumItalic.ttf in Resources */,
 				15D7D69226B9AD4E00EF0033 /* Roboto-Black.ttf in Resources */,
+				155A0BE726BD866300C32D8A /* Educogym_Logo_2018_fin_blue2@3x.png in Resources */,
 				15D7D69126B9AD4E00EF0033 /* Roboto-Thin.ttf in Resources */,
 				15D7D68726B9AD4E00EF0033 /* Roboto-Medium.ttf in Resources */,
 			);
