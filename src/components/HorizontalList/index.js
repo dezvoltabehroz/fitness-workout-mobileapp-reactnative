@@ -10,7 +10,6 @@ import Dumbell from '../../assets/svg/gray-fire.svg';
 
 const CheckedBox = ({ data, onPress, video }) => {
     let array = [1, 2, 3, 4, 5]
-    console.log(array)
     const handleRating = (value) => {
         let data;
         switch (value) {

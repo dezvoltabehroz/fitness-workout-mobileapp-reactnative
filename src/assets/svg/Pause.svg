@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="72.428" height="77.695" viewBox="0 0 72.428 77.695">
+  <defs>
+    <clipPath id="clip-path">
+      <rect width="15.682" height="18.295" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="Pause" transform="translate(-163 -666)">
+    <path id="Path_18" data-name="Path 18" d="M30.946,0A30.952,30.952,0,0,1,40.89,60.26a30.3,30.3,0,0,1-9.944,1.632A30.946,30.946,0,0,1,30.946,0Z" transform="translate(167 675)" fill="#4694f9"/>
+    <g id="Group_5" data-name="Group 5">
+      <path id="Path_19" data-name="Path 19" d="M30.946,0A30.952,30.952,0,0,1,40.89,60.26a30.3,30.3,0,0,1-9.944,1.632A30.946,30.946,0,0,1,30.946,0Z" transform="translate(166.951 669.951)" fill="#4694f9" opacity="0.26"/>
+      <path id="Path_20" data-name="Path 20" d="M30.946,0A30.952,30.952,0,0,1,40.89,60.26a30.3,30.3,0,0,1-9.944,1.632A30.946,30.946,0,0,1,30.946,0Z" transform="translate(168.267 681.802)" fill="#4694f9" opacity="0.26"/>
+      <path id="Path_23" data-name="Path 23" d="M30.946,0A30.952,30.952,0,0,1,40.89,60.26a30.3,30.3,0,0,1-9.944,1.632A30.946,30.946,0,0,1,30.946,0Z" transform="translate(170.901 680.486)" fill="#4694f9" opacity="0.26"/>
+      <path id="Path_21" data-name="Path 21" d="M30.946,0A30.952,30.952,0,0,1,40.89,60.26a30.3,30.3,0,0,1-9.944,1.632A30.946,30.946,0,0,1,30.946,0Z" transform="translate(163 677.852)" fill="#4694f9" opacity="0.26"/>
+      <path id="Path_22" data-name="Path 22" d="M30.946,0A30.952,30.952,0,0,1,40.89,60.26a30.3,30.3,0,0,1-9.944,1.632A30.946,30.946,0,0,1,30.946,0Z" transform="translate(173.535 675.218)" fill="#4694f9" opacity="0.26"/>
+      <path id="Path_24" data-name="Path 24" d="M30.946,0A30.952,30.952,0,0,1,40.89,60.26a30.3,30.3,0,0,1-9.944,1.632A30.946,30.946,0,0,1,30.946,0Z" transform="translate(166.951 666)" fill="#4694f9" opacity="0.26"/>
+    </g>
+    <g id="pause-2" data-name="pause" transform="translate(190 697)" clip-path="url(#clip-path)">
+      <path id="Path_56" data-name="Path 56" d="M8.614,23.3h0a2.621,2.621,0,0,0,2.614-2.614V7.614A2.621,2.621,0,0,0,8.614,5h0A2.621,2.621,0,0,0,6,7.614V20.682A2.621,2.621,0,0,0,8.614,23.3ZM16.454,7.614V20.682A2.621,2.621,0,0,0,19.068,23.3h0a2.621,2.621,0,0,0,2.614-2.614V7.614A2.621,2.621,0,0,0,19.068,5h0A2.621,2.621,0,0,0,16.454,7.614Z" transform="translate(-6 -5)" fill="#fff"/>
+    </g>
+  </g>
+</svg>

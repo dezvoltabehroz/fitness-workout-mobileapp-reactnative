@@ -27,3 +27,13 @@ export const UpgradeModal = _UpgradeModal;
 
 import _DietModal from './Modals/DietModal';
 export const DietModal = _DietModal;
+
+import _QuitModal from './Modals/QuitModal';
+export const QuitModal = _QuitModal;
+
+
+import _CompleteModal from './Modals/CompleteModal';
+export const CompleteModal = _CompleteModal;
+
+import _CompletedModal from './Modals/CompletedModal';
+export const CompletedModal = _CompletedModal;

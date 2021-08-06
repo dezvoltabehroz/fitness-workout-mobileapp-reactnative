@@ -3,7 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { View, Text, StyleSheet } from 'react-native';
 
 import { route, screen } from '../../lib/utils/constants';
-import { DaysWorkout, Home, PowerOfMind, PowerOfMindAudio } from '../../screens';
+import { DaysWorkout, DaysWorkoutVideos, DayWorkoutVideoPlayer, Home, PowerOfMind, PowerOfMindAudio } from '../../screens';
 import LogoWhite from '../../assets/svg/white-logo.svg'
 import styles from '../style';
 import THEME from '../../assets/styles/theme.style';
@@ -18,8 +18,8 @@ function HomeRoutes() {
         )
     }
     return (
-        <Stack.Navigator initialRouteName={route.HOME} >
-            <Stack.Screen name={route.HOME} component={Home} options={{
+        <Stack.Navigator initialRouteName={route.HOMESCREEN} >
+            <Stack.Screen name={route.HOMESCREEN} component={Home} options={{
                 headerShown: false
             }} />
             <Stack.Screen name={route.POWER_OF_MIND} component={PowerOfMind} options={({ navigation, route }) => ({
@@ -37,10 +37,26 @@ function HomeRoutes() {
                 headerTintColor: THEME.COLOR_WHITE,
                 headerTitleStyle: styles.headerTextStyle,
             })} />
-              <Stack.Screen name={route.POWEROFMINDAUDIO} component={PowerOfMindAudio}  options={({ navigation, route }) => ({
+            <Stack.Screen name={route.POWEROFMINDAUDIO} component={PowerOfMindAudio} options={({ navigation, route }) => ({
                 headerLeft: () => (<HeaderLeft navigation={navigation} color />),
                 headerTitle: screen.POWER_OF_MIND,
                 headerStyle: styles.headerStyle1,
+                headerTintColor: THEME.COLOR_WHITE,
+                headerTitleStyle: styles.headerTextStyle,
+            })} />
+            <Stack.Screen name={route.DAYSWORKOUTVIDEOS} component={DaysWorkoutVideos} options={({ navigation, route }) => ({
+                headerLeft: () => (<HeaderLeft navigation={navigation} />),
+                headerTitle: '',
+                tabBarVisible: false,
+                headerStyle: styles.headerStyle,
+                headerTintColor: THEME.COLOR_WHITE,
+                headerTitleStyle: styles.headerTextStyle,
+            })} />
+             <Stack.Screen name={route.DAYSWORKOUTVIDEOPLAYER} component={DayWorkoutVideoPlayer} options={({ navigation, route }) => ({
+                headerLeft: () => (<HeaderLeft navigation={navigation} cross />),
+                headerTitle: '',
+                tabBarVisible: false,
+                headerStyle: styles.headerStyle,
                 headerTintColor: THEME.COLOR_WHITE,
                 headerTitleStyle: styles.headerTextStyle,
             })} />

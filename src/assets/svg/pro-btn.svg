@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="84.046" height="48.316" viewBox="0 0 84.046 48.316">
+  <defs>
+    <filter id="Path_390" x="0" y="0" width="84.046" height="48.316" filterUnits="userSpaceOnUse">
+      <feOffset input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-opacity="0.349"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Path_390-2" x="0" y="0" width="84.046" height="48.316" filterUnits="userSpaceOnUse">
+      <feOffset input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="4.5" result="blur-2"/>
+      <feFlood flood-color="#00b2e3" result="color"/>
+      <feComposite operator="out" in="SourceGraphic" in2="blur-2"/>
+      <feComposite operator="in" in="color"/>
+      <feComposite operator="in" in2="SourceGraphic"/>
+    </filter>
+    <linearGradient id="linear-gradient" x1="0.5" y1="1" x2="0.5" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#fd5900"/>
+      <stop offset="1" stop-color="#ffde00"/>
+    </linearGradient>
+  </defs>
+  <g id="Pro-btn" transform="translate(-183.046 -256.798)">
+    <g data-type="innerShadowGroup">
+      <g transform="matrix(1, 0, 0, 1, 183.05, 256.8)" filter="url(#Path_390)">
+        <path id="Path_390-3" data-name="Path 390" d="M15.158,0h35.73a15.158,15.158,0,1,1,0,30.316H15.158A15.158,15.158,0,0,1,15.158,0Z" transform="translate(9 9)" fill="#fff"/>
+      </g>
+      <g transform="matrix(1, 0, 0, 1, 183.05, 256.8)" filter="url(#Path_390-2)">
+        <path id="Path_390-4" data-name="Path 390" d="M15.158,0h35.73a15.158,15.158,0,1,1,0,30.316H15.158A15.158,15.158,0,0,1,15.158,0Z" transform="translate(9 9)" fill="#fff"/>
+      </g>
+    </g>
+    <g id="Group_232" data-name="Group 232" transform="translate(203.046 273.798)">
+      <g id="Group_229" data-name="Group 229" transform="translate(21.418)">
+        <text id="Pro" transform="translate(0 11)" fill="#00b2e3" font-size="12" font-family="Roboto-Medium, Roboto" font-weight="500"><tspan x="0" y="0">PRO</tspan></text>
+      </g>
+      <g id="crown_1_" data-name="crown (1)" transform="translate(0 0.513)">
+        <g id="Group_231" data-name="Group 231" transform="translate(0 0)">
+          <g id="Group_230" data-name="Group 230" transform="translate(0 0)">
+            <path id="Path_388" data-name="Path 388" d="M17.472,93.539c-.284-.092-.409-.139-.586-.008l-2.975,2.156a.574.574,0,0,0-.221.364.612.612,0,0,0,.078.428,1.817,1.817,0,0,1,.261.947,1.64,1.64,0,0,1-1.555,1.71,1.64,1.64,0,0,1-1.555-1.71,1.771,1.771,0,0,1,.665-1.4.607.607,0,0,0,.127-.793L9.27,91.4a.508.508,0,0,0-.848,0L5.981,95.233a.607.607,0,0,0,.127.793,1.771,1.771,0,0,1,.665,1.4,1.64,1.64,0,0,1-1.555,1.71,1.64,1.64,0,0,1-1.555-1.71,1.816,1.816,0,0,1,.261-.947A.612.612,0,0,0,4,96.051a.574.574,0,0,0-.221-.364L.806,93.531a.479.479,0,0,0-.586.008.6.6,0,0,0-.2.6l2.108,9.122a.515.515,0,0,0,.588.424,33.909,33.909,0,0,1,12.27,0,.447.447,0,0,0,.085.008.532.532,0,0,0,.5-.432l2.108-9.122c.052-.228.08-.512-.2-.6Z" transform="translate(0 -91.169)" stroke="#06005c" stroke-width="0.3" fill="url(#linear-gradient)"/>
+          </g>
+        </g>
+        <path id="Path_389" data-name="Path 389" d="M8.2,92.025l.555,1.3s-.744-.284-2.1,1.272A5.019,5.019,0,0,1,8.2,92.025Z" transform="matrix(0.999, -0.035, 0.035, 0.999, -2.702, -90.772)" fill="rgba(255,255,255,0.74)"/>
+      </g>
+    </g>
+  </g>
+</svg>

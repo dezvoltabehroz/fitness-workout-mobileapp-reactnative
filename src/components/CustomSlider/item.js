@@ -25,7 +25,6 @@ export class Item extends Component {
         return style
     }
     render() {
-        console.log(this.props.value)
         return (
             <View style={{ marginTop: '15%' ,justifyContent:"center"}}>
                 <Text style={this.checkActive() ? [styles.lineStyle, styles.active] : [styles.line, styles.inactive, { backgroundColor: "#D3D3D3", }]}> {`${this.style_Func()}`}</Text>

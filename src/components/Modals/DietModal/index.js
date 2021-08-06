@@ -61,15 +61,15 @@ const styles = StyleSheet.create({
         alignItems: "center"
     },
     rowContainer1: {
-        elevation: 3,
         borderRadius: 10,
+        borderWidth: 1,
+        borderColor:'lightgray',
         padding: "5%",
         flexDirection: "row",
         marginTop: "5%",
         alignItems: "center"
     },
     rowContainer2: {
-        elevation: 3,
         borderRadius: 10,
         borderColor: "#44BDE8",
         borderWidth: 1,
