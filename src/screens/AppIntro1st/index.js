@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, StatusBar } from 'react-native';
 
-import { Button, Container } from '../../components';
+import { Button, ColorContainer,ClearButton } from '../../components';
 import HeaderView from './components/headerView';
 import { route, screen } from '../../lib/utils/constants';
 import Target from '../../assets/svg/target.svg';
@@ -36,7 +36,7 @@ class AppIntro extends Component {
         }
         return style
     }
-    
+
     style_Func_2 = () => {
         let style = {};
         switch (this.state.value) {
@@ -71,7 +71,7 @@ class AppIntro extends Component {
         const { value } = this.state;
 
         return (
-            <Container>
+            <ColorContainer>
                 <StatusBar backgroundColor={themeStyle.PRIMARY_BACKGROUND_COLOR} barStyle={"dark-content"} />
                 <HeaderView navigation={this.props.navigation} />
                 <View style={styles.container}>
@@ -110,9 +110,9 @@ class AppIntro extends Component {
                     </TouchableOpacity>
                 </View>
                 <View style={styles.buttonContainer}>
-                    <Button title={screen.NEXT} onPress={() => navigate(route.APPINTRO2nd)} />
+                    <ClearButton title={screen.NEXT} onPress={() => navigate(route.APPINTRO2nd)} />
                 </View>
-            </Container>
+            </ColorContainer>
 
         )
     }

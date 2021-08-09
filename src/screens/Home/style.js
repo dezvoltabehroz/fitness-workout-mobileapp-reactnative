@@ -123,20 +123,25 @@ export default StyleSheet.create({
     },
     cardContainer: {
         bottom: "5%",
-        backgroundColor: THEME.DASH_LIGHT, margin: "5%", borderRadius: 25, padding: 30, justifyContent: "space-between", height: SCREEN_HEIGHT * 0.2, width: SCREEN_WIDTH * 0.9
+        margin: "5%",
+        borderRadius: 25,
+        padding: 30,
+        justifyContent: "space-evenly",
+        height: SCREEN_HEIGHT * 0.275,
+        width: SCREEN_WIDTH * 0.9
     },
     cardContainer1: {
-        bottom: "5%",
-        backgroundColor: THEME.DASH_LIGHT,
+        bottom: "10%",
+        // backgroundColor: THEME.DASH_LIGHT,
         margin: "5%",
         borderRadius: 25,
         paddingHorizontal: 30,
         justifyContent: "center",
-        height: SCREEN_HEIGHT * 0.2,
+        height: SCREEN_HEIGHT * 0.25,
         width: SCREEN_WIDTH * 0.9,
     },
     starContainer: {
-        position: "absolute", top: '-5%', left: '5%'
+        position: "absolute", top: '-2%', left: '10%'
     }
 
 })

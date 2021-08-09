@@ -5,9 +5,12 @@ import SoundCloudWaveform from 'react-native-soundcloud-waveform';
 
 import { Container, Icon } from "../../components";
 
+import Play from '../../assets/svg/Play-btn.svg'
+import Pause from '../../assets/svg/Pause.svg'
+import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../../lib/utils/constants";
+
 import themeStyle from "../../assets/styles/theme.style";
 import styles from './style';
-import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../../lib/utils/constants";
 
 let data = 0;
 class PowerOfMindAudio extends Component {
@@ -116,9 +119,9 @@ class PowerOfMindAudio extends Component {
                         <TouchableOpacity onPress={this.changestate} style={styles.buttonContainer}>
                             {
                                 this.state.playAudio ?
-                                    <Icon.AntDesign name={'play'} size={80} color={themeStyle.BAR_COLOR} />
+                                    <Play/>
                                     :
-                                    <Icon.AntDesign name={'pausecircle'} size={80} color={themeStyle.BAR_COLOR} />
+                                    <Pause />
                             }
                         </TouchableOpacity>
                     </ScrollView>

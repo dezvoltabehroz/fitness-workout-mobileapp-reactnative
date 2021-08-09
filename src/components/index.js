@@ -37,3 +37,10 @@ export const CompleteModal = _CompleteModal;
 
 import _CompletedModal from './Modals/CompletedModal';
 export const CompletedModal = _CompletedModal;
+
+
+import _ColorContainer from './ColorContainer';
+export const ColorContainer = _ColorContainer;
+
+import _clearButton from './Button/clearButton';
+export const ClearButton = _clearButton;

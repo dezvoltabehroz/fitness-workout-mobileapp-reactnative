@@ -6,10 +6,10 @@ export default StyleSheet.create({
         marginHorizontal: "5%",
         justifyContent: "center",
     },
-   headingTextStyle: {
+    headingTextStyle: {
         fontSize: 22,
         fontWeight: "bold"
-    }, 
+    },
     targetContainer: {
         alignItems: "center"
     },

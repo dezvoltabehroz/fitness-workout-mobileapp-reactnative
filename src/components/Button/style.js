@@ -13,16 +13,16 @@ export default StyleSheet.create({
         color: 'white',
     },
     clearBtnPrimary: {
-        height: 44,
-        width: 100,
-        borderRadius: 8,
+        height: 51,
+        // width: 100,
+        borderRadius: 26,
         borderWidth: 0.5,
         borderColor: themeStyle.PRIMARY_BACKGROUND_COLOR,
         backgroundColor: 'white'
     },
     clearBtnPrimaryText: {
-        fontSize: 14,
-        color: themeStyle.PRIMARY_BACKGROUND_COLOR,
+        fontSize: 18,
+        color: themeStyle.BAR_COLOR,
     },
     colorBtnPrimary: {
         height: 44,

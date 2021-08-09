@@ -116,14 +116,14 @@ class Home extends Component {
                             <Text style={[styles.whiteTextStyle, { color: THEME.COLOR_BLACK, margin: '5%' }]}>CHALLENGES</Text>
                             <HorizontalList data={data} />
                         </View>
-                        <ImageBackground imageStyle={{ borderRadius: 25 }} source={require('../../assets/images/bowlofsalad.jpg')} style={styles.cardContainer} >
+                        <ImageBackground source={require('../../assets/images/diet.png')} style={styles.cardContainer} >
                             <Text style={styles.whiteTextStyle1}>DIET PLAN IS READY!</Text>
                             <View style={styles.goButtonContainer}>
                                 <Button title={'GO!'} onPress={() => navigate(route.DIET)} />
                             </View>
                         </ImageBackground>
-                        <TouchableOpacity onPress={() => navigate(route.POWER_OF_MIND)} >
-                            <ImageBackground imageStyle={{ borderRadius: 25 }} source={require('../../assets/images/rob.jpg')} style={styles.cardContainer1}>
+                        <TouchableOpacity style={{ bottom: "5%" }} onPress={() => navigate(route.POWER_OF_MIND)} >
+                            <ImageBackground source={require('../../assets/images/mind.png')} style={styles.cardContainer1}>
                                 <View>
                                     <Text style={styles.whiteTextStyle1}>POWER OF THE MIND</Text>
                                     <Text style={{ color: THEME.COLOR_WHITE }}>Lorem ipsum dolor sir</Text>

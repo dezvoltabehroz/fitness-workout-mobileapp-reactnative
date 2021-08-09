@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, Image,StatusBar } from 'react-native';
+import { View, Text, ScrollView, Image, StatusBar, TouchableOpacity } from 'react-native';
 
-import { Button, Container, CustomSlider } from '../../components';
+import { Button, ColorContainer, CustomSlider, Icon } from '../../components';
 import { route, screen, SCREEN_WIDTH } from '../../lib/utils/constants';
 
 import HeaderView from './components/headerView';
 import Volume from '../../assets/svg/volume.svg';
-import Bar from '../../assets/svg/Progress-bar.svg';
+import Bar from '../../assets/svg/Lines.svg';
 
 import styles from './style';
 import themeStyle from '../../assets/styles/theme.style';
@@ -30,8 +30,8 @@ class AppIntro extends Component {
         const { navigate, goBack } = this.props.navigation;
         const { currentPage } = this.state;
         return (
-            <Container>
-                 <StatusBar backgroundColor={themeStyle.PRIMARY_BACKGROUND_COLOR} barStyle={"dark-content"} />
+            <ColorContainer>
+                <StatusBar backgroundColor={themeStyle.PRIMARY_BACKGROUND_COLOR} barStyle={"dark-content"} />
                 <HeaderView goBack={() => goBack()} />
 
                 <View style={styles.container}>
@@ -48,8 +48,8 @@ class AppIntro extends Component {
                         </Text>
                     </View>
                     <View style={{ flex: 0.5 }} >
-                    <View style={{position:"absolute",top:30}}>
-                            <Image resizeMode={"cover"} style={styles.imageStyle} source={require('../../assets/images/outfit.png')} />
+                        <View style={{ position: "absolute", top: 30 }}>
+                            <Image resizeMode={"contain"} style={styles.imageStyle} source={require('../../assets/images/outfit.png')} />
                         </View>
                         <View style={{ position: "absolute", top: 18 }}>
                             <Bar />
@@ -62,14 +62,16 @@ class AppIntro extends Component {
                             callback={this.multiSliderValueCallback}
                             single={true}
                         />
-                        
+
                     </View>
 
                 </View>
                 <View style={styles.buttonContainer}>
-                    <Button title={screen.NEXT} onPress={() => navigate(route.APPINTRO3rd)} />
+                    <TouchableOpacity onPress={() => navigate(route.APPINTRO3rd)}  style={styles.buttonStyle}>
+                        <Icon.AntDesign name="right" size={25} color={themeStyle.BAR_COLOR} />
+                    </TouchableOpacity>
                 </View>
-            </Container>
+            </ColorContainer>
 
         )
     }

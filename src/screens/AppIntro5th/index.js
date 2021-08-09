@@ -21,7 +21,8 @@ class AppIntro extends Component {
             arm: false,
             back: false,
             glute: false,
-            leg: false
+            leg: false,
+            waist: false
         };
     }
 
@@ -29,7 +30,7 @@ class AppIntro extends Component {
     render() {
         const { navigate, goBack } = this.props.navigation;
         let { gender } = this.props.route.params
-        const { shoulder, chest, glute, back, arm, leg } = this.state;
+        const { shoulder, chest, glute, back, arm, leg, waist } = this.state;
         return (
             <Container>
                 <StatusBar backgroundColor={themeStyle.DASH_DARK} />
@@ -47,36 +48,44 @@ class AppIntro extends Component {
                             {
                                 gender == 'male' ?
                                     <>
-                                        <View style={styles.shoulderContainer}>
-                                            <View style={styles.shoulderStyle}>
+                                        <View style={styles.shoulderContainer1}>
+                                            <View style={styles.shoulderStyle1}>
                                                 <CheckBox isChecked={shoulder} label="Shoulders" onPress={() => this.setState({ shoulder: !shoulder })} />
                                             </View>
                                         </View>
-                                        <View style={styles.chestContainer}>
-                                            <View style={styles.chestStyle}>
-                                                <CheckBox isChecked={chest} label="Chests" onPress={() => this.setState({ chest: !chest })} />
+                                        <View style={styles.chestContainer1}>
+                                            <View style={styles.chestStyle1}>
+                                                <CheckBox isChecked={chest} label="Chest" onPress={() => this.setState({ chest: !chest })} />
                                             </View>
                                         </View>
-                                        <View style={styles.armContainer}>
-                                            <View style={styles.armStyle}>
+                                        <View style={styles.armContainer1}>
+                                            <View style={styles.armStyle1}>
                                                 <CheckBox isChecked={arm} label="Arms" onPress={() => this.setState({ arm: !arm })} />
                                             </View>
                                         </View>
-                                        <View style={styles.gluteContainer}>
-                                            <View style={styles.gluteStyle}>
+                                        <View style={styles.gluteContainer1}>
+                                            <View style={styles.gluteStyle1}>
                                                 <CheckBox isChecked={glute} label="Glutes" onPress={() => this.setState({ glute: !glute })} />
                                             </View>
                                         </View>
-                                        <View style={styles.backContainer}>
-                                            <View style={styles.backStyle}>
+                                        <View style={styles.backContainer1}>
+                                            <View style={styles.backStyle1}>
                                                 <CheckBox
                                                     isChecked={back}
                                                     label="Back"
                                                     onPress={() => this.setState({ back: !back })} />
                                             </View>
                                         </View>
-                                        <View style={styles.legContainer}>
-                                            <View style={styles.legStyle}>
+                                        <View style={styles.waistContainer1}>
+                                            <View style={styles.waistStyle1}>
+                                                <CheckBox
+                                                    isChecked={waist}
+                                                    label="Wasit"
+                                                    onPress={() => this.setState({ waist: !waist })} />
+                                            </View>
+                                        </View>
+                                        <View style={styles.legContainer1}>
+                                            <View style={styles.legStyle1}>
                                                 <CheckBox
                                                     isChecked={leg}
                                                     label="Legs"
@@ -93,7 +102,7 @@ class AppIntro extends Component {
                                         </View>
                                         <View style={styles.chestContainer}>
                                             <View style={styles.chestStyle}>
-                                                <CheckBox isChecked={chest} label="Chests" onPress={() => this.setState({ chest: !chest })} />
+                                                <CheckBox isChecked={chest} label="Chest" onPress={() => this.setState({ chest: !chest })} />
                                             </View>
                                         </View>
                                         <View style={styles.armContainer}>
@@ -120,6 +129,14 @@ class AppIntro extends Component {
                                                     isChecked={leg}
                                                     label="Legs"
                                                     onPress={() => this.setState({ leg: !leg })} />
+                                            </View>
+                                        </View>
+                                        <View style={styles.waistContainer}>
+                                            <View style={styles.waistStyle}>
+                                                <CheckBox
+                                                    isChecked={waist}
+                                                    label="Waist"
+                                                    onPress={() => this.setState({ waist: !waist })} />
                                             </View>
                                         </View>
                                     </>}
