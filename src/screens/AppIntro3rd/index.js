@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, StatusBar } from 'react-native';
 
-import { Button, Container } from '../../components';
+import { ColorContainer, ClearButton } from '../../components';
 import { route, screen } from '../../lib/utils/constants';
 
 import HeaderView from './components/headerView';
 import Target from '../../assets/svg/dumbell.svg';
 import Fit from '../../assets/svg/1029.svg';
 import Muscles from '../../assets/svg/dumbell-weight.svg';
-import Weight from '../../assets/svg/gym-equipment.svg';
+import Weight from '../../assets/svg/all-equipments.svg';
 import Band from '../../assets/svg/band.svg';
 
 import styles from './style';
@@ -83,8 +83,8 @@ class AppIntro extends Component {
     render() {
         const { navigate, goBack } = this.props.navigation;
         return (
-            <Container>
-                 <StatusBar backgroundColor={themeStyle.PRIMARY_BACKGROUND_COLOR} barStyle={"dark-content"} />
+            <ColorContainer>
+                <StatusBar backgroundColor={themeStyle.PRIMARY_BACKGROUND_COLOR} barStyle={"dark-content"} />
                 <HeaderView goBack={() => goBack()} />
 
                 <View style={styles.container}>
@@ -133,9 +133,9 @@ class AppIntro extends Component {
                     </TouchableOpacity>
                 </View>
                 <View style={styles.buttonContainer}>
-                    <Button title={screen.NEXT} onPress={() => navigate(route.APPINTRO4th)} />
+                    <ClearButton title={screen.NEXT} onPress={() => navigate(route.APPINTRO4th)} />
                 </View>
-            </Container>
+            </ColorContainer>
 
         )
     }

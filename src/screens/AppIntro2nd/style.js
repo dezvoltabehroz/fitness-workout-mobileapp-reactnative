@@ -70,14 +70,23 @@ export default StyleSheet.create({
         fontWeight: "bold"
     },
     buttonContainer: {
-        marginHorizontal: "10%",
-        justifyContent: "flex-end"
+        marginRight: "5%",
+        justifyContent: "flex-end",
+        alignItems: "flex-end"
     },
     firstContainer: {
         width: SCREEN_WIDTH * 0.25
     },
     imageStyle: {
         height: SCREEN_HEIGHT * 0.45,
-        width:SCREEN_WIDTH*0.55
+        width: SCREEN_WIDTH * 0.55
+    },
+    buttonStyle: {
+        height: 50,
+        width: 50,
+        backgroundColor: "white",
+        borderRadius: 35,
+        justifyContent: "center",
+        alignItems: "center"
     }
 })

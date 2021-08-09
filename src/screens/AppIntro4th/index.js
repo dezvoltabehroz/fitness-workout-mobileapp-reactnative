@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, StatusBar } from 'react-native';
 
-import { Button, Container } from '../../components';
+import { ClearButton, ColorContainer } from '../../components';
 import { route, screen } from '../../lib/utils/constants';
 
 import HeaderView from './components/headerView';
@@ -31,7 +31,7 @@ class AppIntro extends Component {
         const { navigate, goBack } = this.props.navigation;
         const { male, female } = this.state;
         return (
-            <Container>
+            <ColorContainer>
                 <StatusBar backgroundColor={themeStyle.PRIMARY_BACKGROUND_COLOR} barStyle={"dark-content"} />
                 <HeaderView goBack={() => goBack()} />
                 <View style={styles.container}>
@@ -69,9 +69,9 @@ class AppIntro extends Component {
                     </View>
                 </View>
                 <View style={styles.buttonContainer}>
-                    <Button title={screen.NEXT} onPress={() => navigate(route.APPINTRO5th,{gender:male?'male':'female'})} />
+                    <ClearButton title={screen.NEXT} disabled={male || female ? false : true} onPress={() => navigate(route.APPINTRO5th, { gender: male ? 'male' : 'female' })} />
                 </View>
-            </Container>
+            </ColorContainer>
         )
     }
 }

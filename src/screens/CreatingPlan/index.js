@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, StatusBar } from 'react-native';
 import CircularProgress from 'react-native-circular-progress-indicator';
 
-import { Button, Container } from '../../components';
+import {  ClearButton, ColorContainer } from '../../components';
 import { route, screen } from '../../lib/utils/constants';
 import Tick from '../../assets/svg/Tick.svg';
 
@@ -23,7 +23,7 @@ class CreatingPlan extends Component {
         const { value } = this.state;
 
         return (
-            <Container>
+            <ColorContainer>
                 <StatusBar backgroundColor={themeStyle.PRIMARY_BACKGROUND_COLOR} barStyle={"dark-content"} />
                 <View style={styles.container}>
                     <View style={styles.headingContainer}>
@@ -37,11 +37,11 @@ class CreatingPlan extends Component {
                             value={100}
                             duration={5000}
                             radius={120}
-                            textColor={'#1F2729'}
+                            textColor={themeStyle.BAR_COLOR}
                             textStyle={styles.textStyle}
                             activeStrokeWidth={20}
                             inActiveStrokeWidth={15}
-                            activeStrokeColor={'#1F2729'}
+                            activeStrokeColor={themeStyle.BAR_COLOR}
                             inActiveStrokeColor={'#0000ffff'}
                             inActiveStrokeOpacity={0}
                             valueSuffix={'%'}
@@ -51,9 +51,9 @@ class CreatingPlan extends Component {
 
                 </View>
                 <View style={styles.buttonContainer}>
-                    <Button disabled={!value} title={value ? 'FINISHED' : 'PLEASE WAIT...'} onPress={() => replace(route.MAIN)} />
+                    <ClearButton disabled={!value} title={value ? 'FINISHED' : 'PLEASE WAIT...'} onPress={() => replace(route.MAIN)} />
                 </View>
-            </Container>
+            </ColorContainer>
 
         )
     }

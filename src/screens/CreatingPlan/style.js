@@ -19,16 +19,17 @@ export default StyleSheet.create({
         alignItems: "center"
     },
 
-    progressContainer:{ alignItems: "center", justifyContent: "center", alignSelf: "center", height: 300, width: 300, marginTop: '10%', borderColor: THEME.DASH_LIGHT, borderWidth: 15, borderRadius: 220 },
-    textStyle:{
+    progressContainer: { alignItems: "center", justifyContent: "center", alignSelf: "center", height: 300, width: 300, marginTop: '10%', borderColor: '#86D4F0', borderWidth: 15, borderRadius: 220 },
+    textStyle: {
         backgroundColor: "#fff",
-        justifyContent: "center", alignItems: "center",
+        justifyContent: "center",
+        alignItems: "center",
         height: 190,
         top: 25,
         left: 25,
         width: 190,
         overflow: 'hidden',
-        fontWeight:"bold",
+        fontWeight: "bold",
         borderRadius: 100,
     },
     buttonContainer: {
