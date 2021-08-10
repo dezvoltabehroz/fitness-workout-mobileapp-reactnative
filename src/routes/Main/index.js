@@ -15,7 +15,6 @@ import Progress from '../../assets/svg/progress.svg';
 import Setting from '../../assets/svg/setting.svg';
 import HomeRoutes from '../Home';
 import DietRoutes from '../Diet';
-import SettingRoutes from '../Setting';
 const Bottom = createBottomTabNavigator();
 
 
@@ -127,7 +126,7 @@ function MainRoutes(props) {
             }} />
             <Bottom.Screen name={route.DIET} component={DietRoutes} />
             <Bottom.Screen name={route.PROGRESS} component={CreatePlaceholder} />
-            <Bottom.Screen name={route.SETTING} component={SettingRoutes} />
+            <Bottom.Screen name={route.SETTING} component={CreatePlaceholder} />
         </Bottom.Navigator>
     )
 

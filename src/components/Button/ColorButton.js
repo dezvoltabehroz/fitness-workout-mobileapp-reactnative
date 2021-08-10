@@ -18,7 +18,6 @@ const ColorButton = (props) => {
         title = "",
         raised = false,
         containerStyle = {},
-        iconContainerStyle={}
     } = props;
     return (
         <BT
@@ -35,7 +34,6 @@ const ColorButton = (props) => {
             type={type}
             icon={icon}
             iconRight={iconRight}
-            iconContainerStyle={{...iconContainerStyle&&styles.iconContainerStyle}}
             titleStyle={{ ...titleStyle && styles.colorBtnPrimaryText }}
         />
     )

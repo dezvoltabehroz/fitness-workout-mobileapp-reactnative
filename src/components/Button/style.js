@@ -25,13 +25,14 @@ export default StyleSheet.create({
         color: themeStyle.BAR_COLOR,
     },
     colorBtnPrimary: {
-        height: 51,
-        borderRadius: 26,
-        backgroundColor: 'red'
+        height: 44,
+        width: 100,
+        borderRadius: 8,
+        backgroundColor: themeStyle.PRIMARY_BACKGROUND_COLOR
     },
     colorBtnPrimaryText: {
-        fontSize: 18,
-        // fontWeight: "normal",
+        fontSize: 14,
+        fontWeight: "normal",
         color: "white",
     },
     iconContainerStyle: {

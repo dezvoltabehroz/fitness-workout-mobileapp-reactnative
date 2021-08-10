@@ -35,7 +35,7 @@ const UpgradeModal = (props) => {
                     <Text style={styles.smallText}>For life time</Text>
                 </View>
                 <View style={styles.buttonContainer}>
-                    <Button title={'UPGRADE'} onPress={() => props.onUpgrade()} />
+                    <Button title={'UPGRADE'} onPress={() => props.onSkip()} />
                 </View>
                 <TouchableOpacity onPress={() => props.onSkip()} style={styles.buttonContainer}>
                     <Text style={styles.skipText}>SKIP</Text>

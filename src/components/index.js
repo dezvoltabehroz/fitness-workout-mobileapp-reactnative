@@ -19,9 +19,6 @@ export const HorizontalList = _HorizontalList;
 import { NavigationHeaderLeftButton } from './HeaderLeft';
 export const HeaderLeft = NavigationHeaderLeftButton;
 
-import { NavigationHeaderRightButton } from './HeaderLeft';
-export const HeaderRight = NavigationHeaderRightButton;
-
 import _CustomSlider from './CustomSlider/index';
 export const CustomSlider = _CustomSlider;
 
@@ -47,6 +44,3 @@ export const ColorContainer = _ColorContainer;
 
 import _clearButton from './Button/clearButton';
 export const ClearButton = _clearButton;
-
-import _ColorButton from './Button/ColorButton';
-export const ColorButton = _ColorButton;
