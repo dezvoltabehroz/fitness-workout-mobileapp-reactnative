@@ -8,10 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* educogymworkoutTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* educogymworkoutTests.m */; };
-		07720882B2AB496D8A2BEE15 /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AF83BCFA912D439EA32260AA /* AntDesign.ttf */; };
-		0A19B7DBD1114BC3B903B67D /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 93EF14E0275149D1A648EC3F /* Foundation.ttf */; };
-		0B2F0AC8238E4BB4BAAF92C7 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F556263127D14FF6AFFE8486 /* SimpleLineIcons.ttf */; };
-		0DBC0F04BCDC4F5A8CF11986 /* Roboto-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9900E7622BF949419263FD5B /* Roboto-Black.ttf */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -30,7 +26,6 @@
 		15D7D69226B9AD4E00EF0033 /* Roboto-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 15D7D68626B9AD4E00EF0033 /* Roboto-Black.ttf */; };
 		329412EE6526748DBCC70FAB /* libPods-educogymworkout-educogymworkoutTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ABA11857823670F66B85D308 /* libPods-educogymworkout-educogymworkoutTests.a */; };
 		4C6A18C2122D8A47A72E3947 /* libPods-educogymworkout.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C122D253D7DD43C7BA5D287 /* libPods-educogymworkout.a */; };
-		58F7C3FDF663487197768872 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = ED12C5E0E2E34F25A45608F5 /* Roboto-Medium.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -616,6 +611,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = educogymworkout/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -641,6 +637,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				INFOPLIST_FILE = educogymworkout/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -706,7 +703,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					/usr/lib/swift,
 					"$(inherited)",
@@ -764,7 +761,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					/usr/lib/swift,
 					"$(inherited)",
