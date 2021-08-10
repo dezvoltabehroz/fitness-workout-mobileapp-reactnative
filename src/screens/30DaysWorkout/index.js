@@ -247,7 +247,7 @@ class PowerOfMind extends Component {
     }
 
     render() {
-
+        const { navigation } = this.props;
         return (
             <Container>
                 <View style={styles.container}>
@@ -284,7 +284,7 @@ class PowerOfMind extends Component {
                         />
                     </ScrollView>
                 </View>
-                <UpgradeModal visible={this.state.upgradeModal} onSkip={() => this.setState({ upgradeModal: false })} />
+                <UpgradeModal visible={this.state.upgradeModal} onUpgrade={() => navigation.navigate(route.PAYMENTMETHOD, { data: true })} onSkip={() => this.setState({ upgradeModal: false })} />
             </Container>
 
         )

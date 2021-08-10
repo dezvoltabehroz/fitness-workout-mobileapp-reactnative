@@ -11,11 +11,16 @@ export default StyleSheet.create({
     headerStyle1: {
         elevation: 0,
         borderBottomWidth: 0,
-        backgroundColor: themeStyle.BAR_COLOR
+        backgroundColor: themeStyle.BAR_COLOR,
     },
-    headerTextStyle:{
+    headerTextStyle: {
         color: "#fff",
-        textTransform:"uppercase"
+        textTransform: "uppercase",
+    },
+    headerTextStyle1: {
+        color: "#fff",
+        textTransform: "uppercase",
+        paddingLeft:"10%"
     }
 
 })

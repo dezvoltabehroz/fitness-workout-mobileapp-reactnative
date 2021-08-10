@@ -44,3 +44,12 @@ export const DaysWorkoutVideos = _30DaysWorkoutVideos;
 
 import _DayWorkoutVideoPlayer from './DayWorkoutVideoPlayer';
 export const DayWorkoutVideoPlayer = _DayWorkoutVideoPlayer;
+
+import _Settings from './Settings';
+export const Settings = _Settings;
+
+import _MyProfile from './MyProfile';
+export const MyProfile = _MyProfile;
+
+import _PaymentMethod from './PaymentMethod';
+export const PaymentMethod = _PaymentMethod;
