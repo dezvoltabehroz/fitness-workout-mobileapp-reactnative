@@ -3,11 +3,16 @@ import { ScrollView, View, Text, TouchableOpacity, RefreshControl, Image } from 
 import Timeline from 'react-native-timeline-flatlist';
 import moment from 'moment';
 
-import { Container, DietModal, HorizontalList } from '../../components';
+import { Container, DietModal, HorizontalList, Icon } from '../../components';
 import More from '../../assets/svg/more.svg';
+
+import Active from '../../assets/svg/Diet-active-icon.svg';
+import Inactive from '../../assets/svg/Diet-Deactive-icon.svg';
+import Cup from '../../assets/svg/cup.svg';
 
 import styles from './style';
 import { SCREEN_WIDTH } from "../../lib/utils/constants";
+import themeStyle from "../../assets/styles/theme.style";
 
 export default class DietScreen extends Component {
     constructor(props) {
@@ -15,6 +20,45 @@ export default class DietScreen extends Component {
         this.onEndReached = this.onEndReached.bind(this)
         this.renderFooter = this.renderFooter.bind(this)
         this.onRefresh = this.onRefresh.bind(this)
+        this.days = [
+            {
+                day: '1',
+                completed: true
+            },
+            {
+                day: '2',
+                completed: true
+            },
+            {
+                day: '3',
+                completed: true
+            },
+            {
+                day: '4',
+                completed: true
+            },
+            {
+                day: '5',
+                completed: true
+            },
+            {
+                day: '6',
+                completed: true
+            },
+            {
+                day: '7',
+                completed: true
+            }]
+        this.days1 = [
+            {
+                day: '1',
+                completed: true
+            },
+            {
+                day: '2',
+                completed: true
+            },
+        ]
         this.state = {
             like: false,
             noOfPurchased: 28,
@@ -24,6 +68,7 @@ export default class DietScreen extends Component {
             loading: true,
             value: "",
             dietModal: true,
+
             data1: [
                 {
                     title: "Diet Video Name",
@@ -34,32 +79,38 @@ export default class DietScreen extends Component {
             ],
             data: [
                 {
-                    jobName: 'Security Guard',
-                    responsibitlity: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-                    experience: '6 Months',
-                    period: '6 dec, 2020 - 12 jun , 2021',
+                    title: 'Week 1',
+                    days: this.days,
+                    current: true,
+                    description: 'The Beginner Archery and Beginner Crossbow course does not require you to bring any equipment, since everything you need will be provided for the course. ',
+                    icon: <Active />,
                 },
                 {
-                    jobName: 'Security Guard',
-                    responsibitlity: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-                    experience: '6 Months',
-                    period: '6 dec, 2020 - 12 jun , 2021',
+                    title: 'Week 2',
+                    current: false,
+                    days: this.days,
+                    icon: <Inactive />,
                 },
                 {
-                    jobName: 'Security Guard',
-                    responsibitlity: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-                    experience: '6 Months',
-                    period: '6 dec, 2020 - 12 jun , 2021',
+                    title: 'Week 3',
+                    current: false,
+                    days: this.days,
+                    icon: <Inactive />,
                 },
                 {
-                    jobName: 'Security Guard',
-                    responsibitlity: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-                    experience: '6 Months',
-                    period: '6 dec, 2020 - 12 jun , 2021',
-                    start_year: "6 dec, 2020",
-                    end_year: "12 jun , 2021"
+                    title: 'Week 4',
+                    current: false,
+                    days: this.days,
+                    icon: <Inactive />,
                 },
+                {
+                    title: 'Week 5',
+                    current: false,
+                    days: this.days1,
+                    icon: <Inactive />,
+                }
             ]
+
         }
     }
 
@@ -81,63 +132,54 @@ export default class DietScreen extends Component {
         setTimeout(() => {
             //refresh to initial data
             this.setState({
-                data: this.data,
+                data: this.state.data,
                 isRefreshing: false
             });
         }, 2000);
     }
-    getRandomColor = () => {
-        var letters = '01234ABCDEF';
-        var color = '#';
-        for (var i = 0; i < 3; i++) {
-            color += letters[Math.floor(Math.random() * 16)];
-        }
-        return color;
-    }
+
     renderDetail(rowData, sectionID, rowID) {
-        let title = <View style={{ backgroundColor: 'hsla(' + (Math.random() * 350) + ', 70%, 50%, 1)', marginTop: -10, right: 35, borderRadius: 50, height: 30, width: SCREEN_WIDTH * 0.4, justifyContent: 'center', }}>
-            <Text style={[styles.title, { textTransform: "capitalize" }]}>{rowData.jobName}</Text>
+        let title = <View style={styles.titleContainer}>
+            <View style={styles.titleStyle}>
+                <Text style={styles.title}>{rowData.title}</Text>
+            </View>
+            <View style={styles.leftTitleStyle}>
+                <Text style={styles.title}>{rowData.current ? `${sectionID + 1}/4` : ""}</Text>
+            </View>
         </View>
         var desc = null
-        if (rowData.jobName)
+        if (rowData.days)
             desc = (
-                <View style={[styles.purchasedListContainer]}>
-                    <TouchableOpacity  >
-                        <View style={styles.featureCardContainer}>
-                            <View style={styles.purchasedNameContainer}>
-                                <View>
-                                    <Text style={styles.dateOfPurchasedTextStyle}>Responsibitlity</Text>
-                                    <Text style={[styles.purchasedTextStyle, { width: SCREEN_WIDTH * 0.7 }]}>{rowData.responsibitlity}</Text>
+                <View style={styles.descriptionContainer}>
+                    {
+                        rowData.days.map((item, index) => {
+                            return (
+                                <View style={styles.itemContainer}>
+                                    <TouchableOpacity style={styles.dayStyle}>
+                                        <Text style={[styles.textDescription]}>{item.day}</Text>
+                                    </TouchableOpacity>
+                                    {
+                                        index == 3 ?
+                                            null
+                                            :
+                                            <View style={{ marginLeft: 18, }}>
+                                                <Icon.AntDesign name={"right"} size={20} color={"#9B9B9B"} />
+                                            </View>
+                                    }
                                 </View>
-                                <TouchableOpacity style={{}}>
-                                    <Image source={require('../../assets/images/diet.png')} style={{ height: 20, width: 20 }} resizeMode='contain' />
-                                </TouchableOpacity>
-                            </View>
-                            <View style={styles.purchasedNameContainer}>
-                                <View>
-                                    <Text style={styles.dateOfPurchasedTextStyle}>Experience</Text>
-                                    <Text style={styles.purchasedTextStyle}>{parseInt(moment(rowData.end_year).format("YYYY")) - parseInt(moment(rowData.start_year).format("YYYY"))} years</Text>
-                                </View>
-                            </View>
-                            <View style={styles.purchasedNameContainer}>
-                                <View>
-                                    <Text style={styles.dateOfPurchasedTextStyle}>Period</Text>
-                                    <Text style={[styles.purchasedTextStyle, { width: SCREEN_WIDTH * 0.7 }]}>{moment(rowData.start_year).format("DD MMM, YYYY")} - {moment(rowData.end_year).format("DD MMM, YYYY")} </Text>
-                                </View>
-                                <TouchableOpacity style={{ alignSelf: 'flex-end', alignItems: 'center' }}>
-                                    <Image source={require('../../assets/images/diet.png')} style={{ height: 20, width: 20 }} resizeMode='contain' />
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                    </TouchableOpacity>
+                            )
+                        })
+                    }
+                    <View style={{ marginLeft: 12.5, }}>
+                        <Cup />
+                    </View>
                 </View>
             )
+
         return (
-            <View style={{ flex: 1 }}>
+            <View style={{ flex: 1, }}>
                 {title}
-                <View style={{ padding: 0 }}>
-                    {desc}
-                </View>
+                {desc}
             </View>
         )
     }
@@ -152,29 +194,40 @@ export default class DietScreen extends Component {
                 var data = this.state.data.concat(
                     [
                         {
-                            jobName: 'Security Guard',
-                            responsibitlity: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-                            experience: '6 Months',
-                            period: '6 dec, 2020 - 12 jun , 2021',
+                            time: '09:00',
+                            title: 'Archery Training',
+                            description: 'The Beginner Archery and Beginner Crossbow course does not require you to bring any equipment, since everything you need will be provided for the course. ',
+                            lineColor: '#009688',
+                            icon: <Active />,
+                            imageUrl: 'https://cloud.githubusercontent.com/assets/21040043/24240340/c0f96b3a-0fe3-11e7-8964-fe66e4d9be7a.jpg'
                         },
                         {
-                            jobName: 'Security Guard',
-                            responsibitlity: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-                            experience: '6 Months',
-                            period: '6 dec, 2020 - 12 jun , 2021',
+                            time: '10:45',
+                            title: 'Play Badminton',
+                            description: 'Badminton is a racquet sport played using racquets to hit a shuttlecock across a net.',
+                            icon: <Inactive />,
+                            imageUrl: 'https://cloud.githubusercontent.com/assets/21040043/24240405/0ba41234-0fe4-11e7-919b-c3f88ced349c.jpg'
                         },
                         {
-                            jobName: 'Security Guard',
-                            responsibitlity: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-                            experience: '6 Months',
-                            period: '6 dec, 2020 - 12 jun , 2021',
+                            time: '12:00',
+                            title: 'Lunch',
+                            icon: <Inactive />,
                         },
                         {
-                            jobName: 'Security Guard',
-                            responsibitlity: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-                            experience: '6 Months',
-                            period: '6 dec, 2020 - 12 jun , 2021',
+                            time: '14:00',
+                            title: 'Watch Soccer',
+                            description: 'Team sport played between two teams of eleven players with a spherical ball. ',
+                            lineColor: '#009688',
+                            icon: <Inactive />,
+                            imageUrl: 'https://cloud.githubusercontent.com/assets/21040043/24240419/1f553dee-0fe4-11e7-8638-6025682232b1.jpg'
                         },
+                        {
+                            time: '16:30',
+                            title: 'Go to Fitness center',
+                            description: 'Look out for the Best Gym & Fitness Centers around me :)',
+                            icon: <Inactive />,
+                            imageUrl: 'https://cloud.githubusercontent.com/assets/21040043/24240422/20d84f6c-0fe4-11e7-8f1d-9dbc594d0cfa.jpg'
+                        }
                     ]
                 )
                 this.setState({
@@ -207,26 +260,28 @@ export default class DietScreen extends Component {
                             data={this.state.data}
                             circleSize={20}
                             circleColor='rgb(255, 200, 0)'
-                            lineColor='grey'
-                            options={{
-                                style: { paddingTop: 5 }
-                            }}
-                            timeContainerStyle={{ minWidth: 52, marginTop: -15 }}
+                            lineColor={themeStyle.DASH_DARK}
+                            circleStyle={{ marginTop: 0 }}
+                            listViewContainerStyle={{ paddingTop: 10 }}
+                            timeContainerStyle={{ minWidth: 52, marginTop: 15 }}
+                            timeStyle={{ textAlign: 'center', backgroundColor: '#ff9797', color: 'white', padding: 5, borderRadius: 13 }}
+                            descriptionStyle={{ color: 'gray' }}
                             options={{
                                 style: { paddingTop: 5 },
                                 refreshControl: (
                                     <RefreshControl
                                         refreshing={this.state.isRefreshing}
                                         onRefresh={this.onRefresh} />),
-                                // renderFooter: this.renderFooter,
+                                renderFooter: this.renderFooter,
                                 // onEndReached: this.onEndReached
                             }}
-                            renderCircle={() => { }}
-                            innerCircle={'dot'}
                             showTime={false}
-                            renderDetail={(navigation) => this.renderDetail(navigation)} />
-                    </View>
 
+                            innerCircle={'icon'}
+                            onEventPress={this.onEventPress}
+                            renderDetail={this.renderDetail}
+                        />
+                    </View>
                 </ScrollView>
                 <DietModal visible={this.state.dietModal} onValue={(e) => this.setState({ value: e })} value={this.state.value} onSkip={() => this.setState({ dietModal: false })} />
             </Container>
