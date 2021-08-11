@@ -9,7 +9,9 @@ export default StyleSheet.create({
     headingTextStyle: {
         fontSize: 22,
         fontWeight: "bold",
-        color: "#1F2729", textAlign: "center"
+        textTransform: "uppercase",
+        color: "#1F2729",
+        textAlign: "center"
     },
     targetContainer: {
         alignItems: "center"
@@ -33,9 +35,7 @@ export default StyleSheet.create({
         borderRadius: 100,
     },
     buttonContainer: {
-        // flex:0.3,
-        // marginTop: "10%",
-        marginHorizontal: "10%",
+        marginHorizontal: "20%",
         justifyContent: "flex-end"
     },
     decsTextStyle: {

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, StatusBar } from 'react-native';
 import CircularProgress from 'react-native-circular-progress-indicator';
 
-import {  ClearButton, ColorContainer } from '../../components';
+import { ClearButton, ColorContainer } from '../../components';
 import { route, screen } from '../../lib/utils/constants';
 import Tick from '../../assets/svg/Tick.svg';
 
@@ -51,7 +51,13 @@ class CreatingPlan extends Component {
 
                 </View>
                 <View style={styles.buttonContainer}>
-                    <ClearButton disabled={!value} title={value ? 'FINISHED' : 'PLEASE WAIT...'} onPress={() => replace(route.MAIN)} />
+                    {
+                        !value ?
+                            <Text style={styles.headingTextStyle}>{'please Wait...'}</Text>
+                            :
+                            <ClearButton title={'FINISHED'} onPress={() => replace(route.MAIN)} />
+                    }
+
                 </View>
             </ColorContainer>
 

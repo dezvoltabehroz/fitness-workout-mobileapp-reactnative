@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, ImageBackground, StatusBar } from 'react-native';
 
-import { Button, CheckBox, Container } from '../../components';
+import { Button, CheckBox, ClearButton, Container } from '../../components';
 import { route, screen } from '../../lib/utils/constants';
 
 import HeaderView from './components/headerView';
@@ -142,7 +142,7 @@ class AppIntro extends Component {
                                     </>}
                         </ImageBackground>
                         <View style={styles.buttonContainer}>
-                            <Button title={'DONE'} onPress={() => navigate(route.CREATINGPLAN)} />
+                            <ClearButton title={'DONE'} onPress={() => navigate(route.CREATINGPLAN)} />
                         </View>
                     </View>
                 </ImageBackground>

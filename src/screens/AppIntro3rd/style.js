@@ -18,9 +18,8 @@ export default StyleSheet.create({
         alignItems: "center"
     },
     buttonContainer: {
-        // flex:0.3,
         marginTop: "5%",
-        marginHorizontal: "10%",
+        marginHorizontal: "20%",
         justifyContent: "flex-end"
     },
     selectedButtonStyle: {
@@ -66,7 +65,6 @@ export default StyleSheet.create({
     },
     dashContainer: {
         flex: 1,
-        // paddingTop: Platform.OS == 'ios' ? '10%' : '5%',
         alignItems: "center",
         flexDirection: "row",
         justifyContent: "center"

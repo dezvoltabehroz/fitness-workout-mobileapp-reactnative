@@ -15,13 +15,10 @@ export default StyleSheet.create({
         alignItems: "center"
     },
     headingContainer: {
-        // marginVertical: "5%",
         alignItems: "center"
     },
     buttonContainer: {
-        // marginBottom: "5%",
-        marginHorizontal: "10%",
-        // justifyContent: "flex-end"
+        marginHorizontal: "20%",
     },
     shoulderContainer: {
         position: "absolute",
@@ -73,10 +70,10 @@ export default StyleSheet.create({
         position: "absolute",
         borderBottomWidth: 2,
         borderColor: THEME.DASH_DARK,
-        width: 70,
+        width: 80,
         borderRightWidth: 2,
         height: 20,
-        left: "65%",
+        left: "60%",
         top: "70%"
     },
     legStyle: {
@@ -88,31 +85,31 @@ export default StyleSheet.create({
         position: "absolute",
         borderTopWidth: 2,
         borderColor: THEME.DASH_DARK,
-        width: 90,
-        borderRightWidth: 2,
+        width: 70,
+        borderLeftWidth: 2,
         height: 20,
-        left: "60%",
-        top: "48%"
+        left: "6%",
+        top: "50%"
     },
     waistStyle: {
         position: "absolute",
         top: "70%",
-        left: '65%'
+        right: '55%'
     },
     backContainer: {
         position: "absolute",
-        borderBottomWidth: 2,
+        borderTopWidth: 2,
         borderColor: THEME.DASH_DARK,
-        width: 90,
-        borderLeftWidth: 2,
+        width: 80,
+        borderRightWidth: 2,
         height: 20,
-        // left: "10%",
-        top: "52%"
+        left: "64%",
+        top: "45%"
     },
     backStyle: {
         position: "absolute",
-        bottom: "80%",
-        left: '-45%'
+        top: "70%",
+        left: '60%'
     },
     gluteContainer: {
         position: "absolute",
@@ -154,7 +151,6 @@ export default StyleSheet.create({
         height: SCREEN_HEIGHT
     },
     imageStyle: {
-        // marginBottom:100 ,
         width: SCREEN_WIDTH * 0.6,
         height: SCREEN_HEIGHT * 0.55,
         alignSelf: "center",
@@ -179,24 +175,24 @@ export default StyleSheet.create({
     },
     armContainer1: {
         position: "absolute",
-        borderBottomWidth: 2,
+        borderTopWidth: 2,
         borderColor: THEME.DASH_DARK,
-        width: 80,
+        width: 90,
         borderLeftWidth: 2,
-        height: 30,
-        right: "50%",
-        top: "47%"
+        height: 20,
+        right: "40%",
+        top: "50%"
     },
     armStyle1: {
         position: "absolute",
-        bottom: "80%",
-        right: '60%'
+        top: "70%",
+        right: '65%'
     },
     chestContainer1: {
         position: "absolute",
         borderBottomWidth: 2,
         borderColor: THEME.DASH_DARK,
-        width: 50,
+        width: 80,
         borderLeftWidth: 2,
         height: 30,
         right: "47%",
@@ -205,7 +201,7 @@ export default StyleSheet.create({
     chestStyle1: {
         position: "absolute",
         bottom: "80%",
-        right: '40%'
+        right: '60%'
     },
     gluteContainer1: {
         position: "absolute",
@@ -224,21 +220,6 @@ export default StyleSheet.create({
     },
     backContainer1: {
         position: "absolute",
-        borderTopWidth: 2,
-        borderColor: THEME.DASH_DARK,
-        width: 60,
-        borderRightWidth: 2,
-        height: 20,
-        left: "80%",
-        top: "55%"
-    },
-    backStyle1: {
-        position: "absolute",
-        top: "70%",
-        left: '50%'
-    },
-    waistContainer1: {
-        position: "absolute",
         borderBottomWidth: 2,
         borderColor: THEME.DASH_DARK,
         width: 60,
@@ -247,10 +228,25 @@ export default StyleSheet.create({
         left: "85%",
         top: "45%"
     },
-    waistStyle1: {
+    backStyle1: {
         position: "absolute",
         bottom: "80%",
         left: '45%'
+    },
+    waistContainer1: {
+        position: "absolute",
+        borderTopWidth: 2,
+        borderColor: THEME.DASH_DARK,
+        width: 60,
+        borderRightWidth: 2,
+        height: 20,
+        left: "80%",
+        top: "55%"
+    },
+    waistStyle1: {
+        position: "absolute",
+        top: "70%",
+        left: '50%'
     },
     legContainer1: {
         position: "absolute",
