@@ -29,16 +29,17 @@ function HomeRoutes() {
                 headerTintColor: THEME.COLOR_WHITE,
                 headerTitleStyle: styles.headerTextStyle,
             })} />
-            <Stack.Screen name={route.DAYS_WORLOUT} component={DaysWorkout} options={({ navigation, route }) => ({
+            {/* <Stack.Screen name={route.DAYS_WORLOUT} component={DaysWorkout} options={({ navigation, route }) => ({
                 headerLeft: () => (<HeaderLeft navigation={navigation} color />),
                 headerTitle: () => (<HeaderWhiteLogo />),
                 headerStyle: styles.headerStyle1,
                 headerTitleAlign: screen.SCREEN_TITLE_ALIGN_CENTER,
                 headerTintColor: THEME.COLOR_WHITE,
                 headerTitleStyle: styles.headerTextStyle,
-            })} />
-            <Stack.Screen name={route.POWEROFMINDAUDIO} component={PowerOfMindAudio} options={({ navigation, route }) => ({
+            })} /> 
+             <Stack.Screen name={route.POWEROFMINDAUDIO} component={PowerOfMindAudio} options={({ navigation, route }) => ({
                 headerLeft: () => (<HeaderLeft navigation={navigation} color />),
+                tabBarVisible: false,
                 headerTitle: screen.POWER_OF_MIND,
                 headerStyle: styles.headerStyle1,
                 headerTintColor: THEME.COLOR_WHITE,
@@ -66,7 +67,7 @@ function HomeRoutes() {
                 headerStyle: styles.headerStyle1,
                 headerTintColor: THEME.COLOR_WHITE,
                 headerTitleStyle: styles.headerTextStyle,
-            })} />
+            })} /> */}
         </Stack.Navigator>
     );
 }

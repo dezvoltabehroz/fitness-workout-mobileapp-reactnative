@@ -60,7 +60,7 @@ class Home extends Component {
                             </View>
                         </View>
                     </View>
-                    <ScrollView contentContainerStyle={{ paddingBottom: 90 }}>
+                    <ScrollView contentContainerStyle={{ marginBottom: 0 }}>
 
                         <View style={styles.headingContainer1}>
                             <View style={styles.planContainer}>
@@ -112,7 +112,7 @@ class Home extends Component {
                                 <Button title={'GO!'} onPress={() => navigate(route.DAYS_WORLOUT)} />
                             </View>
                         </ImageBackground>
-                        <View style={{ bottom: "5%" }}>
+                        <View style={{ bottom: '3%' }}>
                             <Text style={[styles.whiteTextStyle, { color: THEME.COLOR_BLACK, margin: '5%' }]}>CHALLENGES</Text>
                             <HorizontalList data={data} />
                         </View>
@@ -122,7 +122,7 @@ class Home extends Component {
                                 <Button title={'GO!'} onPress={() => navigate(route.DIET)} />
                             </View>
                         </ImageBackground>
-                        <TouchableOpacity style={{ bottom: "5%" }} onPress={() => navigate(route.POWER_OF_MIND)} >
+                        <TouchableOpacity style={{}} onPress={() => navigate(route.POWER_OF_MIND)} >
                             <ImageBackground source={require('../../assets/images/mind.png')} style={styles.cardContainer1}>
                                 <View>
                                     <Text style={styles.whiteTextStyle1}>POWER OF THE MIND</Text>

@@ -43,7 +43,9 @@ class AppIntro extends Component {
                         <Text style={[styles.decsTextStyle, { textAlign: "center" }]}>{screen.APP_INTRO_DESCRIPTION_4}</Text>
                     </View>
                     <View style={styles.rowContainer1}>
-                        <TouchableOpacity onPress={() => this.setState({ male: true, female: false })} >
+                        <TouchableOpacity onPress={() => this.setState({ male: true, female: false }, () => setTimeout(() => {
+                            navigate(route.APPINTRO5th, { gender: 'male' })
+                        }, 500))} >
                             <View>
                                 {
                                     male
@@ -55,7 +57,9 @@ class AppIntro extends Component {
                             </View>
                             <Text style={{ textAlign: "center", color: male ? themeStyle.BAR_COLOR : themeStyle.PRIMARY_TEXT_COLOR }}>Male</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => this.setState({ male: false, female: true })}>
+                        <TouchableOpacity onPress={() => this.setState({ male: false, female: true }, () => setTimeout(() => {
+                            navigate(route.APPINTRO5th, { gender: 'female' })
+                        }, 500))}>
                             <View>
                                 {
                                     female ?
@@ -68,9 +72,9 @@ class AppIntro extends Component {
                         </TouchableOpacity>
                     </View>
                 </View>
-                <View style={styles.buttonContainer}>
+                {/* <View style={styles.buttonContainer}>
                     <ClearButton title={screen.NEXT} disabled={male || female ? false : true} onPress={() => navigate(route.APPINTRO5th, { gender: male ? 'male' : 'female' })} />
-                </View>
+                </View> */}
             </ColorContainer>
         )
     }

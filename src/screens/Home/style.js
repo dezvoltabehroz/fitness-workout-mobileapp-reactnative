@@ -88,7 +88,6 @@ export default StyleSheet.create({
     goButtonContainer: {
         marginTop: "10%",
         width: SCREEN_WIDTH * 0.3,
-
     },
     rowStyle: {
         flexDirection: "row",
@@ -122,23 +121,21 @@ export default StyleSheet.create({
         // marginHorizontal: 5
     },
     cardContainer: {
-        bottom: "5%",
-        margin: "5%",
+        // margin: "5%",
         borderRadius: 25,
         padding: 30,
         justifyContent: "space-evenly",
-        height: SCREEN_HEIGHT * 0.275,
-        width: SCREEN_WIDTH * 0.9
+        height: SCREEN_HEIGHT * 0.25,
+        width: SCREEN_WIDTH * 1
     },
     cardContainer1: {
-        bottom: "10%",
         // backgroundColor: THEME.DASH_LIGHT,
         margin: "5%",
         borderRadius: 25,
         paddingHorizontal: 30,
         justifyContent: "center",
-        height: SCREEN_HEIGHT * 0.25,
-        width: SCREEN_WIDTH * 0.9,
+        height: SCREEN_HEIGHT * 0.255,
+        width: SCREEN_WIDTH * 0.91,
     },
     starContainer: {
         position: "absolute", top: '-2%', left: '10%'

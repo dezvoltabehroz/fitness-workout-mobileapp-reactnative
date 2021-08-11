@@ -92,7 +92,7 @@ class PowerOfMindAudio extends Component {
                         <View style={styles.boxView}>
                             <Text> </Text>
                         </View>
-                        <Image source={require('../../assets/images/rob.jpg')} style={styles.imageStyle} />
+                        <Image resizeMode="contain" source={require('../../assets/images/you.png')} style={styles.imageStyle} />
                         <View style={styles.textContainer}>
                             <Text style={styles.textStyle1}>Weight Loss</Text>
                             <Text style={styles.textStyle}>Maroon 5</Text>

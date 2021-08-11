@@ -34,14 +34,11 @@ function MainRoutes(props) {
         )
     };
 
+
     return (
         <Bottom.Navigator
             screenOptions={({ route }) => ({
                 headerShown: false,
-                tabBarStyle: {
-                    // height: 60,
-                    borderTopWidth: 0,
-                },
                 tabBarIcon: ({ focused, color, size }) => {
                     let icon;
                     if (route.name === 'Home') {
@@ -95,36 +92,15 @@ function MainRoutes(props) {
                     }
                     return icon;
                 },
+
+
             })}
             tabBarOptions={{
                 showLabel: false,
                 activeTintColor: THEME.BAR_COLOR,
                 inactiveTintColor: '#9B9B9B',
             }}>
-            <Bottom.Screen name={route.HOME} component={HomeRoutes} options={({ navigation }) => {
-
-                //    let routeName = navigation.state[navigation.state.index].routeName
-
-                //    if ( routeName == 'ProductDetails' ) {
-                //        tabBarVisible = false
-                //    }
-
-                //    return {
-                //        tabBarVisible,
-                //    }
-                const { routes, index } = navigation.getState();
-                const { state: exploreState } = routes[index];
-
-                let tabBarVisible = true;
-                if (exploreState != undefined) {
-                    const { routes: exploreRoutes, index: exploreIndex } = exploreState;
-                    const exploreActiveRoute = exploreRoutes[exploreIndex];
-                    if (exploreActiveRoute.name === route.DAYSWORKOUTVIDEOS) { tabBarVisible = false };
-                }
-                return {
-                        tabBarVisible: false
-                };
-            }} />
+            <Bottom.Screen name={route.HOME} component={HomeRoutes} />
             <Bottom.Screen name={route.DIET} component={DietRoutes} />
             <Bottom.Screen name={route.PROGRESS} component={CreatePlaceholder} />
             <Bottom.Screen name={route.SETTING} component={SettingRoutes} />
