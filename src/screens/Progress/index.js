@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, StatusBar, ScrollView, ImageBackground, Image } from 'react-native';
+import { View, Text, TouchableOpacity, StatusBar, ScrollView, ImageBackground, Image, Platform } from 'react-native';
 import { LineChart } from "react-native-chart-kit";
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 
@@ -58,13 +58,12 @@ class Progress extends Component {
                 path: 'images',
             },
         };
-        launchCamera(options, response => {
+        launchCamera(options, (response) => {
             if (response.didCancel) {
             } else {
                 let source = response;
-                console.log(source.assets[0].uri)
                 this.setState({
-                    avatar: source.assets[0].uri,
+                    avatar: Platform.OS == 'ios' ? source : source.assets[0].uri,
                     profile_Url: response
                 });
             }
