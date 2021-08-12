@@ -3,7 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { View, Text, StyleSheet } from 'react-native';
 
 import { route, screen } from '../lib/utils/constants';
-import { AuthLoading, PaymentMethod, DaysWorkout, DaysWorkoutVideos, DayWorkoutVideoPlayer, PowerOfMindAudio } from '../screens';
+import { AuthLoading, PaymentMethod, DaysWorkout, DaysWorkoutVideos, DayWorkoutVideoPlayer, PowerOfMindAudio, DietPlan } from '../screens';
 import IntroRoutes from './Intro';
 import MainRoutes from './Main';
 import { HeaderLeft } from '../components';
@@ -68,6 +68,13 @@ function AppRoutes() {
             <Stack.Screen name={route.PAYMENTMETHOD} component={PaymentMethod} options={({ navigation, route }) => ({
                 headerLeft: () => (<HeaderLeft navigation={navigation} color />),
                 headerTitle: screen.PAYMENTMETHOD,
+                headerStyle: styles.headerStyle1,
+                headerTintColor: THEME.COLOR_WHITE,
+                headerTitleStyle: styles.headerTextStyle,
+            })} />
+            <Stack.Screen name={route.DIETPLAN} component={DietPlan} options={({ navigation, route }) => ({
+                headerLeft: () => (<HeaderLeft navigation={navigation} color />),
+                headerTitle: screen.DIETPLAN,
                 headerStyle: styles.headerStyle1,
                 headerTintColor: THEME.COLOR_WHITE,
                 headerTitleStyle: styles.headerTextStyle,

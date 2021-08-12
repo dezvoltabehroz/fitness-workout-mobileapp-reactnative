@@ -38,10 +38,13 @@ const screen = {
     CREATINGPLAN_HEADING: 'CREATING YOUR PERSONALIZED PLAN',
     CREATINGPLAN_DESCRIPTION: 'Calculating and analyzing your...',
     NEXT: "NEXT",
+    EDIT: 'EDIT',
+    SEEMORE: 'SEE MORE',
     POWER_OF_MIND: "Power Of Mind",
     SETTINGS: "SETTINGS",
     MY_PROFILE: "My Profile",
-    PAYMENTMETHOD:"Payment Method"
+    PAYMENTMETHOD: "Payment Method",
+    DIETPLAN: 'Diet Plan',
 
 };
 const Fonts = {
@@ -64,6 +67,7 @@ const route = {
     HOMESCREEN: 'HomeScreen',
     DIET: 'Diet',
     PROGRESS: 'Progress',
+    PROGRESSSCREEN: "ProgressScreen",
     SETTING: 'Setting',
     SETTINGS: 'Settings',
     POWER_OF_MIND: "PowerOfMind",
@@ -71,9 +75,10 @@ const route = {
     DIETSCREEN: "DietScreen",
     POWEROFMINDAUDIO: "PowerOfMindAudio",
     DAYSWORKOUTVIDEOS: "DaysWorkoutVideos",
-    DAYSWORKOUTVIDEOPLAYER:"DayWorkoutVideo",
-    PROFILE:"Profile",
-    PAYMENTMETHOD:"PaymentMethod"
+    DAYSWORKOUTVIDEOPLAYER: "DayWorkoutVideo",
+    PROFILE: "Profile",
+    PAYMENTMETHOD: "PaymentMethod",
+    DIETPLAN: 'DietPlan'
 
 }
 const TOKEN = "token";
