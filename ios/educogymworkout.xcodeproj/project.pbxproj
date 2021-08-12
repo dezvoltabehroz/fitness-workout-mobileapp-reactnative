@@ -12,8 +12,8 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		150387F426C57D980078166C /* Educogym_Logo_2018_fin_blue2@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 150387F326C57D980078166C /* Educogym_Logo_2018_fin_blue2@3x.png */; };
 		157EB46026C3006200CA6799 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 157EB45F26C3006200CA6799 /* File.swift */; };
-		157EB46326C301FB00CA6799 /* Educogym_Logo_2018_fin_blue2@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 157EB46226C301FB00CA6799 /* Educogym_Logo_2018_fin_blue2@3x.png */; };
 		1F1106116F684EF4A1BFE320 /* Roboto-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 019C6ACF63D04011BA9D3D79 /* Roboto-BoldItalic.ttf */; };
 		2EC1CD7D87C148F3BA584FA5 /* Roboto-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 261202FFCA464424B7D49547 /* Roboto-MediumItalic.ttf */; };
 		329412EE6526748DBCC70FAB /* libPods-educogymworkout-educogymworkoutTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ABA11857823670F66B85D308 /* libPods-educogymworkout-educogymworkoutTests.a */; };
@@ -53,9 +53,9 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = educogymworkout/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = educogymworkout/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = educogymworkout/main.m; sourceTree = "<group>"; };
+		150387F326C57D980078166C /* Educogym_Logo_2018_fin_blue2@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Educogym_Logo_2018_fin_blue2@3x.png"; path = "../../../Downloads/Educogym_Logo_2018_fin_blue2/Educogym_Logo_2018_fin_blue2@3x.png"; sourceTree = "<group>"; };
 		157EB45E26C3006200CA6799 /* educogymworkout-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "educogymworkout-Bridging-Header.h"; sourceTree = "<group>"; };
 		157EB45F26C3006200CA6799 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
-		157EB46226C301FB00CA6799 /* Educogym_Logo_2018_fin_blue2@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Educogym_Logo_2018_fin_blue2@3x.png"; path = "../../../Downloads/Educogym_Logo_2018_fin_blue2/Educogym_Logo_2018_fin_blue2@3x.png"; sourceTree = "<group>"; };
 		1A8C5FF1E61546E8A03953FB /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		1D02786B2F675D9F2EF36BAB /* Pods-educogymworkout.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-educogymworkout.release.xcconfig"; path = "Target Support Files/Pods-educogymworkout/Pods-educogymworkout.release.xcconfig"; sourceTree = "<group>"; };
 		23008B13EBF1405CA1F4A2EC /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
@@ -131,7 +131,7 @@
 		13B07FAE1A68108700A75B9A /* educogymworkout */ = {
 			isa = PBXGroup;
 			children = (
-				157EB46226C301FB00CA6799 /* Educogym_Logo_2018_fin_blue2@3x.png */,
+				150387F326C57D980078166C /* Educogym_Logo_2018_fin_blue2@3x.png */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -338,7 +338,7 @@
 				58F7C3FDF663487197768872 /* Roboto-Medium.ttf in Resources */,
 				2EC1CD7D87C148F3BA584FA5 /* Roboto-MediumItalic.ttf in Resources */,
 				AD87BD502C234C0B9F460DE4 /* Roboto-Regular.ttf in Resources */,
-				157EB46326C301FB00CA6799 /* Educogym_Logo_2018_fin_blue2@3x.png in Resources */,
+				150387F426C57D980078166C /* Educogym_Logo_2018_fin_blue2@3x.png in Resources */,
 				F6B7230BD1914E69A2C17F45 /* Roboto-Thin.ttf in Resources */,
 				D14834E154DD4D40B178D1AF /* Roboto-ThinItalic.ttf in Resources */,
 			);
