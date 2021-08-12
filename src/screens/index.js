@@ -53,3 +53,9 @@ export const MyProfile = _MyProfile;
 
 import _PaymentMethod from './PaymentMethod';
 export const PaymentMethod = _PaymentMethod;
+
+import _Progress from './Progress';
+export const Progress = _Progress;
+
+import _DietPlan from './DietPlan';
+export const DietPlan = _DietPlan;
