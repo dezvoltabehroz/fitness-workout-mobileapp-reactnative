@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, StatusBar, ScrollView, ImageBackground } from 'react-native';
 import ProgressBarAnimated from 'react-native-progress-bar-animated';
 
-import { Button, Container, HorizontalList } from '../../components';
+import { Button, Container, HorizontalList, UpgradeModal } from '../../components';
 import { route, screen, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../lib/utils/constants';
 import GFire from '../../assets/svg/gray-fire.svg';
 import WFire from '../../assets/svg/white-fire.svg';
@@ -55,9 +55,9 @@ class Home extends Component {
                     <View style={styles.headingContainer}>
                         <View style={styles.rowContainer}>
                             <Text style={styles.whiteTextStyle}>YOUR PERSONALIZED PLAN</Text>
-                            <View>
+                            <TouchableOpacity onPress={() => this.setState({ modal: true })}>
                                 <Target />
-                            </View>
+                            </TouchableOpacity>
                         </View>
                     </View>
                     <ScrollView contentContainerStyle={{ marginBottom: 0 }}>
@@ -135,6 +135,7 @@ class Home extends Component {
                         </TouchableOpacity>
                     </ScrollView>
                 </View>
+                <UpgradeModal visible={this.state.modal} onUpgrade={() => this.props.navigation.navigate(route.PAYMENTMETHOD,{})} onClose={() => this.setState({ modal: false })} />
             </Container>
         )
     }

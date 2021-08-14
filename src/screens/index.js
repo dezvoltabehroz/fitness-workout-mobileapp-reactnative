@@ -59,3 +59,9 @@ export const Progress = _Progress;
 
 import _DietPlan from './DietPlan';
 export const DietPlan = _DietPlan;
+
+import _DietPlanDetails from './DietPlanDetails';
+export const DietPlanDetails = _DietPlanDetails
+
+import _CompleteProfile from './CompleteProfile';
+export const CompleteProfile = _CompleteProfile
