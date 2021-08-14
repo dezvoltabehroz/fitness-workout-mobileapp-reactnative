@@ -46,5 +46,26 @@ export default StyleSheet.create({
     },
     dayStyle: {
         height: 40, width: 40, justifyContent: "center", alignItems: "center", borderWidth: 1, borderRadius: 20, borderColor: '#9B9B9B'
-    }
+    },
+    headingText: {
+        fontSize: 16,
+        fontFamily: themeStyle.FONT_MEDIUM,
+        marginHorizontal: 10,
+        color: '#091011'
+    },
+    textStyle: {
+        color: '#797B7B',
+        fontSize: 12,
+        fontFamily: themeStyle.FONT_REGULAR,
+        marginHorizontal: 10,
+    },
+    cardContainer: {
+        backgroundColor: themeStyle.COLOR_WHITE,
+        borderRadius: 13,
+        elevation: 5,
+        padding: "5%",
+        
+        marginHorizontal: "5%",
+        marginTop: "5%"
+    },
 })

@@ -2,16 +2,17 @@ import React, { Component } from "react";
 import { ScrollView, View, Text, TouchableOpacity, RefreshControl, Image } from "react-native";
 import Timeline from 'react-native-timeline-flatlist';
 import moment from 'moment';
-
-import { Container, DietModal, HorizontalList, Icon } from '../../components';
+import Modal from 'react-native-modal'
+import { Button, Container, DietModal, HorizontalList, Icon } from '../../components';
 import More from '../../assets/svg/more.svg';
 
 import Active from '../../assets/svg/Diet-active-icon.svg';
 import Inactive from '../../assets/svg/Diet-Deactive-icon.svg';
 import Cup from '../../assets/svg/cup.svg';
+import Trophy from '../../assets/svg/trophy.svg';
 
 import styles from './style';
-import { SCREEN_WIDTH } from "../../lib/utils/constants";
+import { route, SCREEN_WIDTH } from "../../lib/utils/constants";
 import themeStyle from "../../assets/styles/theme.style";
 
 export default class DietScreen extends Component {
@@ -68,7 +69,8 @@ export default class DietScreen extends Component {
             loading: true,
             value: "",
             dietModal: true,
-
+            modal: false,
+            completed: false,
             data1: [
                 {
                     title: "Diet Video Name",
@@ -138,7 +140,7 @@ export default class DietScreen extends Component {
         }, 2000);
     }
 
-    renderDetail(rowData, sectionID, rowID) {
+    renderDetail = (rowData, sectionID, rowID) => {
         let title = <View style={styles.titleContainer}>
             <View style={styles.titleStyle}>
                 <Text style={styles.title}>{rowData.title}</Text>
@@ -155,7 +157,7 @@ export default class DietScreen extends Component {
                         rowData.days.map((item, index) => {
                             return (
                                 <View style={styles.itemContainer}>
-                                    <TouchableOpacity style={styles.dayStyle}>
+                                    <TouchableOpacity onPress={() => this.props.navigation.navigate(route.DIETPLANDETAILS)} style={styles.dayStyle}>
                                         <Text style={[styles.textDescription]}>{item.day}</Text>
                                     </TouchableOpacity>
                                     {
@@ -170,9 +172,15 @@ export default class DietScreen extends Component {
                             )
                         })
                     }
-                    <View style={{ marginLeft: 12.5, }}>
-                        <Cup />
-                    </View>
+                    <TouchableOpacity onPress={() => this.setState({ modal: true })} style={{ marginLeft: 12.5, }}>
+                        {
+                            this.state.completed ?
+                                <Trophy />
+                                :
+                                <Cup />
+                        }
+
+                    </TouchableOpacity>
                 </View>
             )
 
@@ -283,6 +291,20 @@ export default class DietScreen extends Component {
                         />
                     </View>
                 </ScrollView>
+                <Modal isVisible={this.state.modal}>
+                    <View style={styles.cardContainer}>
+                        <View style={{ alignItems: "center" }}>
+                            <Trophy fill={'#FFD31D'} />
+                            <Text style={styles.headingText}>Congrats!</Text>
+                            <Text style={styles.textStyle}>You just completed your 1st week</Text>
+                        </View>
+
+                        <View style={{ marginHorizontal: "15%", marginVertical: "5%" }}>
+                            <Button title={'Continue'} onPress={() => this.setState({ modal: false, completed: true })} />
+                        </View>
+                    </View>
+
+                </Modal>
                 <DietModal visible={this.state.dietModal} onValue={(e) => this.setState({ value: e })} value={this.state.value} onSkip={() => this.setState({ dietModal: false })} />
             </Container>
         )

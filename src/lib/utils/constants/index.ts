@@ -45,6 +45,7 @@ const screen = {
     MY_PROFILE: "My Profile",
     PAYMENTMETHOD: "Payment Method",
     DIETPLAN: 'Diet Plan',
+    COMPLETEPROFILE:"Complete your profile"
 
 };
 const Fonts = {
@@ -78,7 +79,10 @@ const route = {
     DAYSWORKOUTVIDEOPLAYER: "DayWorkoutVideo",
     PROFILE: "Profile",
     PAYMENTMETHOD: "PaymentMethod",
-    DIETPLAN: 'DietPlan'
+    DIETPLAN: 'DietPlan',
+    DIETPLANDETAILS: 'DietPlanDetails',
+    COMPLETEPROFILE: "CompleteProfile"
+
 
 }
 const TOKEN = "token";
