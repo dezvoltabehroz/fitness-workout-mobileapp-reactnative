@@ -61,7 +61,7 @@ export default class PaymentMethod extends Component {
                 </View>
                 <Modal isVisible={this.state.modal}>
                     <View style={styles.cardContainer}>
-                        <View style={{ alignItems: "center" }}>
+                        <View style={{ marginTop:"5%", alignItems: "center" }}>
                             <Trophy fill={'#FFD31D'} />
                             <Text style={styles.headingText}>Complete Profile</Text>
                             <Text style={styles.textStyle}>Lorem ipsum dolor</Text>

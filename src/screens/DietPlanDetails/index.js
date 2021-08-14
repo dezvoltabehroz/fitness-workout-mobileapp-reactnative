@@ -103,7 +103,7 @@ export default class DietPlanDetails extends Component {
                 <TouchableOpacity onPress={() => this.setState({ finished: true })} style={{ position: "absolute", top: '85%', left: "78%" }}>
                     <Tick />
                 </TouchableOpacity>
-                <Modal isVisible={this.state.finished} style={{ alignItems: "center" }}>
+                <Modal isVisible={this.state.finished} style={{ marginTop: "5%", alignItems: "center" }}>
                     <View style={styles.cardContainer}>
                         <TouchableOpacity onPress={() => this.setState({ finished: false })} >
                             <Tick />

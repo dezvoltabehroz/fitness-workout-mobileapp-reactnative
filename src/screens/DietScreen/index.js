@@ -293,7 +293,7 @@ export default class DietScreen extends Component {
                 </ScrollView>
                 <Modal isVisible={this.state.modal}>
                     <View style={styles.cardContainer}>
-                        <View style={{ alignItems: "center" }}>
+                        <View style={{ marginTop:"5%", alignItems: "center" }}>
                             <Trophy fill={'#FFD31D'} />
                             <Text style={styles.headingText}>Congrats!</Text>
                             <Text style={styles.textStyle}>You just completed your 1st week</Text>
