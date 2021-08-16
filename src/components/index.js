@@ -50,3 +50,7 @@ export const ClearButton = _clearButton;
 
 import _ColorButton from './Button/ColorButton';
 export const ColorButton = _ColorButton;
+
+
+import _NameModal from './Modals/NameModal';
+export const NameModal = _NameModal;

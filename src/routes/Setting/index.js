@@ -3,7 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { View, Text, StyleSheet } from 'react-native';
 
 import { route, screen } from '../../lib/utils/constants';
-import { DaysWorkout, DaysWorkoutVideos, DayWorkoutVideoPlayer, Home, MyProfile, PaymentMethod, PowerOfMind, PowerOfMindAudio, Settings } from '../../screens';
+import { DaysWorkout, DaysWorkoutVideos, DayWorkoutVideoPlayer, EditProfile, Home, MyProfile, PaymentMethod, PowerOfMind, PowerOfMindAudio, Settings } from '../../screens';
 import LogoWhite from '../../assets/svg/white-logo.svg'
 import styles from '../style';
 import THEME from '../../assets/styles/theme.style';
@@ -29,6 +29,13 @@ function SettingRoutes() {
                 headerLeft: () => (<HeaderLeft navigation={navigation} color />),
                 headerRight: () => (<HeaderRight navigation={navigation} color edit />),
                 headerTitle: screen.MY_PROFILE,
+                headerStyle: styles.headerStyle1,
+                headerTintColor: THEME.COLOR_WHITE,
+                headerTitleStyle: styles.headerTextStyle1,
+            })} />
+              <Stack.Screen name={route.EDITPROFILE} component={EditProfile} options={({ navigation, route }) => ({
+                headerLeft: () => (<HeaderLeft navigation={navigation} color />),
+                headerTitle: screen.EDIT_PROFILE,
                 headerStyle: styles.headerStyle1,
                 headerTintColor: THEME.COLOR_WHITE,
                 headerTitleStyle: styles.headerTextStyle1,

@@ -24,13 +24,8 @@ export default StyleSheet.create({
         marginTop: "5%"
     },
     row: {
-        margin: '5%',
         flexDirection: "row",
-        justifyContent: "center"
-    },
-    rowStyle: {
-        flexDirection: "row",
-        justifyContent: "center"
+        alignItems: "center"
     },
     rowMeasureContainer: {
         flexDirection: "row",
