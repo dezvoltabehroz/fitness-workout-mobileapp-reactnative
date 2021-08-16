@@ -5,7 +5,7 @@ import { initStripe, useStripe, CardField } from '@stripe/stripe-react-native';
 import Modal from 'react-native-modal';
 
 import { Button, ColorButton, Container } from '../../components';
-import Trophy from '../../assets/svg/trophy.svg'
+import Run from '../../assets/svg/run.svg'
 import { route, SCREEN_WIDTH } from '../../lib/utils/constants';
 
 import styles from './style';
@@ -62,7 +62,7 @@ export default class PaymentMethod extends Component {
                 <Modal isVisible={this.state.modal}>
                     <View style={styles.cardContainer}>
                         <View style={{ marginTop:"5%", alignItems: "center" }}>
-                            <Trophy fill={'#FFD31D'} />
+                            <Run/>
                             <Text style={styles.headingText}>Complete Profile</Text>
                             <Text style={styles.textStyle}>Lorem ipsum dolor</Text>
                         </View>
