@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import themeStyle from "../../assets/styles/theme.style";
-import { Button, Container, Icon, NameModal } from "../../components";
+import { Button, Container, DateModal, Icon, NameModal } from "../../components";
 
 import Plus from '../../assets/svg/plus.svg'
 import DOB from '../../assets/svg/DOB.svg'
@@ -18,6 +18,7 @@ import Tummy from '../../assets/svg/tummy.svg'
 import Waist from '../../assets/svg/waist.svg'
 
 import styles from './style';
+import moment from "moment";
 
 export default class CompleteProfile extends Component {
     constructor(props) {
@@ -25,12 +26,15 @@ export default class CompleteProfile extends Component {
         this.state = {
             tab: 0,
             nameModal: false,
-            name: ''
+            dateModal: false,
+            name: '',
+            date: new Date(),
+            dateValue:""
         }
     }
 
     render() {
-        const { tab, name } = this.state
+        const { tab, name, date,dateValue } = this.state
         return (
             <Container>
 
@@ -54,10 +58,10 @@ export default class CompleteProfile extends Component {
                     <View style={styles.rowMeasureContainer}>
                         <View style={styles.row}>
                             <DOB />
-                            <Text style={styles.grayText}>Date of Month</Text>
+                            <Text style={styles.grayText}>{dateValue?dateValue:"Date of Month"}Date of Month</Text>
                         </View>
 
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.setState({ dateModal: true })}>
                             <Plus />
                         </TouchableOpacity>
                     </View>
@@ -86,6 +90,7 @@ export default class CompleteProfile extends Component {
                     </View>
                 </View>
                 <NameModal visible={this.state.nameModal} onChangeText={(name) => this.setState({ name: name })} onClose={() => this.setState({ nameModal: false })} onSave={() => this.setState({ nameModal: false })} />
+                <DateModal date={date} visible={this.state.dateModal} setDate={(name) => this.setState({ date: name })} onClose={() => this.setState({ dateModal: false })} onSave={() => this.setState({ dateModal: false, dateValue: moment(this.state.date).format('llll') })} />
             </Container>
         )
     }

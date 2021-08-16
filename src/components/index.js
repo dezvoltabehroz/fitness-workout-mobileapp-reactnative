@@ -54,3 +54,6 @@ export const ColorButton = _ColorButton;
 
 import _NameModal from './Modals/NameModal';
 export const NameModal = _NameModal;
+
+import _DateModal from './Modals/DateModal';
+export const DateModal = _DateModal;
