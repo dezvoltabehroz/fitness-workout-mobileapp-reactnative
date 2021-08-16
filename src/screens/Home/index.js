@@ -135,7 +135,7 @@ class Home extends Component {
                         </TouchableOpacity>
                     </ScrollView>
                 </View>
-                <UpgradeModal visible={this.state.modal} onUpgrade={() => this.props.navigation.navigate(route.PAYMENTMETHOD,{})} onClose={() => this.setState({ modal: false })} />
+                <UpgradeModal visible={this.state.modal} onUpgrade={() => this.props.navigation.navigate(route.PAYMENTMETHOD,{})} onSkip={() => this.setState({ modal: false })} />
             </Container>
         )
     }

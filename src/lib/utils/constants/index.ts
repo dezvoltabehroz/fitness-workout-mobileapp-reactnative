@@ -43,9 +43,12 @@ const screen = {
     POWER_OF_MIND: "Power Of Mind",
     SETTINGS: "SETTINGS",
     MY_PROFILE: "My Profile",
+    EDIT_PROFILE: "Edit Profile",
     PAYMENTMETHOD: "Payment Method",
     DIETPLAN: 'Diet Plan',
-    COMPLETEPROFILE:"Complete your profile"
+    COMPLETEPROFILE: "Complete your profile",
+    PROGRESS_PICS: 'Your Progress Pics',
+
 
 };
 const Fonts = {
@@ -64,6 +67,7 @@ const route = {
     AUTH_LOADING: "AuthLoading",
     APPINTRO: "AppIntro",
     MAIN: "Main",
+    LOGIN: "Login",
     HOME: 'Home',
     HOMESCREEN: 'HomeScreen',
     DIET: 'Diet',
@@ -81,8 +85,9 @@ const route = {
     PAYMENTMETHOD: "PaymentMethod",
     DIETPLAN: 'DietPlan',
     DIETPLANDETAILS: 'DietPlanDetails',
-    COMPLETEPROFILE: "CompleteProfile"
-
+    COMPLETEPROFILE: "CompleteProfile",
+    EDITPROFILE: "EditProfile",
+    PROGRESSPICS: "ProgressPics"
 
 }
 const TOKEN = "token";

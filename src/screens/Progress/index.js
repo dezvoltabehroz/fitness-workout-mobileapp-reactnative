@@ -254,7 +254,7 @@ class Progress extends Component {
                         <View style={styles.bmiContainer}>
                             <View style={styles.rowContainer}>
                                 <Text style={styles.blackheading}>PROGRESS PICS</Text>
-                                <TouchableOpacity>
+                                <TouchableOpacity onPress={() => this.props.navigation.navigate(route.PROGRESSPICS)}>
                                     <Text style={styles.colorText}>{screen.SEEMORE}</Text>
                                 </TouchableOpacity>
                             </View>

@@ -65,3 +65,13 @@ export const DietPlanDetails = _DietPlanDetails
 
 import _CompleteProfile from './CompleteProfile';
 export const CompleteProfile = _CompleteProfile
+
+import _EditProfile from './EditProfile';
+export const EditProfile = _EditProfile
+
+
+import _ProgressPics from './ProgressPics';
+export const ProgressPics = _ProgressPics
+
+import _Login from './Login';
+export const Login = _Login

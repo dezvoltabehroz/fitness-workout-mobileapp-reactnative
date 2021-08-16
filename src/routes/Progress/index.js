@@ -17,7 +17,7 @@ function ProgressRoutes() {
             <View><LogoWhite /></View>
         )
     }
-  
+
     return (
         <Stack.Navigator initialRouteName={route.PROGRESSSCREEN} >
             <Stack.Screen name={route.PROGRESSSCREEN} component={Progress} options={{
