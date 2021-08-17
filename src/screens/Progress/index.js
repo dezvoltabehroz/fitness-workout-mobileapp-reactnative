@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, StatusBar, ScrollView, ImageBackground, I
 import { LineChart } from "react-native-chart-kit";
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 
-import { Button, Container, HorizontalList } from '../../components';
+import { Button, Container, HorizontalList, UpgradeModal } from '../../components';
 import { route, screen, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../lib/utils/constants';
 import GFire from '../../assets/svg/gray-fire.svg';
 import Camera from '../../assets/svg/camera.svg';
@@ -24,6 +24,7 @@ class Progress extends Component {
         super(props);
         this.state = {
             timer: false,
+            modal: false,
             value: 0,
             data: [
                 {
@@ -45,7 +46,7 @@ class Progress extends Component {
 
     headerRight = () => {
         return (
-            <TouchableOpacity style={{ marginRight: 0 }} onPress={() => { this.setState({ dietModal: !this.state.dietModal }) }} ><Target /></TouchableOpacity>
+            <TouchableOpacity style={{ marginRight: 0 }} onPress={() => { this.setState({ modal: !this.state.modal }) }} ><Target /></TouchableOpacity>
         )
     }
 
@@ -273,6 +274,7 @@ class Progress extends Component {
                         </View>
                     </ScrollView>
                 </View>
+                <UpgradeModal visible={this.state.modal} onUpgrade={() => this.props.navigation.navigate(route.PAYMENTMETHOD, {})} onSkip={() => this.setState({ modal: false })} />
             </Container>
         )
     }

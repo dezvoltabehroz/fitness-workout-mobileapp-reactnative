@@ -10,6 +10,7 @@ import Active from '../../assets/svg/Diet-active-icon.svg';
 import Inactive from '../../assets/svg/Diet-Deactive-icon.svg';
 import Cup from '../../assets/svg/cup.svg';
 import Trophy from '../../assets/svg/trophy.svg';
+import BigCup from '../../assets/svg/img.svg';
 
 import styles from './style';
 import { route, SCREEN_WIDTH } from "../../lib/utils/constants";
@@ -294,7 +295,7 @@ export default class DietScreen extends Component {
                 <Modal isVisible={this.state.modal}>
                     <View style={styles.cardContainer}>
                         <View style={{ marginTop:"5%", alignItems: "center" }}>
-                            <Trophy fill={'#FFD31D'} />
+                            <BigCup  />
                             <Text style={styles.headingText}>Congrats!</Text>
                             <Text style={styles.textStyle}>You just completed your 1st week</Text>
                         </View>
