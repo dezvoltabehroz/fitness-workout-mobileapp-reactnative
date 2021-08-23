@@ -60,6 +60,7 @@ export default StyleSheet.create({
         backgroundColor: '#00000059'
     },
     itemContainer: {
+        elevation: 5,
         backgroundColor: THEME.COLOR_WHITE,
         borderRadius: 10,
         marginHorizontal: "2.5%",
@@ -77,6 +78,13 @@ export default StyleSheet.create({
     },
     row: {
         flexDirection: "row",
+        alignItems: "center"
+    },
+    rowContainer1: {
+        flex: 1,
+        // marginVertical: "2%",
+        flexDirection: "row",
+        justifyContent: "space-between",
         alignItems: "center"
     },
     rowContainer: {

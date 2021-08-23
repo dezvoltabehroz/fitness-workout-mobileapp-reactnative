@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { ScrollView, View, Text, TouchableOpacity, RefreshControl, Image } from "react-native";
+import { ScrollView, View, Text, TouchableOpacity, RefreshControl, Image, Platform, UIManager, LayoutAnimation } from "react-native";
 import Timeline from 'react-native-timeline-flatlist';
 import moment from 'moment';
 import Modal from 'react-native-modal'
@@ -11,6 +11,7 @@ import Inactive from '../../assets/svg/Diet-Deactive-icon.svg';
 import Cup from '../../assets/svg/cup.svg';
 import Trophy from '../../assets/svg/trophy.svg';
 import BigCup from '../../assets/svg/img.svg';
+import Mark from '../../assets/svg/mark.svg';
 
 import styles from './style';
 import { route, SCREEN_WIDTH } from "../../lib/utils/constants";
@@ -19,49 +20,51 @@ import themeStyle from "../../assets/styles/theme.style";
 export default class DietScreen extends Component {
     constructor(props) {
         super(props);
-        this.onEndReached = this.onEndReached.bind(this)
-        this.renderFooter = this.renderFooter.bind(this)
-        this.onRefresh = this.onRefresh.bind(this)
         this.days = [
             {
-                day: '1',
+                day: 'Mon',
                 completed: true
             },
             {
-                day: '2',
+                day: 'Tue',
                 completed: true
             },
             {
-                day: '3',
+                day: 'Wed',
                 completed: true
             },
             {
-                day: '4',
+                day: 'Thu',
                 completed: true
             },
             {
-                day: '5',
+                day: 'Fri',
                 completed: true
             },
             {
-                day: '6',
+                day: 'Sat',
                 completed: true
             },
             {
-                day: '7',
+                day: 'Sun',
                 completed: true
             }]
         this.days1 = [
             {
-                day: '1',
+                day: 'Mon',
                 completed: true
             },
             {
-                day: '2',
+                day: 'Tue',
                 completed: true
             },
         ]
         this.state = {
+            weekOneexpanded: false,
+            week2ndexpanded: false,
+            week3rdexpanded: false,
+            week4thexpanded: false,
+            week5thexpanded: false,
             like: false,
             noOfPurchased: 28,
             selected: null,
@@ -79,41 +82,10 @@ export default class DietScreen extends Component {
                 {
                     title: "Body Warmups",
                 }
-            ],
-            data: [
-                {
-                    title: 'Week 1',
-                    days: this.days,
-                    current: true,
-                    description: 'The Beginner Archery and Beginner Crossbow course does not require you to bring any equipment, since everything you need will be provided for the course. ',
-                    icon: <Active />,
-                },
-                {
-                    title: 'Week 2',
-                    current: false,
-                    days: this.days,
-                    icon: <Inactive />,
-                },
-                {
-                    title: 'Week 3',
-                    current: false,
-                    days: this.days,
-                    icon: <Inactive />,
-                },
-                {
-                    title: 'Week 4',
-                    current: false,
-                    days: this.days,
-                    icon: <Inactive />,
-                },
-                {
-                    title: 'Week 5',
-                    current: false,
-                    days: this.days1,
-                    icon: <Inactive />,
-                }
             ]
-
+        }
+        if (Platform.OS === "android") {
+            UIManager.setLayoutAnimationEnabledExperimental(true);
         }
     }
 
@@ -129,142 +101,302 @@ export default class DietScreen extends Component {
         )
     }
 
-    onRefresh() {
-        this.setState({ isRefreshing: true });
-        //refresh to initial data
-        setTimeout(() => {
-            //refresh to initial data
-            this.setState({
-                data: this.state.data,
-                isRefreshing: false
-            });
-        }, 2000);
+    changeWeekOne = () => {
+        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+        this.setState({ weekOneexpanded: !this.state.weekOneexpanded });
     }
 
-    renderDetail = (rowData, sectionID, rowID) => {
-        let title = <View style={styles.titleContainer}>
-            <View style={styles.titleStyle}>
-                <Text style={styles.title}>{rowData.title}</Text>
-            </View>
-            <View style={styles.leftTitleStyle}>
-                <Text style={styles.title}>{rowData.current ? `${sectionID + 1}/4` : ""}</Text>
-            </View>
-        </View>
-        var desc = null
-        if (rowData.days)
-            desc = (
-                <View style={styles.descriptionContainer}>
-                    {
-                        rowData.days.map((item, index) => {
-                            return (
-                                <View style={styles.itemContainer}>
-                                    <TouchableOpacity onPress={() => this.props.navigation.navigate(route.DIETPLANDETAILS)} style={styles.dayStyle}>
-                                        <Text style={[styles.textDescription]}>{item.day}</Text>
-                                    </TouchableOpacity>
-                                    {
-                                        index == 3 ?
-                                            null
-                                            :
-                                            <View style={{ marginLeft: 18, }}>
-                                                <Icon.AntDesign name={"right"} size={20} color={"#9B9B9B"} />
-                                            </View>
-                                    }
-                                </View>
-                            )
-                        })
-                    }
-                    <TouchableOpacity onPress={() => this.setState({ modal: true })} style={{ marginLeft: 12.5, }}>
-                        {
-                            this.state.completed ?
-                                <Trophy />
-                                :
-                                <Cup />
-                        }
-
-                    </TouchableOpacity>
-                </View>
-            )
-
-        return (
-            <View style={{ flex: 1, }}>
-                {title}
-                {desc}
-            </View>
-        )
+    changeWeek2nd = () => {
+        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+        this.setState({ week2ndexpanded: !this.state.week2ndexpanded });
     }
-
-    // After scroll reach at then fecth data and load it 
-    onEndReached() {
-        if (!this.state.waiting) {
-            this.setState({ waiting: true });
-            //fetch and concat data
-            setTimeout(() => {
-                // refresh to initial data
-                var data = this.state.data.concat(
-                    [
-                        {
-                            time: '09:00',
-                            title: 'Archery Training',
-                            description: 'The Beginner Archery and Beginner Crossbow course does not require you to bring any equipment, since everything you need will be provided for the course. ',
-                            lineColor: '#009688',
-                            icon: <Active />,
-                            imageUrl: 'https://cloud.githubusercontent.com/assets/21040043/24240340/c0f96b3a-0fe3-11e7-8964-fe66e4d9be7a.jpg'
-                        },
-                        {
-                            time: '10:45',
-                            title: 'Play Badminton',
-                            description: 'Badminton is a racquet sport played using racquets to hit a shuttlecock across a net.',
-                            icon: <Inactive />,
-                            imageUrl: 'https://cloud.githubusercontent.com/assets/21040043/24240405/0ba41234-0fe4-11e7-919b-c3f88ced349c.jpg'
-                        },
-                        {
-                            time: '12:00',
-                            title: 'Lunch',
-                            icon: <Inactive />,
-                        },
-                        {
-                            time: '14:00',
-                            title: 'Watch Soccer',
-                            description: 'Team sport played between two teams of eleven players with a spherical ball. ',
-                            lineColor: '#009688',
-                            icon: <Inactive />,
-                            imageUrl: 'https://cloud.githubusercontent.com/assets/21040043/24240419/1f553dee-0fe4-11e7-8638-6025682232b1.jpg'
-                        },
-                        {
-                            time: '16:30',
-                            title: 'Go to Fitness center',
-                            description: 'Look out for the Best Gym & Fitness Centers around me :)',
-                            icon: <Inactive />,
-                            imageUrl: 'https://cloud.githubusercontent.com/assets/21040043/24240422/20d84f6c-0fe4-11e7-8f1d-9dbc594d0cfa.jpg'
-                        }
-                    ]
-                )
-                this.setState({
-                    waiting: false,
-                    data: data,
-                });
-            }, 2000);
-        }
+    changeWeek3rd = () => {
+        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+        this.setState({ week3rdexpanded: !this.state.week3rdexpanded });
     }
-
-    renderFooter() {
-        if (this.state.waiting) {
-            return <ActivityIndicator />;
-        } else {
-            return <Text>~</Text>;
-        }
+    changeWeek4th = () => {
+        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+        this.setState({ week4thexpanded: !this.state.week4thexpanded });
     }
-
+    changeWeek5th = () => {
+        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+        this.setState({ week5thexpanded: !this.state.week5thexpanded });
+    }
 
 
     render() {
         return (
-            <Container>
+            <Container color>
                 <ScrollView contentContainerStyle={{ paddingVertical: "5%" }}>
                     <HorizontalList data={this.state.data1} video />
 
                     <View>
-                        <Timeline
+                        <View style={styles.week1Style}>
+                            <View style={styles.itemContainer} >
+                                <TouchableOpacity onPress={() => this.changeWeekOne()} style={styles.textContainer}>
+                                    <View style={styles.rowContainer}>
+                                        <View style={[styles.row, { flex: 1 }]}>
+                                            {this.state.weekOneexpanded ? <Active /> : <Inactive />}
+                                            <Text style={this.state.weekOneexpanded ? { ...styles.colorText, marginLeft: 5 } : { ...styles.greyText, marginLeft: 5 }}>{'Week 1'}</Text>
+                                        </View>
+                                        <View style={{ flex: 0.2, alignItems: "center" }} >
+                                            <View style={{ top: -27 }}>
+                                                <Mark />
+                                            </View>
+                                            <View style={{ top: -15 }}>
+                                                <Icon.SimpleLineIcons name="lock" size={20} color={'gray'} />
+                                            </View>
+                                        </View>
+                                    </View>
+                                </TouchableOpacity>
+                                {this.state.weekOneexpanded ?
+                                    <View style={styles.descriptionContainer}>
+                                        {
+                                            this.days.map((item, index) => {
+                                                return (
+                                                    <View style={styles.itemContainer1}>
+                                                        <TouchableOpacity onPress={() => this.props.navigation.navigate(route.DIETPLANDETAILS)} style={styles.dayStyle}>
+                                                            <Text style={[styles.textDescription]}>{item.day}</Text>
+                                                        </TouchableOpacity>
+                                                        {
+                                                            index == 3 ?
+                                                                null
+                                                                :
+                                                                <View style={{ marginLeft: 10, }}>
+                                                                    <Icon.AntDesign name={"right"} size={20} color={"#9B9B9B"} />
+                                                                </View>
+                                                        }
+                                                    </View>
+                                                )
+                                            })
+                                        }
+                                        <TouchableOpacity onPress={() => this.setState({ modal: true })} style={{ marginLeft: 12.5, }}>
+                                            {
+                                                this.state.completed ?
+                                                    <Trophy />
+                                                    :
+                                                    <Cup />
+                                            }
+                                        </TouchableOpacity>
+                                    </View>
+                                    :
+                                    null
+                                }
+                            </View>
+                        </View>
+                        <View style={styles.week1Style}>
+                            <View style={styles.itemContainer} >
+                                <TouchableOpacity onPress={() => this.changeWeek2nd()} style={styles.textContainer}>
+                                    <View style={styles.rowContainer}>
+                                        <View style={[styles.row, { flex: 1 }]}>
+                                            {this.state.week2ndexpanded ? <Active /> : <Inactive />}
+                                            <Text style={this.state.week2ndexpanded ? { ...styles.colorText, marginLeft: 5 } : { ...styles.greyText, marginLeft: 5 }}>{'Week 2'}</Text>
+                                        </View>
+                                        <View style={{ flex: 0.2, alignItems: "center" }} >
+                                            <View style={{ top: -27 }}>
+                                                <Mark />
+                                            </View>
+                                            <View style={{ top: -15 }}>
+                                                <Icon.SimpleLineIcons name="lock" size={20} color={'gray'} />
+                                            </View>
+                                        </View>
+                                    </View>
+                                </TouchableOpacity>
+                                {this.state.week2ndexpanded ?
+                                    <View style={styles.descriptionContainer}>
+                                        {
+                                            this.days.map((item, index) => {
+                                                return (
+                                                    <View style={styles.itemContainer1}>
+                                                        <TouchableOpacity onPress={() => this.props.navigation.navigate(route.DIETPLANDETAILS)} style={styles.dayStyle}>
+                                                            <Text style={[styles.textDescription]}>{item.day}</Text>
+                                                        </TouchableOpacity>
+                                                        {
+                                                            index == 3 ?
+                                                                null
+                                                                :
+                                                                <View style={{ marginLeft: 10, }}>
+                                                                    <Icon.AntDesign name={"right"} size={20} color={"#9B9B9B"} />
+                                                                </View>
+                                                        }
+                                                    </View>
+                                                )
+                                            })
+                                        }
+                                        <TouchableOpacity onPress={() => this.setState({ modal: true })} style={{ marginLeft: 12.5, }}>
+                                            {
+                                                this.state.completed ?
+                                                    <Trophy />
+                                                    :
+                                                    <Cup />
+                                            }
+                                        </TouchableOpacity>
+                                    </View>
+                                    :
+                                    null
+                                }
+                            </View>
+                        </View>
+                        <View style={styles.week1Style}>
+                            <View style={styles.itemContainer} >
+                                <TouchableOpacity onPress={() => this.changeWeek3rd()} style={styles.textContainer}>
+                                    <View style={styles.rowContainer}>
+                                        <View style={[styles.row, { flex: 1 }]}>
+                                            {this.state.week3rdexpanded ? <Active /> : <Inactive />}
+                                            <Text style={this.state.week3rdexpanded ? { ...styles.colorText, marginLeft: 5 } : { ...styles.greyText, marginLeft: 5 }}>{'Week 3'}</Text>
+                                        </View>
+                                        <View style={{ flex: 0.2, alignItems: "center" }} >
+                                            <View style={{ top: -27 }}>
+                                                <Mark />
+                                            </View>
+                                            <View style={{ top: -15 }}>
+                                                <Icon.SimpleLineIcons name="lock" size={20} color={'gray'} />
+                                            </View>
+                                        </View>
+                                    </View>
+                                </TouchableOpacity>
+                                {this.state.week3rdexpanded ?
+                                    <View style={styles.descriptionContainer}>
+                                        {
+                                            this.days.map((item, index) => {
+                                                return (
+                                                    <View style={styles.itemContainer1}>
+                                                        <TouchableOpacity onPress={() => this.props.navigation.navigate(route.DIETPLANDETAILS)} style={styles.dayStyle}>
+                                                            <Text style={[styles.textDescription]}>{item.day}</Text>
+                                                        </TouchableOpacity>
+                                                        {
+                                                            index == 3 ?
+                                                                null
+                                                                :
+                                                                <View style={{ marginLeft: 10, }}>
+                                                                    <Icon.AntDesign name={"right"} size={20} color={"#9B9B9B"} />
+                                                                </View>
+                                                        }
+                                                    </View>
+                                                )
+                                            })
+                                        }
+                                        <TouchableOpacity onPress={() => this.setState({ modal: true })} style={{ marginLeft: 12.5, }}>
+                                            {
+                                                this.state.completed ?
+                                                    <Trophy />
+                                                    :
+                                                    <Cup />
+                                            }
+                                        </TouchableOpacity>
+                                    </View>
+                                    :
+                                    null
+                                }
+                            </View>
+                        </View>
+                        <View style={styles.week1Style}>
+                            <View style={styles.itemContainer} >
+                                <TouchableOpacity onPress={() => this.changeWeek4th()} style={styles.textContainer}>
+                                    <View style={styles.rowContainer}>
+                                        <View style={[styles.row, { flex: 1 }]}>
+                                            {this.state.week4thexpanded ? <Active /> : <Inactive />}
+                                            <Text style={this.state.week4thexpanded ? { ...styles.colorText, marginLeft: 5 } : { ...styles.greyText, marginLeft: 5 }}>{'Week 4'}</Text>
+                                        </View>
+                                        <View style={{ flex: 0.2, alignItems: "center" }} >
+                                            <View style={{ top: -27 }}>
+                                                <Mark />
+                                            </View>
+                                            <View style={{ top: -15 }}>
+                                                <Icon.SimpleLineIcons name="lock" size={20} color={'gray'} />
+                                            </View>
+                                        </View>
+                                    </View>
+                                </TouchableOpacity>
+                                {this.state.week4thexpanded ?
+                                    <View style={styles.descriptionContainer}>
+                                        {
+                                            this.days.map((item, index) => {
+                                                return (
+                                                    <View style={styles.itemContainer1}>
+                                                        <TouchableOpacity onPress={() => this.props.navigation.navigate(route.DIETPLANDETAILS)} style={styles.dayStyle}>
+                                                            <Text style={[styles.textDescription]}>{item.day}</Text>
+                                                        </TouchableOpacity>
+                                                        {
+                                                            index == 3 ?
+                                                                null
+                                                                :
+                                                                <View style={{ marginLeft: 10, }}>
+                                                                    <Icon.AntDesign name={"right"} size={20} color={"#9B9B9B"} />
+                                                                </View>
+                                                        }
+                                                    </View>
+                                                )
+                                            })
+                                        }
+                                        <TouchableOpacity onPress={() => this.setState({ modal: true })} style={{ marginLeft: 12.5, }}>
+                                            {
+                                                this.state.completed ?
+                                                    <Trophy />
+                                                    :
+                                                    <Cup />
+                                            }
+                                        </TouchableOpacity>
+                                    </View>
+                                    :
+                                    null
+                                }
+                            </View>
+                        </View>
+                        <View style={styles.week1Style}>
+                            <View style={styles.itemContainer} >
+                                <TouchableOpacity onPress={() => this.changeWeek5th()} style={styles.textContainer}>
+                                    <View style={styles.rowContainer}>
+                                        <View style={[styles.row, { flex: 1 }]}>
+                                            {this.state.week5thexpanded ? <Active /> : <Inactive />}
+                                            <Text style={this.state.week5thexpanded ? { ...styles.colorText, marginLeft: 5 } : { ...styles.greyText, marginLeft: 5 }}>{'Week 5'}</Text>
+                                        </View>
+                                        <View style={{ flex: 0.2, alignItems: "center" }} >
+                                            <View style={{ top: -27 }}>
+                                                <Mark />
+                                            </View>
+                                            <View style={{ top: -15 }}>
+                                                <Icon.SimpleLineIcons name="lock" size={20} color={'gray'} />
+                                            </View>
+                                        </View>
+                                    </View>
+                                </TouchableOpacity>
+                                {this.state.week5thexpanded ?
+                                    <View style={styles.descriptionContainer}>
+                                        {
+                                            this.days1.map((item, index) => {
+                                                return (
+                                                    <View style={styles.itemContainer1}>
+                                                        <TouchableOpacity onPress={() => this.props.navigation.navigate(route.DIETPLANDETAILS)} style={styles.dayStyle}>
+                                                            <Text style={[styles.textDescription]}>{item.day}</Text>
+                                                        </TouchableOpacity>
+                                                        {
+                                                            index == 3 ?
+                                                                null
+                                                                :
+                                                                <View style={{ marginLeft: 10, }}>
+                                                                    <Icon.AntDesign name={"right"} size={20} color={"#9B9B9B"} />
+                                                                </View>
+                                                        }
+                                                    </View>
+                                                )
+                                            })
+                                        }
+                                        <TouchableOpacity onPress={() => this.setState({ modal: true })} style={{ marginLeft: 12.5, }}>
+                                            {
+                                                this.state.completed ?
+                                                    <Trophy />
+                                                    :
+                                                    <Cup />
+                                            }
+                                        </TouchableOpacity>
+                                    </View>
+                                    :
+                                    null
+                                }
+                            </View>
+                        </View>
+                        {/* <Timeline
                             style={styles.list}
                             data={this.state.data}
                             circleSize={20}
@@ -289,13 +421,13 @@ export default class DietScreen extends Component {
                             innerCircle={'icon'}
                             onEventPress={this.onEventPress}
                             renderDetail={this.renderDetail}
-                        />
+                        /> */}
                     </View>
                 </ScrollView>
                 <Modal isVisible={this.state.modal}>
                     <View style={styles.cardContainer}>
-                        <View style={{ marginTop:"5%", alignItems: "center" }}>
-                            <BigCup  />
+                        <View style={{ marginTop: "5%", alignItems: "center" }}>
+                            <BigCup />
                             <Text style={styles.headingText}>Congrats!</Text>
                             <Text style={styles.textStyle}>You just completed your 1st week</Text>
                         </View>

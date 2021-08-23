@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, ScrollView, ImageBackground, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, ScrollView, ImageBackground, TouchableOpacity, UIManager, Platform, LayoutAnimation } from 'react-native';
 import ProgressBarAnimated from 'react-native-progress-bar-animated';
 import CircularProgress from 'react-native-circular-progress-indicator';
 
@@ -27,162 +27,111 @@ class PowerOfMind extends Component {
             data: [
                 {
                     day: "01",
-                    date: "2021-08-02"
+                    expanded: false,
+                    date: new Date(),
                 },
                 {
                     day: "02",
-                    date: "2021-08-02"
+                    expanded: false,
+                    date: "2021-08-02",
+                    locked: true
                 },
                 {
                     day: "03",
+                    expanded: false,
                     date: "2021-08-03",
+                    locked: true
                 },
                 {
                     day: "04",
-                    date: "2021-08-04"
+                    expanded: false,
+                    date: "2021-08-04",
+                    locked: true
                 },
                 {
                     day: "05",
-                    date: "2021-08-05"
-                },
-                {
-                    day: "06",
-                    date: "2021-08-06"
-                },
-                {
-                    day: "07",
-                    date: "2021-08-07"
-                },
-                {
-                    day: "08",
-                    date: "2021-08-08"
-                },
-                {
-                    day: "09",
-                    date: "2021-08-09"
-                },
-                {
-                    day: "10",
-                    date: "2021-08-10",
-                    locked: true,
-                },
-                {
-                    day: "11",
-                    date: "2021-08-11",
-                    locked: true,
-                },
-                {
-                    day: "12",
-                    locked: true,
-                    date: "2021-08-12"
-                },
-                {
-                    day: "13",
-                    locked: true,
-                    date: "2021-08-13"
-                },
-                {
-                    day: "14",
-                    locked: true,
-                    date: "2021-08-14"
-                },
-                {
-                    day: "15",
-                    locked: true,
-                    date: "2021-08-15"
-                },
-                {
-                    day: "16",
-                    locked: true,
-                    date: "2021-08-16"
-                },
-                {
-                    day: "17",
-                    locked: true,
-                    date: "2021-08-17"
-                },
-                {
-                    day: "18",
-                    locked: true,
-                    date: "2021-08-18"
-                },
-                {
-                    day: "19",
-                    locked: true,
-                    date: "2021-08-19"
-                },
-                {
-                    day: "20",
-                    locked: true,
-                    date: "2021-08-20"
-                },
-                {
-                    day: "21",
-                    locked: true,
-                    date: "2021-08-21"
-                },
-                {
-                    day: "22",
-                    locked: true,
-                    date: "2021-08-22"
-                },
-                {
-                    day: "23",
-                    locked: true,
-                    date: "2021-08-23"
-                },
-                {
-                    day: "24",
-                    locked: true,
-                    date: "2021-08-24"
-                },
-                {
-                    day: "25",
-                    locked: true,
-                    date: "2021-08-25"
-                },
-                {
-                    day: "26",
-                    locked: true,
-                    date: "2021-08-26"
-                },
-                {
-                    day: "27",
-                    locked: true,
-                    date: "2021-08-27"
-                },
-                {
-                    day: "28",
-                    locked: true,
-                    date: "2021-08-28"
-                },
-                {
-                    day: "29",
-                    locked: true,
-                    date: "2021-08-29"
-                },
-                {
-                    day: "30",
-                    locked: true,
-                    date: "2021-08-30"
+                    expanded: false,
+                    date: "2021-08-05",
+                    locked: true
                 },
             ],
             upgradeModal: false,
         }
+        this.days = [
+            {
+                day: 'Mon',
+                completed: true
+            },
+            {
+                day: 'Tue',
+                completed: true
+            },
+            {
+                day: 'Wed',
+                completed: true
+            },
+            {
+                day: 'Thu',
+                completed: true
+            },
+            {
+                day: 'Fri',
+                completed: true
+            },
+            {
+                day: 'Sat',
+                completed: true
+            },
+            {
+                day: 'Sun',
+                completed: true
+            }]
+        this.days1 = [
+            {
+                day: 'Mon',
+                completed: true
+            },
+            {
+                day: 'Tue',
+                completed: true
+            },
+        ];
+        if (Platform.OS === "android") {
+            UIManager.setLayoutAnimationEnabledExperimental(true);
+        }
+    }
+
+    changeLayout = (index) => {
+        let array = [...this.state.data];
+        if (array[index].expanded) {
+            array[index] = { ...array[index], expanded: false }
+        } else {
+            array[index] = { ...array[index], expanded: true }
+        }
+        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+        this.setState({ data: array });
     }
 
     _renderItem = ({ item, index }) => {
+        let array = index == 4 ? [...this.days1] : [...this.days]
         return (
-            <TouchableOpacity disabled={item.locked ? false : true} onPress={() => this.setState({ upgradeModal: true })} style={styles.itemContainer} >
-                <View style={styles.textContainer}>
-                    <Text style={styles.greyText}>{'Day'}</Text>
+            <View style={styles.itemContainer} >
+                <TouchableOpacity onPress={() => {
+                    if (item.locked) {
+                        this.setState({ upgradeModal: true })
+                    } else {
+                        this.changeLayout(index)
+                    }
+                }
+                } style={styles.textContainer}>
+                    <Text style={styles.greyText}>{'Week'}</Text>
                     <View style={styles.rowContainer}>
                         <View style={[styles.row, { flex: 1 }]}>
                             <Text style={styles.dayText}>{item.day}</Text>
                             <View style={{ flex: 1 }}>
                                 <View style={[styles.row, { marginLeft: 10 }]}>
-                                    <Fire />
-                                    <Text style={[styles.greyText, { marginLeft: 5 }]}>9 Min</Text>
+                                    <Icon.FontAwesome5 name="calendar-day" size={20} color={'gray'} />
+                                    <Text style={[styles.greyText, { marginLeft: 5 }]}>7 Days</Text>
                                 </View>
                                 <View style={{ marginLeft: 10, marginTop: 5 }}>
                                     <ProgressBarAnimated
@@ -227,29 +176,83 @@ class PowerOfMind extends Component {
                                     </View>
 
                             }
-                            {/* {
-                                moment(item.date).format('YYYY-MM-DD') != moment().format('YYYY-MM-DD') ?
-                                    <Icon.SimpleLineIcons name="lock" size={20} color={'gray'} />
-                                    :
-                                    null
-                            } */}
+
                         </View>
                     </View>
-                    {
-                        moment(item.date).format('YYYY-MM-DD') == moment().format('YYYY-MM-DD') ?
-                            <Button title={'GO'} onPress={() => this.props.navigation.navigate(route.DAYSWORKOUTVIDEOS)} />
-                            :
-                            null
-                    }
-                </View>
-            </TouchableOpacity>
+
+                </TouchableOpacity>
+                {item.expanded ?
+                    array.map((i, inde) => {
+                        return (
+                            <TouchableOpacity onPress={() => {
+                                if (item.locked) {
+                                    this.setState({ upgradeModal: true })
+                                } else {
+                                    this.props.navigation.navigate(route.DAYSWORKOUTVIDEOS)
+                                }
+                            }} style={styles.itemContainer} >
+                                <View style={styles.textContainer}>
+                                    <Text style={styles.greyText}>{'Day'}</Text>
+                                    <View style={styles.rowContainer1}>
+                                        <View style={[styles.row, { flex: 1 }]}>
+                                            <Text style={styles.dayText}>{i.day}</Text>
+                                            <View style={{ flex: 1 }}>
+                                                <View style={[styles.row, { marginLeft: 10 }]}>
+                                                    <Fire />
+                                                    <Text style={[styles.greyText, { marginLeft: 5 }]}>9 Min</Text>
+                                                </View>
+                                                <View style={{ marginLeft: 10, marginTop: 5 }}>
+                                                    <ProgressBarAnimated
+                                                        width={SCREEN_WIDTH * 0.15}
+                                                        height={5}
+                                                        value={20}
+                                                        {...progressCustomStyles}
+                                                        onComplete={() => { Alert.alert('Hey!', 'onComplete event fired!'); }}
+                                                    />
+                                                </View>
+
+                                            </View>
+                                        </View>
+                                        <View style={{ flex: 0.2, alignItems: "center" }} >
+
+                                            <CircularProgress
+                                                value={100}
+                                                duration={2000}
+                                                radius={30}
+                                                textColor={'#1F2729'}
+                                                textStyle={styles.textStyle}
+                                                activeStrokeWidth={1}
+                                                inActiveStrokeWidth={1}
+                                                activeStrokeColor={themeStyle.BAR_COLOR}
+                                                inActiveStrokeColor={'lightgray'}
+                                                inActiveStrokeOpacity={1}
+                                                valueSuffix={'%'}
+                                                onAnimationComplete={() => { this.setState({ value: true }) }}
+                                            />
+                                        </View>
+                                    </View>
+                                    {/* {
+                                            moment(item.date).format('YYYY-MM-DD') == moment().format('YYYY-MM-DD') ?
+                                                <Button title={'GO'} onPress={() => this.props.navigation.navigate(route.DAYSWORKOUTVIDEOS)} />
+                                                :
+                                                null
+                                        } */}
+                                </View>
+                            </TouchableOpacity>
+                        )
+                    })
+
+                    :
+                    null
+                }
+            </View>
         )
     }
 
     render() {
         const { navigation } = this.props;
         return (
-            <Container>
+            <Container color>
                 <View style={styles.container}>
                     <ScrollView>
                         <View style={styles.upperContainer}>
