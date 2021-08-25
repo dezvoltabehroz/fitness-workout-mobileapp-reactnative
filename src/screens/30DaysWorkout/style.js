@@ -61,12 +61,25 @@ export default StyleSheet.create({
     },
     itemContainer: {
         elevation: 5,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
         backgroundColor: THEME.COLOR_WHITE,
         borderRadius: 10,
         marginHorizontal: "2.5%",
         marginBottom: "2.5%",
     },
     textContainer: {
+        flexDirection: "column",
+        justifyContent: "space-between",
+        paddingHorizontal: "5%",
+        paddingTop: '5%'
+    },
+    textContainer1: {
         flexDirection: "column",
         justifyContent: "space-between",
         padding: "5%"
@@ -94,8 +107,14 @@ export default StyleSheet.create({
         justifyContent: "space-between",
         alignItems: "center"
     },
+
     dayText: {
         fontSize: 35,
+        color: "#091011",
+        fontFamily: THEME.FONT_BOLD
+    },
+    dayText1: {
+        fontSize: 22,
         color: "#091011",
         fontFamily: THEME.FONT_BOLD
     },

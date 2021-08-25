@@ -133,7 +133,7 @@ export default class DietScreen extends Component {
                     <View>
                         <View style={styles.week1Style}>
                             <View style={styles.itemContainer} >
-                                <TouchableOpacity onPress={() => this.changeWeekOne()} style={styles.textContainer}>
+                                <TouchableOpacity onPress={() => this.changeWeekOne()} style={[styles.textContainer, { paddingBottom: this.state.weekOneexpanded ? 0 : '5%' }]}>
                                     <View style={styles.rowContainer}>
                                         <View style={[styles.row, { flex: 1 }]}>
                                             {this.state.weekOneexpanded ? <Active /> : <Inactive />}
@@ -148,6 +148,7 @@ export default class DietScreen extends Component {
                                             </View>
                                         </View>
                                     </View>
+                                    {this.state.weekOneexpanded ? <View style={{ borderWidth: 0.5, marginVertical: "2.5%" }}></View> : null}
                                 </TouchableOpacity>
                                 {this.state.weekOneexpanded ?
                                     <View style={styles.descriptionContainer}>
@@ -186,7 +187,7 @@ export default class DietScreen extends Component {
                         </View>
                         <View style={styles.week1Style}>
                             <View style={styles.itemContainer} >
-                                <TouchableOpacity onPress={() => this.changeWeek2nd()} style={styles.textContainer}>
+                                <TouchableOpacity onPress={() => this.changeWeek2nd()} style={[styles.textContainer, { paddingBottom: this.state.week2ndexpanded ? 0 : '5%' }]}>
                                     <View style={styles.rowContainer}>
                                         <View style={[styles.row, { flex: 1 }]}>
                                             {this.state.week2ndexpanded ? <Active /> : <Inactive />}
@@ -201,6 +202,7 @@ export default class DietScreen extends Component {
                                             </View>
                                         </View>
                                     </View>
+                                    {this.state.week2ndexpanded ? <View style={{ borderWidth: 0.5, marginVertical: "2.5%" }}></View> : null}
                                 </TouchableOpacity>
                                 {this.state.week2ndexpanded ?
                                     <View style={styles.descriptionContainer}>
@@ -239,7 +241,7 @@ export default class DietScreen extends Component {
                         </View>
                         <View style={styles.week1Style}>
                             <View style={styles.itemContainer} >
-                                <TouchableOpacity onPress={() => this.changeWeek3rd()} style={styles.textContainer}>
+                                <TouchableOpacity onPress={() => this.changeWeek3rd()} style={[styles.textContainer, { paddingBottom: this.state.week3rdexpanded ? 0 : '5%' }]}>
                                     <View style={styles.rowContainer}>
                                         <View style={[styles.row, { flex: 1 }]}>
                                             {this.state.week3rdexpanded ? <Active /> : <Inactive />}
@@ -254,6 +256,7 @@ export default class DietScreen extends Component {
                                             </View>
                                         </View>
                                     </View>
+                                    {this.state.week3rdexpanded ? <View style={{ borderWidth: 0.5, marginVertical: "2.5%" }}></View> : null}
                                 </TouchableOpacity>
                                 {this.state.week3rdexpanded ?
                                     <View style={styles.descriptionContainer}>
@@ -292,7 +295,7 @@ export default class DietScreen extends Component {
                         </View>
                         <View style={styles.week1Style}>
                             <View style={styles.itemContainer} >
-                                <TouchableOpacity onPress={() => this.changeWeek4th()} style={styles.textContainer}>
+                                <TouchableOpacity onPress={() => this.changeWeek4th()} style={[styles.textContainer, { paddingBottom: this.state.week4thexpanded ? 0 : '5%' }]}>
                                     <View style={styles.rowContainer}>
                                         <View style={[styles.row, { flex: 1 }]}>
                                             {this.state.week4thexpanded ? <Active /> : <Inactive />}
@@ -307,6 +310,7 @@ export default class DietScreen extends Component {
                                             </View>
                                         </View>
                                     </View>
+                                    {this.state.week4thexpanded ? <View style={{ borderWidth: 0.5, marginBottom: "2.5%" }}></View> : null}
                                 </TouchableOpacity>
                                 {this.state.week4thexpanded ?
                                     <View style={styles.descriptionContainer}>
@@ -345,7 +349,7 @@ export default class DietScreen extends Component {
                         </View>
                         <View style={styles.week1Style}>
                             <View style={styles.itemContainer} >
-                                <TouchableOpacity onPress={() => this.changeWeek5th()} style={styles.textContainer}>
+                                <TouchableOpacity onPress={() => this.changeWeek5th()} style={[styles.textContainer, { paddingBottom: this.state.week5thexpanded ? 0 : '5%', }]}>
                                     <View style={styles.rowContainer}>
                                         <View style={[styles.row, { flex: 1 }]}>
                                             {this.state.week5thexpanded ? <Active /> : <Inactive />}
@@ -360,6 +364,7 @@ export default class DietScreen extends Component {
                                             </View>
                                         </View>
                                     </View>
+                                    {this.state.week5thexpanded ? <View style={{ borderWidth: 0.5, marginVertical: "2.5%" }}></View> : null}
                                 </TouchableOpacity>
                                 {this.state.week5thexpanded ?
                                     <View style={styles.descriptionContainer}>

@@ -8,7 +8,10 @@ import { route, SCREEN_WIDTH } from '../../lib/utils/constants';
 import { VerticalSpacer } from '../../lib/utils/global';
 import WFire from '../../assets/svg/white-fire.svg';
 import Fire from '../../assets/svg/stopwatch.svg';
+import Stopwatch from '../../assets/svg/stopwatchColor.svg';
 import Mark from '../../assets/svg/mark.svg';
+
+import Calender from '../../assets/svg/calendarColor.svg';
 
 import styles from './style';
 import themeStyle from '../../assets/styles/theme.style';
@@ -122,15 +125,14 @@ class PowerOfMind extends Component {
                     } else {
                         this.changeLayout(index)
                     }
-                }
-                } style={styles.textContainer}>
+                }} style={[styles.textContainer, { paddingBottom: item.expanded ? 0 : "5%" }]}>
                     <Text style={styles.greyText}>{'Week'}</Text>
                     <View style={styles.rowContainer}>
                         <View style={[styles.row, { flex: 1 }]}>
                             <Text style={styles.dayText}>{item.day}</Text>
                             <View style={{ flex: 1 }}>
                                 <View style={[styles.row, { marginLeft: 10 }]}>
-                                    <Icon.FontAwesome5 name="calendar-day" size={20} color={'gray'} />
+                                    <Calender />
                                     <Text style={[styles.greyText, { marginLeft: 5 }]}>7 Days</Text>
                                 </View>
                                 <View style={{ marginLeft: 10, marginTop: 5 }}>
@@ -142,7 +144,6 @@ class PowerOfMind extends Component {
                                         onComplete={() => { Alert.alert('Hey!', 'onComplete event fired!'); }}
                                     />
                                 </View>
-
                             </View>
                         </View>
                         <View style={{ flex: 0.2, alignItems: "center" }} >
@@ -191,14 +192,14 @@ class PowerOfMind extends Component {
                                     this.props.navigation.navigate(route.DAYSWORKOUTVIDEOS)
                                 }
                             }} style={styles.itemContainer} >
-                                <View style={styles.textContainer}>
+                                <View style={styles.textContainer1}>
                                     <Text style={styles.greyText}>{'Day'}</Text>
                                     <View style={styles.rowContainer1}>
                                         <View style={[styles.row, { flex: 1 }]}>
-                                            <Text style={styles.dayText}>{i.day}</Text>
+                                            <Text style={styles.dayText1}>{i.day}</Text>
                                             <View style={{ flex: 1 }}>
                                                 <View style={[styles.row, { marginLeft: 10 }]}>
-                                                    <Fire />
+                                                    <Stopwatch />
                                                     <Text style={[styles.greyText, { marginLeft: 5 }]}>9 Min</Text>
                                                 </View>
                                                 <View style={{ marginLeft: 10, marginTop: 5 }}>
