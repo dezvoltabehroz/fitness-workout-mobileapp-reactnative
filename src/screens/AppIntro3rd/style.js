@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import THEME from '../../assets/styles/theme.style';
+import { SCREEN_WIDTH } from '../../lib/utils/constants';
 export default StyleSheet.create({
     container: {
         flex: 0.9,
@@ -54,6 +55,7 @@ export default StyleSheet.create({
         fontWeight: "bold"
     },
     decsTextStyle: {
+        width: SCREEN_WIDTH * 0.7,
         fontSize: THEME.FONT_SIZE_SMALL,
         color: THEME.PRIMARY_TEXT_COLOR
     },

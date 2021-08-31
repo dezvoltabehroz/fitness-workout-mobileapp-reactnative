@@ -44,7 +44,7 @@ class AppIntro extends Component {
                     </View>
                     <View style={[styles.secondHeadingContainer, { flex: 0.1 }]} >
                         <Text style={styles.secondHeadingStyle}>
-                            OH, trust me, I'm really fit
+                            Oh, trust me, I'm really fit
                         </Text>
                     </View>
                     <View style={{ flex: 0.5 }} >

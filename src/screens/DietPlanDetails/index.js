@@ -26,6 +26,24 @@ export default class DietPlanDetails extends Component {
             <Container >
                 <ScrollView contentContainerStyle={{ paddingBottom: '10%' }}>
                     <View style={styles.container}>
+                    <View style={styles.cardContainer}>
+                            <View style={styles.rowContainer}>
+                                <Breakfast />
+                                <Text style={styles.headingText}>Early Rise</Text>
+                            </View>
+                            <View style={styles.rowContainer}>
+                                <Icon.Octicons name="primitive-dot" color={'#797B7B'} size={10} />
+                                <Text style={styles.textStyle}>1 cup tea or black coffee without sugar and milk lorem ipsum dolor set amit …</Text>
+                            </View>
+                            <View style={styles.rowContainer}>
+                                <Icon.Octicons name="primitive-dot" color={'#797B7B'} size={10} />
+                                <Text style={styles.textStyle}>2 scrambled eggs lorem ipsum...</Text>
+                            </View>
+                            <View style={styles.rowContainer}>
+                                <Icon.Octicons name="primitive-dot" color={'#797B7B'} size={10} />
+                                <Text style={styles.textStyle}>lorem ipsum dolor set amit…</Text>
+                            </View>
+                        </View>
                         <View style={styles.cardContainer}>
                             <View style={styles.rowContainer}>
                                 <Breakfast />

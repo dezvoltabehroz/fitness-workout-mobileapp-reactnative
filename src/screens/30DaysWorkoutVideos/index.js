@@ -52,7 +52,7 @@ export default class DaysWorkoutVideos extends Component {
             <Container>
                 <StatusBar backgroundColor={themeStyle.PRIMARY_BACKGROUND_COLOR} barStyle={"dark-content"} />
                 <View style={styles.container}>
-                    <View style={styles.row}>
+                    {/* <View style={styles.row}>
                         {
                             this.state.array.map((item, index) => {
                                 return (
@@ -65,7 +65,7 @@ export default class DaysWorkoutVideos extends Component {
                                 )
                             })
                         }
-                    </View>
+                    </View> */}
 
                     <ScrollView>
                         <View>
