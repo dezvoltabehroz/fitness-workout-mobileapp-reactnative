@@ -5,7 +5,7 @@ import themeStyle from "../../assets/styles/theme.style";
 import { Container, Icon } from "../../components";
 import { route } from "../../lib/utils/constants";
 import { VerticalSpacer } from "../../lib/utils/global";
-import Youtube from '../../assets/svg/target.svg';
+import Youtube from '../../assets/svg/description.svg';
 
 import styles from './style'
 
@@ -41,7 +41,8 @@ export default class DaysWorkoutVideos extends Component {
                 </View>
                 <View style={styles.rowContentContainer} >
                     <Text style={styles.headingText2}>00:25</Text>
-                    <Icon.SimpleLineIcons name='social-youtube' size={30} />
+                    {/* <Icon.SimpleLineIcons name='social-youtube' size={30} /> */}
+                    <Youtube fill={'#000000'} />
                 </View>
             </ImageBackground>
         )

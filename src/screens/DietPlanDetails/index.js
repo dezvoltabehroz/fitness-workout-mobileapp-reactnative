@@ -4,9 +4,10 @@ import Modal from 'react-native-modal';
 
 import { Container, Icon } from '../../components';
 
+import EarlyRise from '../../assets/svg/EarlyRise.svg'
 import Breakfast from '../../assets/svg/Breakfast.svg'
 import Lunch from '../../assets/svg/Lunch.svg'
-import Snacks from '../../assets/svg/snacks.svg'
+import Snacks from '../../assets/svg/Snacks.svg'
 import Dinner from '../../assets/svg/Dinner.svg'
 import Tick from '../../assets/svg/Tick-btn.svg'
 
@@ -28,7 +29,7 @@ export default class DietPlanDetails extends Component {
                     <View style={styles.container}>
                     <View style={styles.cardContainer}>
                             <View style={styles.rowContainer}>
-                                <Breakfast />
+                                <EarlyRise />
                                 <Text style={styles.headingText}>Early Rise</Text>
                             </View>
                             <View style={styles.rowContainer}>
