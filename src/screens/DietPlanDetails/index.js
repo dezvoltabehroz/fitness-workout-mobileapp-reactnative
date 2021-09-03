@@ -4,9 +4,10 @@ import Modal from 'react-native-modal';
 
 import { Container, Icon } from '../../components';
 
+import EarlyRise from '../../assets/svg/EarlyRise.svg'
 import Breakfast from '../../assets/svg/Breakfast.svg'
 import Lunch from '../../assets/svg/Lunch.svg'
-import Snacks from '../../assets/svg/snacks.svg'
+import Snacks from '../../assets/svg/Snacks.svg'
 import Dinner from '../../assets/svg/Dinner.svg'
 import Tick from '../../assets/svg/Tick-btn.svg'
 
@@ -26,6 +27,24 @@ export default class DietPlanDetails extends Component {
             <Container >
                 <ScrollView contentContainerStyle={{ paddingBottom: '10%' }}>
                     <View style={styles.container}>
+                    <View style={styles.cardContainer}>
+                            <View style={styles.rowContainer}>
+                                <EarlyRise />
+                                <Text style={styles.headingText}>Early Rise</Text>
+                            </View>
+                            <View style={styles.rowContainer}>
+                                <Icon.Octicons name="primitive-dot" color={'#797B7B'} size={10} />
+                                <Text style={styles.textStyle}>1 cup tea or black coffee without sugar and milk lorem ipsum dolor set amit …</Text>
+                            </View>
+                            <View style={styles.rowContainer}>
+                                <Icon.Octicons name="primitive-dot" color={'#797B7B'} size={10} />
+                                <Text style={styles.textStyle}>2 scrambled eggs lorem ipsum...</Text>
+                            </View>
+                            <View style={styles.rowContainer}>
+                                <Icon.Octicons name="primitive-dot" color={'#797B7B'} size={10} />
+                                <Text style={styles.textStyle}>lorem ipsum dolor set amit…</Text>
+                            </View>
+                        </View>
                         <View style={styles.cardContainer}>
                             <View style={styles.rowContainer}>
                                 <Breakfast />

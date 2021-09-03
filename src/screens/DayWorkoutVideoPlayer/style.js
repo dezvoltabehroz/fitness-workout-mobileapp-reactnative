@@ -19,8 +19,17 @@ export default StyleSheet.create({
         backgroundColor: 'black',
         justifyContent: 'center',
     },
+    mediaPlayer1: {
+        flex: 1,
+        height: SCREEN_HEIGHT,
+        backgroundColor: 'black',
+        justifyContent: 'center',
+    },
     videoContainer: {
         height: SCREEN_HEIGHT * 0.35,
+    },
+    videoContainer1: {
+        height: SCREEN_HEIGHT* 0.5,
     },
     textStyle: {
         marginLeft: "2.5%",
@@ -38,5 +47,5 @@ export default StyleSheet.create({
         color: "white",
         fontSize: 18
     },
-    rowContainer:{ marginTop: "5%", flexDirection: "row" }
+    rowContainer: { marginTop: "5%", flexDirection: "row" }
 })

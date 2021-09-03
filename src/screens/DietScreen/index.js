@@ -156,8 +156,8 @@ export default class DietScreen extends Component {
                                             this.days.map((item, index) => {
                                                 return (
                                                     <View style={styles.itemContainer1}>
-                                                        <TouchableOpacity onPress={() => this.props.navigation.navigate(route.DIETPLANDETAILS)} style={styles.dayStyle}>
-                                                            <Text style={[styles.textDescription]}>{item.day}</Text>
+                                                        <TouchableOpacity onPress={() => this.props.navigation.navigate(route.DIETPLANDETAILS)} style={[styles.dayStyle, { backgroundColor: this.state.completed ? themeStyle.BAR_COLOR : 'transparent' }]}>
+                                                            <Text style={[styles.textDescription, { color: this.state.completed ? 'white' : '#9B9B9B' }]}>{item.day}</Text>
                                                         </TouchableOpacity>
                                                         {
                                                             index == 3 ?
@@ -210,8 +210,8 @@ export default class DietScreen extends Component {
                                             this.days.map((item, index) => {
                                                 return (
                                                     <View style={styles.itemContainer1}>
-                                                        <TouchableOpacity onPress={() => this.props.navigation.navigate(route.DIETPLANDETAILS)} style={styles.dayStyle}>
-                                                            <Text style={[styles.textDescription]}>{item.day}</Text>
+                                                        <TouchableOpacity onPress={() => this.props.navigation.navigate(route.DIETPLANDETAILS)} style={[styles.dayStyle, { backgroundColor: this.state.completed ? themeStyle.BAR_COLOR : 'transparent' }]}>
+                                                            <Text style={[styles.textDescription, { color: this.state.completed ? 'white' : '#9B9B9B' }]}>{item.day}</Text>
                                                         </TouchableOpacity>
                                                         {
                                                             index == 3 ?
@@ -264,8 +264,8 @@ export default class DietScreen extends Component {
                                             this.days.map((item, index) => {
                                                 return (
                                                     <View style={styles.itemContainer1}>
-                                                        <TouchableOpacity onPress={() => this.props.navigation.navigate(route.DIETPLANDETAILS)} style={styles.dayStyle}>
-                                                            <Text style={[styles.textDescription]}>{item.day}</Text>
+                                                       <TouchableOpacity onPress={() => this.props.navigation.navigate(route.DIETPLANDETAILS)} style={[styles.dayStyle, { backgroundColor: this.state.completed ? themeStyle.BAR_COLOR : 'transparent' }]}>
+                                                            <Text style={[styles.textDescription, { color: this.state.completed ? 'white' : '#9B9B9B' }]}>{item.day}</Text>
                                                         </TouchableOpacity>
                                                         {
                                                             index == 3 ?
@@ -318,8 +318,8 @@ export default class DietScreen extends Component {
                                             this.days.map((item, index) => {
                                                 return (
                                                     <View style={styles.itemContainer1}>
-                                                        <TouchableOpacity onPress={() => this.props.navigation.navigate(route.DIETPLANDETAILS)} style={styles.dayStyle}>
-                                                            <Text style={[styles.textDescription]}>{item.day}</Text>
+                                                        <TouchableOpacity onPress={() => this.props.navigation.navigate(route.DIETPLANDETAILS)} style={[styles.dayStyle, { backgroundColor: this.state.completed ? themeStyle.BAR_COLOR : 'transparent' }]}>
+                                                            <Text style={[styles.textDescription, { color: this.state.completed ? 'white' : '#9B9B9B' }]}>{item.day}</Text>
                                                         </TouchableOpacity>
                                                         {
                                                             index == 3 ?
@@ -372,8 +372,8 @@ export default class DietScreen extends Component {
                                             this.days1.map((item, index) => {
                                                 return (
                                                     <View style={styles.itemContainer1}>
-                                                        <TouchableOpacity onPress={() => this.props.navigation.navigate(route.DIETPLANDETAILS)} style={styles.dayStyle}>
-                                                            <Text style={[styles.textDescription]}>{item.day}</Text>
+                                                        <TouchableOpacity onPress={() => this.props.navigation.navigate(route.DIETPLANDETAILS)} style={[styles.dayStyle, { backgroundColor: this.state.completed ? themeStyle.BAR_COLOR : 'transparent' }]}>
+                                                            <Text style={[styles.textDescription, { color: this.state.completed ? 'white' : '#9B9B9B' }]}>{item.day}</Text>
                                                         </TouchableOpacity>
                                                         {
                                                             index == 3 ?

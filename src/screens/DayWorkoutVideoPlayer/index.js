@@ -107,7 +107,8 @@ export default class DayWorkoutVideoPlayer extends Component {
     enterFullScreen = () => { };
 
     onFullScreen = () => {
-        this.setState({ isFullScreen: this.state.isFullScreen });
+        console.log('pressed')
+        this.setState({ isFullScreen: !this.state.isFullScreen });
         if (this.state.screenType == 'content') this.setState({ screenType: 'cover' });
         else this.setState({ screenType: 'content' });
     };
@@ -125,7 +126,7 @@ export default class DayWorkoutVideoPlayer extends Component {
         return (
             <Container>
                 <View style={styles.container}>
-                    <View style={styles.mediaPlayer}>
+                    <View style={this.state.isFullScreen ? styles.mediaPlayer1 : styles.mediaPlayer}>
                         <Video
                             onEnd={this.onEnd}
                             onLoad={this.onLoad}
@@ -139,7 +140,7 @@ export default class DayWorkoutVideoPlayer extends Component {
                             source={{
                                 uri: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
                             }}
-                            style={styles.videoContainer}
+                            style={this.state.isFullScreen ? styles.videoContainer1 : styles.videoContainer}
                             volume={this.state.volume}
                             muted={this.state.mute}
                         />
@@ -166,25 +167,28 @@ export default class DayWorkoutVideoPlayer extends Component {
                             toolbar={this.renderToolbar()}
                         />
                     </View>
-                    <View style={styles.lowerContainer}>
-                        <Text style={styles.headingStyle}>PUSH-UPS</Text>
-                        <View style={styles.rowContainer}>
-                            <Icon.Octicons name="primitive-dot" size={20} color={'lightgray'} />
-                            <Text style={styles.textStyle} >Keep your hips down and in line with your body.v</Text>
+
+                    {!this.state.isFullScreen ?
+                        <View style={styles.lowerContainer}>
+                            <Text style={styles.headingStyle}>PUSH-UPS</Text>
+                            <View style={styles.rowContainer}>
+                                <Icon.Octicons name="primitive-dot" size={20} color={'lightgray'} />
+                                <Text style={styles.textStyle} >Keep your hips down and in line with your body.v</Text>
+                            </View>
+                            <View style={styles.rowContainer}>
+                                <Icon.Octicons name="primitive-dot" size={20} color={'lightgray'} />
+                                <Text style={styles.textStyle}>Have your hands parallel with your chest.</Text>
+                            </View>
+                            <View style={styles.rowContainer}>
+                                <Icon.Octicons name="primitive-dot" size={20} color={'lightgray'} />
+                                <Text style={styles.textStyle}>Focus your mind on your chest. Exhale as you push up and inhale while you lower yourself down</Text>
+                            </View>
+                            <View style={styles.rowContainer}>
+                                <Icon.Octicons name="primitive-dot" size={20} color={'lightgray'} />
+                                <Text style={styles.textStyle}>Push up fast and go down slowly.</Text>
+                            </View>
                         </View>
-                        <View style={styles.rowContainer}>
-                            <Icon.Octicons name="primitive-dot" size={20} color={'lightgray'} />
-                            <Text style={styles.textStyle}>Have your hands parallel with your chest.</Text>
-                        </View>
-                        <View style={styles.rowContainer}>
-                            <Icon.Octicons name="primitive-dot" size={20} color={'lightgray'} />
-                            <Text style={styles.textStyle}>Focus your mind on your chest. Exhale as you push up and inhale while you lower yourself down</Text>
-                        </View>
-                        <View style={styles.rowContainer}>
-                            <Icon.Octicons name="primitive-dot" size={20} color={'lightgray'} />
-                            <Text style={styles.textStyle}>Push up fast and go down slowly.</Text>
-                        </View>
-                    </View>
+                        : null}
                 </View>
                 <QuitModal visible={this.state.quitModal}
                     onQuit={() => { this.videoPlayer.seek(0); this.props.navigation.goBack() }}
