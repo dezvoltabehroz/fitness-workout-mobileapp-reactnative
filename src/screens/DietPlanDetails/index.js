@@ -7,7 +7,7 @@ import { Container, Icon } from '../../components';
 import EarlyRise from '../../assets/svg/EarlyRise.svg'
 import Breakfast from '../../assets/svg/Breakfast.svg'
 import Lunch from '../../assets/svg/Lunch.svg'
-import Snacks from '../../assets/svg/Snacks.svg'
+import Snacks from '../../assets/svg/snacks.svg'
 import Dinner from '../../assets/svg/Dinner.svg'
 import Tick from '../../assets/svg/Tick-btn.svg'
 
