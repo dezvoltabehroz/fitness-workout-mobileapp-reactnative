@@ -9,6 +9,7 @@ import Target from '../../assets/svg/706.svg';
 
 import styles from './style';
 import themeStyle from '../../assets/styles/theme.style';
+import { LOCAL_STORAGE_KEYS, storeLocalData } from '../../lib/utils/localstorage';
 
 class AppIntro extends Component {
     constructor(props) {
@@ -27,6 +28,27 @@ class AppIntro extends Component {
         };
     }
 
+    handleDone = () => {
+        let array = [...this.state.arr];
+        array.forEach(element => {
+            if (element == 'shoulder') {
+                storeLocalData(LOCAL_STORAGE_KEYS.focusAreaShoulder, JSON.stringify('1'))
+            } else if (element == 'arm') {
+                storeLocalData(LOCAL_STORAGE_KEYS.focusAreaArms, JSON.stringify('1'))
+            } else if (element == 'chest') {
+                storeLocalData(LOCAL_STORAGE_KEYS.focusAreaChest, JSON.stringify('1'))
+            } else if (element == 'back') {
+                storeLocalData(LOCAL_STORAGE_KEYS.focusAreaBack, JSON.stringify('1'))
+            } else if (element == 'glute') {
+                storeLocalData(LOCAL_STORAGE_KEYS.focusAreaGlutes, JSON.stringify('1'))
+            } else if (element == 'leg') {
+                storeLocalData(LOCAL_STORAGE_KEYS.focusAreaLegs, JSON.stringify('1'))
+            } else if (element == 'waist') {
+                storeLocalData(LOCAL_STORAGE_KEYS.focusAreaWaist, JSON.stringify('1'))
+            }
+        });
+        this.props.navigation.navigate(route.CREATINGPLAN)
+    }
 
     render() {
         const { navigate, goBack } = this.props.navigation;
@@ -53,7 +75,7 @@ class AppIntro extends Component {
                                         <View style={styles.shoulderContainer1}>
                                             <View style={styles.shoulderStyle1}>
                                                 <CheckBox isChecked={shoulder} label="Shoulders" onPress={() => {
-                                                     if (shoulder) {
+                                                    if (shoulder) {
                                                         let data = [...arr];
                                                         const index = data.findIndex(item => item === 'shoulder');
                                                         this.setState({ shoulder: !shoulder, arr: data.filter((_, i) => i != index) })
@@ -69,7 +91,7 @@ class AppIntro extends Component {
                                         <View style={styles.chestContainer1}>
                                             <View style={styles.chestStyle1}>
                                                 <CheckBox isChecked={chest} label="Chest" onPress={() => {
-                                                     if (chest) {
+                                                    if (chest) {
                                                         let data = [...arr];
                                                         const index = data.findIndex(item => item === 'chest');
                                                         this.setState({ chest: !chest, arr: data.filter((_, i) => i != index) })
@@ -85,7 +107,7 @@ class AppIntro extends Component {
                                         <View style={styles.armContainer1}>
                                             <View style={styles.armStyle1}>
                                                 <CheckBox isChecked={arm} label="Arms" onPress={() => {
-                                                     if (arm) {
+                                                    if (arm) {
                                                         let data = [...arr];
                                                         const index = data.findIndex(item => item === 'arm');
                                                         this.setState({ arm: !arm, arr: data.filter((_, i) => i != index) })
@@ -101,7 +123,7 @@ class AppIntro extends Component {
                                         <View style={styles.gluteContainer1}>
                                             <View style={styles.gluteStyle1}>
                                                 <CheckBox isChecked={glute} label="Glutes" onPress={() => {
-                                                     if (glute) {
+                                                    if (glute) {
                                                         let data = [...arr];
                                                         const index = data.findIndex(item => item === 'glute');
                                                         this.setState({ glute: !glute, arr: data.filter((_, i) => i != index) })
@@ -121,16 +143,16 @@ class AppIntro extends Component {
                                                     label="Back"
                                                     onPress={() => {
                                                         if (back) {
-                                                           let data = [...arr];
-                                                           const index = data.findIndex(item => item === 'back');
-                                                           this.setState({ back: !back, arr: data.filter((_, i) => i != index) })
-                                                       } else {
-                                                           let data = [...arr];
-                                                           data.push('back')
-                                                           this.setState({ back: !back, arr: data })
-   
-                                                       }
-                                                   }} />
+                                                            let data = [...arr];
+                                                            const index = data.findIndex(item => item === 'back');
+                                                            this.setState({ back: !back, arr: data.filter((_, i) => i != index) })
+                                                        } else {
+                                                            let data = [...arr];
+                                                            data.push('back')
+                                                            this.setState({ back: !back, arr: data })
+
+                                                        }
+                                                    }} />
                                             </View>
                                         </View>
                                         <View style={styles.waistContainer1}>
@@ -140,16 +162,16 @@ class AppIntro extends Component {
                                                     label="Wasit"
                                                     onPress={() => {
                                                         if (waist) {
-                                                           let data = [...arr];
-                                                           const index = data.findIndex(item => item === 'waist');
-                                                           this.setState({ waist: !waist, arr: data.filter((_, i) => i != index) })
-                                                       } else {
-                                                           let data = [...arr];
-                                                           data.push('waist')
-                                                           this.setState({ waist: !waist, arr: data })
-   
-                                                       }
-                                                   }} />
+                                                            let data = [...arr];
+                                                            const index = data.findIndex(item => item === 'waist');
+                                                            this.setState({ waist: !waist, arr: data.filter((_, i) => i != index) })
+                                                        } else {
+                                                            let data = [...arr];
+                                                            data.push('waist')
+                                                            this.setState({ waist: !waist, arr: data })
+
+                                                        }
+                                                    }} />
                                             </View>
                                         </View>
                                         <View style={styles.legContainer1}>
@@ -159,16 +181,16 @@ class AppIntro extends Component {
                                                     label="Legs"
                                                     onPress={() => {
                                                         if (leg) {
-                                                           let data = [...arr];
-                                                           const index = data.findIndex(item => item === 'leg');
-                                                           this.setState({ leg: !leg, arr: data.filter((_, i) => i != index) })
-                                                       } else {
-                                                           let data = [...arr];
-                                                           data.push('leg')
-                                                           this.setState({ leg: !leg, arr: data })
-   
-                                                       }
-                                                   }} />
+                                                            let data = [...arr];
+                                                            const index = data.findIndex(item => item === 'leg');
+                                                            this.setState({ leg: !leg, arr: data.filter((_, i) => i != index) })
+                                                        } else {
+                                                            let data = [...arr];
+                                                            data.push('leg')
+                                                            this.setState({ leg: !leg, arr: data })
+
+                                                        }
+                                                    }} />
                                             </View>
                                         </View>
                                     </>
@@ -301,7 +323,7 @@ class AppIntro extends Component {
                                     </>}
                         </ImageBackground>
                         <View style={styles.buttonContainer}>
-                            <ClearButton disabled={arr.length >= 2 ? false : true} title={'DONE'} onPress={() => navigate(route.CREATINGPLAN)} />
+                            <ClearButton disabled={arr.length >= 2 ? false : true} title={'DONE'} onPress={() => this.handleDone()} />
                         </View>
                     </View>
                 </ImageBackground>
