@@ -314,7 +314,6 @@ class AppIntro extends Component {
                                                             let data = [...arr];
                                                             data.push('waist')
                                                             this.setState({ waist: !waist, arr: data })
-                                                            console.log(arr)
                                                         }
 
                                                     }} />

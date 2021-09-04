@@ -9,7 +9,7 @@ import Tick from '../../assets/svg/Tick.svg';
 
 import styles from './style';
 import themeStyle from '../../assets/styles/theme.style';
-import { getLocalData, LOCAL_STORAGE_KEYS } from '../../lib/utils/localstorage';
+import { getLocalData, LOCAL_STORAGE_KEYS, storeLocalData } from '../../lib/utils/localstorage';
 
 class CreatingPlan extends Component {
     constructor(props) {
@@ -20,6 +20,9 @@ class CreatingPlan extends Component {
     }
 
     componentDidMount = async () => {
+        const { navigate, replace } = this.props.navigation;
+        const user_id = await getLocalData(LOCAL_STORAGE_KEYS.user_id)
+        const userToken = await getLocalData(LOCAL_STORAGE_KEYS.userToken)
         const goal = await getLocalData(LOCAL_STORAGE_KEYS.fitnessGoal)
         const level = await getLocalData(LOCAL_STORAGE_KEYS.fitnessLevel)
         const equipment = await getLocalData(LOCAL_STORAGE_KEYS.fitnessEquipment)
@@ -31,35 +34,33 @@ class CreatingPlan extends Component {
         const glute = await getLocalData(LOCAL_STORAGE_KEYS.focusAreaGlutes)
         const leg = await getLocalData(LOCAL_STORAGE_KEYS.focusAreaLegs)
         const gender = await getLocalData(LOCAL_STORAGE_KEYS.gender)
-        const user_id = await getLocalData(LOCAL_STORAGE_KEYS.user_id)
-        console.log("goal : ", goal)
-        console.log("level : ", level)
-        console.log("equipment : ", equipment)
-        console.log("arm : ", arm)
-        console.log("shoulder : ", shoulder)
-        console.log("waist : ", waist)
-        console.log("back : ", back)
-        console.log("chest : ", chest)
-        console.log("glute : ", glute)
-        console.log("leg : ", leg)
+
         let data = {
-            "fitness_goal": goal,
-            "fitness_level": level,
-            "fitness_equipment": equipment,
-            "focus_area_arms": arm,
-            "focus_area_waist": waist,
-            "focus_area_legs": leg,
-            "focus_area_glutes": glute,
-            "focus_area_chest": chest,
-            "focus_area_shoulder": shoulder,
-            "gender": gender,
-            "user_id": user_id
+            "fitness_goal": JSON.parse(goal),
+            "fitness_level": JSON.parse(level),
+            "fitness_equipment": JSON.parse(equipment),
+            "focus_area_arms": JSON.parse(arm),
+            "focus_area_waist": JSON.parse(waist),
+            "focus_area_legs": JSON.parse(leg),
+            "focus_area_glutes": JSON.parse(glute),
+            "focus_area_back": JSON.parse(back),
+            "focus_area_chest": JSON.parse(chest),
+            "focus_area_shoulder": JSON.parse(shoulder),
+            "gender": JSON.parse(gender),
+            "user_id": JSON.parse(user_id),
         }
-        AuthServices.userPrefrences(data)
+        AuthServices.userPrefrences(data, JSON.parse(userToken))
             .then((res) => {
                 console.log(res.data)
             })
-            .catch((error) => console.log(error))
+            .catch((error) => console.log(error.response))
+
+    }
+
+    handleFinished=()=>{
+        const { navigate, replace } = this.props.navigation;
+        storeLocalData(LOCAL_STORAGE_KEYS.appIntro, JSON.stringify({ data: true }))
+        replace(route.MAIN)
     }
 
 
@@ -101,7 +102,7 @@ class CreatingPlan extends Component {
                         !value ?
                             <Text style={styles.headingTextStyle}>{'please Wait...'}</Text>
                             :
-                            <ClearButton title={'FINISHED'} onPress={() => replace(route.MAIN)} />
+                            <ClearButton title={'FINISHED'} onPress={() =>this.handleFinished()} />
                     }
 
                 </View>

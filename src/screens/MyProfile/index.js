@@ -30,7 +30,6 @@ export default class MyProfile extends Component {
             if (response.didCancel) {
             } else {
                 let source = response;
-                console.log(source.assets[0].uri)
                 this.setState({
                     avatar: source.assets[0].uri,
                     profile_Url: response

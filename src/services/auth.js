@@ -8,8 +8,8 @@ const Api = {
             fcm_token: token
         }, apiHeaderConfiguration(EMPTY, EMPTY))
     },
-    userPrefrences:function(data){
-        return axiosInstance.post('registration/updateUserPref', data, apiHeaderConfiguration(EMPTY, EMPTY))
+    userPrefrences: function (data, token) {
+        return axiosInstance.post('registration/updateUserPref', data, apiHeaderConfiguration(token, TOKEN))
     }
 };
 

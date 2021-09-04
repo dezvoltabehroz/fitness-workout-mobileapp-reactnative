@@ -37,7 +37,6 @@ class AppIntro extends Component {
         storeLocalData(LOCAL_STORAGE_KEYS.focusAreaWaist, JSON.stringify('0'))
         storeLocalData(LOCAL_STORAGE_KEYS.fitnessGoal, JSON.stringify(screen.APP_INTRO_Button_1))
         const goal = await getLocalData(LOCAL_STORAGE_KEYS.fitnessGoal)
-        console.log("goal : ", goal)
     }
     requestUserPermission = async function () {
         const authorizationStatus = await messaging().requestPermission({
@@ -75,13 +74,10 @@ class AppIntro extends Component {
     getFcmToken = async () => {
         const fcmToken = await messaging().getToken();
         if (fcmToken) {
-            console.log('FCM : ', fcmToken)
             AuthServices.generateUserId(fcmToken)
-                .then(async (res) => {
-                    console.log(res.data.data)
+                .then( (res) => {
                     storeLocalData(LOCAL_STORAGE_KEYS.user_id, JSON.stringify(res.data.data.user_id))
-                    const userId = await getLocalData(LOCAL_STORAGE_KEYS.user_id)
-                    console.log("userId : ", userId)
+                    storeLocalData(LOCAL_STORAGE_KEYS.userToken, JSON.stringify(res.data.data.token))
                 })
                 .catch((err) => {
                     console.log(err)
@@ -143,8 +139,6 @@ class AppIntro extends Component {
                 storeLocalData(LOCAL_STORAGE_KEYS.fitnessGoal, JSON.stringify(screen.APP_INTRO_Button_3))
                 break;
         }
-        const goal = await getLocalData(LOCAL_STORAGE_KEYS.fitnessGoal)
-        console.log("goal : ", goal)
     }
 
     render() {

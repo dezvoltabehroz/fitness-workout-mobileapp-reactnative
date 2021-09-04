@@ -41,7 +41,6 @@ export default class PaymentMethod extends Component {
                                 marginVertical: 30,
                             }}
                             onCardChange={(e) => {
-                                console.log('cardDetails', e);
                                 setDetails(e)
                             }}
                             onFocus={(focusedField) => {

@@ -23,8 +23,6 @@ class AppIntro extends Component {
     }
     componentDidMount = async () => {
         storeLocalData(LOCAL_STORAGE_KEYS.fitnessLevel, JSON.stringify('Very Fit'))
-        const goal = await getLocalData(LOCAL_STORAGE_KEYS.fitnessLevel)
-        console.log("Level  : ", goal)
     }
 
     multiSliderValueCallback = async (values) => {

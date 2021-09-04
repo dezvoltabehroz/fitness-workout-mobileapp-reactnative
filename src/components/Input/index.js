@@ -11,7 +11,7 @@ const Input = (props) => {
                 color: 'black',
                 fontWeight: 'normal'
             }}
-            containerStyle={inputStyles.containerStyle}
+            containerStyle={(props.width ? { ...inputStyles.containerStyle, width: props.width } : inputStyles.containerStyle)}
             placeholderTextColor={'#9AA1B1'}
             inputContainerStyle={inputStyles.inputContainerStyle}
             inputStyle={inputStyles.inputStyle}

@@ -11,7 +11,7 @@ export const apiHeaderConfiguration = (token, type) => {
         case "token":
             return {
                 headers: {
-                    'Authorization': 'Bearer ' + token,
+                    'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json',
                     'Accept': 'application/json',
                 }
@@ -21,6 +21,7 @@ export const apiHeaderConfiguration = (token, type) => {
         case "multipart":
             return {
                 headers: {
+                    'Authorization': `Bearer ${token}`,
                     'Content-Type': 'multipart/form-data',
                     'Accept': 'application/json',
                 }

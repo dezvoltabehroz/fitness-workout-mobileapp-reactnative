@@ -29,8 +29,6 @@ class AppIntro extends Component {
 
     componentDidMount = async () => {
         storeLocalData(LOCAL_STORAGE_KEYS.fitnessEquipment, JSON.stringify(screen.APP_INTRO_Button_1_3))
-        const goal = await getLocalData(LOCAL_STORAGE_KEYS.fitnessEquipment)
-        console.log("goal : ", goal)
     }
 
     style_Func_1 = () => {
@@ -101,8 +99,6 @@ class AppIntro extends Component {
                 storeLocalData(LOCAL_STORAGE_KEYS.fitnessEquipment, JSON.stringify(screen.APP_INTRO_Button_4_3))
                 break;
         }
-        const goal = await getLocalData(LOCAL_STORAGE_KEYS.fitnessEquipment)
-        console.log("goal : ", goal)
     }
 
     render() {

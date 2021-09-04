@@ -19,16 +19,17 @@ class AuthLoading extends Component {
 
     componentDidMount = async () => {
         let { navigation } = this?.props;
-        const check = await getLocalData(LOCAL_STORAGE_KEYS.appIntro);
-        // if (check == null) {
-        //     setTimeout(async () => {
-        //         await navigation.replace(route.APPINTRO)
-        //     }, 5000);
-        // } else {
+        const watched = await getLocalData(LOCAL_STORAGE_KEYS.appIntro);
+        let check = JSON.parse(watched)
+        if (check.data) {
+            setTimeout(async () => {
+                await navigation.replace(route.MAIN)
+            }, 5000);
+        } else {
             setTimeout(async () => {
                 await navigation.replace(route.APPINTRO)
             }, 5000);
-        // }
+        }
     };
 
     render() {

@@ -107,7 +107,6 @@ export default class DayWorkoutVideoPlayer extends Component {
     enterFullScreen = () => { };
 
     onFullScreen = () => {
-        console.log('pressed')
         this.setState({ isFullScreen: !this.state.isFullScreen });
         if (this.state.screenType == 'content') this.setState({ screenType: 'cover' });
         else this.setState({ screenType: 'content' });

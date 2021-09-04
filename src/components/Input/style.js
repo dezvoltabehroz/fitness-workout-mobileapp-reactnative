@@ -1,5 +1,6 @@
 import { StyleSheet, Dimensions } from 'react-native';
 import themeStyle from '../../assets/styles/theme.style';
+import { SCREEN_WIDTH } from '../../lib/utils/constants';
 const screenWidth = Dimensions.get('window').width;
 export default StyleSheet.create({
     containerStyle: {
@@ -18,6 +19,11 @@ export default StyleSheet.create({
         color: themeStyle.BAR_COLOR,
         textAlign: "center"
 
+    },
+    inputContainerWidthStyle: {
+        borderBottomWidth: 1,
+        borderColor: themeStyle.BAR_COLOR,
+        width: SCREEN_WIDTH * 0.4
     },
     labelStyle: {
         fontSize: 14,
