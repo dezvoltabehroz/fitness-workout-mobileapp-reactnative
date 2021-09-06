@@ -30,7 +30,7 @@ export default class CompleteProfile extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            tab: 1,
+            tab: 0,
             nameModal: false,
             dateModal: false,
             weightModal: false,

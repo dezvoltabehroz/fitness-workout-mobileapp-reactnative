@@ -19,6 +19,7 @@ const LOCAL_STORAGE_KEYS = {
   email: 'email',
   password: 'password',
   remember_me: 'remember_me',
+  fcmToken:"fcmToken",
   emailPassword: 'emailPassword'
 };
 

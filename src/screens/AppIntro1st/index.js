@@ -76,6 +76,8 @@ class AppIntro extends Component {
         if (fcmToken) {
             AuthServices.generateUserId(fcmToken)
                 .then( (res) => {
+                    console.log(fcmToken)
+                    storeLocalData(LOCAL_STORAGE_KEYS.fcmToken, JSON.stringify(fcmToken))
                     storeLocalData(LOCAL_STORAGE_KEYS.user_id, JSON.stringify(res.data.data.user_id))
                     storeLocalData(LOCAL_STORAGE_KEYS.userToken, JSON.stringify(res.data.data.token))
                 })

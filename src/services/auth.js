@@ -10,7 +10,8 @@ const Api = {
     },
     userPrefrences: function (data, token) {
         return axiosInstance.post('registration/updateUserPref', data, apiHeaderConfiguration(token, TOKEN))
-    }
+    },
+  
 };
 
 export default Api;

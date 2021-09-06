@@ -21,7 +21,8 @@ class AuthLoading extends Component {
         let { navigation } = this?.props;
         const watched = await getLocalData(LOCAL_STORAGE_KEYS.appIntro);
         let check = JSON.parse(watched)
-        if (check.data) {
+        console.log(check)
+        if (check) {
             setTimeout(async () => {
                 await navigation.replace(route.MAIN)
             }, 5000);

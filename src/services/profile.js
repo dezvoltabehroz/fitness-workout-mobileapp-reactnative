@@ -17,7 +17,13 @@ const Api = {
     },
     updateProgressPhoto1:function (data,token) {
         return axios.post(`${BASE_URL}profile/uploadProgressPicture`, data, apiHeaderConfiguration(token, MULTIPART));
-    }
+    },
+    updateUserEmail: function (data, token){
+        return axiosInstance.put('profile/updateEmail', data, apiHeaderConfiguration(token, TOKEN))
+    },
+    stripeCheckOut: function (data, token){
+        return axiosInstance.post('stripe/checkout', data, apiHeaderConfiguration(token, TOKEN))
+    },
 };
 
 export default Api;
