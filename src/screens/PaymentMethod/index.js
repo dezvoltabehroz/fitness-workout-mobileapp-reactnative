@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { Image, View, Text, TouchableOpacity } from 'react-native';
+import { Image, View, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { initStripe, useStripe, CardField, createToken } from '@stripe/stripe-react-native';
 import Modal from 'react-native-modal';
 
@@ -22,12 +22,34 @@ export default class PaymentMethod extends Component {
         });
         this.state = {
             modal: false,
-            emailModal: true,
+            emailModal: false,
             submit: false,
             btnLoading: false,
+            loading: false,
             email: "",
             cardDetails: {}
         }
+    }
+
+    componentDidMount = async () => {
+        this.setState({ loading: true })
+        const user_id = await getLocalData(LOCAL_STORAGE_KEYS.user_id)
+        const userToken = await getLocalData(LOCAL_STORAGE_KEYS.userToken)
+        let data = {
+            "user_id": user_id
+        }
+        ProfileServices.isEmailExist(data, JSON.parse(userToken))
+            .then((res) => {
+                if (res.data.success) {
+                    console.log(res.data.data[0].email)
+                    if (res.data.data[0].email) {
+                        this.setState({ loading: false, emailModal: false ,email:res.data.data[0].email})
+                    } else {
+                        this.setState({ loading: false, emailModal: true })
+                    }
+                }
+            })
+            .catch((error) => console.log(error.response))
     }
 
     handleEmail = (email) => {
@@ -64,7 +86,7 @@ export default class PaymentMethod extends Component {
             currency: "USD"
         });
         if (token) {
-           
+
             let data = {
                 "name": "Subscription for Pro",
                 "price": "500",
@@ -88,46 +110,52 @@ export default class PaymentMethod extends Component {
     }
 
     render() {
-        const { cardDetails, email, submit, btnLoading } = this.state;
+        const { cardDetails, email, submit, btnLoading, loading } = this.state;
         return (
             <Container>
-                <View style={styles.container}>
-                    <View style={{ flex: 0.4, alignItems: "center" }}>
-                        <Image resizeMode={"contain"} source={require('../../assets/images/download.jpg')} style={{ justifyContent: "center", height: 200, width: SCREEN_WIDTH * 0.8 }} />
-                    </View>
+                {
+                    loading ?
+                        <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+                            <ActivityIndicator color={'#44BDE8'} />
+                        </View>
+                        :
+                        <View style={styles.container}>
+                            <View style={{ flex: 0.4, alignItems: "center" }}>
+                                <Image resizeMode={"contain"} source={require('../../assets/images/download.jpg')} style={{ justifyContent: "center", height: 200, width: SCREEN_WIDTH * 0.8 }} />
+                            </View>
 
-                    <View style={{ marginTop: "10%", borderWidth: 0.5, marginHorizontal: 20, }}>
-                        <CardField
-                            postalCodeEnabled={false}
-                            placeholder={{
-                                number: 'Enter Card Number', expiration: "Exp.Date", cvc: "CVC"
-                            }}
-                            cardStyle={{
-                                backgroundColor: '#FFFFFF',
-                                textColor: '#000000',
-                            }}
-                            style={{
-                                // width: '100%',
-                                height: 50,
-                            }}
-                            onCardChange={(e) => {
-                                this.setState({ cardDetails: e })
-                            }}
-                            onFocus={(focusedField) => {
-                                console.log('focusField', focusedField);
-                            }}
-                        />
-                    </View>
-                    <View style={{ flex: 0.5, justifyContent: "flex-end", marginHorizontal: "10%" }}>
-                        {
-                            this.props.route.params ?
-                                <Button loading={btnLoading} title={'PAY NOW'} onPress={() => this.setState({ btnLoading: true }, () => this.handleStripeCheckout())} />
-                                :
-                                <ColorButton title={'CANCEL SUBSCRIPTION'} />
-                        }
+                            <View style={{ marginTop: "10%", borderWidth: 0.5, marginHorizontal: 20, }}>
+                                <CardField
+                                    postalCodeEnabled={false}
+                                    placeholder={{
+                                        number: 'Enter Card Number', expiration: "Exp.Date", cvc: "CVC"
+                                    }}
+                                    cardStyle={{
+                                        backgroundColor: '#FFFFFF',
+                                        textColor: '#000000',
+                                    }}
+                                    style={{
+                                        // width: '100%',
+                                        height: 50,
+                                    }}
+                                    onCardChange={(e) => {
+                                        this.setState({ cardDetails: e })
+                                    }}
+                                    onFocus={(focusedField) => {
+                                        console.log('focusField', focusedField);
+                                    }}
+                                />
+                            </View>
+                            <View style={{ flex: 0.5, justifyContent: "flex-end", marginHorizontal: "10%" }}>
+                                {
+                                    this.props.route.params ?
+                                        <Button loading={btnLoading} title={'PAY NOW'} onPress={() => this.setState({ btnLoading: true }, () => this.handleStripeCheckout())} />
+                                        :
+                                        <ColorButton title={'CANCEL SUBSCRIPTION'} />
+                                }
 
-                    </View>
-                </View>
+                            </View>
+                        </View>}
                 <Modal isVisible={this.state.modal}>
                     <View style={styles.cardContainer}>
                         <View style={{ marginTop: "5%", alignItems: "center" }}>
