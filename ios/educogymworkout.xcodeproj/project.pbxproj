@@ -13,6 +13,7 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		150387F426C57D980078166C /* Educogym_Logo_2018_fin_blue2@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 150387F326C57D980078166C /* Educogym_Logo_2018_fin_blue2@3x.png */; };
+		150E51F926E9415700AACB08 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 150E51F826E9415700AACB08 /* GoogleService-Info.plist */; };
 		157EB46026C3006200CA6799 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 157EB45F26C3006200CA6799 /* File.swift */; };
 		1F1106116F684EF4A1BFE320 /* Roboto-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 019C6ACF63D04011BA9D3D79 /* Roboto-BoldItalic.ttf */; };
 		2EC1CD7D87C148F3BA584FA5 /* Roboto-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 261202FFCA464424B7D49547 /* Roboto-MediumItalic.ttf */; };
@@ -54,6 +55,7 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = educogymworkout/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = educogymworkout/main.m; sourceTree = "<group>"; };
 		150387F326C57D980078166C /* Educogym_Logo_2018_fin_blue2@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Educogym_Logo_2018_fin_blue2@3x.png"; path = "../../../Downloads/Educogym_Logo_2018_fin_blue2/Educogym_Logo_2018_fin_blue2@3x.png"; sourceTree = "<group>"; };
+		150E51F826E9415700AACB08 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../src/firebase_config/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		157EB45E26C3006200CA6799 /* educogymworkout-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "educogymworkout-Bridging-Header.h"; sourceTree = "<group>"; };
 		157EB45F26C3006200CA6799 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		1A8C5FF1E61546E8A03953FB /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
@@ -197,6 +199,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				150E51F826E9415700AACB08 /* GoogleService-Info.plist */,
 				157EB45F26C3006200CA6799 /* File.swift */,
 				13B07FAE1A68108700A75B9A /* educogymworkout */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -336,6 +339,7 @@
 				FBF31C0F884A46528B06B0C5 /* Roboto-Italic.ttf in Resources */,
 				D65AC186DAC54F088F686FE7 /* Roboto-Light.ttf in Resources */,
 				8BDDEFB167D84B4AAC14065B /* Roboto-LightItalic.ttf in Resources */,
+				150E51F926E9415700AACB08 /* GoogleService-Info.plist in Resources */,
 				58F7C3FDF663487197768872 /* Roboto-Medium.ttf in Resources */,
 				2EC1CD7D87C148F3BA584FA5 /* Roboto-MediumItalic.ttf in Resources */,
 				AD87BD502C234C0B9F460DE4 /* Roboto-Regular.ttf in Resources */,
