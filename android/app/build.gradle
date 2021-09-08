@@ -131,7 +131,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.dt.awsnotification"
+        applicationId "com.infinitybits.educogymbodysculpt"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

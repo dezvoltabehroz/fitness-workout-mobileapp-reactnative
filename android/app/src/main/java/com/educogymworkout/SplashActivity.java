@@ -1,4 +1,4 @@
-package com.dt.awsnotification; // Change this to your package name.
+package com.infinitybits.educogymbodysculpt; // Change this to your package name.
 
 import android.content.Intent;
 import android.os.Bundle;
