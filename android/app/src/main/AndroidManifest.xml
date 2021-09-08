@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-package="com.dt.awsnotification">
+package="com.infinitybits.educogymbodysculpt">
   <!-- package="com.infinitybits.educogymbodysculpt"> -->
 
     <uses-permission android:name="android.permission.INTERNET" />
