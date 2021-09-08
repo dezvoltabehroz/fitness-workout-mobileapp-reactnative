@@ -10,6 +10,7 @@ import Bar from '../../assets/svg/Lines.svg';
 
 import styles from './style';
 import themeStyle from '../../assets/styles/theme.style';
+import { getLocalData, LOCAL_STORAGE_KEYS, storeLocalData } from '../../lib/utils/localstorage';
 
 class AppIntro extends Component {
     constructor(props) {
@@ -20,10 +21,25 @@ class AppIntro extends Component {
             currentPage: 0
         };
     }
+    componentDidMount = async () => {
+        storeLocalData(LOCAL_STORAGE_KEYS.fitnessLevel, JSON.stringify('Very Fit'))
+    }
 
-    multiSliderValueCallback = (values) => {
-        // console.log(values)
-
+    multiSliderValueCallback = async (values) => {
+        switch (values) {
+            case 0:
+                storeLocalData(LOCAL_STORAGE_KEYS.fitnessLevel, JSON.stringify('Not Fit'))
+                break;
+            case 1:
+                storeLocalData(LOCAL_STORAGE_KEYS.fitnessLevel, JSON.stringify('Average Fit'))
+                break;
+            case  2:
+                storeLocalData(LOCAL_STORAGE_KEYS.fitnessLevel, JSON.stringify('Good Fit'))
+                break;
+            case  3:
+                storeLocalData(LOCAL_STORAGE_KEYS.fitnessLevel, JSON.stringify('Very Fit'))
+                break;
+        }
     }
 
     render() {
@@ -67,7 +83,7 @@ class AppIntro extends Component {
 
                 </View>
                 <View style={styles.buttonContainer}>
-                    <TouchableOpacity onPress={() => navigate(route.APPINTRO3rd)}  style={styles.buttonStyle}>
+                    <TouchableOpacity onPress={() => navigate(route.APPINTRO3rd)} style={styles.buttonStyle}>
                         <Icon.AntDesign name="right" size={25} color={themeStyle.BAR_COLOR} />
                     </TouchableOpacity>
                 </View>

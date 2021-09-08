@@ -3,11 +3,13 @@ import { View, Text, StatusBar } from 'react-native';
 import CircularProgress from 'react-native-circular-progress-indicator';
 
 import { ClearButton, ColorContainer } from '../../components';
+import { AuthServices } from '../../services';
 import { route, screen } from '../../lib/utils/constants';
 import Tick from '../../assets/svg/Tick.svg';
 
 import styles from './style';
 import themeStyle from '../../assets/styles/theme.style';
+import { getLocalData, LOCAL_STORAGE_KEYS, storeLocalData } from '../../lib/utils/localstorage';
 
 class CreatingPlan extends Component {
     constructor(props) {
@@ -17,8 +19,53 @@ class CreatingPlan extends Component {
         };
     }
 
-    render() {
+    componentDidMount = async () => {
+        const { navigate, replace } = this.props.navigation;
+        const user_id = await getLocalData(LOCAL_STORAGE_KEYS.user_id)
+        const userToken = await getLocalData(LOCAL_STORAGE_KEYS.userToken)
+        const goal = await getLocalData(LOCAL_STORAGE_KEYS.fitnessGoal)
+        const level = await getLocalData(LOCAL_STORAGE_KEYS.fitnessLevel)
+        const equipment = await getLocalData(LOCAL_STORAGE_KEYS.fitnessEquipment)
+        const arm = await getLocalData(LOCAL_STORAGE_KEYS.focusAreaArms)
+        const shoulder = await getLocalData(LOCAL_STORAGE_KEYS.focusAreaShoulder)
+        const waist = await getLocalData(LOCAL_STORAGE_KEYS.focusAreaWaist)
+        const back = await getLocalData(LOCAL_STORAGE_KEYS.focusAreaBack)
+        const chest = await getLocalData(LOCAL_STORAGE_KEYS.focusAreaChest)
+        const glute = await getLocalData(LOCAL_STORAGE_KEYS.focusAreaGlutes)
+        const leg = await getLocalData(LOCAL_STORAGE_KEYS.focusAreaLegs)
+        const gender = await getLocalData(LOCAL_STORAGE_KEYS.gender)
 
+        let data = {
+            "fitness_goal": JSON.parse(goal),
+            "fitness_level": JSON.parse(level),
+            "fitness_equipment": JSON.parse(equipment),
+            "focus_area_arms": JSON.parse(arm),
+            "focus_area_waist": JSON.parse(waist),
+            "focus_area_legs": JSON.parse(leg),
+            "focus_area_glutes": JSON.parse(glute),
+            "focus_area_back": JSON.parse(back),
+            "focus_area_chest": JSON.parse(chest),
+            "focus_area_shoulder": JSON.parse(shoulder),
+            "gender": JSON.parse(gender),
+            "user_id": JSON.parse(user_id),
+        }
+        AuthServices.userPrefrences(data, JSON.parse(userToken))
+            .then((res) => {
+                console.log(res.data)
+            })
+            .catch((error) => console.log(error.response))
+
+    }
+
+    handleFinished=()=>{
+        const { navigate, replace } = this.props.navigation;
+        storeLocalData(LOCAL_STORAGE_KEYS.appIntro, JSON.stringify({ data: true }))
+        replace(route.MAIN)
+    }
+
+
+
+    render() {
         const { navigate, replace } = this.props.navigation;
         const { value } = this.state;
 
@@ -55,7 +102,7 @@ class CreatingPlan extends Component {
                         !value ?
                             <Text style={styles.headingTextStyle}>{'please Wait...'}</Text>
                             :
-                            <ClearButton title={'FINISHED'} onPress={() => replace(route.MAIN)} />
+                            <ClearButton title={'FINISHED'} onPress={() =>this.handleFinished()} />
                     }
 
                 </View>

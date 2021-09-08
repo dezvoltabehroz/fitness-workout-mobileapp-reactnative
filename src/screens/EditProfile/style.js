@@ -40,5 +40,9 @@ export default StyleSheet.create({
         marginLeft: 10,
         fontSize: 16,
         fontFamily: themeStyle.FONT_REGULAR
-    }
+    },
+    rowStyle: {
+        flexDirection: "row",
+        justifyContent: "center"
+    },
 })

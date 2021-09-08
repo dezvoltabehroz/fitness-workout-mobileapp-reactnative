@@ -57,3 +57,36 @@ export const NameModal = _NameModal;
 
 import _DateModal from './Modals/DateModal';
 export const DateModal = _DateModal;
+
+import _WeightModal from './Modals/WeightModal';
+export const WeightModal = _WeightModal;
+
+import _HeightModal from './Modals/HeightModal';
+export const HeightModal = _HeightModal;
+
+import _UploadingModal from './Modals/UploadingModal';
+export const UploadingModal = _UploadingModal;
+
+import _ArmSizeModal from './Modals/ArmSizeModal';
+export const ArmSizeModal = _ArmSizeModal;
+
+import _ChestSizeModal from './Modals/ChestSizeModal';
+export const ChestSizeModal = _ChestSizeModal;
+
+import _WaistSizeModal from './Modals/WaistSizeModal';
+export const WaistSizeModal = _WaistSizeModal;
+
+import _ShoulderSizeModal from './Modals/ShoulderSizeModal';
+export const ShoulderSizeModal = _ShoulderSizeModal;
+
+import _TummySizeModal from './Modals/TummySizeModal';
+export const TummySizeModal = _TummySizeModal;
+
+import _HipSizeModal from './Modals/HipSizeModal';
+export const HipSizeModal = _HipSizeModal;
+
+import _ThighSizeModal from './Modals/ThighSizeModal';
+export const ThighSizeModal = _ThighSizeModal;
+
+import _CalftSizeModal from './Modals/CalftSizeModal';
+export const CalftSizeModal = _CalftSizeModal;

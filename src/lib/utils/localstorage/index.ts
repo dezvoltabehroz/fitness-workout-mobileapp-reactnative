@@ -3,11 +3,24 @@ import AsyncStorage from "@react-native-community/async-storage";
 const LOCAL_STORAGE_KEYS = {
   personalDetails: 'personalDetails',
   userToken: 'userToken',
+  fitnessGoal: "fitnessGoal",
+  fitnessEquipment: "fitnessEquipment",
+  fitnessLevel: "fitnessLevel",
+  focusAreaArms: "focusAreaArms",
+  focusAreaWaist: "focusAreaWaist",
+  focusAreaLegs: "focusAreaLegs",
+  focusAreaChest:"focusAreaChest",
+  focusAreaBack:"focusAreaBack",
+  focusAreaGlutes: "focusAreaGlutes",
+  focusAreaShoulder: "focusAreaShoulder",
+  gender: "gender",
+  user_id: 'user_id',
   appIntro: 'APP_INTRO',
   email: 'email',
   password: 'password',
   remember_me: 'remember_me',
-  emailPassword:'emailPassword'
+  fcmToken:"fcmToken",
+  emailPassword: 'emailPassword'
 };
 
 /**

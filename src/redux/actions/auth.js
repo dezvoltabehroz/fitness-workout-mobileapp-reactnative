@@ -73,7 +73,6 @@ const userLogin = (userData, navigate) => {
                 }
                 else {
                     dispatch({ type: LOADING_SUCCESS, loading: !loading })
-                    console.log(responseData.data.message)
                     Alert.alert(responseData.data.message)
                 }
             })

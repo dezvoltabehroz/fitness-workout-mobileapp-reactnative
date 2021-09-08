@@ -1,4 +1,4 @@
-package com.infinitybits.educogymbodysculpt;
+package com.dt.awsnotification;
 
 import com.facebook.react.ReactActivity;
 import org.devio.rn.splashscreen.SplashScreen; // Import this.

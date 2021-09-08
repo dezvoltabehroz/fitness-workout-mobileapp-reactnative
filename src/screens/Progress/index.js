@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, StatusBar, ScrollView, ImageBackground, I
 import { LineChart } from "react-native-chart-kit";
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 
-import { Button, Container, HorizontalList, UpgradeModal } from '../../components';
+import { Button, Container, HorizontalList, UpgradeModal, UploadingModal } from '../../components';
 import { route, screen, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../lib/utils/constants';
 import GFire from '../../assets/svg/gray-fire.svg';
 import Camera from '../../assets/svg/camera.svg';
@@ -15,6 +15,8 @@ import Target from '../../assets/svg/pro-btn.svg';
 import THEME from '../../assets/styles/theme.style';
 
 import styles from './style';
+import { getLocalData, LOCAL_STORAGE_KEYS } from '../../lib/utils/localstorage';
+import { ProfileServices } from '../../services';
 
 const SVG_HEIGHT = 15;
 const SVG_WIDTH = 15;
@@ -50,10 +52,11 @@ class Progress extends Component {
         )
     }
 
-    chooseFile = () => {
+    chooseFile = async () => {
+        const user_id = await getLocalData(LOCAL_STORAGE_KEYS.user_id);
+        const userToken = await getLocalData(LOCAL_STORAGE_KEYS.userToken);
         var options = {
             title: 'Select Avatar',
-            noData: true,
             storageOptions: {
                 skipBackup: true,
                 path: 'images',
@@ -62,11 +65,31 @@ class Progress extends Component {
         launchCamera(options, (response) => {
             if (response.didCancel) {
             } else {
+                this.setState({ uploading: true });
                 let source = response;
-                this.setState({
-                    avatar: Platform.OS == 'ios' ? source : source.assets[0].uri,
-                    profile_Url: response
+                console.log(response)
+                let formData = new FormData();
+                formData.append('user_id', JSON.parse(user_id));
+                formData.append('image', {
+                    uri: Platform.OS === 'android' ?  response.assets[0].uri : response.uri,
+                    name: `${new Date().getTime().toString()}.jpg`,
+                    filename: new Date().getTime().toString() + '.jpg',
+                    type: 'image/jpg'
                 });
+                console.log("formData : ", formData)
+
+                ProfileServices.updateProgressPhoto1(formData, JSON.parse(userToken))
+                    .then((response) => {
+                        console.log(response.data)
+                        if (response.data.success) {
+                            this.setState({ uploading: false });
+                            this.props.navigation.navigate(route.PROGRESSPICS)
+                        }
+                    })
+                    .catch((err) => {
+                        this.setState({ uploading: false });
+                        console.log(err.response)
+                    })
             }
         });
     };
@@ -275,6 +298,7 @@ class Progress extends Component {
                     </ScrollView>
                 </View>
                 <UpgradeModal visible={this.state.modal} onUpgrade={() => this.props.navigation.navigate(route.PAYMENTMETHOD, {})} onSkip={() => this.setState({ modal: false })} />
+                <UploadingModal visible={this.state.uploading} />
             </Container>
         )
     }

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Input as ElementInput } from 'react-native-elements';
+import themeStyle from '../../assets/styles/theme.style';
 import inputStyles from './style';
 
 const Input = (props) => {
@@ -11,7 +12,7 @@ const Input = (props) => {
                 color: 'black',
                 fontWeight: 'normal'
             }}
-            containerStyle={inputStyles.containerStyle}
+            containerStyle={(props.bottomMargin ? { ...inputStyles.containerStyle, height: 55 } : props.width ? { ...inputStyles.containerStyle, width: props.width } : inputStyles.containerStyle)}
             placeholderTextColor={'#9AA1B1'}
             inputContainerStyle={inputStyles.inputContainerStyle}
             inputStyle={inputStyles.inputStyle}

@@ -13,6 +13,7 @@ import Band from '../../assets/svg/band.svg';
 
 import styles from './style';
 import themeStyle from '../../assets/styles/theme.style';
+import { getLocalData, LOCAL_STORAGE_KEYS, storeLocalData } from '../../lib/utils/localstorage';
 
 const SVG_HEIGHT = 36;
 const SVG_WIDTH = 36;
@@ -24,6 +25,10 @@ class AppIntro extends Component {
             timer: false,
             value: 0,
         };
+    }
+
+    componentDidMount = async () => {
+        storeLocalData(LOCAL_STORAGE_KEYS.fitnessEquipment, JSON.stringify(screen.APP_INTRO_Button_1_3))
     }
 
     style_Func_1 = () => {
@@ -78,7 +83,23 @@ class AppIntro extends Component {
         return style
     }
 
-    setValue = (value) => { this.setState({ value }) }
+    setValue = async (value) => {
+        this.setState({ value })
+        switch (value) {
+            case 0:
+                storeLocalData(LOCAL_STORAGE_KEYS.fitnessEquipment, JSON.stringify(screen.APP_INTRO_Button_1_3))
+                break;
+            case 1:
+                storeLocalData(LOCAL_STORAGE_KEYS.fitnessEquipment, JSON.stringify(screen.APP_INTRO_Button_2_3))
+                break;
+            case 2:
+                storeLocalData(LOCAL_STORAGE_KEYS.fitnessEquipment, JSON.stringify(screen.APP_INTRO_Button_3_3))
+                break;
+            case 3:
+                storeLocalData(LOCAL_STORAGE_KEYS.fitnessEquipment, JSON.stringify(screen.APP_INTRO_Button_4_3))
+                break;
+        }
+    }
 
     render() {
         const { navigate, goBack } = this.props.navigation;

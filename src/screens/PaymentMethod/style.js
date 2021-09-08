@@ -13,6 +13,13 @@ export default StyleSheet.create({
         marginHorizontal: 10,
         color: '#091011'
     },
+    headingText1: {
+        fontSize: 16,
+        paddingVertical: 10,
+        fontFamily: themeStyle.FONT_MEDIUM,
+        marginHorizontal: 10,
+        color: '#091011'
+    },
     textStyle: {
         color: '#797B7B',
         fontSize: 12,
