@@ -9,7 +9,7 @@ import Target from '../../assets/svg/706.svg';
 
 import styles from './style';
 import themeStyle from '../../assets/styles/theme.style';
-import { LOCAL_STORAGE_KEYS, storeLocalData } from '../../lib/utils/localstorage';
+import { LOCAL_STORAGE_KEYS, storeLocalData, getLocalData } from '../../lib/utils/localstorage';
 
 class AppIntro extends Component {
     constructor(props) {
@@ -24,8 +24,13 @@ class AppIntro extends Component {
             back: false,
             glute: false,
             leg: false,
-            waist: false
+            waist: false,
+            equipment: ""
         };
+    }
+    componentDidMount = async () => {
+        let equipment = await getLocalData(LOCAL_STORAGE_KEYS.fitnessEquipment)
+        this.setState({ equipment: JSON.parse(equipment) })
     }
 
     handleDone = () => {
@@ -53,7 +58,7 @@ class AppIntro extends Component {
     render() {
         const { navigate, goBack } = this.props.navigation;
         let { gender } = this.props.route.params
-        const { shoulder, chest, glute, back, arm, leg, waist, arr } = this.state;
+        const { shoulder, chest, glute, back, arm, leg, waist, arr, equipment } = this.state;
         return (
             <Container>
                 <StatusBar backgroundColor={themeStyle.DASH_DARK} />
@@ -322,7 +327,7 @@ class AppIntro extends Component {
                                     </>}
                         </ImageBackground>
                         <View style={styles.buttonContainer}>
-                            <ClearButton disabled={arr.length >= 2 ? false : true} title={'DONE'} onPress={() => this.handleDone()} />
+                            <ClearButton disabled={equipment == screen.APP_INTRO_Button_4_3 && arr.length >= 3 ? false : equipment != screen.APP_INTRO_Button_4_3 && arr.length >= 2 ? false : true} title={'DONE'} onPress={() => this.handleDone()} />
                         </View>
                     </View>
                 </ImageBackground>

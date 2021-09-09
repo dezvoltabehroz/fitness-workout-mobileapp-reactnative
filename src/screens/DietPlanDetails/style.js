@@ -37,6 +37,13 @@ export default StyleSheet.create({
     textStyle: {
         color: '#797B7B',
         fontSize: 12,
+        // marginTop: '5%',
+        fontFamily: themeStyle.FONT_REGULAR,
+        marginHorizontal: 10,
+    },
+    textStyle1: {
+        color: '#797B7B',
+        fontSize: 12,
         marginTop: '5%',
         fontFamily: themeStyle.FONT_REGULAR,
         marginHorizontal: 10,

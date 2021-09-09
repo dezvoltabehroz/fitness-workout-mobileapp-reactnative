@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+import Modal from 'react-native-modal';
 import themeStyle from "../../assets/styles/theme.style";
-import { Button, Container, Icon, NameModal, DateModal, HeightModal, WeightModal } from "../../components";
+import { Button, Container, Icon, NameModal, DateModal, HeightModal, WeightModal, Input } from "../../components";
 
 import Plus from '../../assets/svg/plus.svg'
 import DOB from '../../assets/svg/DOB.svg'
@@ -11,6 +12,7 @@ import Height from '../../assets/svg/Height.svg'
 
 import styles from './style';
 import moment from "moment";
+import { isEmailValid } from "../../lib/utils/global";
 
 export default class CompleteProfile extends Component {
     constructor(props) {
@@ -18,6 +20,8 @@ export default class CompleteProfile extends Component {
         this.state = {
             tab: 0,
             nameModal: false,
+            email: "",
+            emailModal: false,
             dateModal: false,
             weightModal: false,
             heightModal: false,
@@ -27,7 +31,9 @@ export default class CompleteProfile extends Component {
             weight: "",
             feet: "",
             inch: "",
-            nextLoading: false
+            submit: false,
+            nextLoading: false,
+            btnLoading: false
         }
     }
 
@@ -56,11 +62,27 @@ export default class CompleteProfile extends Component {
             this.setState({ nextLoading: false })
             alert('Please fill complete data')
         }
+    }
 
+    updateUserEmail = async () => {
+        this.setState({ btnLoading: true })
+        const user_id = await getLocalData(LOCAL_STORAGE_KEYS.user_id)
+        const userToken = await getLocalData(LOCAL_STORAGE_KEYS.userToken)
+        let data = {
+            "email": this.state.email,
+            "user_id": user_id
+        }
+        console.log(data)
+        ProfileServices.updateUserEmail(data, JSON.parse(userToken))
+            .then((res) => {
+                console.log(res.data)
+                this.setState({ btnLoading: false, emailModal: false })
+            })
+            .catch((error) => console.log(error.response))
     }
 
     render() {
-        const { tab, name, date, dateValue, weight, height, feet, inch, nextLoading } = this.state
+        const { tab, name, date, dateValue, weight, submit, feet, inch, nextLoading, email, emailModal, btnLoading } = this.state
         return (
             <Container>
 
@@ -78,6 +100,16 @@ export default class CompleteProfile extends Component {
                         </View>
 
                         <TouchableOpacity onPress={() => this.setState({ nameModal: true })}>
+                            <Plus />
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.rowMeasureContainer}>
+                        <View style={styles.rowStyle}>
+                            <Icon.Entypo name="email" color={'#797B7B'} size={20} />
+                            <Text style={styles.grayText}>{email ? email : 'Email'}</Text>
+                        </View>
+
+                        <TouchableOpacity onPress={() => this.setState({ emailModal: true })}>
                             <Plus />
                         </TouchableOpacity>
                     </View>
@@ -130,6 +162,31 @@ export default class CompleteProfile extends Component {
                     onChangeText={(name) => this.setState({ weight: name })}
                     onClose={() => this.setState({ weightModal: false })}
                     onSave={() => this.setState({ weightModal: false })} />
+                <Modal isVisible={this.state.emailModal}>
+                    <View style={styles.cardContainer}>
+                        <View style={{ marginTop: "5%", }}>
+                            <View style={{ alignItems: "flex-end" }}>
+                                <TouchableOpacity onPress={() => this.setState({ emailModal: false, })}><Icon.AntDesign name="close" size={20} /></TouchableOpacity>
+                            </View>
+                            <Text style={styles.headingText}>Enter Your Email</Text>
+                            <View style={{ marginTop: "10%", }}>
+                                <Input editable={!btnLoading} bottomMargin={true} value={email} placeholder="" onChangeText={(email) => this.handleEmail(email)} />
+                                {
+                                    submit && !email ? <Text style={[themeStyle.errorText,]}>Please fill this field</Text> : null
+                                }
+                                {
+                                    submit && email.length && !isEmailValid(email) ? <Text style={[themeStyle.errorText,]}>Email is invalid</Text> : null
+                                }
+                            </View>
+
+                        </View>
+
+                        <View style={{ marginHorizontal: "15%", marginVertical: "5%" }}>
+                            <Button loading={btnLoading} disabled={email && !submit ? false : true} title={'Continue'} onPress={() => this.updateUserEmail()} />
+                        </View>
+                    </View>
+
+                </Modal>
             </Container>
         )
     }

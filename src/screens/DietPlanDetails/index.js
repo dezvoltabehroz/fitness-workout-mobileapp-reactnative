@@ -34,7 +34,7 @@ export default class DietPlanDetails extends Component {
                             </View>
                             <View style={styles.rowContainer}>
                                 <Icon.Octicons name="primitive-dot" color={'#797B7B'} size={10} />
-                                <Text style={styles.textStyle}>1 cup tea or black coffee without sugar and milk lorem ipsum dolor set amit …</Text>
+                                <Text style={styles.textStyle1}>1 cup tea or black coffee without sugar and milk lorem ipsum dolor set amit …</Text>
                             </View>
                             <View style={styles.rowContainer}>
                                 <Icon.Octicons name="primitive-dot" color={'#797B7B'} size={10} />
@@ -52,7 +52,7 @@ export default class DietPlanDetails extends Component {
                             </View>
                             <View style={styles.rowContainer}>
                                 <Icon.Octicons name="primitive-dot" color={'#797B7B'} size={10} />
-                                <Text style={styles.textStyle}>1 cup tea or black coffee without sugar and milk lorem ipsum dolor set amit …</Text>
+                                <Text style={styles.textStyle1}>1 cup tea or black coffee without sugar and milk lorem ipsum dolor set amit …</Text>
                             </View>
                             <View style={styles.rowContainer}>
                                 <Icon.Octicons name="primitive-dot" color={'#797B7B'} size={10} />
@@ -70,7 +70,7 @@ export default class DietPlanDetails extends Component {
                             </View>
                             <View style={styles.rowContainer}>
                                 <Icon.Octicons name="primitive-dot" color={'#797B7B'} size={10} />
-                                <Text style={styles.textStyle}>1 cup tea or black coffee without sugar and milk lorem ipsum dolor set amit …</Text>
+                                <Text style={styles.textStyle1}>1 cup tea or black coffee without sugar and milk lorem ipsum dolor set amit …</Text>
                             </View>
                             <View style={styles.rowContainer}>
                                 <Icon.Octicons name="primitive-dot" color={'#797B7B'} size={10} />
@@ -88,7 +88,7 @@ export default class DietPlanDetails extends Component {
                             </View>
                             <View style={styles.rowContainer}>
                                 <Icon.Octicons name="primitive-dot" color={'#797B7B'} size={10} />
-                                <Text style={styles.textStyle}>1 cup tea or black coffee without sugar and milk lorem ipsum dolor set amit …</Text>
+                                <Text style={styles.textStyle1}>1 cup tea or black coffee without sugar and milk lorem ipsum dolor set amit …</Text>
                             </View>
                             <View style={styles.rowContainer}>
                                 <Icon.Octicons name="primitive-dot" color={'#797B7B'} size={10} />
@@ -106,7 +106,7 @@ export default class DietPlanDetails extends Component {
                             </View>
                             <View style={styles.rowContainer}>
                                 <Icon.Octicons name="primitive-dot" color={'#797B7B'} size={10} />
-                                <Text style={styles.textStyle}>1 cup tea or black coffee without sugar and milk lorem ipsum dolor set amit …</Text>
+                                <Text style={styles.textStyle1}>1 cup tea or black coffee without sugar and milk lorem ipsum dolor set amit …</Text>
                             </View>
                             <View style={styles.rowContainer}>
                                 <Icon.Octicons name="primitive-dot" color={'#797B7B'} size={10} />

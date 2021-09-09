@@ -14,6 +14,7 @@ import Band from '../../assets/svg/band.svg';
 import styles from './style';
 import themeStyle from '../../assets/styles/theme.style';
 import { getLocalData, LOCAL_STORAGE_KEYS, storeLocalData } from '../../lib/utils/localstorage';
+import { SwitchIOS } from 'react-native';
 
 const SVG_HEIGHT = 36;
 const SVG_WIDTH = 36;
@@ -85,6 +86,7 @@ class AppIntro extends Component {
 
     setValue = async (value) => {
         this.setState({ value })
+        console.log(value)
         switch (value) {
             case 0:
                 storeLocalData(LOCAL_STORAGE_KEYS.fitnessEquipment, JSON.stringify(screen.APP_INTRO_Button_1_3))
@@ -97,6 +99,8 @@ class AppIntro extends Component {
                 break;
             case 3:
                 storeLocalData(LOCAL_STORAGE_KEYS.fitnessEquipment, JSON.stringify(screen.APP_INTRO_Button_4_3))
+                let equipment = await getLocalData(LOCAL_STORAGE_KEYS.fitnessEquipment)
+                console.log(equipment)
                 break;
         }
     }

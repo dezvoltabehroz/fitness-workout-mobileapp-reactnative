@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, StatusBar, ScrollView, ImageBackground, Image, Platform } from 'react-native';
+import { View, Text, TouchableOpacity, StatusBar, ScrollView, ImageBackground, Image, Platform, UIManager, LayoutAnimation } from 'react-native';
 import { LineChart } from "react-native-chart-kit";
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 
@@ -28,6 +28,7 @@ class Progress extends Component {
             timer: false,
             modal: false,
             value: 0,
+            expanded: false,
             data: [
                 {
                     title: "Morning Workouts",
@@ -39,7 +40,16 @@ class Progress extends Component {
                 }
             ]
         };
+        if (Platform.OS === "android") {
+            UIManager.setLayoutAnimationEnabledExperimental(true);
+        }
     }
+
+    changeMeasurements = () => {
+        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+        this.setState({ expanded: !this.state.expanded });
+    }
+
     componentDidMount = () => {
         this.props.navigation.setOptions({
             headerRight: () => this.headerRight(),
@@ -71,7 +81,7 @@ class Progress extends Component {
                 let formData = new FormData();
                 formData.append('user_id', JSON.parse(user_id));
                 formData.append('image', {
-                    uri: Platform.OS === 'android' ?  response.assets[0].uri : response.uri,
+                    uri: Platform.OS === 'android' ? response.assets[0].uri : response.uri,
                     name: `${new Date().getTime().toString()}.jpg`,
                     filename: new Date().getTime().toString() + '.jpg',
                     type: 'image/jpg'
@@ -207,9 +217,9 @@ class Progress extends Component {
                         <View style={styles.bmiContainer}>
                             <View style={styles.rowContainer}>
                                 <Text style={styles.blackheading}>BMI(kg/m2) : 23.44</Text>
-                                <TouchableOpacity>
+                                {/* <TouchableOpacity>
                                     <Text style={styles.colorText}>{screen.EDIT}</Text>
-                                </TouchableOpacity>
+                                </TouchableOpacity> */}
                             </View>
                             <View style={styles.row} >
                                 <View style={{ height: 10, width: SCREEN_WIDTH * 0.15, backgroundColor: "#9BE5FF" }}></View>
@@ -251,8 +261,8 @@ class Progress extends Component {
                         <View style={styles.bmiContainer}>
                             <View style={styles.rowContainer}>
                                 <Text style={styles.blackheading}>MY MEASUREMENTS</Text>
-                                <TouchableOpacity>
-                                    <Text style={styles.colorText}>{screen.SEEMORE}</Text>
+                                <TouchableOpacity onPress={this.changeMeasurements}>
+                                    <Text style={styles.colorText}>{this.state.expanded ? 'SEE LESS' : screen.SEEMORE}</Text>
                                 </TouchableOpacity>
                             </View>
                             <View style={styles.rowMeasureContainer}>
@@ -267,12 +277,47 @@ class Progress extends Component {
                                     <Text style={styles.colorText1}>46 IN</Text>
                                 </TouchableOpacity>
                             </View>
-                            <View style={styles.rowContainer}>
+                            <View style={this.state.expanded ? styles.rowMeasureContainer : styles.rowContainer}>
                                 <Text style={styles.grayText}>Shoulder Size</Text>
                                 <TouchableOpacity>
                                     <Text style={styles.colorText1}>16 IN</Text>
                                 </TouchableOpacity>
                             </View>
+                            {this.state.expanded ?
+                                <>
+                                    <View style={styles.rowMeasureContainer}>
+                                        <Text style={styles.grayText}>Waist Size</Text>
+                                        <TouchableOpacity>
+                                            <Text style={styles.colorText1}>16 IN</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                    <View style={styles.rowMeasureContainer}>
+                                        <Text style={styles.grayText}>Tummy Size</Text>
+                                        <TouchableOpacity>
+                                            <Text style={styles.colorText1}>46 IN</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                    <View style={styles.rowMeasureContainer}>
+                                        <Text style={styles.grayText}>Hip Size</Text>
+                                        <TouchableOpacity>
+                                            <Text style={styles.colorText1}>16 IN</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                    <View style={styles.rowMeasureContainer}>
+                                        <Text style={styles.grayText}>Thigh Size</Text>
+                                        <TouchableOpacity>
+                                            <Text style={styles.colorText1}>46 IN</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                    <View style={styles.rowContainer}>
+                                        <Text style={styles.grayText}>Calf Size</Text>
+                                        <TouchableOpacity>
+                                            <Text style={styles.colorText1}>16 IN</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                </>
+                                : null
+                            }
                         </View>
                         <View style={styles.divider}></View>
                         <View style={styles.bmiContainer}>
