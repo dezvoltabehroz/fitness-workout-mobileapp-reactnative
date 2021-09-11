@@ -30,6 +30,22 @@ const Api = {
     stripeCheckOut: function (data, token) {
         return axiosInstance.post('stripe/checkout', data, apiHeaderConfiguration(token, TOKEN))
     },
+    getFullProfile: function (data, token) {
+        return axiosInstance.post('profile/getFullProfile', data, apiHeaderConfiguration(token, TOKEN))
+    },
+    updateStartDateUserWorkout: function (data, token) {
+        return axiosInstance.post('profile/updateStartDateUserWorkout', data, apiHeaderConfiguration(token, TOKEN))
+    },
+    updateStartDateUserDiet: function (data, token) {
+        return axiosInstance.post('profile/updateStartDateUserDiet', data, apiHeaderConfiguration(token, TOKEN))
+    },
+    updateDailyDiet: function (data, token) {
+        return axiosInstance.post('profile/updateDailyDiet', data, apiHeaderConfiguration(token, TOKEN))
+    },
+    updateDailyWorkout: function (data, token) {
+        return axiosInstance.post('profile/updateDayWorkout', data, apiHeaderConfiguration(token, TOKEN))
+    },
+
 
 };
 

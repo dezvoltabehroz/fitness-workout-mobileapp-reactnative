@@ -25,6 +25,9 @@ export const HeaderRight = NavigationHeaderRightButton;
 import _CustomSlider from './CustomSlider/index';
 export const CustomSlider = _CustomSlider;
 
+import _CustomSlider1 from './CustomSlider1/index';
+export const CustomSlider1 = _CustomSlider1;
+
 import _UpgradeModal from './Modals/UpgradeModal';
 export const UpgradeModal = _UpgradeModal;
 

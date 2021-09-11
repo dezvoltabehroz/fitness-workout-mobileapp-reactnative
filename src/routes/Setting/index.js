@@ -8,6 +8,7 @@ import LogoWhite from '../../assets/svg/white-logo.svg'
 import styles from '../style';
 import THEME from '../../assets/styles/theme.style';
 import { HeaderLeft, HeaderRight } from '../../components';
+import WorkoutSettingsRoutes from '../WorkoutSetting';
 
 const Stack = createStackNavigator();
 
@@ -33,7 +34,7 @@ function SettingRoutes() {
                 headerTintColor: THEME.COLOR_WHITE,
                 headerTitleStyle: styles.headerTextStyle1,
             })} />
-              <Stack.Screen name={route.EDITPROFILE} component={EditProfile} options={({ navigation, route }) => ({
+            <Stack.Screen name={route.EDITPROFILE} component={EditProfile} options={({ navigation, route }) => ({
                 headerLeft: () => (<HeaderLeft navigation={navigation} color />),
                 headerTitle: screen.EDIT_PROFILE,
                 headerStyle: styles.headerStyle1,

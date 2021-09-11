@@ -39,9 +39,9 @@ export default class Settings extends Component {
                         </TouchableOpacity>
                         <View style={styles.rowContainer}>
                             <Workout />
-                            <View style={styles.itemContainer}>
+                            <TouchableOpacity onPress={()=>navigation.navigate(route.FITNESSGOAL)} style={styles.itemContainer}>
                                 <Text style={styles.text}>Workout Settings</Text>
-                            </View>
+                            </TouchableOpacity>
                         </View>
                         <TouchableOpacity onPress={() => navigation.navigate(route.PAYMENTMETHOD)} style={styles.rowContainer}>
                             <Edit />

@@ -27,7 +27,8 @@ export default class DayWorkoutVideoPlayer extends Component {
             paused: false,
             completedModal: false,
             playerState: PLAYER_STATES.PLAYING,
-            screenType: 'cotain'
+            screenType: 'cotain',
+            desc: [1, 2, 3, 4, 5]
         }
         this.videoPlayer = null
     }
@@ -122,6 +123,7 @@ export default class DayWorkoutVideoPlayer extends Component {
 
 
     render() {
+        const { video_path, video_title, video_description } = this.props?.route?.params?.data;
         return (
             <Container>
                 <View style={styles.container}>
@@ -137,7 +139,7 @@ export default class DayWorkoutVideoPlayer extends Component {
                             resizeMode={this.state.screenType}
                             onFullScreen={this.state.isFullScreen}
                             source={{
-                                uri: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+                                uri: video_path,
                             }}
                             style={this.state.isFullScreen ? styles.videoContainer1 : styles.videoContainer}
                             volume={this.state.volume}
@@ -169,12 +171,18 @@ export default class DayWorkoutVideoPlayer extends Component {
 
                     {!this.state.isFullScreen ?
                         <View style={styles.lowerContainer}>
-                            <Text style={styles.headingStyle}>PUSH-UPS</Text>
-                            <View style={styles.rowContainer}>
-                                <Icon.Octicons name="primitive-dot" size={20} color={'lightgray'} />
-                                <Text style={styles.textStyle} >Keep your hips down and in line with your body.v</Text>
-                            </View>
-                            <View style={styles.rowContainer}>
+                            <Text style={styles.headingStyle}>{video_title}</Text>
+                            {
+                                this.state.desc.map((item, index) => {
+                                    return (
+                                        <View style={styles.rowContainer}>
+                                            <Icon.Octicons name="primitive-dot" size={20} color={'lightgray'} />
+                                            <Text style={styles.textStyle} >{video_description}</Text>
+                                        </View>
+                                    )
+                                })
+                            }
+                            {/* <View style={styles.rowContainer}>
                                 <Icon.Octicons name="primitive-dot" size={20} color={'lightgray'} />
                                 <Text style={styles.textStyle}>Have your hands parallel with your chest.</Text>
                             </View>
@@ -185,7 +193,7 @@ export default class DayWorkoutVideoPlayer extends Component {
                             <View style={styles.rowContainer}>
                                 <Icon.Octicons name="primitive-dot" size={20} color={'lightgray'} />
                                 <Text style={styles.textStyle}>Push up fast and go down slowly.</Text>
-                            </View>
+                            </View> */}
                         </View>
                         : null}
                 </View>

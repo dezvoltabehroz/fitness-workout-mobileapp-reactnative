@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, StatusBar, ScrollView, ImageBackground } from 'react-native';
 import ProgressBarAnimated from 'react-native-progress-bar-animated';
-
+import { connect } from 'react-redux';
+import { bindActionCreators } from "redux";
+import { authActions } from '../../redux/actions/auth';
 import { Button, Container, HorizontalList, UpgradeModal } from '../../components';
 import { route, screen, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../lib/utils/constants';
 import GFire from '../../assets/svg/gray-fire.svg';
@@ -15,6 +17,9 @@ import Blue from '../../assets/svg/blue-bg-star.svg';
 import THEME from '../../assets/styles/theme.style';
 
 import styles from './style';
+import { getLocalData, LOCAL_STORAGE_KEYS } from '../../lib/utils/localstorage';
+import { PlanServices, ProfileServices } from '../../services';
+import moment from 'moment';
 
 const SVG_HEIGHT = 15;
 const SVG_WIDTH = 15;
@@ -25,6 +30,8 @@ class Home extends Component {
         this.state = {
             timer: false,
             value: 0,
+            fitnessLevel: "Very Fit",
+            challenges: [],
             data: [
                 {
                     title: "Morning Workouts",
@@ -37,11 +44,118 @@ class Home extends Component {
             ]
         };
     }
+    componentDidMount = async () => {
+        const { user_id, token } = this.props.user.userData;
+        let data = { category: "mind body" }
+        PlanServices.getFreeVideos(data, token)
+            .then(async (res) => {
+                console.log("res.data.data : ", res.data.data)
+                let fitnessLevel = await getLocalData(LOCAL_STORAGE_KEYS.fitnessLevel);
+                this.setState({ fitnessLevel: JSON.parse(fitnessLevel), challenges: res.data.data })
+            })
+            .catch((err) => { console.log(err.response) })
+    }
+
+    fitnessLevelFunction = () => {
+        switch (this.state.fitnessLevel) {
+            case 'Very Fit':
+                return (
+                    <View style={styles.row}>
+                        < WFire height={SVG_HEIGHT} width={SVG_WIDTH} />
+                        <WFire height={SVG_HEIGHT} width={SVG_WIDTH} />
+                        <WFire height={SVG_HEIGHT} width={SVG_WIDTH} />
+                        <WFire height={SVG_HEIGHT} width={SVG_WIDTH} />
+                        <Text style={[styles.whiteTextStyle2, { marginHorizontal: 5 }]}>{this.state.fitnessLevel}</Text>
+                    </View>
+                )
+            case 'Good Fit':
+                return (
+                    <View style={styles.row}>
+                        < WFire height={SVG_HEIGHT} width={SVG_WIDTH} />
+                        <WFire height={SVG_HEIGHT} width={SVG_WIDTH} />
+                        <WFire height={SVG_HEIGHT} width={SVG_WIDTH} />
+                        <GFire height={SVG_HEIGHT} width={SVG_WIDTH} />
+                        <Text style={[styles.whiteTextStyle2, { marginHorizontal: 5 }]}>{this.state.fitnessLevel}</Text>
+                    </View>
+                )
+            case 'Average Fit':
+                return (
+                    <View style={styles.row}>
+                        < WFire height={SVG_HEIGHT} width={SVG_WIDTH} />
+                        <WFire height={SVG_HEIGHT} width={SVG_WIDTH} />
+                        <GFire height={SVG_HEIGHT} width={SVG_WIDTH} />
+                        <GFire height={SVG_HEIGHT} width={SVG_WIDTH} />
+                        <Text style={[styles.whiteTextStyle2, { marginHorizontal: 5 }]}>{this.state.fitnessLevel}</Text>
+                    </View>
+                )
+            case 'Not Fit':
+                return (
+                    <View style={styles.row}>
+                        < WFire height={SVG_HEIGHT} width={SVG_WIDTH} />
+                        <GFire height={SVG_HEIGHT} width={SVG_WIDTH} />
+                        <GFire height={SVG_HEIGHT} width={SVG_WIDTH} />
+                        <GFire height={SVG_HEIGHT} width={SVG_WIDTH} />
+                        <Text style={[styles.whiteTextStyle2, { marginHorizontal: 5 }]}>{this.state.fitnessLevel}</Text>
+                    </View>
+                )
+            default:
+                return (
+                    <View style={styles.row}>
+                        < WFire height={SVG_HEIGHT} width={SVG_WIDTH} />
+                        <GFire height={SVG_HEIGHT} width={SVG_WIDTH} />
+                        <GFire height={SVG_HEIGHT} width={SVG_WIDTH} />
+                        <GFire height={SVG_HEIGHT} width={SVG_WIDTH} />
+                        <Text style={[styles.whiteTextStyle2, { marginHorizontal: 5 }]}>{this.state.fitnessLevel}</Text>
+                    </View>
+                )
+        }
+    }
+
+    handleStartWorkout = () => {
+        const { navigate } = this.props.navigation;
+        const { user_id, token } = this.props.user.userData;
+        console.log(token)
+        let data = {
+            current_date: moment().format('YYYY-MM-DD'),
+            user_id: user_id
+        }
+        ProfileServices.updateStartDateUserWorkout(data, token)
+            .then(async (res) => {
+                let userData = {
+                    token: token,
+                    user_id: user_id
+                }
+                await this.props.authActions.getUserProfile(userData)
+                navigate(route.DAYS_WORLOUT)
+            })
+            .catch((err) => console.log(err.response))
+    }
+
+    handleStartDietPlan = () => {
+        const { navigate } = this.props.navigation;
+        const { user_id, token } = this.props.user.userData;
+        let data = {
+            current_date: moment().format('YYYY-MM-DD'),
+            user_id: user_id
+        }
+        ProfileServices.updateStartDateUserDiet(data, token)
+            .then(async (res) => {
+                let userData = {
+                    token: token,
+                    user_id: user_id
+                }
+                await this.props.authActions.getUserProfile(userData)
+                navigate(route.DIET)
+
+            })
+            .catch((err) => console.log(err.response))
+    }
 
     render() {
 
         const { navigate } = this.props.navigation;
-        const { value, data } = this.state;
+        const { value, data, challenges } = this.state;
+        const { bmi, daily_diet_count, daily_workout_count } = this.props.user.userData;
         const progressCustomStyles = {
             borderRadius: 10,
             borderWidth: 0,
@@ -67,7 +181,7 @@ class Home extends Component {
                                 <View style={styles.alignItems}>
                                     <View style={styles.row}>
                                         <Fire height={SVG_HEIGHT} width={SVG_WIDTH} />
-                                        <Text style={styles.barTextStyle}>30</Text>
+                                        <Text style={styles.barTextStyle}>{daily_workout_count ? daily_workout_count : 0}</Text>
                                     </View>
                                     <Text style={styles.decsTextStyle}>WORKOUT DAYS</Text>
                                 </View>
@@ -75,7 +189,7 @@ class Home extends Component {
                                 <View style={styles.alignItems}>
                                     <View style={styles.row}>
                                         <Apple height={SVG_HEIGHT} width={SVG_WIDTH} />
-                                        <Text style={styles.barTextStyle}>30</Text>
+                                        <Text style={styles.barTextStyle}>{daily_diet_count ? daily_diet_count : 0}</Text>
                                     </View>
                                     <Text style={styles.decsTextStyle}>DIET DAYS</Text>
                                 </View>
@@ -83,7 +197,7 @@ class Home extends Component {
                                 <View style={styles.alignItems}>
                                     <View style={styles.row}>
                                         <BMI height={SVG_HEIGHT} width={SVG_WIDTH} />
-                                        <Text style={styles.barTextStyle}>23.44</Text>
+                                        <Text style={styles.barTextStyle}>{bmi ? parseFloat(bmi).toFixed(2) : 0}</Text>
                                     </View>
                                     <Text style={styles.decsTextStyle}>BMI</Text>
                                 </View>
@@ -92,34 +206,28 @@ class Home extends Component {
                         <ImageBackground source={require('../../assets/images/rob.jpg')} style={styles.workoutDayContainer}>
                             <Text style={styles.whiteTextStyle}>30 DAY'S WORKOUT</Text>
                             <View style={styles.rowStyle}>
-                                <View style={styles.row}>
-                                    <WFire height={SVG_HEIGHT} width={SVG_WIDTH} />
-                                    <GFire height={SVG_HEIGHT} width={SVG_WIDTH} />
-                                    <GFire height={SVG_HEIGHT} width={SVG_WIDTH} />
-                                    <GFire height={SVG_HEIGHT} width={SVG_WIDTH} />
-                                    <Text style={[styles.whiteTextStyle2, { marginHorizontal: 5 }]}>Unit</Text>
-                                </View>
-                                <Text style={styles.whiteTextStyle1}>10%</Text>
+                                {this.fitnessLevelFunction()}
+                                <Text style={styles.whiteTextStyle1}>{daily_workout_count ? (daily_workout_count / 30 * 100) : 0}%</Text>
                             </View>
                             <ProgressBarAnimated
                                 width={SCREEN_WIDTH * 0.6}
                                 height={10}
-                                value={20}
+                                value={daily_workout_count ? daily_workout_count / 30 * 100 : 1}
                                 {...progressCustomStyles}
                                 onComplete={() => { Alert.alert('Hey!', 'onComplete event fired!'); }}
                             />
                             <View style={styles.goButtonContainer}>
-                                <Button title={'GO!'} onPress={() => navigate(route.DAYS_WORLOUT)} />
+                                <Button title={'GO!'} onPress={() => this.handleStartWorkout()} />
                             </View>
                         </ImageBackground>
                         <View style={{ bottom: '3%' }}>
                             <Text style={[styles.whiteTextStyle, { color: THEME.COLOR_BLACK, margin: '5%' }]}>CHALLENGES</Text>
-                            <HorizontalList data={data} />
+                            <HorizontalList video data={challenges} />
                         </View>
                         <ImageBackground source={require('../../assets/images/diet.png')} style={styles.cardContainer} >
                             <Text style={styles.whiteTextStyle1}>DIET PLAN IS READY!</Text>
                             <View style={styles.goButtonContainer}>
-                                <Button title={'GO!'} onPress={() => navigate(route.DIET)} />
+                                <Button title={'GO!'} onPress={() => this.handleStartDietPlan()} />
                             </View>
                         </ImageBackground>
                         <TouchableOpacity style={{}} onPress={() => navigate(route.POWER_OF_MIND)} >
@@ -135,9 +243,18 @@ class Home extends Component {
                         </TouchableOpacity>
                     </ScrollView>
                 </View>
-                <UpgradeModal visible={this.state.modal} onUpgrade={() => this.props.navigation.navigate(route.PAYMENTMETHOD,{})} onSkip={() => this.setState({ modal: false })} />
+                <UpgradeModal visible={this.state.modal} onUpgrade={() => this.props.navigation.navigate(route.PAYMENTMETHOD, {})} onSkip={() => this.setState({ modal: false })} />
             </Container>
         )
     }
 }
-export default Home;
+
+const mapStateToProps = (state) => { return { user: state.authReducer || {} }; };
+const mapDispatchToProps = dispatch => {
+    return {
+        authActions: bindActionCreators(authActions, dispatch)
+
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

@@ -29,7 +29,8 @@ export default StyleSheet.create({
     },
     headingText: {
         fontSize: 16,
-        marginTop: '5%',
+        textTransform: "capitalize",
+        marginTop: '2.5%',
         fontFamily: themeStyle.FONT_MEDIUM,
         marginHorizontal: 10,
         color: '#091011'

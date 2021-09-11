@@ -40,6 +40,9 @@ function MainRoutes(props) {
         <Bottom.Navigator
             screenOptions={({ route }) => ({
                 headerShown: false,
+                tabBarShowLabel: false,
+                tabBarActiveTintColor: '#44BDE8',
+                tabBarInactiveTintColor: '#9B9B9B',
                 tabBarIcon: ({ focused, color, size }) => {
                     let icon;
                     if (route.name === 'Home') {
@@ -93,14 +96,9 @@ function MainRoutes(props) {
                     }
                     return icon;
                 },
-
-
-            })}
-            tabBarOptions={{
-                showLabel: false,
-                activeTintColor: THEME.BAR_COLOR,
-                inactiveTintColor: '#9B9B9B',
-            }}>
+            })
+            }
+        >
             <Bottom.Screen name={route.HOME} component={HomeRoutes} />
             <Bottom.Screen name={route.DIET} component={DietRoutes} />
             <Bottom.Screen name={route.PROGRESS} component={ProgressRoutes} />

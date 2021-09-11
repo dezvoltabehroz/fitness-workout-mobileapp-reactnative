@@ -17,6 +17,8 @@ import styles from './style';
 import themeStyle from '../../assets/styles/theme.style';
 import moment from 'moment';
 import Button from '../../components/Button';
+import { PlanServices } from '../../services';
+import { connect } from 'react-redux';
 const progressCustomStyles = {
     borderRadius: 10,
     borderWidth: 0,
@@ -27,37 +29,8 @@ class PowerOfMind extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: [
-                {
-                    day: "01",
-                    expanded: false,
-                    date: new Date(),
-                },
-                {
-                    day: "02",
-                    expanded: false,
-                    date: "2021-08-02",
-                    locked: true
-                },
-                {
-                    day: "03",
-                    expanded: false,
-                    date: "2021-08-03",
-                    locked: true
-                },
-                {
-                    day: "04",
-                    expanded: false,
-                    date: "2021-08-04",
-                    locked: true
-                },
-                {
-                    day: "05",
-                    expanded: false,
-                    date: "2021-08-05",
-                    locked: true
-                },
-            ],
+            workoutLoading: false,
+            workoutPlan: [],
             upgradeModal: false,
         }
         this.days = [
@@ -103,24 +76,54 @@ class PowerOfMind extends Component {
             UIManager.setLayoutAnimationEnabledExperimental(true);
         }
     }
+    componentDidMount = () => {
+
+        const { user_id, token } = this.props.user.userData;
+        let data = {
+            user_id: user_id
+        }
+        PlanServices.getWorkoutPlans(data, token)
+            .then(async (res) => {
+                if (res.data.success) {
+                    let arr = [...res.data.data];
+                    arr.forEach((item, index) => { arr[index] = { ...arr[index], expanded: false } })
+                    this.setState({ workoutPlan: arr, workoutLoading: false })
+                }
+            })
+            .catch((err) => { console.log(err.response); this.setState({ workoutPlan: [], workoutLoading: false, }) })
+    }
 
     changeLayout = (index) => {
-        let array = [...this.state.data];
+        let array = [...this.state.workoutPlan];
         if (array[index].expanded) {
             array[index] = { ...array[index], expanded: false }
         } else {
             array[index] = { ...array[index], expanded: true }
         }
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-        this.setState({ data: array });
+        this.setState({ workoutPlan: array });
+    }
+
+    truncateString = (str, num) => {
+        if (str.length <= num) {
+            return str
+        }
+        return str.slice(0, num)
     }
 
     _renderItem = ({ item, index }) => {
-        let array = index == 4 ? [...this.days1] : [...this.days]
+        const { is_pro } = this.props.user.userData
+        let week = item.weekName.split(" ");
+        let workoutWeekDate = [];
+        let progressCount = []
+        item.workoutDays.map((dayObj, i) => {
+            if (dayObj.completed) { progressCount.push(1) }
+            if (dayObj.date == moment().format('YYYY-MM-DD')) { workoutWeekDate[index] = 1; }
+        });
         return (
             <View style={styles.itemContainer} >
-                <TouchableOpacity onPress={() => {
-                    if (item.locked) {
+                <TouchableOpacity disabled={workoutWeekDate && workoutWeekDate[index] == 1 ? false : true} onPress={() => {
+                    if (is_pro == 0) {
                         this.setState({ upgradeModal: true })
                     } else {
                         this.changeLayout(index)
@@ -129,36 +132,39 @@ class PowerOfMind extends Component {
                     <Text style={styles.greyText}>{'Week'}</Text>
                     <View style={styles.rowContainer}>
                         <View style={[styles.row, { flex: 1 }]}>
-                            <Text style={styles.dayText}>{item.day}</Text>
+                            <Text style={styles.dayText}>0{week[1]}</Text>
                             <View style={{ flex: 1 }}>
                                 <View style={[styles.row, { marginLeft: 10 }]}>
                                     <Calender />
-                                    <Text style={[styles.greyText, { marginLeft: 5 }]}>7 Days</Text>
+                                    <Text style={[styles.greyText, { marginLeft: 5 }]}>{item.workoutDays.length} Days</Text>
                                 </View>
                                 <View style={{ marginLeft: 10, marginTop: 5 }}>
-                                    <ProgressBarAnimated
-                                        width={SCREEN_WIDTH * 0.15}
-                                        height={5}
-                                        value={20}
-                                        {...progressCustomStyles}
-                                        onComplete={() => { Alert.alert('Hey!', 'onComplete event fired!'); }}
-                                    />
+                                    <View style={{ backgroundColor: "lightgray", width: SCREEN_WIDTH * 0.15, borderRadius: 5 }}>
+                                        <ProgressBarAnimated
+                                            width={SCREEN_WIDTH * 0.15}
+                                            height={5}
+                                            value={progressCount.length / item.workoutDays.length * 100 == 0 ? 1 : progressCount.length / item.workoutDays.length * 100}
+                                            {...progressCustomStyles}
+                                            onComplete={() => { Alert.alert('Hey!', 'onComplete event fired!'); }}
+                                        />
+                                    </View>
+
                                 </View>
                             </View>
                         </View>
                         <View style={{ flex: 0.2, alignItems: "center" }} >
                             {
-                                item.locked ?
+                                is_pro == 0 ?
                                     <View style={{ top: -42 }}>
                                         <Mark />
                                     </View>
                                     :
                                     null
                             }
-                            {
-                                moment(item.date).format('YYYY-MM-DD') == moment().format('YYYY-MM-DD') ?
+                            {is_pro == 1 && workoutWeekDate && workoutWeekDate[index] == 1 ?
+                                <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", right: 15 }}>
                                     <CircularProgress
-                                        value={100}
+                                        value={progressCount.length / item.workoutDays.length * 100 == 0 ? 1 : progressCount.length / item.workoutDays.length * 100}
                                         duration={2000}
                                         radius={30}
                                         textColor={'#1F2729'}
@@ -171,54 +177,58 @@ class PowerOfMind extends Component {
                                         valueSuffix={'%'}
                                         onAnimationComplete={() => { this.setState({ value: true }) }}
                                     />
-                                    :
-                                    <View style={{ top: item.locked ? -15 : 0 }}>
-                                        <Icon.SimpleLineIcons name="lock" size={20} color={'gray'} />
+                                    <View style={{ width: 15 }}></View>
+                                    <View style={{}}>
+                                        {item.expanded ?
+                                            <Icon.FontAwesome name="angle-down" size={30} color={'gray'} />
+                                            :
+                                            <Icon.FontAwesome name="angle-right" size={30} color={'gray'} />}
                                     </View>
+                                </View>
+                                :
+                                <View style={{ top: is_pro == 1 ? -15 : 0 }}>
+                                    <Icon.SimpleLineIcons name="lock" size={20} color={'gray'} />
+                                </View>}
 
-                            }
 
                         </View>
                     </View>
 
                 </TouchableOpacity>
                 {item.expanded ?
-                    array.map((i, inde) => {
+                    item.workoutDays.map((i, inde) => {
                         return (
-                            <TouchableOpacity onPress={() => {
-                                if (item.locked) {
-                                    this.setState({ upgradeModal: true })
-                                } else {
-                                    this.props.navigation.navigate(route.DAYSWORKOUTVIDEOS)
-                                }
+                            <TouchableOpacity disabled={i.date == moment().format('YYYY-MM-DD') ? false : true} onPress={() => {
+                                this.props.navigation.navigate(route.DAYSWORKOUTVIDEOS, { data: i })
                             }} style={styles.itemContainer} >
                                 <View style={styles.textContainer1}>
                                     <Text style={styles.greyText}>{'Day'}</Text>
                                     <View style={styles.rowContainer1}>
                                         <View style={[styles.row, { flex: 1 }]}>
-                                            <Text style={styles.dayText1}>{i.day}</Text>
+                                            <Text style={styles.dayText1}>{this.truncateString(i.day, 3)}</Text>
                                             <View style={{ flex: 1 }}>
                                                 <View style={[styles.row, { marginLeft: 10 }]}>
                                                     <Stopwatch />
                                                     <Text style={[styles.greyText, { marginLeft: 5 }]}>9 Min</Text>
                                                 </View>
                                                 <View style={{ marginLeft: 10, marginTop: 5 }}>
-                                                    <ProgressBarAnimated
-                                                        width={SCREEN_WIDTH * 0.15}
-                                                        height={5}
-                                                        value={20}
-                                                        {...progressCustomStyles}
-                                                        onComplete={() => { Alert.alert('Hey!', 'onComplete event fired!'); }}
-                                                    />
+                                                    <View style={{ backgroundColor: "lightgray", width: SCREEN_WIDTH * 0.15, borderRadius: 5 }}>
+                                                        <ProgressBarAnimated
+                                                            width={SCREEN_WIDTH * 0.15}
+                                                            height={5}
+                                                            value={i?.completed ? 100 : 1}
+                                                            {...progressCustomStyles}
+                                                            onComplete={() => { Alert.alert('Hey!', 'onComplete event fired!'); }}
+                                                        />
+                                                    </View>
                                                 </View>
-
                                             </View>
                                         </View>
                                         <View style={{ flex: 0.2, alignItems: "center" }} >
 
                                             <CircularProgress
-                                                value={100}
-                                                duration={2000}
+                                                value={i?.completed ? 100 : 0}
+                                                // duration={2000}
                                                 radius={30}
                                                 textColor={'#1F2729'}
                                                 textStyle={styles.textStyle}
@@ -232,12 +242,6 @@ class PowerOfMind extends Component {
                                             />
                                         </View>
                                     </View>
-                                    {/* {
-                                            moment(item.date).format('YYYY-MM-DD') == moment().format('YYYY-MM-DD') ?
-                                                <Button title={'GO'} onPress={() => this.props.navigation.navigate(route.DAYSWORKOUTVIDEOS)} />
-                                                :
-                                                null
-                                        } */}
                                 </View>
                             </TouchableOpacity>
                         )
@@ -260,7 +264,7 @@ class PowerOfMind extends Component {
                             <ImageBackground imageStyle={styles.stylingImage} style={styles.imageStyle} source={require('../../assets/images/chest-work.jpg')}>
                                 <Text style={styles.headingText1} >30 DAY'S WORKOUT</Text>
                                 <View style={styles.rowContainer}>
-                                    <Text style={styles.headingText}>Day {this.state.data[0].day}</Text>
+                                    <Text style={styles.headingText}>Day {1}</Text>
                                     <View style={styles.row}>
                                         <WFire />
                                         <Text style={[styles.whiteText, { marginHorizontal: 5 }]}>10 Workouts</Text>
@@ -280,7 +284,7 @@ class PowerOfMind extends Component {
                             </ImageBackground>
                         </View>
                         <FlatList
-                            data={this.state.data}
+                            data={this.state.workoutPlan}
                             contentContainerStyle={{ paddingTop: "5%", paddingBottom: "10%" }}
                             renderItem={this._renderItem}
                             keyExtractor={item => item.route}
@@ -294,5 +298,5 @@ class PowerOfMind extends Component {
         )
     }
 }
-
-export default PowerOfMind;
+const mapStateToProps = (state) => { return { user: state.authReducer || {} }; };
+export default connect(mapStateToProps)(PowerOfMind);
