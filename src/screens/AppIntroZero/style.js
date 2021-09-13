@@ -29,7 +29,11 @@ export default StyleSheet.create({
     buttonContainer: {
         flex: 1,
         marginHorizontal: "20%",
-        justifyContent: "flex-end"
+        justifyContent: "flex-end",
+        marginBottom: "10%",
+    },
+    buttonContainer1: {
+        marginTop: "10%",
     },
     selectedButtonStyle: {
         marginTop: "5%",

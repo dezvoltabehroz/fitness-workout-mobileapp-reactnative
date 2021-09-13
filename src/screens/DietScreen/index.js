@@ -70,6 +70,7 @@ class DietScreen extends Component {
 
     handleDietDays = async () => {
         const { user_id, token } = this.props.user.userData;
+        console.log(user_id)
         let data = {
             user_id: user_id
         }
@@ -80,7 +81,7 @@ class DietScreen extends Component {
                     let arr = [...res.data.data];
                     arr.forEach((item, index) => { arr[index] = { ...arr[index], expanded: false } })
                     this.setState({ dietPlans: arr })
-                    let videoTag = { category: "mind body" }
+                    let videoTag = { category: "diet videos" }
                     PlanServices.getFreeVideos(videoTag, token)
                         .then((response) => { this.setState({ dietVideos: response.data.data, loading: false }) })
                         .catch((err) => { console.log(err.response); this.setState({ dietPlans: [], loading: false }) })

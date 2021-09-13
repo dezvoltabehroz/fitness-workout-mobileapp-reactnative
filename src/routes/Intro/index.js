@@ -21,10 +21,7 @@ function IntroRoutes() {
         )
     }
     return (
-        <Stack.Navigator initialRouteName={route.APPINTROZERO} >
-            <Stack.Screen name={route.APPINTROZERO} component={AppIntroZero} options={({ navigation, route }) => ({
-                headerShown: false
-            })} />
+        <Stack.Navigator initialRouteName={route.APPINTRO1st} >
             <Stack.Screen name={route.APPINTRO1st} component={AppIntro1st} options={({ navigation, route }) => ({
                 headerBackTitleVisible: false,
                 headerTitleAlign: screen.SCREEN_TITLE_ALIGN_CENTER,

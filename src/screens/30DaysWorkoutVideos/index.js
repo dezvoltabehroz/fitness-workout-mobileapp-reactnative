@@ -40,14 +40,6 @@ class DaysWorkoutVideos extends Component {
                 }
             })
             .catch((err) => { console.log(err.response); this.setState({ videos: [], loading: false }) })
-        // var tabBarVisible = true;
-        // if (typeof this.props.route.state == route.DAYSWORKOUTVIDEOS) {
-        //     const { routes } = route.state;
-        //     if (routes.length > 1) {
-        //         tabBarVisible = false;
-        //     }
-        // }
-        // this.props.navigation.setOptions({ tabBarVisible });
     }
 
     _renderItems = (item, index) => {
@@ -86,7 +78,6 @@ class DaysWorkoutVideos extends Component {
                                     renderItem={({ item, index }) => this._renderItems(item, index)} />
                             </View>
                         </ScrollView>}
-
                 </View>
             </Container>
         )

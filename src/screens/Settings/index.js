@@ -14,8 +14,12 @@ import Logout from '../../assets/svg/Logout.svg'
 
 import styles from './style'
 import { route } from "../../lib/utils/constants";
+import { authActions } from "../../redux/actions/auth";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import Login from "../Login";
 
-export default class Settings extends Component {
+class Settings extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -39,7 +43,7 @@ export default class Settings extends Component {
                         </TouchableOpacity>
                         <View style={styles.rowContainer}>
                             <Workout />
-                            <TouchableOpacity onPress={()=>navigation.navigate(route.FITNESSGOAL)} style={styles.itemContainer}>
+                            <TouchableOpacity onPress={() => navigation.navigate(route.FITNESSGOAL)} style={styles.itemContainer}>
                                 <Text style={styles.text}>Workout Settings</Text>
                             </TouchableOpacity>
                         </View>
@@ -82,15 +86,35 @@ export default class Settings extends Component {
                                 <Text style={styles.text}>About Developers</Text>
                             </View>
                         </View>
-                        <View style={styles.rowContainer}>
-                            <Logout />
-                            <View style={styles.itemContainer}>
-                                <Text style={styles.text}>Logout</Text>
-                            </View>
-                        </View>
+                        {
+                            this.props.user.userData.email ?
+                                <TouchableOpacity onPress={() => this.props.authActions.removeUser(this.props.navigation.replace)} style={styles.rowContainer}>
+                                    <Logout />
+                                    <View style={styles.itemContainer}>
+                                        <Text style={styles.text}>Logout</Text>
+                                    </View>
+                                </TouchableOpacity>
+                                :
+                                <TouchableOpacity onPress={() => this.props.navigation.navigate(route.LOGIN)} style={styles.rowContainer}>
+                                    <Logout />
+                                    <View style={styles.itemContainer}>
+                                        <Text style={styles.text}>Login</Text>
+                                    </View>
+                                </TouchableOpacity>}
+
                     </View>
                 </ScrollView>
             </Container>
         )
     }
 }
+const mapStateToProps = (state) => { return { user: state.authReducer || {} }; };
+
+const mapDispatchToProps = dispatch => {
+    return {
+        authActions: bindActionCreators(authActions, dispatch)
+
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Settings);

@@ -3,7 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { View, Text, StyleSheet } from 'react-native';
 
 import { route, screen } from '../lib/utils/constants';
-import { AuthLoading, PaymentMethod, DaysWorkout, DaysWorkoutVideos, DayWorkoutVideoPlayer, PowerOfMindAudio, DietPlan, CompleteProfile, ProgressPics, Login, SelectEuipment, FocusArea, UpdatingPlan, FitnessGoal, FitnessLevel } from '../screens';
+import { AuthLoading, PaymentMethod, DaysWorkout, DaysWorkoutVideos, DayWorkoutVideoPlayer, PowerOfMindAudio, DietPlan, CompleteProfile, ProgressPics, Login, SelectEuipment, FocusArea, UpdatingPlan, FitnessGoal, FitnessLevel, AppIntroZero } from '../screens';
 import IntroRoutes from './Intro';
 import MainRoutes from './Main';
 import { HeaderLeft } from '../components';
@@ -36,6 +36,9 @@ function AppRoutes() {
             <Stack.Screen name={route.AUTH_LOADING} component={AuthLoading} options={{
                 headerShown: false
             }} />
+               <Stack.Screen name={route.APPINTROZERO} component={AppIntroZero} options={({ navigation, route }) => ({
+                headerShown: false
+            })} />
             <Stack.Screen name={route.APPINTRO} component={IntroRoutes} options={{ headerShown: false }} />
             <Stack.Screen name={route.WORKOUTSETTING} component={WorkoutSettingsRoutes} options={{ headerShown: false }} />
             <Stack.Screen name={route.LOGIN} component={Login} options={{ headerShown: false }} />

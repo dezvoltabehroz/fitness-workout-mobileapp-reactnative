@@ -18,6 +18,9 @@ const Api = {
     updateProgressPhoto1: function (data, token) {
         return axios.post(`${BASE_URL}profile/uploadProgressPicture`, data, apiHeaderConfiguration(token, MULTIPART));
     },
+    uploadProfilePicture: function (data, token) {
+        return axios.post(`${BASE_URL}profile/uploadProfilePicture`, data, apiHeaderConfiguration(token, MULTIPART));
+    },
     updateUserEmail: function (data, token) {
         return axiosInstance.put('profile/updateEmail', data, apiHeaderConfiguration(token, TOKEN))
     },

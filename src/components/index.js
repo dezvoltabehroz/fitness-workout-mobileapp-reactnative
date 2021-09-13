@@ -93,3 +93,12 @@ export const ThighSizeModal = _ThighSizeModal;
 
 import _CalftSizeModal from './Modals/CalftSizeModal';
 export const CalftSizeModal = _CalftSizeModal;
+
+import _OtpInputs from './OtpInputs';
+export const OtpInputs = _OtpInputs;
+
+import _VerifyOtpModal from './Modals/verifyOtpModal';
+export const VerifyOtpModal = _VerifyOtpModal;
+
+import _EmailModal from './Modals/EmailModal';
+export const EmailModal = _EmailModal;

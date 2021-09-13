@@ -30,7 +30,8 @@ class PowerOfMind extends Component {
                     rating: 1
                 }
             ],
-            mindBody: [],
+            mindBodyAudio: [],
+            mindBodyVideo:[],
             laoding: true
         }
     }
@@ -41,11 +42,11 @@ class PowerOfMind extends Component {
         PlanServices.getFreeVideos(data, token)
             .then((res) => {
                 console.log("res : ", res.data)
-                this.setState({ mindBody: res.data.data, laoding: false })
+                this.setState({ mindBodyAudio: res.data.data.audio, mindBodyVideo: res.data.data.video, laoding: false })
             })
             .catch((err) => { console.log(err.response) })
     }
-    
+
     _renderMenuItem = ({ item, index }) => {
         return (
             <TouchableOpacity onPress={() => { this.props.navigation.navigate(route.POWEROFMINDAUDIO) }} style={styles.itemContainer} >
@@ -77,12 +78,12 @@ class PowerOfMind extends Component {
                                 <View style={styles.headingContainer}>
                                     <Text style={styles.headingText}>Videos</Text>
                                 </View>
-                                <HorizontalList data={this.state.mindBody} video />
+                                <HorizontalList data={this.state.mindBodyVideo} video />
                                 <View style={styles.headingContainer}>
                                     <Text style={styles.headingText}>Audios</Text>
                                 </View>
                                 <FlatList
-                                    data={this.state.data.slice(0, 99)}
+                                    data={this.state.mindBodyAudio.slice(0, 99)}
                                     numColumns={2}
                                     renderItem={this._renderMenuItem}
                                     contentContainerStyle={styles.contentContainer}

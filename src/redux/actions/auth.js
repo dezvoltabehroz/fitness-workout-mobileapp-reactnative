@@ -60,15 +60,20 @@ const getUserProfile = (userData, navigate) => {
 
 const removeUser = (navigate) => {
     return async (dispatch) => {
-        dispatch({ type: USER_LOGOUT_SUCCESS })
-        await navigate(route.MAIN)
         await clearAllLocalData();
+       let id= await getLocalData(LOCAL_STORAGE_KEYS.user_id)
+       console.log(id);
+        await navigate(route.APPINTROZERO)
+        setTimeout(() => {
+        dispatch({ type: USER_LOGOUT_SUCCESS })
+        }, 2000);
     }
 };
 
 const userLogin = (navigate) => {
     return (dispatch) => {
         requestUserPermission(dispatch, navigate);
+        console.log("userLogin")
     }
 }
 

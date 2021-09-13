@@ -94,4 +94,7 @@ import _SelectEuipment from './SelectEuipment';
 export const SelectEuipment = _SelectEuipment;
 
 import _AppIntroZero from './AppIntroZero';
-export const AppIntroZero = _AppIntroZero
+export const AppIntroZero = _AppIntroZero;
+
+import _ChangePassword from './ChangePassword';
+export const ChangePassword = _ChangePassword

@@ -17,6 +17,11 @@ class AppIntro extends Component {
     }
 
     componentDidMount = () => {
+        this.focusListener = this.props.navigation.addListener('focus', () => { this.showModal() })
+        this.showModal()
+    }
+
+    showModal = () => {
         setTimeout(() => {
             this.setState({ timer: true })
         }, 2000);
@@ -25,7 +30,7 @@ class AppIntro extends Component {
 
     render() {
 
-        const { navigate } = this.props.navigation;
+        const { navigate,replace } = this.props.navigation;
         const { timer } = this.state;
 
         return (
@@ -38,7 +43,10 @@ class AppIntro extends Component {
                     source={require('../../assets/images/Splash.gif')}>
                     {timer ?
                         <View style={styles.buttonContainer}>
-                            <ClearButton title={'GET STARTED'} onPress={() => navigate(route.APPINTRO1st)} />
+                            <ClearButton title={'GET STARTED'} onPress={() => navigate(route.APPINTRO)} />
+                            <View style={styles.buttonContainer1}>
+                                <ClearButton title={'LOG IN'} onPress={() => replace(route.LOGIN)} />
+                            </View>
                         </View>
                         : null
                     }</ImageBackground>

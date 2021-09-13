@@ -46,7 +46,7 @@ class Home extends Component {
     }
     componentDidMount = async () => {
         const { user_id, token } = this.props.user.userData;
-        let data = { category: "mind body" }
+        let data = { category: "daily challenges" }
         PlanServices.getFreeVideos(data, token)
             .then(async (res) => {
                 console.log("res.data.data : ", res.data.data)
@@ -155,7 +155,7 @@ class Home extends Component {
 
         const { navigate } = this.props.navigation;
         const { value, data, challenges } = this.state;
-        const { bmi, daily_diet_count, daily_workout_count } = this.props.user.userData;
+        const { bmi, daily_diet_count, daily_workout_count, is_pro } = this.props.user.userData;
         const progressCustomStyles = {
             borderRadius: 10,
             borderWidth: 0,
@@ -167,11 +167,12 @@ class Home extends Component {
                 <StatusBar backgroundColor={THEME.BAR_COLOR} barStyle={"light-content"} />
                 <View style={styles.container}>
                     <View style={styles.headingContainer}>
-                        <View style={styles.rowContainer}>
+                        <View style={{ ...styles.rowContainer, marginBottom: '2.5%' }}>
                             <Text style={styles.whiteTextStyle}>YOUR PERSONALIZED PLAN</Text>
-                            <TouchableOpacity onPress={() => this.setState({ modal: true })}>
-                                <Target />
-                            </TouchableOpacity>
+                            {is_pro == 0 ?
+                                <TouchableOpacity onPress={() => this.setState({ modal: true })}>
+                                    <Target />
+                                </TouchableOpacity> : null}
                         </View>
                     </View>
                     <ScrollView contentContainerStyle={{ marginBottom: 0 }}>
