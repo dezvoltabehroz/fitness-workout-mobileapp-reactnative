@@ -12,14 +12,16 @@ import { isEmailValid } from '../../../lib/utils/global';
 
 const UpgradeModal = (props) => {
     return (
-        <Modal isVisible={props.isVisible}  >
+        <Modal isVisible={props.isVisible}
+            animationInTiming={400}
+            animationOutTiming={200}  >
             <View style={styles.modalContainer} >
 
                 <View style={{ marginTop: "5%", }}>
                     <View style={{ alignItems: "flex-end" }}>
                         <TouchableOpacity onPress={props.onClose}><Icon.AntDesign name="close" size={20} /></TouchableOpacity>
                     </View>
-                    <Text style={styles.headingText}>Enter Your Email</Text>
+                    <Text style={styles.headingText}>{props.reset ? "Enter your email to reset password" : "Enter Your Email"}</Text>
                     <View style={{ marginTop: "10%", }}>
                         <Input editable={!props.btnLoading} bottomMargin={true} value={props.email} placeholder="" onChangeText={(email) => props.setEmail(email)} />
                         {

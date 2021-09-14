@@ -10,7 +10,10 @@ import Input from '../../Input';
 
 const UpgradeModal = (props) => {
     return (
-        <Modal isVisible={props.visible} >
+        <Modal isVisible={props.visible}
+            animationInTiming={400}
+            animationOutTiming={200}
+        >
             <View style={styles.modalContainer} >
 
 

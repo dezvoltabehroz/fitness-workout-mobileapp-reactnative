@@ -10,7 +10,8 @@ import Input from '../../Input';
 
 const WeightModal = (props) => {
     return (
-        <Modal isVisible={props.visible} >
+        <Modal isVisible={props.visible} animationInTiming={400}
+            animationOutTiming={200} >
             <View style={styles.modalContainer} >
 
 

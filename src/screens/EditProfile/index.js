@@ -110,7 +110,6 @@ class CompleteProfile extends Component {
     setPassword = async () => {
         const { password, submit, confirmPassword } = this.state;
         if (password && isPasswordValid(password) && submit && confirmPassword && confirmPassword == password) {
-
             this.setState({
                 btnLoading: false, submit: false,
                 passwordModal: false
@@ -118,7 +117,6 @@ class CompleteProfile extends Component {
         } else {
             this.setState({ submit: true, btnLoading: false })
         }
-
     }
 
     sendCodeOnEmail = () => {
@@ -141,22 +139,14 @@ class CompleteProfile extends Component {
     verifyCode = () => {
         const { code, submit1, sendedCode } = this.state;
         if (code && code.length == 6 && submit1) {
-            let userData = {
-                "code": `${code}`
-            }
-            AuthServices.verifyCodeForReset(userData)
-                .then((res) => {
-                    console.log(res.data)
-                    if (code == sendedCode) {
-                        this.setState({
-                            emailModal: false, btnLoading: false, confirmOtpModal: false, code: "", submit1: false,
-                            passwordModal: this.props.user.userData.email ? false : true
-                        })
-                    } else {
-                        Alert.alert("Code is incorrect!", 'Please enter a valid code ')
-                    }
+            if (code == sendedCode) {
+                this.setState({
+                    emailModal: false, btnLoading: false, confirmOtpModal: false, code: "", submit1: false,
+                    passwordModal: this.props.user.userData.email ? false : true
                 })
-                .catch((error) => console.log(error.response))
+            } else {
+                Alert.alert("Code is incorrect!", 'Please enter a valid code ')
+            }
         } else {
             this.setState({ submit1: true, btnLoading: false })
         }
@@ -276,7 +266,8 @@ class CompleteProfile extends Component {
                     setCode={(code) => this.setState({ code: code })}
                     onClose={() => this.setState({ confirmOtpModal: false })}
                     verifyCode={() => this.setState({ submit1: true, btnLoading: true }, () => this.verifyCode())} />
-                <Modal isVisible={this.state.passwordModal}>
+                <Modal isVisible={this.state.passwordModal} animationInTiming={400}
+                    animationOutTiming={200} >
                     <View style={styles.cardContainer}>
                         <View style={{ marginTop: "5%", }}>
                             <View style={{ alignItems: "flex-end" }}>

@@ -10,18 +10,17 @@ import Input from '../../Input';
 
 const UpgradeModal = (props) => {
     return (
-        <Modal isVisible={props.visible} >
+        <Modal isVisible={props.visible}
+            animationInTiming={400}
+            animationOutTiming={200}
+        >
             <View style={styles.modalContainer} >
-
-
                 <View style={{ marginBottom: "10%" }}>
                     <Text style={styles.headingText}>Full Name</Text>
                 </View>
                 <View style={{ marginBottom: "10%" }}>
                     <Input placeholder='Name' onChangeText={(e) => props.onChangeText(e)} />
                 </View>
-
-
                 <View style={styles.rowContainer}>
                     <TouchableOpacity style={{ marginHorizontal: 30 }} onPress={() => props.onClose()}>
                         <Text style={styles.blackText}>Cancel</Text>

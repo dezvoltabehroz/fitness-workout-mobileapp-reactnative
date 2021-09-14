@@ -35,7 +35,6 @@ class AppIntro extends Component {
 
         return (
             <Container>
-
                 <StatusBar translucent={true} backgroundColor={'transparent'} barStyle={"light-content"} />
                 <ImageBackground
                     style={{ height: SCREEN_HEIGHT, width: SCREEN_WIDTH }}
@@ -43,7 +42,7 @@ class AppIntro extends Component {
                     source={require('../../assets/images/Splash.gif')}>
                     {timer ?
                         <View style={styles.buttonContainer}>
-                            <ClearButton title={'GET STARTED'} onPress={() => navigate(route.APPINTRO)} />
+                            <ClearButton title={'GET STARTED'} onPress={() => replace(route.APPINTRO)} />
                             <View style={styles.buttonContainer1}>
                                 <ClearButton title={'LOG IN'} onPress={() => replace(route.LOGIN)} />
                             </View>

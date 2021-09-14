@@ -17,7 +17,9 @@ const ArmSizeModal = (props) => {
         }
     }
     return (
-        <Modal isVisible={props.visible} >
+        <Modal isVisible={props.visible}
+        animationInTiming={400}
+        animationOutTiming={200} >
             <View style={styles.modalContainer} >
                 <View style={{ marginBottom: "10%" }}>
                     <Text style={styles.headingText}>Arm Size</Text>

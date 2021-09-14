@@ -10,7 +10,7 @@ import Input from '../../Input';
 
 const ChestSizeModal = (props) => {
     const changeInches = (e) => {
-        if ( e <= 70) {
+        if (e <= 70) {
             props.onChangeText(e)
         } else {
             alert("Please enter appropieate inch")
@@ -18,7 +18,10 @@ const ChestSizeModal = (props) => {
 
     }
     return (
-        <Modal isVisible={props.visible} >
+        <Modal isVisible={props.visible}
+            animationInTiming={400}
+            animationOutTiming={200}
+        >
             <View style={styles.modalContainer} >
 
 

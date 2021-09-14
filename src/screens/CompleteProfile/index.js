@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { Alert, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import Modal from 'react-native-modal'
 import themeStyle from "../../assets/styles/theme.style";
 import {
-    Button, Container, Icon, NameModal, DateModal, HeightModal, WeightModal,
-    ArmSizeModal, ChestSizeModal, CalftSizeModal, ShoulderSizeModal, ThighSizeModal, TummySizeModal, HipSizeModal, WaistSizeModal
+    Button, Container, Icon, NameModal, DateModal, HeightModal, WeightModal, Input,
+    ArmSizeModal, ChestSizeModal, CalftSizeModal, ShoulderSizeModal, ThighSizeModal, TummySizeModal, HipSizeModal, WaistSizeModal, VerifyOtpModal, EmailModal
 } from "../../components";
 
 import Plus from '../../assets/svg/plus.svg'
@@ -24,9 +25,14 @@ import styles from './style';
 import { route } from "../../lib/utils/constants";
 import moment from "moment";
 import { getLocalData, LOCAL_STORAGE_KEYS } from "../../lib/utils/localstorage";
-import { ProfileServices } from "../../services";
+import { AuthServices, ProfileServices } from "../../services";
+import themeStyle1 from "../../assets/styles/common.style";
+import { isEmailValid, isPasswordValid } from "../../lib/utils/global";
+import { authActions } from "../../redux/actions/auth";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
 
-export default class CompleteProfile extends Component {
+class CompleteProfile extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -49,7 +55,17 @@ export default class CompleteProfile extends Component {
             hip: "",
             tummy: "",
             thigh: "",
-            calft: ""
+            calft: "",
+            passwordModal: false,
+            emailModal: false,
+            confirmOtpModal: false,
+            code: "",
+            error: "",
+            btnLoading: false,
+            password: "",
+            confirmPassword: "",
+            submit: false,
+            submit1: false
         }
     }
 
@@ -73,22 +89,29 @@ export default class CompleteProfile extends Component {
     }
 
     handleOnPressNext = async () => {
-        const { tab, name, date, dateValue, weight, height, feet, inch } = this.state;
+        const { tab, name, email, dateValue, weight, password, feet, inch } = this.state;
         const user_id = await getLocalData(LOCAL_STORAGE_KEYS.user_id);
         const userToken = await getLocalData(LOCAL_STORAGE_KEYS.userToken);
         if (name && dateValue && inch && weight && feet) {
             let data = {
+                "email": email,
                 "full_name": name,
                 "dob": moment(dateValue).format('YYYY-MM-DD'),
                 "height_feet": parseInt(feet),
                 "height_inches": parseInt(inch),
                 "weight": parseFloat(weight),
+                "password": password,
                 "user_id": JSON.parse(user_id)
             }
             ProfileServices.updateProfile(data, JSON.parse(userToken))
                 .then((response) => {
                     if (response.data.success) {
+                        let userData = {
+                            "user_id": JSON.parse(user_id),
+                            "token": JSON.parse(userToken)
+                        }
                         this.setState({ nextLoading: false, tab: 1 })
+                        this.props.authActions.getUserProfile(userData);
                     }
                 })
                 .catch((err) => console.log(err.response))
@@ -126,7 +149,7 @@ export default class CompleteProfile extends Component {
                 .then((response) => {
                     if (response.data.success) {
                         this.setState({ next2Loading: false, })
-                        this.props.navigation.navigate(route.LOGIN)
+                        this.props.navigation.replace(route.LOGIN)
                     }
                 })
                 .catch((err) => console.log(err.response))
@@ -137,15 +160,60 @@ export default class CompleteProfile extends Component {
 
     }
 
+    setPassword = async () => {
+        const { password, submit, confirmPassword } = this.state;
+        if (password && isPasswordValid(password) && submit && confirmPassword && confirmPassword == password) {
+
+            this.setState({
+                btnLoading: false, submit: false,
+                passwordModal: false
+            })
+        } else {
+            this.setState({ submit: true, btnLoading: false })
+        }
+
+    }
+
+    sendCodeOnEmail = () => {
+        const { email, submit } = this.state;
+        if (email && isEmailValid(email) && submit) {
+            let data = {
+                "email": email,
+            }
+            AuthServices.sendCodeOnEmail(data, this.props.user.userData.token)
+                .then((res) => {
+                    console.log(res.data.data)
+                    this.setState({ emailModal: false, btnLoading: false, confirmOtpModal: true, submit: false, sendedCode: res.data.data })
+                })
+                .catch((error) => console.log(error.response))
+        } else {
+            this.setState({ submit1: true, btnLoading: false })
+        }
+    }
+
+    verifyCode = () => {
+        const { code, submit1, sendedCode } = this.state;
+        if (code && code.length == 6 && submit1) {
+            if (code == sendedCode) {
+                this.setState({
+                    emailModal: false, btnLoading: false, confirmOtpModal: false, code: "", submit1: false,
+                    passwordModal: true
+                })
+            } else {
+                Alert.alert("Code is incorrect!", 'Please enter a valid code ')
+            }
+        } else {
+            this.setState({ submit1: true, btnLoading: false })
+        }
+    }
+
     render() {
-        const { tab, name, date, dateValue, weight, height, feet, inch, nextLoading, arm,next2Loading, chest, shoulder, waist, hip, tummy, thigh, calft } = this.state
+        const { tab, name, date, dateValue, weight, height, email,
+            feet, inch, nextLoading, arm, next2Loading, chest, btnLoading, code, error, confirmPassword, password, submit, submit1,
+            shoulder, waist, hip, tummy, thigh, calft, emailModal, confirmOtpModal, passwordModal } = this.state
 
         return (
             <Container>
-
-
-
-
                 {
                     tab == 0 ?
                         <View style={styles.cardContainer}>
@@ -163,6 +231,16 @@ export default class CompleteProfile extends Component {
                                     <Text style={styles.grayText}>{name ? name : 'Full Name'}</Text>
                                 </View>
                                 <TouchableOpacity onPress={() => this.setState({ nameModal: true })}>
+                                    <Plus />
+                                </TouchableOpacity>
+                            </View>
+                            <View style={styles.rowMeasureContainer}>
+                                <View style={styles.rowStyle}>
+                                    <Icon.Entypo name="email" color={'#797B7B'} size={20} />
+                                    <Text style={styles.grayText}>{email ? email : 'Email'}</Text>
+                                </View>
+
+                                <TouchableOpacity onPress={() => this.setState({ emailModal: true })}>
                                     <Plus />
                                 </TouchableOpacity>
                             </View>
@@ -285,7 +363,7 @@ export default class CompleteProfile extends Component {
                                     </TouchableOpacity>
                                 </View>
                                 <View style={{ margin: "8%" }}>
-                                    <Button loading={next2Loading} title={'Next'} onPress={() =>{ this.setState({ next2Loading: true }, () => this.handleOnPressNext2()) }} />
+                                    <Button loading={next2Loading} title={'Next'} onPress={() => { this.setState({ next2Loading: true }, () => this.handleOnPressNext2()) }} />
                                 </View>
                             </View>
                         </ScrollView>
@@ -356,7 +434,67 @@ export default class CompleteProfile extends Component {
                     onChangeText={(name) => this.setState({ calft: name })}
                     onClose={() => this.setState({ calftSizeModal: false })}
                     onSave={() => this.setState({ calftSizeModal: false })} />
+                <EmailModal isVisible={emailModal}
+                    email={email}
+                    submit={submit}
+                    btnLoading={btnLoading}
+                    setEmail={(email) => this.setState({ email: email })}
+                    sendCodeOnEmail={() => this.setState({ submit: true, btnLoading: true }, () => this.sendCodeOnEmail())}
+                    onClose={() => this.setState({ emailModal: false })}
+                />
+                <VerifyOtpModal
+                    isVisible={this.state.confirmOtpModal}
+                    code={code}
+                    submit={submit1}
+                    error={error}
+                    email={email}
+                    btnLoading={btnLoading}
+                    setError={(e) => this.setState({ error: e })}
+                    setCode={(code) => this.setState({ code: code })}
+                    onClose={() => this.setState({ confirmOtpModal: false })}
+                    verifyCode={() => this.setState({ submit1: true, btnLoading: true }, () => this.verifyCode())} />
+                <Modal isVisible={this.state.passwordModal} animationInTiming={400}
+                    animationOutTiming={200} >
+                    <View style={styles.cardContainer}>
+                        <View style={{ marginTop: "5%", }}>
+                            <View style={{ alignItems: "flex-end" }}>
+                                <TouchableOpacity disabled={!btnLoading} onPress={() => this.setState({ passwordModal: false, })}><Icon.AntDesign name="close" size={20} /></TouchableOpacity>
+                            </View>
+                            <Text style={styles.headingText}>Enter Your Password</Text>
+                            <View style={{ marginTop: "10%", }}>
+                                <Input editable={!btnLoading} secureTextEntry={true} bottomMargin={true} value={password} placeholder="" onChangeText={(email) => this.setState({ password: email })} />
+                                {
+                                    submit && !password ? <Text style={[themeStyle1.errorText,]}>Please fill this field</Text> : null
+                                }
+                                {
+                                    submit && password.length && !isPasswordValid(password) ? <Text style={[themeStyle1.errorText,]}>At lease 8 characters with 1 upper case letter, 1 digit, and 1 special character (Admin12$)</Text> : null
+                                }
+                            </View>
+                            <Text style={styles.headingText}>Re-type your password</Text>
+                            <View style={{ marginTop: "10%", }}>
+                                <Input editable={!btnLoading} secureTextEntry={true} bottomMargin={true} value={confirmPassword} placeholder="" onChangeText={(email) => this.setState({ confirmPassword: email })} />
+                                {
+                                    submit && !confirmPassword ? <Text style={[themeStyle1.errorText,]}>Please fill this field</Text> :
+                                        submit && password != confirmPassword ? <Text style={[themeStyle1.errorText,]}>Password Mismatch</Text> : null
+                                }
+                            </View>
+                        </View>
+                        <View style={{ marginHorizontal: "15%", marginVertical: "5%" }}>
+                            <Button loading={btnLoading} disabled={password == confirmPassword ? false : true} title={'Continue'} onPress={() => this.setState({ btnLoading: true, submit: true }, () => this.setPassword())} />
+                        </View>
+                    </View>
+
+                </Modal>
             </Container>
         )
     }
 }
+const mapStateToProps = (state) => { return { user: state.authReducer || {} }; };
+const mapDispatchToProps = dispatch => {
+    return {
+        authActions: bindActionCreators(authActions, dispatch)
+
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CompleteProfile);

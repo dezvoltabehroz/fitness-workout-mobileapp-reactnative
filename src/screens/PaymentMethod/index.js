@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { Image, View, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { Image, View, Text, TouchableOpacity, ActivityIndicator, Alert } from 'react-native';
 import { initStripe, useStripe, CardField, createToken } from '@stripe/stripe-react-native';
 import Modal from 'react-native-modal';
 import { connect } from 'react-redux';
@@ -13,6 +13,8 @@ import { isEmailValid } from '../../lib/utils/global';
 import themeStyle from '../../assets/styles/common.style';
 import { getLocalData, LOCAL_STORAGE_KEYS } from '../../lib/utils/localstorage';
 import { AuthServices, ProfileServices } from '../../services';
+import { authActions } from '../../redux/actions/auth';
+import { bindActionCreators } from 'redux';
 
 class PaymentMethod extends Component {
     constructor(props) {
@@ -31,8 +33,12 @@ class PaymentMethod extends Component {
         }
     }
 
-    componentDidMount = async () => {
+    componentDidMount = () => {
+        this.focusListener = this.props.navigation.addListener('focus', () => { this.handleIsEmailExist(); })
         this.setState({ loading: true })
+        this.handleIsEmailExist()
+    }
+    handleIsEmailExist = async () => {
         const user_id = await getLocalData(LOCAL_STORAGE_KEYS.user_id)
         const userToken = await getLocalData(LOCAL_STORAGE_KEYS.userToken)
         let data = {
@@ -43,9 +49,9 @@ class PaymentMethod extends Component {
                 if (res.data.success) {
                     console.log(res.data.data[0].email)
                     if (res.data.data[0].email) {
-                        this.setState({ loading: false, emailModal: false, email: res.data.data[0].email })
+                        this.setState({ loading: false, modal: false, email: res.data.data[0].email })
                     } else {
-                        this.setState({ loading: false, emailModal: true })
+                        this.setState({ loading: false, modal: true })
                     }
                 }
             })
@@ -92,19 +98,26 @@ class PaymentMethod extends Component {
                 "price": "500",
                 "token": {
                     "id": token.id,
-                    "email": "behrozahmed@outlook.com"//this.state.email
+                    "email": this.state.email
                 }
             }
             console.log(data)
             ProfileServices.stripeCheckOut(data, JSON.parse(userToken))
                 .then((res) => {
+                    if (res.data.success) {
+                        this.setState({ btnLoading: false, })
+                        this.props.authActions.userLogin(this.props.navigation.replace)
+                    } else {
+                        this.setState({ btnLoading: false, })
+                    }
                     console.log(res.data)
-                    this.setState({ btnLoading: false, modal: true })
+
                 })
                 .catch((error) => console.log(error.response))
         } else {
             console.log("Error : ", error)
             this.setState({ btnLoading: false, })
+            Alert.alert("Error", "Please Enter Your Card Details Correctly!")
         }
 
     }
@@ -156,8 +169,13 @@ class PaymentMethod extends Component {
 
                             </View>
                         </View>}
-                <Modal isVisible={this.state.modal}>
+                <Modal isVisible={this.state.modal}
+                    animationInTiming={400}
+                    animationOutTiming={200}>
                     <View style={styles.cardContainer}>
+                        <View style={{ alignItems: "flex-end" }}>
+                            <TouchableOpacity onPress={() => this.setState({ modal: false, }, () => this.props.navigation.goBack())}><Icon.AntDesign name="close" size={20} /></TouchableOpacity>
+                        </View>
                         <View style={{ marginTop: "5%", alignItems: "center" }}>
                             <Run />
                             <Text style={styles.headingText}>Complete Profile</Text>
@@ -174,7 +192,7 @@ class PaymentMethod extends Component {
                     <View style={styles.cardContainer}>
                         <View style={{ marginTop: "5%", }}>
                             <View style={{ alignItems: "flex-end" }}>
-                                <TouchableOpacity onPress={() => this.setState({ emailModal: false, })}><Icon.AntDesign name="close" size={20} /></TouchableOpacity>
+                                <TouchableOpacity onPress={() => this.setState({ emailModal: false, }, () => this.props.navigation.goBack())}><Icon.AntDesign name="close" size={20} /></TouchableOpacity>
                             </View>
                             <Text style={styles.headingText}>Enter Your Email</Text>
                             <View style={{ marginTop: "10%", }}>
@@ -201,4 +219,5 @@ class PaymentMethod extends Component {
 }
 
 const mapStateToProps = (state) => { return { user: state.authReducer || {} }; };
-export default connect(mapStateToProps)(PaymentMethod);
+const mapDispatchToProps = dispatch => { return { authActions: bindActionCreators(authActions, dispatch) }; };
+export default connect(mapStateToProps, mapDispatchToProps)(PaymentMethod);

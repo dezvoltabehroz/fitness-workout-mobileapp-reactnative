@@ -29,16 +29,7 @@ class Progress extends Component {
             modal: false,
             value: 0,
             expanded: false,
-            data: [
-                {
-                    title: "Morning Workouts",
-                    rating: 1
-                },
-                {
-                    title: "Workouts Before Sleep",
-                    rating: 1
-                }
-            ]
+            data: []
         };
         if (Platform.OS === "android") {
             UIManager.setLayoutAnimationEnabledExperimental(true);
@@ -54,6 +45,13 @@ class Progress extends Component {
         this.props.navigation.setOptions({
             headerRight: () => this.headerRight(),
         });
+        const { user_id, token } = this.props.user.userData;
+        ProfileServices.getAllProgressPhoto({ user_id: user_id }, token)
+            .then((res) => {
+                console.log(res.data)
+                this.setState({ data: res.data.data, loading: false })
+            })
+            .catch((err) => console.log(err.response))
     }
 
     headerRight = () => {
@@ -331,17 +329,28 @@ class Progress extends Component {
                             </View>
 
                         </View>
-                        <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
-                            <TouchableOpacity onPress={() => this.props.navigation.navigate(route.DIETPLAN)}>
-                                <Image source={require('../../assets/images/rob.jpg')} style={{ height: SCREEN_HEIGHT * 0.3, width: SCREEN_WIDTH * 0.5 }} />
-                            </TouchableOpacity>
 
-                            <View style={{ justifyContent: "center", alignItems: "center", height: SCREEN_HEIGHT * 0.3, width: SCREEN_WIDTH * 0.5, backgroundColor: "#E4E4E4" }}>
-                                <TouchableOpacity onPress={this.chooseFile}>
-                                    <Camera />
-                                </TouchableOpacity>
-                            </View>
-                        </View>
+                        {
+                            this.state.data.length == 0 ?
+                                <View style={{ justifyContent: "center", alignItems: "center", height: SCREEN_HEIGHT * 0.3, width: SCREEN_WIDTH, backgroundColor: "#E4E4E4" }}>
+                                    <TouchableOpacity onPress={this.chooseFile}>
+                                        <Camera />
+                                    </TouchableOpacity>
+                                </View>
+                                :
+                                <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
+                                    <TouchableOpacity onPress={() => this.props.navigation.navigate(route.DIETPLAN)}>
+                                        <Image source={{ uri: this.state.data[0].pic_path }} style={{ height: SCREEN_HEIGHT * 0.3, width: SCREEN_WIDTH * 0.5 }} />
+                                    </TouchableOpacity>
+                                    <View style={{ justifyContent: "center", alignItems: "center", height: SCREEN_HEIGHT * 0.3, width: SCREEN_WIDTH * 0.5, backgroundColor: "#E4E4E4" }}>
+                                        <TouchableOpacity onPress={this.chooseFile}>
+                                            <Camera />
+                                        </TouchableOpacity>
+                                    </View>
+                                </View>
+                        }
+
+
                     </ScrollView>
                 </View>
                 <UpgradeModal visible={this.state.modal} onUpgrade={() => this.props.navigation.navigate(route.PAYMENTMETHOD, {})} onSkip={() => this.setState({ modal: false })} />

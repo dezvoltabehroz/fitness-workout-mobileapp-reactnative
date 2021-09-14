@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
-import { Button, Container } from '../../components';
+import { Button, Container, UploadingModal } from '../../components';
 import Workout from '../../assets/svg/workout-setting.svg'
 import AddProfile from '../../assets/svg/AddProfile.svg'
-
+import { bindActionCreators } from "redux";
+import { authActions } from '../../redux/actions/auth';
 import styles from './style';
 import { Avatar } from 'react-native-elements';
 import themeStyle from '../../assets/styles/theme.style';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import { route } from '../../lib/utils/constants';
-
+import { AuthServices, ProfileServices } from '../../services';
 class MyProfile extends Component {
     constructor(props) {
         super(props);
@@ -29,27 +30,47 @@ class MyProfile extends Component {
                 path: 'images',
             },
         };
+
         launchImageLibrary(options, response => {
             if (response.didCancel) {
             } else {
+                this.setState({ uploading: true, avatar: response.assets[0].uri });
                 let source = response;
-                this.setState({
-                    avatar: source.assets[0].uri,
-                    profile_Url: response
+                let formData = new FormData();
+                formData.append('user_id', this.props.user.userData.user_id);
+                formData.append('image', {
+                    uri: Platform.OS === 'android' ? response.assets[0].uri : response.uri,
+                    name: `${new Date().getTime().toString()}.jpg`,
+                    filename: new Date().getTime().toString() + '.jpg',
+                    type: 'image/jpg'
                 });
+                console.log("formData : ", formData)
+
+                ProfileServices.uploadProfilePicture(formData, this.props.user.userData.token)
+                    .then((response) => {
+                        console.log(response.data)
+                        if (response.data.success) {
+                            this.setState({ uploading: false });
+                            this.props.authActions.getUserProfile({ user_id: this.props.user.userData.user_id, token: this.props.user.userData.token })
+                        }
+                    })
+                    .catch((err) => {
+                        this.setState({ uploading: false });
+                        console.log(err.response)
+                    })
             }
         });
     };
 
     render() {
-        const { full_name, email, dob, height_feet, height_inches, weight } = this.props.user.userData;
+        const { full_name, email, dob, height_feet, height_inches, weight, profile_pic } = this.props.user.userData;
         return (
             <Container>
                 <View style={styles.container}>
                     <View style={styles.itemContainer}>
                         <View style={styles.avatarContainer}>
                             <Avatar
-                                source={this.state.avatar ? { uri: this.state.avatar } : { uri: 'https://icon2.cleanpng.com/20180626/ehy/kisspng-avatar-user-computer-icons-software-developer-5b327cc951ae22.8377289615300354013346.jpg' }}
+                                source={this.state.avatar ? { uri: this.state.avatar } : profile_pic ? { uri: profile_pic } : { uri: 'https://icon2.cleanpng.com/20180626/ehy/kisspng-avatar-user-computer-icons-software-developer-5b327cc951ae22.8377289615300354013346.jpg' }}
                                 rounded
                                 size={120}>
                                 <Avatar.Accessory onPress={this.chooseFile} size={30}
@@ -88,7 +109,7 @@ class MyProfile extends Component {
                         </View>
                     </View>
                     {
-                        this.props.user.isUserLogedIn ?
+                        this.props.user.isUserLogedIn && this.props.user.userData.email ?
                             <View style={{ marginTop: "5%", marginHorizontal: "10%" }}>
                                 <Button title={"Change Password"} onPress={() => { this.props.navigation.navigate(route.CHANGEPASSWORD) }} />
                             </View>
@@ -98,11 +119,11 @@ class MyProfile extends Component {
                     }
 
                 </View>
-
+                <UploadingModal visible={this.state.uploading} />
             </Container>
         )
     }
 }
 const mapStateToProps = (state) => { return { user: state.authReducer || {} }; };
-
-export default connect(mapStateToProps)(MyProfile);
+const mapDispatchToProps = dispatch => { return { authActions: bindActionCreators(authActions, dispatch) }; };
+export default connect(mapStateToProps, mapDispatchToProps)(MyProfile);

@@ -62,6 +62,7 @@ const Fonts = {
 const route = {
     APPINTRO1st: "AppIntro1st",
     CHANGEPASSWORD:"ChangePassword",
+    FEEDBACK:"Feedback",
     APPINTROZERO:"AppIntroZero",
     APPINTRO2nd: "AppIntro2nd",
     APPINTRO3rd: "AppIntro3rd",

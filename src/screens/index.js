@@ -97,4 +97,7 @@ import _AppIntroZero from './AppIntroZero';
 export const AppIntroZero = _AppIntroZero;
 
 import _ChangePassword from './ChangePassword';
-export const ChangePassword = _ChangePassword
+export const ChangePassword = _ChangePassword;
+
+import _FeedBack from './FeedBack';
+export const FeedBack = _FeedBack

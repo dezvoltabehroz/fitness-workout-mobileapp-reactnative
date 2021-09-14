@@ -176,7 +176,6 @@ class Home extends Component {
                         </View>
                     </View>
                     <ScrollView contentContainerStyle={{ marginBottom: 0 }}>
-
                         <View style={styles.headingContainer1}>
                             <View style={styles.planContainer}>
                                 <View style={styles.alignItems}>
@@ -244,18 +243,12 @@ class Home extends Component {
                         </TouchableOpacity>
                     </ScrollView>
                 </View>
-                <UpgradeModal visible={this.state.modal} onUpgrade={() => this.props.navigation.navigate(route.PAYMENTMETHOD, {})} onSkip={() => this.setState({ modal: false })} />
+                <UpgradeModal visible={this.state.modal} onUpgrade={() => this.setState({ modal: false }, () => this.props.navigation.navigate(route.PAYMENTMETHOD, {}))} onSkip={() => this.setState({ modal: false })} />
             </Container>
         )
     }
 }
 
 const mapStateToProps = (state) => { return { user: state.authReducer || {} }; };
-const mapDispatchToProps = dispatch => {
-    return {
-        authActions: bindActionCreators(authActions, dispatch)
-
-    };
-};
-
+const mapDispatchToProps = dispatch => { return { authActions: bindActionCreators(authActions, dispatch) }; };
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

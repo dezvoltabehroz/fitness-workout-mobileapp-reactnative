@@ -10,7 +10,7 @@ import Input from '../../Input';
 
 const ThighSizeModal = (props) => {
     const changeInches = (e) => {
-        if ( e <= 35) {
+        if (e <= 35) {
             props.onChangeText(e)
         } else {
             alert("Please enter appropieate inch")
@@ -18,7 +18,9 @@ const ThighSizeModal = (props) => {
 
     }
     return (
-        <Modal isVisible={props.visible} >
+        <Modal isVisible={props.visible}
+            animationInTiming={400}
+            animationOutTiming={200} >
             <View style={styles.modalContainer} >
 
 

@@ -19,7 +19,7 @@ const Api = {
         return axios.post(`${BASE_URL}profile/uploadProgressPicture`, data, apiHeaderConfiguration(token, MULTIPART));
     },
     uploadProfilePicture: function (data, token) {
-        return axios.post(`${BASE_URL}profile/uploadProfilePicture`, data, apiHeaderConfiguration(token, MULTIPART));
+        return axios.post(`${BASE_URL}profile/uploadProfilePic`, data, apiHeaderConfiguration(token, MULTIPART));
     },
     updateUserEmail: function (data, token) {
         return axiosInstance.put('profile/updateEmail', data, apiHeaderConfiguration(token, TOKEN))
@@ -48,6 +48,9 @@ const Api = {
     updateDailyWorkout: function (data, token) {
         return axiosInstance.post('profile/updateDayWorkout', data, apiHeaderConfiguration(token, TOKEN))
     },
+    getAllProgressPhoto:function(data,token){
+        return axiosInstance.post('profile/listAllPhotos', data, apiHeaderConfiguration(token, TOKEN))
+    }
 
 
 };

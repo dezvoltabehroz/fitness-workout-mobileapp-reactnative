@@ -20,6 +20,8 @@ import themeStyle from "../../assets/styles/theme.style";
 import { PlanServices } from "../../services";
 import { connect } from "react-redux";
 import { getLocalData, LOCAL_STORAGE_KEYS, storeLocalData } from "../../lib/utils/localstorage";
+import { authActions } from "../../redux/actions/auth";
+import { bindActionCreators } from "redux";
 
 const progressCustomStyles = {
     borderRadius: 10,
@@ -78,16 +80,39 @@ class DietScreen extends Component {
         PlanServices.getDietPlans(data, token)
             .then(async (res) => {
                 if (res.data.success) {
-                    let arr = [...res.data.data];
-                    arr.forEach((item, index) => { arr[index] = { ...arr[index], expanded: false } })
-                    this.setState({ dietPlans: arr })
+                    let daysArray = [...res.data.data];
+                    daysArray.forEach((item, index) => { daysArray[index] = { ...daysArray[index], expanded: false } })
+                    this.setState({ dietPlans: daysArray })
                     let videoTag = { category: "diet videos" }
                     PlanServices.getFreeVideos(videoTag, token)
                         .then((response) => { this.setState({ dietVideos: response.data.data, loading: false }) })
                         .catch((err) => { console.log(err.response); this.setState({ dietPlans: [], loading: false }) })
                 }
+                else {
+                    this.handleStartDietPlan();
+                }
             })
             .catch((err) => { console.log(err.response); this.setState({ dietPlans: [], loading: false }) })
+    }
+
+    handleStartDietPlan = () => {
+        const { navigate } = this.props.navigation;
+        const { user_id, token } = this.props.user.userData;
+        let data = {
+            current_date: moment().format('YYYY-MM-DD'),
+            user_id: user_id
+        }
+        ProfileServices.updateStartDateUserDiet(data, token)
+            .then(async (res) => {
+                let userData = {
+                    token: token,
+                    user_id: user_id
+                }
+                await this.props.authActions.getUserProfile(userData);
+                this.handleDietDays();
+
+            })
+            .catch((err) => console.log(err.response))
     }
 
     headerRight = () => {
@@ -104,7 +129,7 @@ class DietScreen extends Component {
     }
 
     changeWeek = (index) => {
-        if (this.props.user.userData.is_pro == 1) {
+        if (!this.props.user.userData.is_pro == 1) {
             let array = [...this.state.dietPlans];
             if (array[index].expanded) { array[index] = { ...array[index], expanded: false } }
             else { array[index] = { ...array[index], expanded: true } }
@@ -138,7 +163,7 @@ class DietScreen extends Component {
                                         <View style={styles.week1Style}>
                                             <View style={styles.itemContainer} >
                                                 <>
-                                                    <TouchableOpacity disabled={dietWeekDate && dietWeekDate[index] == 1 ? false : true} onPress={() => this.changeWeek(index)} style={[styles.textContainer, { paddingBottom: this.state.weekOneexpanded ? 0 : '5%' }]}>
+                                                    <TouchableOpacity onPress={() => this.changeWeek(index)} style={[styles.textContainer, { paddingBottom: this.state.weekOneexpanded ? 0 : '5%' }]}>
                                                         <Text style={styles.greyText}>{'Week'}</Text>
                                                         <View style={styles.rowContainer}>
                                                             <View style={[styles.row, { flex: 1 }]}>
@@ -218,7 +243,7 @@ class DietScreen extends Component {
                         </View>
 
                         <View style={{ marginHorizontal: "15%", marginVertical: "5%" }}>
-                            <Button title={'Continue'} onPress={() => this.setState({ modal: false, completed: true })} />
+                            <Button title={'Continue'} onPress={() => this.setState({ modal: false, completed: true },()=>this.props.navigation.navigate(route.FEEDBACK))} />
                         </View>
                     </View>
                 </Modal>
@@ -235,4 +260,5 @@ class DietScreen extends Component {
     }
 }
 const mapStateToProps = (state) => { return { user: state.authReducer || {} }; };
-export default connect(mapStateToProps)(DietScreen);
+const mapDispatchToProps = dispatch => { return { authActions: bindActionCreators(authActions, dispatch) }; };
+export default connect(mapStateToProps,mapDispatchToProps)(DietScreen);

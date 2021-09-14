@@ -1,46 +1,45 @@
+import moment from 'moment';
 import React, { Component } from 'react';
-import { FlatList, ImageBackground, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, FlatList, ImageBackground, Text, TouchableOpacity, View } from 'react-native';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import themeStyle from '../../assets/styles/theme.style';
 
 import { Container, UploadingModal } from '../../components';
 import { getLocalData, LOCAL_STORAGE_KEYS } from '../../lib/utils/localstorage';
+import { authActions } from '../../redux/actions/auth';
 import { ProfileServices } from '../../services';
 
 import styles from './style';
 
-export default class ProgressPics extends Component {
+class ProgressPics extends Component {
     constructor(props) {
         super(props);
         this.state = {
             uploading: false,
-            data: [{
-                image: require('../../assets/images/crossover.jpg'),
-                date: '08 Jun, 2021'
-            },
-            {
-                image: require('../../assets/images/work.jpg'),
-                date: '08 Jun, 2021'
-            },
-            {
-                image: require('../../assets/images/Gym.jpg'),
-                date: '08 Jun, 2021'
-            },
-            {
-                image: require('../../assets/images/motivation.jpg'),
-                date: '08 Jun, 2021'
-            },
-            {
-                image: require('../../assets/images/rob.jpg'),
-                date: '08 Jun, 2021'
-            }]
+            loading: true,
+            data: []
         }
     }
 
+    componentDidMount = () => {
+        const { user_id, token } = this.props.user.userData;
+        ProfileServices.getAllProgressPhoto({ user_id: user_id }, token)
+            .then((res) => {
+                console.log(res.data)
+                this.setState({ data: res.data.data, loading: false })
+            })
+            .catch((err) => console.log(err.response))
+
+    }
+
     _renderItem = (item, index) => {
+        console.log(item)
         return (
-            <ImageBackground source={item.image} style={styles.imageStyle} >
+            <ImageBackground source={{ uri: item.pic_path }} style={styles.imageStyle} >
                 <View style={styles.dateContainer}>
-                    <Text style={styles.dateText}>{item.date}</Text>
+                    <Text style={styles.dateText}>{moment().format('ll')}</Text>
                 </View>
             </ImageBackground>
         )
@@ -77,6 +76,7 @@ export default class ProgressPics extends Component {
                         console.log(response.data)
                         if (response.data.success) {
                             this.setState({ uploading: false });
+                            this.componentDidMount()
                         }
                     })
                     .catch((err) => {
@@ -91,7 +91,21 @@ export default class ProgressPics extends Component {
         return (
             <Container>
                 <View style={styles.container}>
-                    <FlatList data={this.state.data} renderItem={({ item, index }) => this._renderItem(item, index)} />
+                    {
+
+                        this.state.loading ?
+                            <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+                                <ActivityIndicator size={"small"} color={themeStyle.BAR_COLOR} />
+                            </View>
+                            :
+                            this.state.data.length == 0 ?
+                                <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+                                    <Text style={{ fontSize: 16, fontWeight: "bold" }}>No record found!</Text>
+                                </View>
+                                :
+                                <FlatList data={this.state.data} renderItem={({ item, index }) => this._renderItem(item, index)} />
+                    }
+
                     <TouchableOpacity onPress={this.chooseFile} style={styles.buttonContainer}>
                         <Text style={styles.btnText}>TAKE PIC</Text>
                     </TouchableOpacity>
@@ -102,3 +116,6 @@ export default class ProgressPics extends Component {
     }
 
 }
+const mapStateToProps = (state) => { return { user: state.authReducer || {} }; };
+const mapDispatchToProps = dispatch => { return { authActions: bindActionCreators(authActions, dispatch) }; };
+export default connect(mapStateToProps, mapDispatchToProps)(ProgressPics);

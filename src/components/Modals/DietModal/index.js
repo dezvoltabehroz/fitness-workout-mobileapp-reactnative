@@ -10,7 +10,10 @@ import { Icon } from '../..';
 
 const UpgradeModal = (props) => {
     return (
-        <Modal isVisible={props.visible}>
+        <Modal isVisible={props.visible}
+            animationInTiming={400}
+            animationOutTiming={200}
+        >
             <View style={styles.modalContainer}>
                 <View style={styles.rowContainer}>
                     <Text style={styles.headingText}>What is your dietary preference?</Text>

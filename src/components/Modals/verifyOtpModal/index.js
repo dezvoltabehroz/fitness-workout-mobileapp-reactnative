@@ -12,7 +12,8 @@ import { Button, Icon, OtpInputs } from '../..';
 
 const UpgradeModal = (props) => {
     return (
-        <Modal isVisible={props.isVisible} >
+        <Modal isVisible={props.isVisible}  animationInTiming={400}
+        animationOutTiming={200} >
             <View style={styles.modalContainer} >
 
                 <View style={{ marginTop: "5%", }}>
