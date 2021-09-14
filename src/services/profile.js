@@ -18,9 +18,6 @@ const Api = {
     updateProgressPhoto1: function (data, token) {
         return axios.post(`${BASE_URL}profile/uploadProgressPicture`, data, apiHeaderConfiguration(token, MULTIPART));
     },
-    uploadProfilePicture: function (data, token) {
-        return axios.post(`${BASE_URL}profile/uploadProfilePicture`, data, apiHeaderConfiguration(token, MULTIPART));
-    },
     updateUserEmail: function (data, token) {
         return axiosInstance.put('profile/updateEmail', data, apiHeaderConfiguration(token, TOKEN))
     },
@@ -33,22 +30,6 @@ const Api = {
     stripeCheckOut: function (data, token) {
         return axiosInstance.post('stripe/checkout', data, apiHeaderConfiguration(token, TOKEN))
     },
-    getFullProfile: function (data, token) {
-        return axiosInstance.post('profile/getFullProfile', data, apiHeaderConfiguration(token, TOKEN))
-    },
-    updateStartDateUserWorkout: function (data, token) {
-        return axiosInstance.post('profile/updateStartDateUserWorkout', data, apiHeaderConfiguration(token, TOKEN))
-    },
-    updateStartDateUserDiet: function (data, token) {
-        return axiosInstance.post('profile/updateStartDateUserDiet', data, apiHeaderConfiguration(token, TOKEN))
-    },
-    updateDailyDiet: function (data, token) {
-        return axiosInstance.post('profile/updateDailyDiet', data, apiHeaderConfiguration(token, TOKEN))
-    },
-    updateDailyWorkout: function (data, token) {
-        return axiosInstance.post('profile/updateDayWorkout', data, apiHeaderConfiguration(token, TOKEN))
-    },
-
 
 };
 

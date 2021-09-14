@@ -20,9 +20,7 @@ const LOCAL_STORAGE_KEYS = {
   password: 'password',
   remember_me: 'remember_me',
   fcmToken:"fcmToken",
-  emailPassword: 'emailPassword',
-  dietPlan:"DietPlan",
-  DietPreference:"DietPreference"
+  emailPassword: 'emailPassword'
 };
 
 /**

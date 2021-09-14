@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import { View, Text, StatusBar } from 'react-native';
 import CircularProgress from 'react-native-circular-progress-indicator';
-import { connect } from 'react-redux';
-import { bindActionCreators } from "redux";
-import { authActions } from '../../redux/actions/auth';
+
 import { ClearButton, ColorContainer } from '../../components';
-import { AuthServices, ProfileServices } from '../../services';
+import { AuthServices } from '../../services';
 import { route, screen } from '../../lib/utils/constants';
 import Tick from '../../assets/svg/Tick.svg';
 
@@ -59,18 +57,12 @@ class CreatingPlan extends Component {
 
     }
 
-    handleFinished = async () => {
+    handleFinished=()=>{
         const { navigate, replace } = this.props.navigation;
-        const user_id = await getLocalData(LOCAL_STORAGE_KEYS.user_id)
-        const userToken = await getLocalData(LOCAL_STORAGE_KEYS.userToken)
         storeLocalData(LOCAL_STORAGE_KEYS.appIntro, JSON.stringify({ data: true }))
-        let userData = {
-            user_id: JSON.parse(user_id),
-            token: JSON.parse(userToken)
-        }
-        await this.props.authActions.getUserProfile(userData, replace);
-
+        replace(route.MAIN)
     }
+
 
 
     render() {
@@ -84,7 +76,7 @@ class CreatingPlan extends Component {
                     <View style={styles.headingContainer}>
                         {value ? <Tick /> : null}
                         <Text style={styles.headingTextStyle}>{screen.CREATINGPLAN_HEADING}</Text>
-                        <Text style={styles.decsTextStyle}>{value?screen.CREATINGPLAN_DESCRIPTION:"In Progress..."}</Text>
+                        <Text style={styles.decsTextStyle}>{screen.CREATINGPLAN_DESCRIPTION}</Text>
                     </View>
 
                     <View style={styles.progressContainer}>
@@ -110,7 +102,7 @@ class CreatingPlan extends Component {
                         !value ?
                             <Text style={styles.headingTextStyle}>{'please Wait...'}</Text>
                             :
-                            <ClearButton title={'FINISHED'} onPress={() => this.handleFinished()} />
+                            <ClearButton title={'FINISHED'} onPress={() =>this.handleFinished()} />
                     }
 
                 </View>
@@ -119,13 +111,4 @@ class CreatingPlan extends Component {
         )
     }
 }
-const mapStateToProps = (state) => { return { user: state.authReducer || {} }; };
-
-const mapDispatchToProps = dispatch => {
-    return {
-        authActions: bindActionCreators(authActions, dispatch)
-
-    };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(CreatingPlan);
+export default CreatingPlan;

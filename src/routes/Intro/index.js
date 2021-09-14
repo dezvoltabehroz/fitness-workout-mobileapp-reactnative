@@ -2,7 +2,7 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { route, screen } from '../../lib/utils/constants';
-import { AppIntro1st, AppIntro2nd, AppIntro3rd, AppIntro4th, AppIntro5th, AppIntroZero, CreatingPlan, Home } from '../../screens';
+import { AppIntro1st, AppIntro2nd, AppIntro3rd, AppIntro4th, AppIntro5th, CreatingPlan, Home } from '../../screens';
 import Logo from '../../assets/svg/logo.svg'
 import LogoWhite from '../../assets/svg/white-logo.svg'
 import styles from '../style';

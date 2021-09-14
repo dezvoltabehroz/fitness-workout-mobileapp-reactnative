@@ -33,23 +33,23 @@ const CheckedBox = ({ data, onPress, video }) => {
         return (
             <ImageBackground source={require('../../assets/images/rob.jpg')} style={styles.contentContainer}>
                 <Text style={styles.whiteTextStyle1}>{item.title}</Text>
-                {/* {handleRating(item.rating)} */}
+                {handleRating(item.rating)}
             </ImageBackground>
         )
     }
 
     const _renderVideosItems = (item, index) => {
-        console.log(item)
         return (
-            <ImageBackground source={{ uri: item.media_thumbnail }} style={styles.contentVideoContainer}>
-                <Text style={styles.whiteTextStyle2}>{item.media_title}</Text>
-                <TouchableOpacity style={{ alignItems: "center", justifyContent: "center", marginTop: "10%" }}>
+            <ImageBackground source={require('../../assets/images/back.jpg')} style={styles.contentVideoContainer}>
+                <Text style={styles.whiteTextStyle2}>{item.title}</Text>
+                <View style={{ alignItems: "center", justifyContent: "center", flex: 1 }}>
                     <Icon.AntDesign name="play" size={35} color={THEME.COLOR_WHITE} />
-                </TouchableOpacity>
+                </View>
             </ImageBackground>
         )
     }
     return (
+
         <FlatList
             data={data}
             horizontal={true}
@@ -57,6 +57,8 @@ const CheckedBox = ({ data, onPress, video }) => {
             showsHorizontalScrollIndicator={false}
             renderItem={({ item, index }) => video ? _renderVideosItems(item, index) : _renderItems(item, index)}
             ItemSeparatorComponent={(HorizontalSpacer)} />
+
+
     )
 };
 

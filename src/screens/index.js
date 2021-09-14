@@ -75,26 +75,3 @@ export const ProgressPics = _ProgressPics
 
 import _Login from './Login';
 export const Login = _Login
-
-
-import _FitnessGoal from './FitnessGoal';
-export const FitnessGoal = _FitnessGoal
-
-import _FitnessLevel from './FitnessLevel';
-export const FitnessLevel = _FitnessLevel
-
-import _FocusArea from './FocusArea';
-export const FocusArea = _FocusArea
-
-
-import _UpdatingPlan from './UpdatingPlan';
-export const UpdatingPlan = _UpdatingPlan
-
-import _SelectEuipment from './SelectEuipment';
-export const SelectEuipment = _SelectEuipment;
-
-import _AppIntroZero from './AppIntroZero';
-export const AppIntroZero = _AppIntroZero;
-
-import _ChangePassword from './ChangePassword';
-export const ChangePassword = _ChangePassword

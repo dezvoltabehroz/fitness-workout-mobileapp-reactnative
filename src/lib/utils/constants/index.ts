@@ -37,8 +37,6 @@ const screen = {
     APP_INTRO_Heading_5: "SELECT FOCUS AREAS",
     CREATINGPLAN_HEADING: 'CREATING YOUR PERSONALIZED PLAN',
     CREATINGPLAN_DESCRIPTION: 'Your plan gets completed',
-    UPDATINGPLAN_HEADING: 'UPDATING YOUR PERSONALIZED PLAN',
-    UPDATINGPLAN_DESCRIPTION: 'Your plan gets completed',
     NEXT: "NEXT",
     EDIT: 'EDIT',
     SEEMORE: 'SEE MORE',
@@ -61,17 +59,10 @@ const Fonts = {
 
 const route = {
     APPINTRO1st: "AppIntro1st",
-    CHANGEPASSWORD:"ChangePassword",
-    APPINTROZERO:"AppIntroZero",
     APPINTRO2nd: "AppIntro2nd",
     APPINTRO3rd: "AppIntro3rd",
     APPINTRO4th: "AppIntro4th",
     APPINTRO5th: "AppIntro5th",
-    FITNESSGOAL: "FitnessGoal",
-    FITNESSLEVEL: "FitnessLevel",
-    SELECTEUIPMENT: "SelectEuipment",
-    FOCUSAREA: "FocusArea",
-    UPDATINGPLAN: "UpdatingPlan",
     CREATINGPLAN: "CreatingPlan",
     AUTH_LOADING: "AuthLoading",
     APPINTRO: "AppIntro",
@@ -96,8 +87,7 @@ const route = {
     DIETPLANDETAILS: 'DietPlanDetails',
     COMPLETEPROFILE: "CompleteProfile",
     EDITPROFILE: "EditProfile",
-    PROGRESSPICS: "ProgressPics",
-    WORKOUTSETTING:"WorkoutSetting"
+    PROGRESSPICS: "ProgressPics"
 
 }
 const TOKEN = "token";

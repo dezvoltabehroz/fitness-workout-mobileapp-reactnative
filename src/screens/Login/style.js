@@ -63,14 +63,5 @@ export default StyleSheet.create({
         color: themeStyle.COLOR_BLACK,
         fontFamily: themeStyle.FONT_REGULAR,
         fontSize: 16
-    },
-    cardContainer: {
-        backgroundColor: themeStyle.COLOR_WHITE,
-        borderRadius: 13,
-        elevation: 5,
-        padding: "5%",
-
-        marginHorizontal: "5%",
-        marginTop: "5%"
-    },
+    }
 })

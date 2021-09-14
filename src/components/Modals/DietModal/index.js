@@ -14,18 +14,18 @@ const UpgradeModal = (props) => {
             <View style={styles.modalContainer}>
                 <View style={styles.rowContainer}>
                     <Text style={styles.headingText}>What is your dietary preference?</Text>
-                    <Icon.AntDesign disabled={props.loading} onPress={() => props.onSkip()} name="close" size={25} />
+                    <Icon.AntDesign onPress={() => props.onSkip()} name="close" size={25} />
                 </View>
-                <TouchableOpacity onPress={() => props.onValue('vegetarian')} style={props.value == 'vegetarian' ? styles.rowContainer2 : styles.rowContainer1}>
+                <TouchableOpacity onPress={() => props.onValue('0')} style={props.value == '0' ? styles.rowContainer2 : styles.rowContainer1}>
                     <Vegitable />
-                    <Text style={props.value == 'vegetarian' ? styles.rowTextStyleColor : styles.rowTextStyle}>Vegetarian/Vegan</Text>
+                    <Text style={props.value == '0' ? styles.rowTextStyleColor : styles.rowTextStyle}>Vegetarian/Vegan</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => props.onValue('standard')} style={props.value == 'standard' ? styles.rowContainer2 : styles.rowContainer1}>
+                <TouchableOpacity onPress={() => props.onValue('1')} style={props.value == '1' ? styles.rowContainer2 : styles.rowContainer1}>
                     <Standard />
-                    <Text style={props.value == 'standard' ? styles.rowTextStyleColor : styles.rowTextStyle}>Standard Diet</Text>
+                    <Text style={props.value == '1' ? styles.rowTextStyleColor : styles.rowTextStyle}>Standard Diet</Text>
                 </TouchableOpacity>
                 <View style={styles.buttonContainer}>
-                    <Button loading={props.loading} title={'DONE'} onPress={() => props.onSkip()} />
+                    <Button title={'DONE'} onPress={() => props.onSkip()} />
                 </View>
             </View>
         </Modal>
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     rowContainer1: {
         borderRadius: 10,
         borderWidth: 1,
-        borderColor: 'lightgray',
+        borderColor:'lightgray',
         padding: "5%",
         flexDirection: "row",
         marginTop: "5%",

@@ -1,18 +1,15 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
-import { Button, Container } from '../../components';
+import { Container } from '../../components';
 import Workout from '../../assets/svg/workout-setting.svg'
 import AddProfile from '../../assets/svg/AddProfile.svg'
 
 import styles from './style';
 import { Avatar } from 'react-native-elements';
 import themeStyle from '../../assets/styles/theme.style';
-import { connect } from 'react-redux';
-import moment from 'moment';
-import { route } from '../../lib/utils/constants';
 
-class MyProfile extends Component {
+export default class MyProfile extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -42,7 +39,6 @@ class MyProfile extends Component {
     };
 
     render() {
-        const { full_name, email, dob, height_feet, height_inches, weight } = this.props.user.userData;
         return (
             <Container>
                 <View style={styles.container}>
@@ -60,8 +56,8 @@ class MyProfile extends Component {
 
                         </View>
                         <View style={styles.nameContainer}>
-                            <Text style={styles.heading}>{full_name ? full_name : "Full Name"}</Text>
-                            <Text style={styles.graytext}>{email ? email : "Email"}</Text>
+                            <Text style={styles.heading}>John Doe</Text>
+                            <Text style={styles.graytext}>johndoe@gmail.com</Text>
                         </View>
 
                         <Text style={styles.heading} >My Account</Text>
@@ -69,40 +65,27 @@ class MyProfile extends Component {
                             <Workout />
                             <View style={styles.itemStyle}>
                                 <Text style={styles.text}>Date of Birth</Text>
-                                <Text style={styles.colortext}>{dob ? moment(dob).format('YYYY-MM-DD') : "Full Name"}</Text>
+                                <Text style={styles.colortext}>1996-15-07</Text>
                             </View>
                         </View>
                         <View style={styles.rowContainer}>
                             <Workout />
                             <View style={styles.itemStyle}>
                                 <Text style={styles.text}>Height</Text>
-                                <Text style={styles.colortext}>{height_feet ? height_feet : "0"} FT {height_inches ? height_inches : "0"} IN</Text>
+                                <Text style={styles.colortext}>4 FT 4 IN</Text>
                             </View>
                         </View>
                         <View style={styles.rowContainer}>
                             <Workout />
                             <View style={styles.itemStyle}>
                                 <Text style={styles.text}>Weight</Text>
-                                <Text style={styles.colortext}>{weight}</Text>
+                                <Text style={styles.colortext}>65.5</Text>
                             </View>
                         </View>
                     </View>
-                    {
-                        this.props.user.isUserLogedIn ?
-                            <View style={{ marginTop: "5%", marginHorizontal: "10%" }}>
-                                <Button title={"Change Password"} onPress={() => { this.props.navigation.navigate(route.CHANGEPASSWORD) }} />
-                            </View>
-                            :
-                            null
-
-                    }
-
                 </View>
 
             </Container>
         )
     }
 }
-const mapStateToProps = (state) => { return { user: state.authReducer || {} }; };
-
-export default connect(mapStateToProps)(MyProfile);

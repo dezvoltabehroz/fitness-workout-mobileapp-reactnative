@@ -4,6 +4,3 @@ export const AuthServices = _Auth;
 import _Profile from './profile';
 export const ProfileServices = _Profile;
 
-
-import _Plan from './plan';
-export const PlanServices = _Plan;

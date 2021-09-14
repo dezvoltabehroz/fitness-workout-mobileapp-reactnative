@@ -119,7 +119,7 @@ export default StyleSheet.create({
     },
     rowContainer: {
         flex: 1,
-        // marginVertical: "2%",
+        marginVertical: "2%",
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center"

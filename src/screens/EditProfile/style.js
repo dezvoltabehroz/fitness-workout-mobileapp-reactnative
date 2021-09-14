@@ -35,16 +35,14 @@ export default StyleSheet.create({
         justifyContent: "space-between",
         alignItems: "center"
     },
-   
     grayText: {
         color: '#797B7B',
         marginLeft: 10,
-        fontSize: 13,
+        fontSize: 16,
         fontFamily: themeStyle.FONT_REGULAR
     },
     rowStyle: {
         flexDirection: "row",
-        justifyContent: "center",
-        alignItems:"center",
+        justifyContent: "center"
     },
 })

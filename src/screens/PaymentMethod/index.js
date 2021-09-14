@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Image, View, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { initStripe, useStripe, CardField, createToken } from '@stripe/stripe-react-native';
 import Modal from 'react-native-modal';
-import { connect } from 'react-redux';
+
 import { Button, ColorButton, Container, Icon, Input } from '../../components';
 import Run from '../../assets/svg/run.svg'
 import { route, SCREEN_WIDTH } from '../../lib/utils/constants';
@@ -14,7 +14,7 @@ import themeStyle from '../../assets/styles/common.style';
 import { getLocalData, LOCAL_STORAGE_KEYS } from '../../lib/utils/localstorage';
 import { AuthServices, ProfileServices } from '../../services';
 
-class PaymentMethod extends Component {
+export default class PaymentMethod extends Component {
     constructor(props) {
         super(props);
         initStripe({
@@ -43,7 +43,7 @@ class PaymentMethod extends Component {
                 if (res.data.success) {
                     console.log(res.data.data[0].email)
                     if (res.data.data[0].email) {
-                        this.setState({ loading: false, emailModal: false, email: res.data.data[0].email })
+                        this.setState({ loading: false, emailModal: false ,email:res.data.data[0].email})
                     } else {
                         this.setState({ loading: false, emailModal: true })
                     }
@@ -148,7 +148,7 @@ class PaymentMethod extends Component {
                             </View>
                             <View style={{ flex: 0.5, justifyContent: "flex-end", marginHorizontal: "10%" }}>
                                 {
-                                    this.props.user.userData.is_pro == 0 ?
+                                    this.props.route.params ?
                                         <Button loading={btnLoading} title={'PAY NOW'} onPress={() => this.setState({ btnLoading: true }, () => this.handleStripeCheckout())} />
                                         :
                                         <ColorButton title={'CANCEL SUBSCRIPTION'} />
@@ -199,6 +199,3 @@ class PaymentMethod extends Component {
         )
     }
 }
-
-const mapStateToProps = (state) => { return { user: state.authReducer || {} }; };
-export default connect(mapStateToProps)(PaymentMethod);

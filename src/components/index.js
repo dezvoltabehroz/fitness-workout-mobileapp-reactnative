@@ -25,9 +25,6 @@ export const HeaderRight = NavigationHeaderRightButton;
 import _CustomSlider from './CustomSlider/index';
 export const CustomSlider = _CustomSlider;
 
-import _CustomSlider1 from './CustomSlider1/index';
-export const CustomSlider1 = _CustomSlider1;
-
 import _UpgradeModal from './Modals/UpgradeModal';
 export const UpgradeModal = _UpgradeModal;
 
@@ -93,12 +90,3 @@ export const ThighSizeModal = _ThighSizeModal;
 
 import _CalftSizeModal from './Modals/CalftSizeModal';
 export const CalftSizeModal = _CalftSizeModal;
-
-import _OtpInputs from './OtpInputs';
-export const OtpInputs = _OtpInputs;
-
-import _VerifyOtpModal from './Modals/verifyOtpModal';
-export const VerifyOtpModal = _VerifyOtpModal;
-
-import _EmailModal from './Modals/EmailModal';
-export const EmailModal = _EmailModal;
