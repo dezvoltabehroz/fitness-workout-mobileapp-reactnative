@@ -212,7 +212,6 @@ class CompleteProfile extends Component {
                             <Height />
                             <Text style={styles.grayText}>{feet && inch ? `${feet}'${inch}"` : userData.height_feet ? `${userData.height_feet}'${userData.height_inches}"` : "Height"}</Text>
                         </View>
-
                         <TouchableOpacity onPress={() => this.setState({ heightModal: true })}>
                             <Plus />
                         </TouchableOpacity>

@@ -91,8 +91,11 @@ class PaymentMethod extends Component {
             type: "Card",
             currency: "USD"
         });
-        if (token) {
 
+        if (token) {
+            console.log(" ======================")
+            console.log(" Token : ",token)
+            console.log(" ======================")
             let data = {
                 "name": "Subscription for Pro",
                 "price": "500",
