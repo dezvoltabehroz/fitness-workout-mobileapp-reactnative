@@ -47,7 +47,6 @@ class PaymentMethod extends Component {
         ProfileServices.isEmailExist(data, JSON.parse(userToken))
             .then((res) => {
                 if (res.data.success) {
-                    console.log(res.data.data[0].email)
                     if (res.data.data[0].email) {
                         this.setState({ loading: false, modal: false, email: res.data.data[0].email })
                     } else {
@@ -74,10 +73,8 @@ class PaymentMethod extends Component {
             "email": this.state.email,
             "user_id": user_id
         }
-        console.log(data)
         ProfileServices.updateUserEmail(data, JSON.parse(userToken))
             .then((res) => {
-                console.log(res.data)
                 this.setState({ btnLoading: false, emailModal: false })
             })
             .catch((error) => console.log(error.response))

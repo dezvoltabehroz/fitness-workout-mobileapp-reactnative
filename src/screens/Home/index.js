@@ -49,7 +49,6 @@ class Home extends Component {
         let data = { category: "daily challenges" }
         PlanServices.getFreeVideos(data, token)
             .then(async (res) => {
-                console.log("res.data.data : ", res.data.data)
                 let fitnessLevel = await getLocalData(LOCAL_STORAGE_KEYS.fitnessLevel);
                 this.setState({ fitnessLevel: JSON.parse(fitnessLevel), challenges: res.data.data })
             })

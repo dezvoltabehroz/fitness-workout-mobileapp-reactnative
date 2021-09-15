@@ -28,10 +28,8 @@ class ChangePassword extends Component {
                 "current_password": currentPassword,
                 "new_password": newPassword
             }
-            console.log(userData)
             AuthServices.changePassword(userData, this.props.user.userData.token)
                 .then(async (res) => {
-                    console.log(res.data.data)
                     if (res.data.success) {
                         this.props.navigation.replace(route.MAIN)
                         this.setState({ loading: false })

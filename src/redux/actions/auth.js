@@ -34,7 +34,6 @@ const setUserProfile = (userData,authData, navigate) => {
 };
 
 const getUserProfile = (userData, navigate) => {
-    console.log("userData : ",userData)
     return (dispatch) => {
         let loading = true;
         if (loading) {
@@ -42,7 +41,6 @@ const getUserProfile = (userData, navigate) => {
         }
         ProfileServices.getFullProfile({ user_id: userData.user_id }, userData.token)
             .then(async (responseData) => {
-                console.log(responseData.data)
                 if (responseData.data.success) {
                     await storeLocalData('USER', JSON.stringify(responseData.data.data))
                     await dispatch(setUserProfile(responseData.data.data,userData, navigate))
@@ -73,7 +71,6 @@ const removeUser = (navigate) => {
 const userLogin = (navigate) => {
     return (dispatch) => {
         requestUserPermission(dispatch, navigate);
-        console.log("userLogin")
     }
 }
 
@@ -115,11 +112,9 @@ const getFcmToken = async (dispatch, navigate) => {
     if (fcmToken) {
         const localFcm = await getLocalData(LOCAL_STORAGE_KEYS.fcmToken)
         if (fcmToken == JSON.parse(localFcm)) {
-            console.log('fcm Token Macthder')
             const user_id = await getLocalData(LOCAL_STORAGE_KEYS.user_id)
             AuthServices.refreshToken({ user_id: user_id })
                 .then((res) => {
-                    console.log(res.data)
                     if (res.data.success) {
                         storeLocalData(LOCAL_STORAGE_KEYS.fcmToken, JSON.stringify(fcmToken))
                         storeLocalData(LOCAL_STORAGE_KEYS.userToken, JSON.stringify(res.data.data))
@@ -134,11 +129,9 @@ const getFcmToken = async (dispatch, navigate) => {
                     console.log(err.response)
                 })
         } else {
-            console.log('fcm Token not Macthder')
             const user_id = await getLocalData(LOCAL_STORAGE_KEYS.user_id)
             AuthServices.refreshToken({ user_id: user_id })
                 .then((res) => {
-                    console.log(res.data)
                     if (res.data.success) {
                         let data = {
                             "user_id": JSON.parse(user_id),

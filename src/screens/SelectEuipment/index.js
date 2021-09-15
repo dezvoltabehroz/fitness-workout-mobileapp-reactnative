@@ -103,7 +103,6 @@ class SelectEuipment extends Component {
 
     setValue = async (value) => {
         this.setState({ value })
-        console.log(value)
         switch (value) {
             case 0:
                 storeLocalData(LOCAL_STORAGE_KEYS.fitnessEquipment, JSON.stringify(screen.APP_INTRO_Button_1_3))

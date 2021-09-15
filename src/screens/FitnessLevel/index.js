@@ -29,7 +29,6 @@ class FitnessLevel extends Component {
                 storeLocalData(LOCAL_STORAGE_KEYS.fitnessGoal, JSON.stringify('Not Fit'))
                 break;
             case 'Average Fit':
-                console.log("2", this.props.user.userData.fitness_level)
                 this.setState({ seclectedValue: 2 })
                 storeLocalData(LOCAL_STORAGE_KEYS.fitnessGoal, JSON.stringify('Average Fit'))
                 break;

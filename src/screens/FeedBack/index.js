@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Alert, FlatList, Text, View, ActivityIndicator } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import ProgressBarAnimated from 'react-native-progress-bar-animated';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -21,6 +21,9 @@ class Feedback extends Component {
             data: [],
             question: 0,
             width: 0,
+            answers: [],
+            submitEnabled: false,
+            submitLoading: false
         }
     }
 
@@ -28,14 +31,43 @@ class Feedback extends Component {
         const { user_id, token } = this.props.user.userData;
         SurveysServices.getQuestions(token)
             .then((res) => {
-                console.log(res.data)
-                this.setState({ data: res.data.data, loading: false })
+                let questionArray = [...res.data.data]
+                questionArray.forEach((item, index) => {
+                    let question_array = []
+                    item.options_arr.forEach((element, i) => {
+                        question_array.push({ ...element, is_check: 0 })
+                    })
+                    questionArray[index] = { ...questionArray[index], question_array: question_array }
+
+                })
+                this.setState({ data: questionArray, loading: false })
             })
             .catch((err) => console.log(err.response))
     }
 
+    handleSubmitFunction = () => {
+        const { user_id, token } = this.props.user.userData;
+        const { answers } = this.state;
+        let data = {
+            "user_id": user_id,
+            "answers_array": answers
+        }
+        SurveysServices.submitAnswers(data, token)
+            .then((res) => {
+                console.log(res.data)
+                if (res.data.success) {
+                    this.props.navigation.goBack();
+                }
+                else {
+                    this.setState({ submitLoading: false })
+                }
+            })
+            .catch((err) => err.response)
+
+    }
+
     render() {
-        const { question, data, width, loading } = this.state;
+        const { question, data, width, loading, answers, submitEnabled, submitLoading } = this.state;
         const progressCustomStyles = {
             borderRadius: 10,
             borderWidth: 0,
@@ -51,8 +83,9 @@ class Feedback extends Component {
                         </View>
                         :
                         <View style={styles.container}>
+
                             <View style={{ marginVertical: "5%", marginHorizontal: "5%" }}>
-                                <Text>Question {question + 1}/{data.length}</Text>
+                                <Text>Question {question == data.length ? data.length : question + 1}/{data.length}</Text>
                                 <View style={{ alignItems: "center", marginTop: "2.5%" }}>
                                     <View style={{ backgroundColor: "lightgray", width: SCREEN_WIDTH * 0.9, borderRadius: 5 }}>
                                         <ProgressBarAnimated
@@ -65,6 +98,8 @@ class Feedback extends Component {
                                     </View>
                                 </View>
                             </View>
+
+
                             <ScrollView
                                 horizontal={true}
                                 scrollEventThrottle={16}
@@ -80,23 +115,51 @@ class Feedback extends Component {
                                                 <View style={{ backgroundColor: "white", padding: "5%", borderRadius: 20, height: SCREEN_HEIGHT * 0.6, marginHorizontal: "5%" }}>
                                                     <View style={{ flex: 1, }}>
                                                         <View style={{ flex: 0.8 }}>
-                                                            <Text>Select Answer</Text>
-                                                            <Text style={{ fontWeight: "bold" }}>{item.ques_statement}</Text>
+                                                            <Text style={{ color: 'lightgray' }}>Select Answer</Text>
+                                                            <Text style={{ fontWeight: "bold", fontSize: 18 }}>{item.ques_statement}</Text>
                                                             <View>
                                                                 {
-                                                                    item.options_arr.map((element, i) => {
+                                                                    item.question_array.map((element, i) => {
                                                                         return (
-                                                                            <View style={{ flexDirection: "row", marginTop: "5%" }}>
-                                                                                <Icon.MaterialIcons name={"radio-button-unchecked"} size={20} color={'lightgray'} />
+                                                                            <TouchableOpacity onPress={() => {
+                                                                                let array = [...data];
+                                                                                let anwserArray = [...answers]
+                                                                                array.forEach((itemData, itemIndex) => {
+                                                                                    itemData.question_array.forEach((elementData, elementIndex) => {
+                                                                                        array[itemIndex].question_array[elementIndex] = { ...array[itemIndex].question_array[elementIndex], is_check: 0 }
+                                                                                    })
+                                                                                })
+                                                                                array[index].question_array[i] = { ...array[index].question_array[i], is_check: 1 }
+                                                                                anwserArray.push({
+                                                                                    is_skip: 0,
+                                                                                    "question_id": array[index].ques_id,
+                                                                                    "answer_id": array[index].question_array[i].id
+                                                                                })
+                                                                                this.setState({ data: array, answers: anwserArray })
+                                                                            }}
+                                                                                style={{ flexDirection: "row", marginTop: "5%" }}>
+                                                                                <Icon.MaterialIcons name={element.is_check == 1 ? "radio-button-checked" : "radio-button-unchecked"} size={20} color={element.is_check == 1 ? themeStyle.BAR_COLOR : 'lightgray'} />
                                                                                 <Text style={{ marginLeft: 10 }}>{element.options}</Text>
-                                                                            </View>
+                                                                            </TouchableOpacity>
                                                                         )
                                                                     })
                                                                 }
                                                             </View>
                                                         </View>
                                                         <View style={{ flex: 0.2, justifyContent: "flex-end" }}>
-                                                            <Button title={"NEXT"} onPress={() => this.setState({ question: index + 1, width: width + SCREEN_WIDTH }, () => this.scroll.scrollTo({ x: (width + SCREEN_WIDTH) }))} />
+                                                            {submitEnabled ?
+                                                                <Button loading={submitLoading} title={"Submit"} onPress={() => this.setState({ submitLoading: true }, () => this.handleSubmitFunction())} />
+                                                                :
+                                                                <>
+                                                                    <Button title={"NEXT"} disabled={answers.length == 0 ? true : false} onPress={() => this.setState({ question: index + 1, width: width + SCREEN_WIDTH }, () => {
+                                                                        if ((index + 1) == data.length) { this.setState({ submitEnabled: true }) }
+                                                                        else { this.scroll.scrollTo({ x: (width + SCREEN_WIDTH) }) }
+                                                                    })} />
+                                                                    <View style={{ marginTop: "5%" }}>
+                                                                        <Button title={"Skip"} onPress={() => { }} />
+                                                                    </View>
+
+                                                                </>}
                                                         </View>
                                                     </View>
                                                 </View>

@@ -72,7 +72,6 @@ class DietScreen extends Component {
 
     handleDietDays = async () => {
         const { user_id, token } = this.props.user.userData;
-        console.log(user_id)
         let data = {
             user_id: user_id
         }

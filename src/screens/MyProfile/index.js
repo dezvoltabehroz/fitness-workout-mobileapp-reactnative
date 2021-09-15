@@ -44,11 +44,8 @@ class MyProfile extends Component {
                     filename: new Date().getTime().toString() + '.jpg',
                     type: 'image/jpg'
                 });
-                console.log("formData : ", formData)
-
                 ProfileServices.uploadProfilePicture(formData, this.props.user.userData.token)
                     .then((response) => {
-                        console.log(response.data)
                         if (response.data.success) {
                             this.setState({ uploading: false });
                             this.props.authActions.getUserProfile({ user_id: this.props.user.userData.user_id, token: this.props.user.userData.token })

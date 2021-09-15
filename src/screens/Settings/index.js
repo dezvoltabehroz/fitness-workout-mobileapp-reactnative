@@ -43,7 +43,6 @@ class Settings extends Component {
         ProfileServices.isEmailExist(data, JSON.parse(userToken))
             .then((res) => {
                 if (res.data.success) {
-                    console.log(res.data.data[0].email)
                     if (res.data.data[0].email) {
                         this.setState({ loading: false, modal: false, email: res.data.data[0].email })
                     } else {

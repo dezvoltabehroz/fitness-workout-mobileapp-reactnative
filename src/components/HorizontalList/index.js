@@ -39,7 +39,6 @@ const CheckedBox = ({ data, onPress, video }) => {
     }
 
     const _renderVideosItems = (item, index) => {
-        console.log(item)
         return (
             <ImageBackground source={{ uri: item.media_thumbnail }} style={styles.contentVideoContainer}>
                 <Text style={styles.whiteTextStyle2}>{item.media_title}</Text>

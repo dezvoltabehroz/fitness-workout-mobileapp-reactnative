@@ -8,8 +8,11 @@ import axiosInstance from './Interceptor';
 const Api = {
     getQuestions: function (token) {
         return axiosInstance.post('survey/getQuestions', {}, apiHeaderConfiguration(token, TOKEN))
-    }
+    },
 
+    submitAnswers: function (data, token) {
+        return axiosInstance.post('survey/submitAnswers', data, apiHeaderConfiguration(token, TOKEN))
+    },
 
 };
 

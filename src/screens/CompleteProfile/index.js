@@ -182,7 +182,6 @@ class CompleteProfile extends Component {
             }
             AuthServices.sendCodeOnEmail(data, this.props.user.userData.token)
                 .then((res) => {
-                    console.log(res.data.data)
                     this.setState({ emailModal: false, btnLoading: false, confirmOtpModal: true, submit: false, sendedCode: res.data.data })
                 })
                 .catch((error) => console.log(error.response))

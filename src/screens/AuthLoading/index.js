@@ -23,7 +23,6 @@ class AuthLoading extends Component {
         const watched = await getLocalData(LOCAL_STORAGE_KEYS.appIntro);
         const user_id = await getLocalData(LOCAL_STORAGE_KEYS.user_id);
         let check = JSON.parse(watched)
-        console.log(JSON.parse(user_id))
         if (JSON.parse(user_id)) {
             setTimeout(async () => {
                 // storeLocalData(LOCAL_STORAGE_KEYS.user_id,JSON.stringify(5))

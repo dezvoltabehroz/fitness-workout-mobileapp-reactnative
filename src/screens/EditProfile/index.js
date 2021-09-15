@@ -89,8 +89,6 @@ class CompleteProfile extends Component {
             "weight": weight ? parseFloat(weight) : userData.weight,
             "user_id": JSON.parse(user_id)
         }
-        console.log(data)
-        console.log(JSON.parse(userToken))
         ProfileServices.updateSpecificPersonalInfo(data, JSON.parse(userToken))
             .then(async (response) => {
                 console.log(response.data)
@@ -122,7 +120,6 @@ class CompleteProfile extends Component {
             }
             AuthServices.sendCodeOnEmail(data, this.props.user.userData.token)
                 .then((res) => {
-                    console.log(res.data.data)
                     this.setState({ emailModal: false, btnLoading: false, confirmOtpModal: true, submit: false, sendedCode: res.data.data })
                 })
                 .catch((error) => console.log(error.response))
@@ -231,7 +228,7 @@ class CompleteProfile extends Component {
                     </View>
                     {userData.email ?
                         <View style={{ marginHorizontal: "20%" }}>
-                            <Button title={'Change Email'} onPress={() => this.setState({ emailModal: true }, () => console.log('Hllo'))} />
+                            <Button title={'Change Email'} onPress={() => this.setState({ emailModal: true })} />
                         </View> : null}
 
                 </View>

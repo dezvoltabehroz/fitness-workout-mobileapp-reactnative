@@ -48,7 +48,6 @@ class Progress extends Component {
         const { user_id, token } = this.props.user.userData;
         ProfileServices.getAllProgressPhoto({ user_id: user_id }, token)
             .then((res) => {
-                console.log(res.data)
                 this.setState({ data: res.data.data, loading: false })
             })
             .catch((err) => console.log(err.response))
@@ -75,7 +74,6 @@ class Progress extends Component {
             } else {
                 this.setState({ uploading: true });
                 let source = response;
-                console.log(response)
                 let formData = new FormData();
                 formData.append('user_id', JSON.parse(user_id));
                 formData.append('image', {
@@ -84,11 +82,8 @@ class Progress extends Component {
                     filename: new Date().getTime().toString() + '.jpg',
                     type: 'image/jpg'
                 });
-                console.log("formData : ", formData)
-
                 ProfileServices.updateProgressPhoto1(formData, JSON.parse(userToken))
                     .then((response) => {
-                        console.log(response.data)
                         if (response.data.success) {
                             this.setState({ uploading: false });
                             this.props.navigation.navigate(route.PROGRESSPICS)

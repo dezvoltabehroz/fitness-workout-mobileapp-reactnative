@@ -31,7 +31,6 @@ class DietPlan extends Component {
             } else {
                 this.setState({ uploading: true });
                 let source = response;
-                console.log(response)
                 let formData = new FormData();
                 formData.append('user_id', JSON.parse(user_id));
                 formData.append('image', {
@@ -40,11 +39,9 @@ class DietPlan extends Component {
                     filename: new Date().getTime().toString() + '.jpg',
                     type: 'image/jpg'
                 });
-                console.log("formData : ", formData)
 
                 ProfileServices.updateProgressPhoto1(formData, JSON.parse(userToken))
                     .then((response) => {
-                        console.log(response.data)
                         if (response.data.success) {
                             this.setState({ uploading: false });
                             this.props.navigation.navigate(route.PROGRESSPICS)

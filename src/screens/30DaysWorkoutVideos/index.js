@@ -24,18 +24,15 @@ class DaysWorkoutVideos extends Component {
 
     componentDidMount = () => {
         const { user_id, token, fitness_goal, fitness_level, fitness_equipment } = this.props.user.userData;
-        console.log(this.props.user.userData)
         let data = {
             "fitness_goal": fitness_goal,
             "fitness_level": 'Normal Fit',
             "video_tags": fitness_equipment,
             "video_day": "Friday"//this.props?.route?.params?.data?.day
         }
-        console.log(data)
         PlanServices.getWorkoutPlanVideos(data, token)
             .then((response) => {
                 if (response.data.success) {
-                    console.log(response.data)
                     this.setState({ videos: response.data.data, loading: false })
                 }
             })

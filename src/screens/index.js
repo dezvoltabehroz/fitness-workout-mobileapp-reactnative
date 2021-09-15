@@ -3,26 +3,25 @@ import _AuthLoading from './AuthLoading';
 export const AuthLoading = _AuthLoading;
 
 
-import _AppIntro1st from './AppIntro1st';
-export const AppIntro1st = _AppIntro1st;
+import _NewUserFitnessGoal from './NewUserFitnessGoal';
+export const AppIntro1st = _NewUserFitnessGoal;
 
 
-import _AppIntro2nd from './AppIntro2nd';
-export const AppIntro2nd = _AppIntro2nd;
+import _NewUserFitnessLevel from './NewUserFitnessLevel';
+export const AppIntro2nd = _NewUserFitnessLevel;
 
 
-import _AppIntro3rd from './AppIntro3rd';
-export const AppIntro3rd = _AppIntro3rd;
+import _NewUserSelectEquipment from './NewUserSelectEquipment';
+export const AppIntro3rd = _NewUserSelectEquipment;
 
-import _AppIntro4th from './AppIntro4th';
-export const AppIntro4th = _AppIntro4th;
+import _SelectGender from './SelectGender';
+export const AppIntro4th = _SelectGender;
 
-import _AppIntro5th from './AppIntro5th';
-export const AppIntro5th = _AppIntro5th;
+import _NewUserFocusArea from './NewUserFocusArea';
+export const AppIntro5th = _NewUserFocusArea;
 
 import _CreatingPlan from './CreatingPlan';
 export const CreatingPlan = _CreatingPlan;
-
 
 import _Home from './Home';
 export const Home = _Home;
@@ -93,8 +92,8 @@ export const UpdatingPlan = _UpdatingPlan
 import _SelectEuipment from './SelectEuipment';
 export const SelectEuipment = _SelectEuipment;
 
-import _AppIntroZero from './AppIntroZero';
-export const AppIntroZero = _AppIntroZero;
+import _GetStarted from './GetStarted';
+export const AppIntroZero = _GetStarted;
 
 import _ChangePassword from './ChangePassword';
 export const ChangePassword = _ChangePassword;

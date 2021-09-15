@@ -45,10 +45,8 @@ class Login extends Component {
                 "email": email,
                 "password": password,
             }
-            console.log(userData)
             AuthServices.userLogin(userData)
                 .then(async (res) => {
-                    console.log(res.data.data)
                     if (res.data.success) {
                         storeLocalData(LOCAL_STORAGE_KEYS.user_id, JSON.stringify(res.data.data.id))
                         await this.props.authActions.userLogin(this.props.navigation.replace)
@@ -94,7 +92,6 @@ class Login extends Component {
             }
             AuthServices.forgetPassword(userData)
                 .then((res) => {
-                    console.log(res.data.data)
                     if (res.data.success) {
                         this.setState({ emailModal: false, btnLoading: false, submit1: false, confirmOtpModal: true })
                     }
@@ -116,7 +113,6 @@ class Login extends Component {
             }
             AuthServices.verifyCodeForReset(userData)
                 .then((res) => {
-                    console.log(res.data)
                     if (res.data.success) {
                         this.setState({
                             confirmOtpModal: false,
