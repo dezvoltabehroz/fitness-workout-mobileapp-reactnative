@@ -26,6 +26,7 @@ class CompleteProfile extends Component {
         this.state = {
             tab: 0,
             nameModal: false,
+            loading: true,
             email: "",
             emailModal: false,
             dateModal: false,
@@ -51,27 +52,46 @@ class CompleteProfile extends Component {
         }
     }
 
+    componentDidMount = () => {
+        let { full_name, dob, weight, height_inches, height_feet } = this.props.user.userData;
+        this.setState({
+            name: full_name,
+            dateValue: dob,
+            weight: weight,
+            feet: height_feet,
+            inch: height_inches,
+            loading: false
+        })
+    }
+
+
+    btnDisabled = () => {
+        const { name, dateValue, weight, feet, inch } = this.state;
+        let { userData } = this.props.user;
+        if (name !== userData.full_name || userData.dob != dateValue || weight !== userData.weight || userData.height_feet != feet || userData.height_inches !== inch) {
+            return false
+        }
+        else {
+            return true
+        }
+    }
+
     handleOnPressNext = async () => {
         const { tab, name, email, password, date, dateValue, weight, height, feet, inch } = this.state;
         const user_id = await getLocalData(LOCAL_STORAGE_KEYS.user_id)
         const userToken = await getLocalData(LOCAL_STORAGE_KEYS.userToken)
-
-        // if (name && dateValue && inch && weight && feet) {
-        //     if (userData.email) {
         let { userData } = this.props.user;
         let data = {
-            "email": email ? email : userData.email,
             "full_name": name ? name : userData.full_name,
             "dob": dateValue ? moment(dateValue).format('YYYY-MM-DD') : moment(userData.dob).format('YYYY-MM-DD'),
             "height_feet": feet ? parseInt(feet) : userData.height_feet,
             "height_inches": inch ? parseInt(inch) : userData.height_inches,
             "weight": weight ? parseFloat(weight) : userData.weight,
-            "password": password ? password : "Admin@123",
             "user_id": JSON.parse(user_id)
         }
         console.log(data)
         console.log(JSON.parse(userToken))
-        ProfileServices.updateProfile(data, JSON.parse(userToken))
+        ProfileServices.updateSpecificPersonalInfo(data, JSON.parse(userToken))
             .then(async (response) => {
                 console.log(response.data)
                 if (response.data.success) {
@@ -80,31 +100,6 @@ class CompleteProfile extends Component {
                 }
             })
             .catch((err) => console.log(err.response))
-        // } else {
-        //     let data = {
-        //         "email": email,
-        //         "full_name": name,
-        //         "dob": moment(dateValue).format('YYYY-MM-DD'),
-        //         "height_feet": parseInt(feet),
-        //         "height_inches": parseInt(inch),
-        //         "weight": parseFloat(weight),
-        //         "password": password,
-        //         "user_id": JSON.parse(user_id)
-        //     }
-        //     console.log(data)
-        //     ProfileServices.updateProfile(data, JSON.parse(userToken))
-        //         .then((response) => {
-        //             if (response.data.success) {
-        //                 this.setState({ nextLoading: false, })
-        //                 this.props.authActions.getUserProfile(this.props.navigation.replace)
-        //             }
-        //         })
-        //         .catch((err) => console.log(err.response))
-        // }
-        // } else {
-        //     this.setState({ nextLoading: false })
-        //     alert('Please fill complete data')
-        // }
     }
 
     setPassword = async () => {
@@ -137,13 +132,31 @@ class CompleteProfile extends Component {
     }
 
     verifyCode = () => {
-        const { code, submit1, sendedCode } = this.state;
+        const { code, submit1, sendedCode, email } = this.state;
+        const { user_id, token } = this.props.user.userData;
         if (code && code.length == 6 && submit1) {
             if (code == sendedCode) {
-                this.setState({
-                    emailModal: false, btnLoading: false, confirmOtpModal: false, code: "", submit1: false,
-                    passwordModal: this.props.user.userData.email ? false : true
-                })
+                let data = {
+                    "email": email,
+                    "user_id": user_id
+                }
+                ProfileServices.updateUserEmail(data, token)
+                    .then(async (res) => {
+                        if (res.data.success) {
+                            this.setState({
+                                emailModal: false, btnLoading: false, confirmOtpModal: false, code: "", submit1: false,
+                            })
+                            let userData = {
+                                "token": token,
+                                "user_id": user_id
+                            }
+                            await this.props.authActions.getUserProfile(userData)
+                        }
+
+                    })
+                    .catch((err) => { console.log(err.response) })
+
+
             } else {
                 Alert.alert("Code is incorrect!", 'Please enter a valid code ')
             }
@@ -215,7 +228,7 @@ class CompleteProfile extends Component {
                         </TouchableOpacity>
                     </View>
                     <View style={{ margin: "8%", marginHorizontal: "20%" }}>
-                        <Button title={'Save'} onPress={() => this.handleOnPressNext()} />
+                        <Button loading={nextLoading||this.props.user.loading} title={'Save'} disabled={this.btnDisabled()} onPress={() => this.setState({ nextLoading: true }, () => this.handleOnPressNext())} />
                     </View>
                     {userData.email ?
                         <View style={{ marginHorizontal: "20%" }}>
@@ -225,7 +238,7 @@ class CompleteProfile extends Component {
                 </View>
                 <NameModal
                     visible={this.state.nameModal}
-                    onChangeText={(name) => this.setState({ name: name })}
+                    onChangeText={(name) => this.setState({ name: name },)}
                     onClose={() => this.setState({ nameModal: false })}
                     onSave={() => this.setState({ nameModal: false })} />
                 <DateModal
@@ -266,56 +279,6 @@ class CompleteProfile extends Component {
                     setCode={(code) => this.setState({ code: code })}
                     onClose={() => this.setState({ confirmOtpModal: false })}
                     verifyCode={() => this.setState({ submit1: true, btnLoading: true }, () => this.verifyCode())} />
-                <Modal isVisible={this.state.passwordModal} animationInTiming={400}
-                    animationOutTiming={200} >
-                    <View style={styles.cardContainer}>
-                        <View style={{ marginTop: "5%", }}>
-                            <View style={{ alignItems: "flex-end" }}>
-                                <TouchableOpacity disabled={!btnLoading} onPress={() => this.setState({ passwordModal: false, })}><Icon.AntDesign name="close" size={20} /></TouchableOpacity>
-                            </View>
-                            <Text style={styles.headingText}>Enter Your Password</Text>
-                            <View style={{ marginTop: "10%", }}>
-                                <Input editable={!btnLoading} secureTextEntry={true} bottomMargin={true} value={password} placeholder="" onChangeText={(email) => this.setState({ password: email })} />
-                                {
-                                    submit && !password ? <Text style={[themeStyle1.errorText,]}>Please fill this field</Text> : null
-                                }
-                                {
-                                    submit && password.length && !isPasswordValid(password) ? <Text style={[themeStyle1.errorText,]}>At lease 8 characters with 1 upper case letter, 1 digit, and 1 special character (Admin12$)</Text> : null
-                                }
-                            </View>
-                            <Text style={styles.headingText}>Re-type your password</Text>
-                            <View style={{ marginTop: "10%", }}>
-                                <Input editable={!btnLoading} secureTextEntry={true} bottomMargin={true} value={confirmPassword} placeholder="" onChangeText={(email) => this.setState({ confirmPassword: email })} />
-                                {
-                                    submit && !confirmPassword ? <Text style={[themeStyle1.errorText,]}>Please fill this field</Text> :
-                                        submit && password != confirmPassword ? <Text style={[themeStyle1.errorText,]}>Password Mismatch</Text> : null
-                                }
-                            </View>
-
-
-                        </View>
-
-                        <View style={{ marginHorizontal: "15%", marginVertical: "5%" }}>
-                            <Button loading={btnLoading} disabled={password == confirmPassword ? false : true} title={'Continue'} onPress={() => this.setState({ btnLoading: true, submit: true }, () => this.setPassword())} />
-                        </View>
-                    </View>
-
-                </Modal>
-                {/* <Modal isVisible={this.state.confirmPasswordModal}>
-                    <View style={styles.cardContainer}>
-                        <View style={{ marginTop: "5%", }}>
-                            <View style={{ alignItems: "flex-end" }}>
-                                <TouchableOpacity onPress={() => this.setState({ confirmPasswordModal: false, })}><Icon.AntDesign name="close" size={20} /></TouchableOpacity>
-                            </View>
-                         
-                        </View>
-
-                        <View style={{ marginHorizontal: "15%", marginVertical: "5%" }}>
-                            <Button loading={btnLoading} disabled={email && !submit ? false : true} title={'Continue'} onPress={() => this.updateUserEmail()} />
-                        </View>
-                    </View>
-
-                </Modal> */}
             </Container>
         )
     }

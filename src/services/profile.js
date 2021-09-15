@@ -9,6 +9,10 @@ const Api = {
     updateProfile: function (data, token) {
         return axiosInstance.put('profile/updatePersonalInfo', data, apiHeaderConfiguration(token, TOKEN))
     },
+    updateSpecificPersonalInfo: function (data, token) {
+        return axiosInstance.put('profile/updateSpecificPersonalInfo', data, apiHeaderConfiguration(token, TOKEN))
+    },
+   
     updateMeasurement: function (data, token) {
         return axiosInstance.post('profile/updateUserMeasurement', data, apiHeaderConfiguration(token, TOKEN))
     },
