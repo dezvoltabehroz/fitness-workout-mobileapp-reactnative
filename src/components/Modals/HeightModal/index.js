@@ -37,6 +37,9 @@ const HeightModal = (props) => {
                         placeholder='Feet' onChangeText={(e) => {
                             props.onChangeFeet(e)
                         }} />
+                    <View style={{ width: 10 }}></View>
+                    <Text style={{ color: themeStyle.BAR_COLOR, marginBottom: 15 }}>FT</Text>
+                    <View style={{ width: 10 }}></View>
                     <Input
                         keyboardType={"number-pad"}
                         width={SCREEN_WIDTH * 0.25}
@@ -45,6 +48,8 @@ const HeightModal = (props) => {
                         placeholder='Inches'
                         onChangeText={(e) => changeInches(e)}
                     />
+                    <Text style={{ color: themeStyle.BAR_COLOR, marginBottom: 15 }}>IN</Text>
+                    <View style={{ width: 10 }}></View>
                 </View>
 
 

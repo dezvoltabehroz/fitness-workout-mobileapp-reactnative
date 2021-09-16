@@ -65,7 +65,9 @@ class CompleteProfile extends Component {
             password: "",
             confirmPassword: "",
             submit: false,
-            submit1: false
+            submit1: false,
+            kilo: "",
+            gram: ""
         }
     }
 
@@ -182,6 +184,7 @@ class CompleteProfile extends Component {
             }
             AuthServices.sendCodeOnEmail(data, this.props.user.userData.token)
                 .then((res) => {
+                    console.log(res.data.data)
                     this.setState({ emailModal: false, btnLoading: false, submit: false, sendedCode: res.data.data })
                     setTimeout(() => { this.setState({ confirmOtpModal: true, }) }, 350);
                 })
@@ -206,7 +209,7 @@ class CompleteProfile extends Component {
     }
 
     render() {
-        const { tab, name, date, dateValue, weight, height, email,
+        const { tab, name, date, dateValue, weight, height, email, kilo, gram,
             feet, inch, nextLoading, arm, next2Loading, chest, btnLoading, code, error, confirmPassword, password, submit, submit1,
             shoulder, waist, hip, tummy, thigh, calft, emailModal, confirmOtpModal, passwordModal } = this.state
 
@@ -263,7 +266,7 @@ class CompleteProfile extends Component {
                             <View style={styles.rowMeasureContainer}>
                                 <View style={styles.rowStyle}>
                                     <Icon.FontAwesome name="tachometer" color={'#797B7B'} size={20} />
-                                    <Text style={styles.grayText}>{weight ? weight : 'Weight'}</Text>
+                                    <Text style={styles.grayText}>{kilo || gram ? `${kilo ? kilo : 0}.${gram ? gram : 0}` : 'Weight'}</Text>
                                 </View>
                                 <TouchableOpacity onPress={() => this.setState({ weightModal: true })} >
                                     <Plus />
@@ -389,7 +392,10 @@ class CompleteProfile extends Component {
                     onSave={() => this.setState({ heightModal: false })} />
                 <WeightModal
                     visible={this.state.weightModal}
-                    onChangeText={(name) => this.setState({ weight: name })}
+                    kg={kilo}
+                    gram={gram}
+                    onChangeGram={(name) => this.setState({ gram: name })}
+                    onChangeKilo={(name) => this.setState({ kilo: name })}
                     onClose={() => this.setState({ weightModal: false })}
                     onSave={() => this.setState({ weightModal: false })} />
                 <ArmSizeModal

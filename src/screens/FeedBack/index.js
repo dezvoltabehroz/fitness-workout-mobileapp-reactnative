@@ -22,6 +22,7 @@ class Feedback extends Component {
             question: 0,
             width: 0,
             answers: [],
+            answer: "",
             submitEnabled: false,
             submitLoading: false
         }
@@ -33,11 +34,11 @@ class Feedback extends Component {
             .then((res) => {
                 let questionArray = [...res.data.data]
                 questionArray.forEach((item, index) => {
-                    let question_array = []
+                    let options_array = []
                     item.options_arr.forEach((element, i) => {
-                        question_array.push({ ...element, is_check: 0 })
+                        options_array.push({ ...element, is_check: 0 })
                     })
-                    questionArray[index] = { ...questionArray[index], question_array: question_array }
+                    questionArray[index] = { ...questionArray[index], options_array: options_array }
 
                 })
                 this.setState({ data: questionArray, loading: false })
@@ -66,8 +67,24 @@ class Feedback extends Component {
 
     }
 
+    handleAnswerFunction = (text, index) => {
+        let array = [...this.state.data];
+        let anwserArray = [...this.state.answers]
+        let ansObjIndex = anwserArray.findIndex((ansObj) => ansObj.question_id == array[index].ques_id)
+        if (ansObjIndex !== -1) {
+            anwserArray[ansObjIndex] = { ...anwserArray[ansObjIndex], answer: text }
+        } else {
+            anwserArray.push({
+                is_skip: 0,
+                "question_id": array[index].ques_id,
+                "answer": text
+            })
+        }
+        this.setState({ data: array, answers: anwserArray, answer: text })
+    }
+
     render() {
-        const { question, data, width, loading, answers, submitEnabled, submitLoading } = this.state;
+        const { question, data, width, loading, answers, submitEnabled, submitLoading, answer } = this.state;
         const progressCustomStyles = {
             borderRadius: 10,
             borderWidth: 0,
@@ -115,30 +132,30 @@ class Feedback extends Component {
                                                 <View style={{ backgroundColor: "white", padding: "5%", borderRadius: 20, height: SCREEN_HEIGHT * 0.6, marginHorizontal: "5%" }}>
                                                     <View style={{ flex: 1, }}>
                                                         <View style={{ flex: 0.8 }}>
-                                                            <Text style={{ color: 'lightgray' }}>Select Answer</Text>
+                                                            <Text style={{ color: 'lightgray' }}>{item.options_array.length == 0 ? "Type Answer" : "Select Answer"}</Text>
                                                             <Text style={{ fontWeight: "bold", fontSize: 18 }}>{item.ques_statement}</Text>
                                                             <View>
                                                                 {
-                                                                    item.question_array.length == 0 ?
+                                                                    item.options_array.length == 0 ?
                                                                         <View>
-                                                                            <Input placeholder="Enter your answer" />
+                                                                            <Input value={answer} placeholder="Enter your answer" onChangeText={(text) => this.handleAnswerFunction(text, index)} />
                                                                         </View>
                                                                         :
-                                                                        item.question_array.map((element, i) => {
+                                                                        item.options_array.map((element, i) => {
                                                                             return (
                                                                                 <TouchableOpacity onPress={() => {
                                                                                     let array = [...data];
                                                                                     let anwserArray = [...answers]
                                                                                     array.forEach((itemData, itemIndex) => {
-                                                                                        itemData.question_array.forEach((elementData, elementIndex) => {
-                                                                                            array[itemIndex].question_array[elementIndex] = { ...array[itemIndex].question_array[elementIndex], is_check: 0 }
+                                                                                        itemData.options_array.forEach((elementData, elementIndex) => {
+                                                                                            array[itemIndex].options_array[elementIndex] = { ...array[itemIndex].options_array[elementIndex], is_check: 0 }
                                                                                         })
                                                                                     })
-                                                                                    array[index].question_array[i] = { ...array[index].question_array[i], is_check: 1 }
+                                                                                    array[index].options_array[i] = { ...array[index].options_array[i], is_check: 1 }
                                                                                     anwserArray.push({
                                                                                         is_skip: 0,
                                                                                         "question_id": array[index].ques_id,
-                                                                                        "answer_id": array[index].question_array[i].id
+                                                                                        "answer_id": array[index].options_array[i].id
                                                                                     })
                                                                                     this.setState({ data: array, answers: anwserArray })
                                                                                 }}
@@ -156,9 +173,9 @@ class Feedback extends Component {
                                                                 <Button loading={submitLoading} title={"Submit"} onPress={() => this.setState({ submitLoading: true }, () => this.handleSubmitFunction())} />
                                                                 :
                                                                 <>
-                                                                    <Button title={"NEXT"} disabled={answers.length == 0 ? true : false} onPress={() => this.setState({ question: index + 1, width: width + SCREEN_WIDTH }, () => {
+                                                                    <Button title={"NEXT"} disabled={answers.length == 0 || data[index].options_array.length == 0 && !answer ? true : false} onPress={() => this.setState({ question: index + 1, width: width + SCREEN_WIDTH }, () => {
                                                                         if ((index + 1) == data.length) { this.setState({ submitEnabled: true }) }
-                                                                        else { this.scroll.scrollTo({ x: (width + SCREEN_WIDTH) }) }
+                                                                        else { this.scroll.scrollTo({ x: (width + SCREEN_WIDTH) }); this.setState({ answer: "" }) }
                                                                     })} />
                                                                     <View style={{ marginTop: "5%" }}>
                                                                         <Button title={"Skip"} onPress={() => { }} />

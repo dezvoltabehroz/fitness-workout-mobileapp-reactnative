@@ -33,12 +33,17 @@ class DietPlanDetails extends Component {
         this.setState({ loading: true })
         let data = {
             "category_name": JSON.parse(await getLocalData(LOCAL_STORAGE_KEYS.DietPreference)),
-            "fitness_goal": this.props.user.userData.fitness_goal,
+            // "fitness_goal": this.props.user.userData.fitness_goal,
+            "fitness_goal": "muscle gain",
             "week_name": this.props.route.params.dietData.weekName
         }
+        console.log(data)
         PlanServices.getMealPlan(data, this.props.user.userData.token)
-            .then((res) => { if (res.data.success) { this.setState({ diet: res.data.data[0].diet, loading: false }) } })
-            .catch((err) => { console.log(err.response) })
+            .then((res) => {
+                console.log(res.data);
+                if (res.data.success) { this.setState({ diet: res.data.data[0].diet, loading: false }) }
+            })
+            .catch((err) => { console.log(err); this.setState({ diet: [], loading: false }) })
     }
 
     handleFinishedModal = () => {
@@ -52,7 +57,7 @@ class DietPlanDetails extends Component {
             "diet_user_id": diet_user_id
         }
         ProfileServices.updateDailyDiet(data, token)
-            .then((res) => { if (res.data.success) { this.props.navigation.goBack(); } })
+            .then((res) => { if (res.data.success) { this.setState({ finished: false }); this.props.navigation.goBack(); } })
             .catch((err) => { console.log(err.response) })
     }
 

@@ -6,6 +6,7 @@ import Resume from '../../../assets/svg/refresh.svg';
 import Completed from '../../../assets/svg/next.svg';
 import themeStyle from '../../../assets/styles/theme.style';
 import Input from '../../Input';
+import { SCREEN_WIDTH } from '../../../lib/utils/constants';
 
 
 const WeightModal = (props) => {
@@ -19,7 +20,29 @@ const WeightModal = (props) => {
                     <Text style={styles.headingText}>Weight</Text>
                 </View>
                 <View style={{ marginBottom: "10%" }}>
-                    <Input keyboardType={"number-pad"} placeholder='Weight' onChangeText={(e) => props.onChangeText(e)} />
+                    <View style={{ width: SCREEN_WIDTH * 0.8, flexDirection: "row", justifyContent: "center", alignItems: "center", marginBottom: "10%" }}>
+                        <Input
+                            keyboardType={"number-pad"}
+                            maxLength={3}
+                            value={props.kg}
+                            width={SCREEN_WIDTH * 0.25}
+                            placeholder='Kilo' onChangeText={(e) => {
+                                props.onChangeKilo(e)
+                            }} />
+                        <View style={{ width: 10 }}></View>
+                        <Text style={{ color: themeStyle.BAR_COLOR, marginBottom: 15 }}>KG</Text>
+                        <View style={{ width: 10 }}></View>
+                        <Input
+                            keyboardType={"number-pad"}
+                            width={SCREEN_WIDTH * 0.25}
+                            maxLength={1}
+                            value={props.gram}
+                            placeholder='Gram'
+                            onChangeText={(e) => props.onChangeGram(e)}
+                        />
+                        <Text style={{ color: themeStyle.BAR_COLOR, marginBottom: 15 }}>GM</Text>
+                        <View style={{ width: 10 }}></View>
+                    </View>
                 </View>
 
 
