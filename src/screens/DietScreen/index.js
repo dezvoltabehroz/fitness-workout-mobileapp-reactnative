@@ -17,7 +17,7 @@ import Mark from '../../assets/svg/mark.svg';
 import styles from './style';
 import { route, SCREEN_WIDTH } from "../../lib/utils/constants";
 import themeStyle from "../../assets/styles/theme.style";
-import { PlanServices } from "../../services";
+import { PlanServices, ProfileServices } from "../../services";
 import { connect } from "react-redux";
 import { getLocalData, LOCAL_STORAGE_KEYS, storeLocalData } from "../../lib/utils/localstorage";
 import { authActions } from "../../redux/actions/auth";
@@ -67,7 +67,7 @@ class DietScreen extends Component {
     componentDidMount = () => {
         this.focusListener = this.props.navigation.addListener('focus', () => { this.handleDietDays(); })
         this.props.navigation.setOptions({ headerRight: () => this.headerRight() });
-        this.handleDietDays()
+        this.handleDietDays();
     }
 
     handleDietDays = async () => {
@@ -75,6 +75,8 @@ class DietScreen extends Component {
         let data = {
             user_id: user_id
         }
+        console.log(data)
+
         this.setState({ value: JSON.parse(await getLocalData(LOCAL_STORAGE_KEYS.DietPreference)), dietModal: true });
         PlanServices.getDietPlans(data, token)
             .then(async (res) => {
