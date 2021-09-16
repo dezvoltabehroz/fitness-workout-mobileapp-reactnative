@@ -30,7 +30,7 @@ class DaysWorkoutVideos extends Component {
             "fitness_goal": fitnessGoal,
             "fitness_level": fitnessLevel,
             "video_tags": fitnessEquipment,
-            "video_day": "Tuseday"//this.props?.route?.params?.data?.day
+            "video_day": this.props?.route?.params?.data?.day
         }
         PlanServices.getWorkoutPlanVideos(data, token)
             .then((response) => {
