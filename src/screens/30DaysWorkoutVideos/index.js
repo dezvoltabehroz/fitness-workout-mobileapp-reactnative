@@ -27,9 +27,9 @@ class DaysWorkoutVideos extends Component {
         const fitnessEquipment = await getLocalData(LOCAL_STORAGE_KEYS.fitnessEquipment);
         const { user_id, token, fitness_goal, fitness_level, fitness_equipment } = this.props.user.userData;
         let data = {
-            "fitness_goal": fitnessGoal,
-            "fitness_level": fitnessLevel,
-            "video_tags": fitnessEquipment,
+            "fitness_goal": fitness_goal,
+            "fitness_level": fitness_level,
+            "video_tags": fitness_equipment,
             "video_day": this.props?.route?.params?.data?.day
         }
         PlanServices.getWorkoutPlanVideos(data, token)
