@@ -10,25 +10,27 @@ import Youtube from '../../assets/svg/description.svg';
 import styles from './style'
 import { connect } from "react-redux";
 import { PlanServices } from "../../services";
-
+import { getLocalData, LOCAL_STORAGE_KEYS, storeLocalData } from '../../lib/utils/localstorage';
 class DaysWorkoutVideos extends Component {
     constructor(props) {
         super(props);
         this.state = {
             array: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
-
             loading: true,
             videos: []
         }
     }
 
-    componentDidMount = () => {
+    componentDidMount = async () => {
+        const fitnessGoal = await getLocalData(LOCAL_STORAGE_KEYS.fitnessGoal);
+        const fitnessLevel = await getLocalData(LOCAL_STORAGE_KEYS.fitnessLevel);
+        const fitnessEquipment = await getLocalData(LOCAL_STORAGE_KEYS.fitnessEquipment);
         const { user_id, token, fitness_goal, fitness_level, fitness_equipment } = this.props.user.userData;
         let data = {
-            "fitness_goal": fitness_goal,
-            "fitness_level": 'Normal Fit',
-            "video_tags": fitness_equipment,
-            "video_day": "Friday"//this.props?.route?.params?.data?.day
+            "fitness_goal": fitnessGoal,
+            "fitness_level": fitnessLevel,
+            "video_tags": fitnessEquipment,
+            "video_day": "Tuseday"//this.props?.route?.params?.data?.day
         }
         PlanServices.getWorkoutPlanVideos(data, token)
             .then((response) => {
@@ -68,13 +70,18 @@ class DaysWorkoutVideos extends Component {
                             <ActivityIndicator color={themeStyle.BAR_COLOR} size={"small"} />
                         </View>
                         :
-                        <ScrollView>
-                            <View>
-                                <FlatList data={this.state.videos}
-                                    ItemSeparatorComponent={(VerticalSpacer)}
-                                    renderItem={({ item, index }) => this._renderItems(item, index)} />
+                        videos.length == 0 ?
+                            <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+                                <Text style={styles.headingText}>No record found!</Text>
                             </View>
-                        </ScrollView>}
+                            :
+                            <ScrollView>
+                                <View>
+                                    <FlatList data={this.state.videos}
+                                        ItemSeparatorComponent={(VerticalSpacer)}
+                                        renderItem={({ item, index }) => this._renderItems(item, index)} />
+                                </View>
+                            </ScrollView>}
                 </View>
             </Container>
         )

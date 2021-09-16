@@ -93,7 +93,8 @@ class Login extends Component {
             AuthServices.forgetPassword(userData)
                 .then((res) => {
                     if (res.data.success) {
-                        this.setState({ emailModal: false, btnLoading: false, submit1: false, confirmOtpModal: true })
+                        this.setState({ emailModal: false, btnLoading: false, submit1: false, })
+                        setTimeout(() => { this.setState({ confirmOtpModal: true, }) }, 350);
                     }
                 })
                 .catch((err) => {
@@ -117,8 +118,9 @@ class Login extends Component {
                         this.setState({
                             confirmOtpModal: false,
                             emailModal: false, btnLoading: false, code: "", submit1: false,
-                            passwordModal: true, user_id: res.data.data[0].id
+                            user_id: res.data.data[0].id
                         })
+                        setTimeout(() => { this.setState({ passwordModal: true, }) }, 350);
                     } else {
                         Alert.alert("Code is incorrect!", 'Please enter a valid code ')
                     }

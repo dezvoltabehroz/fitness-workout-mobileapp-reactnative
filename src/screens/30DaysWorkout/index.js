@@ -76,8 +76,8 @@ class PowerOfMind extends Component {
             UIManager.setLayoutAnimationEnabledExperimental(true);
         }
     }
-    componentDidMount = () => {
 
+    componentDidMount = () => {
         const { user_id, token } = this.props.user.userData;
         let data = {
             user_id: user_id
@@ -112,7 +112,7 @@ class PowerOfMind extends Component {
     }
 
     _renderItem = ({ item, index }) => {
-        const { is_pro } = this.props.user.userData
+        const { is_pro, } = this.props.user.userData
         let week = item.weekName.split(" ");
         let workoutWeekDate = [];
         let progressCount = []
@@ -122,8 +122,10 @@ class PowerOfMind extends Component {
         });
         return (
             <View style={styles.itemContainer} >
-                <TouchableOpacity disabled={workoutWeekDate && workoutWeekDate[index] == 1 ? false : true} onPress={() => {
-                    if (is_pro == 0) {
+                <TouchableOpacity onPress={() => {
+                    if (index == 0) {
+                        this.changeLayout(index)
+                    } else if (is_pro == 0) {
                         this.setState({ upgradeModal: true })
                     } else {
                         this.changeLayout(index)
@@ -154,17 +156,17 @@ class PowerOfMind extends Component {
                         </View>
                         <View style={{ flex: 0.2, alignItems: "center" }} >
                             {
-                                is_pro == 0 ?
+                                is_pro == 0 && index != 0 ?
                                     <View style={{ top: -42 }}>
                                         <Mark />
                                     </View>
                                     :
                                     null
                             }
-                            {is_pro == 1 && workoutWeekDate && workoutWeekDate[index] == 1 ?
+                            {is_pro == 1 && workoutWeekDate && workoutWeekDate[index] == 1 || index == 0 ?
                                 <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", right: 15 }}>
                                     <CircularProgress
-                                        value={progressCount.length / item.workoutDays.length * 100 == 0 ? 1 : progressCount.length / item.workoutDays.length * 100}
+                                        value={progressCount.length / item.workoutDays.length * 100 == 0 ? 0 : progressCount.length / item.workoutDays.length * 100}
                                         duration={2000}
                                         radius={30}
                                         textColor={'#1F2729'}
@@ -189,23 +191,21 @@ class PowerOfMind extends Component {
                                 <View style={{ top: is_pro == 1 ? -15 : 0 }}>
                                     <Icon.SimpleLineIcons name="lock" size={20} color={'gray'} />
                                 </View>}
-
-
                         </View>
                     </View>
 
                 </TouchableOpacity>
                 {item.expanded ?
-                    item.workoutDays.map((i, inde) => {
+                    item.workoutDays.map((element, inde) => {
                         return (
-                            <TouchableOpacity disabled={i.date == moment().format('YYYY-MM-DD') ? false : true} onPress={() => {
-                                this.props.navigation.navigate(route.DAYSWORKOUTVIDEOS, { data: i })
+                            <TouchableOpacity disabled={element.date == moment().format('YYYY-MM-DD') ? false : true} onPress={() => {
+                                this.props.navigation.navigate(route.DAYSWORKOUTVIDEOS, { data: element })
                             }} style={styles.itemContainer} >
                                 <View style={styles.textContainer1}>
                                     <Text style={styles.greyText}>{'Day'}</Text>
                                     <View style={styles.rowContainer1}>
                                         <View style={[styles.row, { flex: 1 }]}>
-                                            <Text style={styles.dayText1}>{this.truncateString(i.day, 3)}</Text>
+                                            <Text style={styles.dayText1}>{this.truncateString(element.day, 3)}</Text>
                                             <View style={{ flex: 1 }}>
                                                 <View style={[styles.row, { marginLeft: 10 }]}>
                                                     <Stopwatch />
@@ -216,7 +216,7 @@ class PowerOfMind extends Component {
                                                         <ProgressBarAnimated
                                                             width={SCREEN_WIDTH * 0.15}
                                                             height={5}
-                                                            value={i?.completed ? 100 : 1}
+                                                            value={element?.completed ? 100 : 1}
                                                             {...progressCustomStyles}
                                                             onComplete={() => { Alert.alert('Hey!', 'onComplete event fired!'); }}
                                                         />
@@ -227,8 +227,8 @@ class PowerOfMind extends Component {
                                         <View style={{ flex: 0.2, alignItems: "center" }} >
 
                                             <CircularProgress
-                                                value={i?.completed ? 100 : 0}
-                                                // duration={2000}
+                                                value={element?.completed ? 100 : 0}
+                                                duration={50}
                                                 radius={30}
                                                 textColor={'#1F2729'}
                                                 textStyle={styles.textStyle}
@@ -292,7 +292,7 @@ class PowerOfMind extends Component {
                         />
                     </ScrollView>
                 </View>
-                <UpgradeModal visible={this.state.upgradeModal} onUpgrade={() => navigation.navigate(route.PAYMENTMETHOD, { data: true })} onSkip={() => this.setState({ upgradeModal: false })} />
+                <UpgradeModal visible={this.state.upgradeModal} onUpgrade={() => this.setState({ upgradeModal: false }, () => navigation.navigate(route.PAYMENTMETHOD, {}))} onSkip={() => this.setState({ upgradeModal: false })} />
             </Container>
 
         )

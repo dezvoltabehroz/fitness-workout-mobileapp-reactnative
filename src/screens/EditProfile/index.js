@@ -120,7 +120,8 @@ class CompleteProfile extends Component {
             }
             AuthServices.sendCodeOnEmail(data, this.props.user.userData.token)
                 .then((res) => {
-                    this.setState({ emailModal: false, btnLoading: false, confirmOtpModal: true, submit: false, sendedCode: res.data.data })
+                    this.setState({ emailModal: false, btnLoading: false, submit: false, sendedCode: res.data.data })
+                    setTimeout(() => { this.setState({ confirmOtpModal: true, }) }, 350);
                 })
                 .catch((error) => console.log(error.response))
         } else {
@@ -140,20 +141,12 @@ class CompleteProfile extends Component {
                 ProfileServices.updateUserEmail(data, token)
                     .then(async (res) => {
                         if (res.data.success) {
-                            this.setState({
-                                emailModal: false, btnLoading: false, confirmOtpModal: false, code: "", submit1: false,
-                            })
-                            let userData = {
-                                "token": token,
-                                "user_id": user_id
-                            }
+                            let userData = { "token": token, "user_id": user_id }
                             await this.props.authActions.getUserProfile(userData)
+                            this.setState({ emailModal: false, btnLoading: false, confirmOtpModal: false, code: "", submit1: false, })
                         }
-
                     })
                     .catch((err) => { console.log(err.response) })
-
-
             } else {
                 Alert.alert("Code is incorrect!", 'Please enter a valid code ')
             }
@@ -224,7 +217,7 @@ class CompleteProfile extends Component {
                         </TouchableOpacity>
                     </View>
                     <View style={{ margin: "8%", marginHorizontal: "20%" }}>
-                        <Button loading={nextLoading||this.props.user.loading} title={'Save'} disabled={this.btnDisabled()} onPress={() => this.setState({ nextLoading: true }, () => this.handleOnPressNext())} />
+                        <Button loading={nextLoading || this.props.user.loading} title={'Save'} disabled={this.btnDisabled()} onPress={() => this.setState({ nextLoading: true }, () => this.handleOnPressNext())} />
                     </View>
                     {userData.email ?
                         <View style={{ marginHorizontal: "20%" }}>

@@ -242,7 +242,7 @@ class DietScreen extends Component {
                         </View>
 
                         <View style={{ marginHorizontal: "15%", marginVertical: "5%" }}>
-                            <Button title={'Continue'} onPress={() => this.setState({ modal: false, completed: true },()=>this.props.navigation.navigate(route.FEEDBACK))} />
+                            <Button title={'Continue'} onPress={() => this.setState({ modal: false, completed: true }, () => this.props.navigation.navigate(route.FEEDBACK))} />
                         </View>
                     </View>
                 </Modal>
@@ -252,7 +252,7 @@ class DietScreen extends Component {
                 }}
                     value={this.state.value} onSkip={() => this.setState({ dietModal: false })} />
                 <UpgradeModal visible={this.state.upgradeModal}
-                    onUpgrade={() => this.props.navigation.navigate(route.PAYMENTMETHOD, {})}
+                    onUpgrade={() => this.setState({ upgradeModal: false }, () => this.props.navigation.navigate(route.PAYMENTMETHOD, {}))}
                     onSkip={() => this.setState({ upgradeModal: false })} />
             </Container>
         )
@@ -260,4 +260,4 @@ class DietScreen extends Component {
 }
 const mapStateToProps = (state) => { return { user: state.authReducer || {} }; };
 const mapDispatchToProps = dispatch => { return { authActions: bindActionCreators(authActions, dispatch) }; };
-export default connect(mapStateToProps,mapDispatchToProps)(DietScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(DietScreen);

@@ -30,7 +30,6 @@ const Api = {
     changePassword: function (data, token) {
         return axiosInstance.post('auth/changePassword', data, apiHeaderConfiguration(token, TOKEN))
     },
-
 };
 
 export default Api;

@@ -182,7 +182,8 @@ class CompleteProfile extends Component {
             }
             AuthServices.sendCodeOnEmail(data, this.props.user.userData.token)
                 .then((res) => {
-                    this.setState({ emailModal: false, btnLoading: false, confirmOtpModal: true, submit: false, sendedCode: res.data.data })
+                    this.setState({ emailModal: false, btnLoading: false, submit: false, sendedCode: res.data.data })
+                    setTimeout(() => { this.setState({ confirmOtpModal: true, }) }, 350);
                 })
                 .catch((error) => console.log(error.response))
         } else {
@@ -194,10 +195,8 @@ class CompleteProfile extends Component {
         const { code, submit1, sendedCode } = this.state;
         if (code && code.length == 6 && submit1) {
             if (code == sendedCode) {
-                this.setState({
-                    emailModal: false, btnLoading: false, confirmOtpModal: false, code: "", submit1: false,
-                    passwordModal: true
-                })
+                this.setState({ btnLoading: false, confirmOtpModal: false, code: "", submit1: false, })
+                setTimeout(() => { this.setState({ passwordModal: true }) }, 350);
             } else {
                 Alert.alert("Code is incorrect!", 'Please enter a valid code ')
             }

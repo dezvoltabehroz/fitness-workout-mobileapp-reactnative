@@ -5,7 +5,7 @@ import ProgressBarAnimated from 'react-native-progress-bar-animated';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import themeStyle from '../../assets/styles/theme.style';
-import { Button, Container, Icon } from '../../components';
+import { Button, Container, Icon, Input } from '../../components';
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../../lib/utils/constants';
 import { authActions } from '../../redux/actions/auth';
 import { SurveysServices } from '../../services';
@@ -119,30 +119,35 @@ class Feedback extends Component {
                                                             <Text style={{ fontWeight: "bold", fontSize: 18 }}>{item.ques_statement}</Text>
                                                             <View>
                                                                 {
-                                                                    item.question_array.map((element, i) => {
-                                                                        return (
-                                                                            <TouchableOpacity onPress={() => {
-                                                                                let array = [...data];
-                                                                                let anwserArray = [...answers]
-                                                                                array.forEach((itemData, itemIndex) => {
-                                                                                    itemData.question_array.forEach((elementData, elementIndex) => {
-                                                                                        array[itemIndex].question_array[elementIndex] = { ...array[itemIndex].question_array[elementIndex], is_check: 0 }
+                                                                    item.question_array.length == 0 ?
+                                                                        <View>
+                                                                            <Input placeholder="Enter your answer" />
+                                                                        </View>
+                                                                        :
+                                                                        item.question_array.map((element, i) => {
+                                                                            return (
+                                                                                <TouchableOpacity onPress={() => {
+                                                                                    let array = [...data];
+                                                                                    let anwserArray = [...answers]
+                                                                                    array.forEach((itemData, itemIndex) => {
+                                                                                        itemData.question_array.forEach((elementData, elementIndex) => {
+                                                                                            array[itemIndex].question_array[elementIndex] = { ...array[itemIndex].question_array[elementIndex], is_check: 0 }
+                                                                                        })
                                                                                     })
-                                                                                })
-                                                                                array[index].question_array[i] = { ...array[index].question_array[i], is_check: 1 }
-                                                                                anwserArray.push({
-                                                                                    is_skip: 0,
-                                                                                    "question_id": array[index].ques_id,
-                                                                                    "answer_id": array[index].question_array[i].id
-                                                                                })
-                                                                                this.setState({ data: array, answers: anwserArray })
-                                                                            }}
-                                                                                style={{ flexDirection: "row", marginTop: "5%" }}>
-                                                                                <Icon.MaterialIcons name={element.is_check == 1 ? "radio-button-checked" : "radio-button-unchecked"} size={20} color={element.is_check == 1 ? themeStyle.BAR_COLOR : 'lightgray'} />
-                                                                                <Text style={{ marginLeft: 10 }}>{element.options}</Text>
-                                                                            </TouchableOpacity>
-                                                                        )
-                                                                    })
+                                                                                    array[index].question_array[i] = { ...array[index].question_array[i], is_check: 1 }
+                                                                                    anwserArray.push({
+                                                                                        is_skip: 0,
+                                                                                        "question_id": array[index].ques_id,
+                                                                                        "answer_id": array[index].question_array[i].id
+                                                                                    })
+                                                                                    this.setState({ data: array, answers: anwserArray })
+                                                                                }}
+                                                                                    style={{ flexDirection: "row", marginTop: "5%" }}>
+                                                                                    <Icon.MaterialIcons name={element.is_check == 1 ? "radio-button-checked" : "radio-button-unchecked"} size={20} color={element.is_check == 1 ? themeStyle.BAR_COLOR : 'lightgray'} />
+                                                                                    <Text style={{ marginLeft: 10 }}>{element.options}</Text>
+                                                                                </TouchableOpacity>
+                                                                            )
+                                                                        })
                                                                 }
                                                             </View>
                                                         </View>
