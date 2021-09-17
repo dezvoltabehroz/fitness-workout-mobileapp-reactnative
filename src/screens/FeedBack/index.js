@@ -1,6 +1,7 @@
+import moment from 'moment';
 import React, { Component } from 'react';
-import { Alert, FlatList, Text, View, ActivityIndicator } from 'react-native';
-import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
+import { Alert, FlatList, Text, View, ActivityIndicator, TouchableOpacity, ScrollView } from 'react-native';
+
 import ProgressBarAnimated from 'react-native-progress-bar-animated';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -57,14 +58,17 @@ class Feedback extends Component {
             .then((res) => {
                 console.log(res.data)
                 if (res.data.success) {
-                    this.props.navigation.goBack();
+                    let serveyData = {
+                        "user_id": user_id,
+                        "submitted_date": moment().format('YYYY-MM-DD')
+                    }
+                    SurveysServices.updateSurveySubmitDate(serveyData, token)
+                        .then((response) => { if (response.data.success) { this.props.navigation.goBack(); } })
+                        .catch((error) => console.log(error.response))
                 }
-                else {
-                    this.setState({ submitLoading: false })
-                }
+                else { this.setState({ submitLoading: false }) }
             })
             .catch((err) => err.response)
-
     }
 
     handleAnswerFunction = (text, index) => {
@@ -115,8 +119,6 @@ class Feedback extends Component {
                                     </View>
                                 </View>
                             </View>
-
-
                             <ScrollView
                                 horizontal={true}
                                 scrollEventThrottle={16}
@@ -128,9 +130,9 @@ class Feedback extends Component {
                                 {
                                     data.map((item, index) => {
                                         return (
-                                            <View style={{ width: SCREEN_WIDTH, }}>
-                                                <View style={{ backgroundColor: "white", padding: "5%", borderRadius: 20, height: SCREEN_HEIGHT * 0.6, marginHorizontal: "5%" }}>
-                                                    <View style={{ flex: 1, }}>
+                                            <View style={{ width: SCREEN_WIDTH, flex: 1, }}>
+                                                <View style={{ backgroundColor: "white", padding: "5%", borderRadius: 20, marginHorizontal: "5%" }}>
+                                                    <ScrollView showsVerticalScrollIndicator={false}>
                                                         <View style={{ flex: 0.8 }}>
                                                             <Text style={{ color: 'lightgray' }}>{item.options_array.length == 0 ? "Type Answer" : "Select Answer"}</Text>
                                                             <Text style={{ fontWeight: "bold", fontSize: 18 }}>{item.ques_statement}</Text>
@@ -168,7 +170,7 @@ class Feedback extends Component {
                                                                 }
                                                             </View>
                                                         </View>
-                                                        <View style={{ flex: 0.2, justifyContent: "flex-end" }}>
+                                                        <View style={{ marginTop: "30%" }}>
                                                             {submitEnabled ?
                                                                 <Button loading={submitLoading} title={"Submit"} onPress={() => this.setState({ submitLoading: true }, () => this.handleSubmitFunction())} />
                                                                 :
@@ -183,7 +185,7 @@ class Feedback extends Component {
 
                                                                 </>}
                                                         </View>
-                                                    </View>
+                                                    </ScrollView>
                                                 </View>
                                             </View>
                                         )
