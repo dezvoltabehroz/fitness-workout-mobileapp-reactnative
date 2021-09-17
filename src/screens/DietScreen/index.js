@@ -252,9 +252,11 @@ class DietScreen extends Component {
                                                                             <Icon.FontAwesome name="angle-right" size={30} color={'gray'} />}
                                                                     </View>
                                                                     :
-                                                                    <View style={{ top: is_pro == 1 ? -15 : -15 }}>
-                                                                        <Icon.SimpleLineIcons name="lock" size={20} color={'gray'} />
-                                                                    </View>}
+                                                                    null
+                                                                    // <View style={{ top: is_pro == 1 ? -15 : -15 }}>
+                                                                    //     <Icon.SimpleLineIcons name="lock" size={20} color={'gray'} />
+                                                                    // </View>
+                                                                }
                                                             </View>
                                                         </View>
                                                         {element.expanded ? <View style={{ borderWidth: 0.5, marginVertical: "2.5%" }}></View> : null}
