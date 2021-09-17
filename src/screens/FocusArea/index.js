@@ -32,6 +32,13 @@ class FocusArea extends Component {
     componentDidMount = async () => {
         let equipment = await getLocalData(LOCAL_STORAGE_KEYS.fitnessEquipment)
         this.setState({ equipment: JSON.parse(equipment) })
+        storeLocalData(LOCAL_STORAGE_KEYS.focusAreaShoulder, JSON.stringify('0'))
+        storeLocalData(LOCAL_STORAGE_KEYS.focusAreaArms, JSON.stringify('0'))
+        storeLocalData(LOCAL_STORAGE_KEYS.focusAreaChest, JSON.stringify('0'))
+        storeLocalData(LOCAL_STORAGE_KEYS.focusAreaBack, JSON.stringify('0'))
+        storeLocalData(LOCAL_STORAGE_KEYS.focusAreaGlutes, JSON.stringify('0'))
+        storeLocalData(LOCAL_STORAGE_KEYS.focusAreaLegs, JSON.stringify('0'))
+        storeLocalData(LOCAL_STORAGE_KEYS.focusAreaWaist, JSON.stringify('0'))
     }
 
     handleDone = () => {
@@ -74,9 +81,9 @@ class FocusArea extends Component {
                             <Text style={styles.headingTextStyle}>{screen.APP_INTRO_Heading_5}</Text>
                             <Text style={styles.decsTextStyle}>Select two focus areas so we could personalize your plan.</Text>
                         </View>
-                        <ImageBackground style={styles.imageStyle} resizeMode="cover" source={gender == 'male' ? require('../../assets/images/boy.png') : require('../../assets/images/girl.png')}>
+                        <ImageBackground style={styles.imageStyle} resizeMode="cover" source={gender == 'Male' ? require('../../assets/images/boy.png') : require('../../assets/images/girl.png')}>
                             {
-                                gender == 'male' ?
+                                gender == 'Male' ?
                                     <>
                                         <View style={styles.shoulderContainer1}>
                                             <View style={styles.shoulderStyle1}>

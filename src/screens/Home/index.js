@@ -221,7 +221,7 @@ class Home extends Component {
                         </ImageBackground>
                         <View style={{ bottom: '3%' }}>
                             <Text style={[styles.whiteTextStyle, { color: THEME.COLOR_BLACK, margin: '5%' }]}>CHALLENGES</Text>
-                            <HorizontalList video data={challenges} />
+                            <HorizontalList video data={challenges} onPress={(item) => navigate(route.VIDEO, { uri: item.media_path })} />
                         </View>
                         <ImageBackground source={require('../../assets/images/diet.png')} style={styles.cardContainer} >
                             <Text style={styles.whiteTextStyle1}>DIET PLAN IS READY!</Text>

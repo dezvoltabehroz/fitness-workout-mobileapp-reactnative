@@ -15,7 +15,7 @@ export default StyleSheet.create({
     imageStyle: {
         flexDirection: "column",
         justifyContent: "space-between",
-        height: SCREEN_HEIGHT * 0.55,
+        height: SCREEN_HEIGHT * 0.525,
         width: SCREEN_WIDTH,
         paddingVertical: '5%',
         paddingHorizontal: "10%",
@@ -29,6 +29,12 @@ export default StyleSheet.create({
     },
     headingText2: {
         fontSize: 35,
+        color: '#1F2729',
+        textTransform: "uppercase",
+        fontFamily: themeStyle.FONT_BOLD
+    },
+    headingText3: {
+        fontSize: 30,
         color: '#1F2729',
         textTransform: "uppercase",
         fontFamily: themeStyle.FONT_BOLD

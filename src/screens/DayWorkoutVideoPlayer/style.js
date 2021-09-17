@@ -15,21 +15,25 @@ export default StyleSheet.create({
     },
     mediaPlayer: {
         flex: 0.5,
+        // alignItems:"center",
         height: SCREEN_HEIGHT * 0.4,
         backgroundColor: 'black',
         justifyContent: 'center',
     },
     mediaPlayer1: {
+        // alignItems:"center",
         flex: 1,
         height: SCREEN_HEIGHT,
         backgroundColor: 'black',
         justifyContent: 'center',
     },
     videoContainer: {
+        alignItems: "center",
         height: SCREEN_HEIGHT * 0.35,
     },
     videoContainer1: {
-        height: SCREEN_HEIGHT* 0.5,
+        alignItems: "center",
+        height: SCREEN_HEIGHT * 0.5,
     },
     textStyle: {
         marginLeft: "2.5%",

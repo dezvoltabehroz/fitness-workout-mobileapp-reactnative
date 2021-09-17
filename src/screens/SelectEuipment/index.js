@@ -32,19 +32,19 @@ class SelectEuipment extends Component {
         switch (this.props.user.userData.fitness_equipment) {
             case screen.APP_INTRO_Button_1_3:
                 this.setState({ value: 0 })
-                storeLocalData(LOCAL_STORAGE_KEYS.fitnessGoal, JSON.stringify(screen.APP_INTRO_Button_1_3))
+                storeLocalData(LOCAL_STORAGE_KEYS.fitnessEquipment, JSON.stringify(screen.APP_INTRO_Button_1_3))
                 break;
             case screen.APP_INTRO_Button_2_3:
                 this.setState({ value: 1 })
-                storeLocalData(LOCAL_STORAGE_KEYS.fitnessGoal, JSON.stringify(screen.APP_INTRO_Button_2_3))
+                storeLocalData(LOCAL_STORAGE_KEYS.fitnessEquipment, JSON.stringify(screen.APP_INTRO_Button_2_3))
                 break;
             case screen.APP_INTRO_Button_3_3:
                 this.setState({ value: 2 })
-                storeLocalData(LOCAL_STORAGE_KEYS.fitnessGoal, JSON.stringify(screen.APP_INTRO_Button_3_3))
+                storeLocalData(LOCAL_STORAGE_KEYS.fitnessEquipment, JSON.stringify(screen.APP_INTRO_Button_3_3))
                 break;
             case screen.APP_INTRO_Button_3_3:
                 this.setState({ value: 3 })
-                storeLocalData(LOCAL_STORAGE_KEYS.fitnessGoal, JSON.stringify(screen.APP_INTRO_Button_4_3))
+                storeLocalData(LOCAL_STORAGE_KEYS.fitnessEquipment, JSON.stringify(screen.APP_INTRO_Button_4_3))
                 break;
         }
     }
@@ -103,20 +103,23 @@ class SelectEuipment extends Component {
 
     setValue = async (value) => {
         this.setState({ value })
+        let equipment;
         switch (value) {
             case 0:
                 storeLocalData(LOCAL_STORAGE_KEYS.fitnessEquipment, JSON.stringify(screen.APP_INTRO_Button_1_3))
+                equipment = await getLocalData(LOCAL_STORAGE_KEYS.fitnessEquipment)
                 break;
             case 1:
                 storeLocalData(LOCAL_STORAGE_KEYS.fitnessEquipment, JSON.stringify(screen.APP_INTRO_Button_2_3))
+                equipment = await getLocalData(LOCAL_STORAGE_KEYS.fitnessEquipment)
                 break;
             case 2:
                 storeLocalData(LOCAL_STORAGE_KEYS.fitnessEquipment, JSON.stringify(screen.APP_INTRO_Button_3_3))
+                equipment = await getLocalData(LOCAL_STORAGE_KEYS.fitnessEquipment)
                 break;
             case 3:
                 storeLocalData(LOCAL_STORAGE_KEYS.fitnessEquipment, JSON.stringify(screen.APP_INTRO_Button_4_3))
-                let equipment = await getLocalData(LOCAL_STORAGE_KEYS.fitnessEquipment)
-                console.log(equipment)
+                equipment = await getLocalData(LOCAL_STORAGE_KEYS.fitnessEquipment)
                 break;
         }
     }

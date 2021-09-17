@@ -9,7 +9,9 @@ import themeStyle from '../../../assets/styles/theme.style';
 
 const UpgradeModal = (props) => {
     return (
-        <Modal isVisible={props.visible} style={{ backgroundColor: 'rgba(0,0,0,0.7)', margin: 0 }}>
+        <Modal isVisible={props.visible} style={{ backgroundColor: 'rgba(0,0,0,0.7)', margin: 0 }}
+        animationInTiming={400}
+        animationOutTiming={200}>
             <View style={styles.modalContainer}>
                 <View style={{ alignItems: "center" }}>
                     <Completed />
@@ -18,13 +20,13 @@ const UpgradeModal = (props) => {
 
                 <Text style={styles.headingText}>Completed!</Text>
                 <Text style={styles.text}>How did you find your workout?</Text>
-                <TouchableOpacity onPress={() => props.onComplete()}>
+                <TouchableOpacity onPress={() => props.onSelect("Good")}>
                     <Text style={styles.textStyle}>Good</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => props.onComplete()}>
+                <TouchableOpacity onPress={() => props.onSelect("Easy")}>
                     <Text style={styles.textStyle}>Too Easy</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => props.onComplete()}>
+                <TouchableOpacity onPress={() => props.onSelect("Difficult")}>
                     <Text style={styles.textStyle}>Too Difficult</Text>
                 </TouchableOpacity>
             </View>

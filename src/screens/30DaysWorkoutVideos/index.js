@@ -9,8 +9,9 @@ import Youtube from '../../assets/svg/description.svg';
 
 import styles from './style'
 import { connect } from "react-redux";
-import { PlanServices } from "../../services";
+import { PlanServices, ProfileServices } from "../../services";
 import { getLocalData, LOCAL_STORAGE_KEYS, storeLocalData } from '../../lib/utils/localstorage';
+import moment from "moment";
 class DaysWorkoutVideos extends Component {
     constructor(props) {
         super(props);
@@ -22,13 +23,11 @@ class DaysWorkoutVideos extends Component {
     }
 
     componentDidMount = async () => {
-        const fitnessGoal = await getLocalData(LOCAL_STORAGE_KEYS.fitnessGoal);
-        const fitnessLevel = await getLocalData(LOCAL_STORAGE_KEYS.fitnessLevel);
-        const fitnessEquipment = await getLocalData(LOCAL_STORAGE_KEYS.fitnessEquipment);
+       
         const { user_id, token, fitness_goal, fitness_level, fitness_equipment } = this.props.user.userData;
         let data = {
             "fitness_goal": fitness_goal,
-            "fitness_level": fitness_level,
+            "fitness_level": "Normal Fit",//fitness_level,
             "video_tags": fitness_equipment,
             "video_day": this.props?.route?.params?.data?.day
         }
@@ -41,15 +40,35 @@ class DaysWorkoutVideos extends Component {
             .catch((err) => { console.log(err.response); this.setState({ videos: [], loading: false }) })
     }
 
+    handleUpdateDailyWorkout = (index, item) => {
+        const { token,workout_user_id } = this.props.user.userData;
+        if ((index + 1) == this.state.videos.length) {
+            let data = {
+                "workout_date": moment().format('YYYY-MM-DD'),
+                "workout_week": this.props?.route?.params?.workout_week,
+                "workout_day": moment().format('dddd'),
+                "feedback": "Satisfied",
+                "workout_user_id": workout_user_id
+            }
+            ProfileServices.updateDailyWorkout(data, token)
+                .then((response) => {
+                    if (response.data.success) { }
+                })
+                .catch((err) => { console.log(err.response); this.setState({ loading: false }) })
+        }
+
+    }
+
+
     _renderItems = (item, index) => {
         return (
             <ImageBackground resizeMode={"contain"} source={{ uri: item.video_thumbnail }} style={styles.imageStyle}>
                 <View >
                     <Text style={styles.headingText}>{item.video_title}</Text>
-                    <Text style={styles.headingText2}>30S <Text style={styles.timeText}>Total Time</Text> </Text>
+                    <Text style={styles.headingText3}>30S <Text style={styles.timeText}>Total Time</Text> </Text>
                 </View>
                 <View style={{ alignItems: "center" }}>
-                    <Icon.AntDesign onPress={() => this.props.navigation.navigate(route.DAYSWORKOUTVIDEOPLAYER, { data: item })} name='play' size={50} color={themeStyle.BAR_COLOR} />
+                    <Icon.AntDesign onPress={() => { this.props.navigation.navigate(route.DAYSWORKOUTVIDEOPLAYER, { data: item, dayCompleted: index + 1 == this.state.videos ? true : false, workout_week: this.props.route.params.workout_week }); this.handleUpdateDailyWorkout(index, item) }} name='play' size={50} color={themeStyle.BAR_COLOR} />
                 </View>
                 <View style={styles.rowContentContainer} >
                     <Text style={styles.headingText2}>00:25</Text>
@@ -70,14 +89,14 @@ class DaysWorkoutVideos extends Component {
                             <ActivityIndicator color={themeStyle.BAR_COLOR} size={"small"} />
                         </View>
                         :
-                        videos.length == 0 ?
+                        videos?.length == 0 ?
                             <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
                                 <Text style={styles.headingText}>No record found!</Text>
                             </View>
                             :
                             <ScrollView>
                                 <View>
-                                    <FlatList data={this.state.videos}
+                                    <FlatList data={videos}
                                         ItemSeparatorComponent={(VerticalSpacer)}
                                         renderItem={({ item, index }) => this._renderItems(item, index)} />
                                 </View>

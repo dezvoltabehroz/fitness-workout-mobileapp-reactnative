@@ -23,8 +23,6 @@ class UpdatingPlan extends Component {
 
     componentDidMount = async () => {
         const { navigate, replace } = this.props.navigation;
-        const user_id = await getLocalData(LOCAL_STORAGE_KEYS.user_id)
-        const userToken = await getLocalData(LOCAL_STORAGE_KEYS.userToken)
         const goal = await getLocalData(LOCAL_STORAGE_KEYS.fitnessGoal)
         const level = await getLocalData(LOCAL_STORAGE_KEYS.fitnessLevel)
         const equipment = await getLocalData(LOCAL_STORAGE_KEYS.fitnessEquipment)
@@ -48,10 +46,10 @@ class UpdatingPlan extends Component {
             "focus_area_back": JSON.parse(back),
             "focus_area_chest": JSON.parse(chest),
             "focus_area_shoulder": JSON.parse(shoulder),
-            "gender": JSON.parse(gender),
-            "user_id": JSON.parse(user_id),
+            "gender": this.props.user.userData.gender,
+            "user_id": this.props.user.userData.user_id,
         }
-        AuthServices.userPrefrences(data, JSON.parse(userToken))
+        AuthServices.userPrefrences(data, this.props.user.userData.token)
             .then((res) => {
                 console.log(res.data)
             })
@@ -65,8 +63,8 @@ class UpdatingPlan extends Component {
         const userToken = await getLocalData(LOCAL_STORAGE_KEYS.userToken)
         storeLocalData(LOCAL_STORAGE_KEYS.appIntro, JSON.stringify({ data: true }))
         let userData = {
-            user_id: JSON.parse(user_id),
-            token: JSON.parse(userToken)
+            user_id: this.props.user.userData.user_id,
+            token: this.props.user.userData.token
         }
         await this.props.authActions.getUserProfile(userData, replace);
 
@@ -84,7 +82,7 @@ class UpdatingPlan extends Component {
                     <View style={styles.headingContainer}>
                         {value ? <Tick /> : null}
                         <Text style={styles.headingTextStyle}>{screen.UPDATINGPLAN_HEADING}</Text>
-                        <Text style={styles.decsTextStyle}>{value?screen.UPDATINGPLAN_DESCRIPTION:"In Progress..."}</Text>
+                        <Text style={styles.decsTextStyle}>{value ? screen.UPDATINGPLAN_DESCRIPTION : "In Progress..."}</Text>
                     </View>
 
                     <View style={styles.progressContainer}>

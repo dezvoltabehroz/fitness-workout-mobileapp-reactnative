@@ -42,7 +42,7 @@ const CheckedBox = ({ data, onPress, video }) => {
         return (
             <ImageBackground source={{ uri: item.media_thumbnail }} style={styles.contentVideoContainer}>
                 <Text style={styles.whiteTextStyle2}>{item.media_title}</Text>
-                <TouchableOpacity style={{ alignItems: "center", justifyContent: "center", marginTop: "10%" }}>
+                <TouchableOpacity onPress={() => onPress(item)} style={{ alignItems: "center", justifyContent: "center", marginTop: "10%" }}>
                     <Icon.AntDesign name="play" size={35} color={THEME.COLOR_WHITE} />
                 </TouchableOpacity>
             </ImageBackground>

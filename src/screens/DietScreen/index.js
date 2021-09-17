@@ -75,9 +75,10 @@ class DietScreen extends Component {
         let data = {
             user_id: user_id
         }
-        console.log(data)
+        setTimeout(async() => {
+            this.setState({ value: JSON.parse(await getLocalData(LOCAL_STORAGE_KEYS.DietPreference)), dietModal: true });
+        }, 350);
 
-        this.setState({ value: JSON.parse(await getLocalData(LOCAL_STORAGE_KEYS.DietPreference)), dietModal: true });
         PlanServices.getDietPlans(data, token)
             .then(async (res) => {
                 if (res.data.success) {

@@ -94,6 +94,7 @@ class CompleteProfile extends Component {
         const { tab, name, email, dateValue, weight, password, feet, inch } = this.state;
         const user_id = await getLocalData(LOCAL_STORAGE_KEYS.user_id);
         const userToken = await getLocalData(LOCAL_STORAGE_KEYS.userToken);
+        console.log(name, dateValue, inch, weight, weight)
         if (name && dateValue && inch && weight && feet) {
             let data = {
                 "email": email,
@@ -201,7 +202,8 @@ class CompleteProfile extends Component {
                 this.setState({ btnLoading: false, confirmOtpModal: false, code: "", submit1: false, })
                 setTimeout(() => { this.setState({ passwordModal: true }) }, 350);
             } else {
-                Alert.alert("Code is incorrect!", 'Please enter a valid code ')
+                Alert.alert("Code is incorrect!", 'Please enter a valid code ');
+                this.setState({ btnLoading: false, code: "", submit1: false, })
             }
         } else {
             this.setState({ submit1: true, btnLoading: false })
@@ -394,8 +396,8 @@ class CompleteProfile extends Component {
                     visible={this.state.weightModal}
                     kg={kilo}
                     gram={gram}
-                    onChangeGram={(name) => this.setState({ gram: name })}
-                    onChangeKilo={(name) => this.setState({ kilo: name })}
+                    onChangeGram={(gram) => this.setState({ gram: gram, weight: `${kilo ? kilo : 0}.${gram ? gram : 0}` })}
+                    onChangeKilo={(kilo) => this.setState({ kilo: kilo, weight: `${kilo ? kilo : 0}.${gram ? gram : 0}` })}
                     onClose={() => this.setState({ weightModal: false })}
                     onSave={() => this.setState({ weightModal: false })} />
                 <ArmSizeModal

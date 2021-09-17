@@ -9,7 +9,9 @@ import themeStyle from '../../../assets/styles/theme.style';
 
 const UpgradeModal = (props) => {
     return (
-        <Modal isVisible={props.visible} style={{ backgroundColor: 'rgba(0,0,0,0.7)', margin: 0 }}>
+        <Modal isVisible={props.visible} style={{ backgroundColor: 'rgba(0,0,0,0.7)', margin: 0 }}
+        animationInTiming={400}
+        animationOutTiming={200}>
             <View style={styles.modalContainer}>
                 <View style={styles.rowContainer}>
                     <TouchableOpacity onPress={() => props.onReplay()}>

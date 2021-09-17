@@ -10,7 +10,9 @@ import { Icon } from '../..';
 
 const UpgradeModal = (props) => {
     return (
-        <Modal isVisible={props.visible} style={{ backgroundColor: 'rgba(0,0,0,0.7)', margin: 0 }}>
+        <Modal isVisible={props.visible} style={{ backgroundColor: 'rgba(0,0,0,0.7)', margin: 0 }}
+        animationInTiming={400}
+        animationOutTiming={200}>
             <View style={styles.modalContainer}>
                 <Text style={styles.headingText}>DISCARD</Text>
                 <Text style={styles.rowTextStyle}>DUMBBELL PULLOVER</Text>

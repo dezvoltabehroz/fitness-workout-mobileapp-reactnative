@@ -27,21 +27,28 @@ class FitnessGoal extends Component {
             value: 0,
         };
     }
-    componentDidMount = () => {
+    componentDidMount = async () => {
+        let goal;
         switch (this.props.user.userData.fitness_goal) {
             case screen.APP_INTRO_Button_1:
                 this.setState({ value: 0 })
-                storeLocalData(LOCAL_STORAGE_KEYS.fitnessGoal, JSON.stringify(screen.APP_INTRO_Button_1))
+                await storeLocalData(LOCAL_STORAGE_KEYS.fitnessGoal, JSON.stringify(screen.APP_INTRO_Button_1))
+                goal = await getLocalData(LOCAL_STORAGE_KEYS.fitnessGoal)
                 break;
             case screen.APP_INTRO_Button_2:
                 this.setState({ value: 1 })
-                storeLocalData(LOCAL_STORAGE_KEYS.fitnessGoal, JSON.stringify(screen.APP_INTRO_Button_2))
+                await storeLocalData(LOCAL_STORAGE_KEYS.fitnessGoal, JSON.stringify(screen.APP_INTRO_Button_2))
+                goal = await getLocalData(LOCAL_STORAGE_KEYS.fitnessGoal)
                 break;
             case screen.APP_INTRO_Button_3:
                 this.setState({ value: 2 })
-                storeLocalData(LOCAL_STORAGE_KEYS.fitnessGoal, JSON.stringify(screen.APP_INTRO_Button_3))
+                await storeLocalData(LOCAL_STORAGE_KEYS.fitnessGoal, JSON.stringify(screen.APP_INTRO_Button_3))
+                goal = await getLocalData(LOCAL_STORAGE_KEYS.fitnessGoal)
                 break;
             default:
+                this.setState({ value: 0 })
+                await storeLocalData(LOCAL_STORAGE_KEYS.fitnessGoal, JSON.stringify(screen.APP_INTRO_Button_1))
+                goal = await getLocalData(LOCAL_STORAGE_KEYS.fitnessGoal)
                 break;
         }
     }
@@ -87,15 +94,19 @@ class FitnessGoal extends Component {
 
     setValue = async (value) => {
         this.setState({ value });
+        let goal;
         switch (value) {
             case 0:
-                storeLocalData(LOCAL_STORAGE_KEYS.fitnessGoal, JSON.stringify(screen.APP_INTRO_Button_1))
+                await storeLocalData(LOCAL_STORAGE_KEYS.fitnessGoal, JSON.stringify(screen.APP_INTRO_Button_1))
+                goal = await getLocalData(LOCAL_STORAGE_KEYS.fitnessGoal)
                 break;
             case 1:
-                storeLocalData(LOCAL_STORAGE_KEYS.fitnessGoal, JSON.stringify(screen.APP_INTRO_Button_2))
+                await storeLocalData(LOCAL_STORAGE_KEYS.fitnessGoal, JSON.stringify(screen.APP_INTRO_Button_2))
+                goal = await getLocalData(LOCAL_STORAGE_KEYS.fitnessGoal)
                 break;
             case 2:
-                storeLocalData(LOCAL_STORAGE_KEYS.fitnessGoal, JSON.stringify(screen.APP_INTRO_Button_3))
+                await storeLocalData(LOCAL_STORAGE_KEYS.fitnessGoal, JSON.stringify(screen.APP_INTRO_Button_3))
+                goal = await getLocalData(LOCAL_STORAGE_KEYS.fitnessGoal)
                 break;
         }
     }
@@ -154,74 +165,3 @@ class FitnessGoal extends Component {
 }
 const mapStateToProps = (state) => { return { user: state.authReducer || {} }; };
 export default connect(mapStateToProps)(FitnessGoal);
-
-let data=[
-    {
-        week: "01",
-        date: new Date(),
-        days: [{
-            day: 'Mon',
-            video: [
-                {
-                name: "Push up's",
-                duration:30,
-                description: ["test description","test description"],
-                url: "www.google.com"
-            },
-            {
-                name: "Push up's",
-                duration:30,
-                description: ["test description","test description"],
-                url: "www.google.com"
-            }]
-        },
-        {
-            day: 'Tue',
-            video: [{
-                name: "Push up's",
-                duration:30,
-                description: ["test description","test description"],
-                url: "www.google.com"
-            },
-            {
-                name: "Push up's",
-                duration:30,
-                description: ["test description","test description"],
-                url: "www.google.com"
-            }]
-        }]
-    },
-    {
-        week: "02",
-        date: new Date(),
-        days: [{
-            day: 'Mon',
-            video: [{
-                name: "Push up's",
-                duration:30,
-                description: ["test description","test description"],
-                url: "www.google.com"
-            },
-            {
-                name: "Push up's",
-                duration:30,
-                description: ["test description","test description"],
-                url: "www.google.com"
-            }]
-        },
-        {
-            day: 'Tue',
-            video: [{
-                name: "Push up's",
-                duration:30,
-                description: ["test description","test description"],
-                url: "www.google.com"
-            },
-            {
-                name: "",
-                description: ["test description","test description"],
-                url: "www.google.com"
-            }]
-        }]
-    }
-]

@@ -7,6 +7,7 @@ import Completed from '../../../assets/svg/next.svg';
 import themeStyle from '../../../assets/styles/theme.style';
 import Input from '../../Input';
 import { SCREEN_WIDTH } from '../../../lib/utils/constants';
+import { Icon } from '../..';
 
 
 const WeightModal = (props) => {
@@ -30,7 +31,7 @@ const WeightModal = (props) => {
                                 props.onChangeKilo(e)
                             }} />
                         <View style={{ width: 10 }}></View>
-                        <Text style={{ color: themeStyle.BAR_COLOR, marginBottom: 15 }}>KG</Text>
+                        <Icon.Octicons name="primitive-dot" size={20} color={themeStyle.BAR_COLOR} />
                         <View style={{ width: 10 }}></View>
                         <Input
                             keyboardType={"number-pad"}
@@ -40,7 +41,7 @@ const WeightModal = (props) => {
                             placeholder='Gram'
                             onChangeText={(e) => props.onChangeGram(e)}
                         />
-                        <Text style={{ color: themeStyle.BAR_COLOR, marginBottom: 15 }}>GM</Text>
+                        <Text style={{ color: themeStyle.BAR_COLOR, marginBottom: 15 }}>KG</Text>
                         <View style={{ width: 10 }}></View>
                     </View>
                 </View>

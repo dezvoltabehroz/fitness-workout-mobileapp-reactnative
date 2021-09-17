@@ -100,3 +100,6 @@ export const ChangePassword = _ChangePassword;
 
 import _FeedBack from './FeedBack';
 export const FeedBack = _FeedBack
+
+import _Video from './Video';
+export const Video = _Video

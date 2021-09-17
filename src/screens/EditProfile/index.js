@@ -91,7 +91,6 @@ class CompleteProfile extends Component {
         }
         ProfileServices.updateSpecificPersonalInfo(data, JSON.parse(userToken))
             .then(async (response) => {
-                console.log(response.data)
                 if (response.data.success) {
                     this.setState({ nextLoading: false, })
                     await this.props.authActions.userLogin(this.props.navigation.replace)

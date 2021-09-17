@@ -61,9 +61,9 @@ const Fonts = {
 
 const route = {
     APPINTRO1st: "AppIntro1st",
-    CHANGEPASSWORD:"ChangePassword",
-    FEEDBACK:"Feedback",
-    APPINTROZERO:"AppIntroZero",
+    CHANGEPASSWORD: "ChangePassword",
+    FEEDBACK: "Feedback",
+    APPINTROZERO: "AppIntroZero",
     APPINTRO2nd: "AppIntro2nd",
     APPINTRO3rd: "AppIntro3rd",
     APPINTRO4th: "AppIntro4th",
@@ -98,7 +98,8 @@ const route = {
     COMPLETEPROFILE: "CompleteProfile",
     EDITPROFILE: "EditProfile",
     PROGRESSPICS: "ProgressPics",
-    WORKOUTSETTING:"WorkoutSetting"
+    WORKOUTSETTING: "WorkoutSetting",
+    VIDEO: 'Video'
 
 }
 const TOKEN = "token";

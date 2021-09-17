@@ -78,6 +78,10 @@ class PowerOfMind extends Component {
     }
 
     componentDidMount = () => {
+        this.focusListener = this.props.navigation.addListener('focus', () => { this.getWorkOutDays(); })
+        this.getWorkOutDays();
+    }
+    getWorkOutDays=()=>{
         const { user_id, token } = this.props.user.userData;
         let data = {
             user_id: user_id
@@ -120,6 +124,7 @@ class PowerOfMind extends Component {
             if (dayObj.completed) { progressCount.push(1) }
             if (dayObj.date == moment().format('YYYY-MM-DD')) { workoutWeekDate[index] = 1; }
         });
+        console.log(progressCount)
         return (
             <View style={styles.itemContainer} >
                 <TouchableOpacity onPress={() => {
@@ -167,7 +172,7 @@ class PowerOfMind extends Component {
                                 <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", right: 15 }}>
                                     <CircularProgress
                                         value={progressCount.length / item.workoutDays.length * 100 == 0 ? 0 : progressCount.length / item.workoutDays.length * 100}
-                                        duration={2000}
+                                        duration={50}
                                         radius={30}
                                         textColor={'#1F2729'}
                                         textStyle={styles.textStyle}
@@ -199,7 +204,7 @@ class PowerOfMind extends Component {
                     item.workoutDays.map((element, inde) => {
                         return (
                             <TouchableOpacity disabled={element.date == moment().format('YYYY-MM-DD') ? false : true} onPress={() => {
-                                this.props.navigation.navigate(route.DAYSWORKOUTVIDEOS, { data: element })
+                                this.props.navigation.navigate(route.DAYSWORKOUTVIDEOS, { data: element, workout_week: week[1] })
                             }} style={styles.itemContainer} >
                                 <View style={styles.textContainer1}>
                                     <Text style={styles.greyText}>{'Day'}</Text>
@@ -218,7 +223,7 @@ class PowerOfMind extends Component {
                                                             height={5}
                                                             value={element?.completed ? 100 : 1}
                                                             {...progressCustomStyles}
-                                                            onComplete={() => { Alert.alert('Hey!', 'onComplete event fired!'); }}
+                                                            onComplete={() => { }}
                                                         />
                                                     </View>
                                                 </View>

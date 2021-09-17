@@ -11,8 +11,11 @@ import Volume from '../../assets/svg/audio'
 
 import styles from './style'
 import themeStyle from '../../assets/styles/theme.style';
+import { ProfileServices } from '../../services';
+import moment from 'moment';
+import { connect } from 'react-redux';
 
-export default class DayWorkoutVideoPlayer extends Component {
+class DayWorkoutVideoPlayer extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -28,7 +31,8 @@ export default class DayWorkoutVideoPlayer extends Component {
             completedModal: false,
             playerState: PLAYER_STATES.PLAYING,
             screenType: 'cotain',
-            desc: [1, 2, 3, 4, 5]
+            desc: [1, 2, 3, 4, 5],
+            feedback: ""
         }
         this.videoPlayer = null
     }
@@ -121,6 +125,30 @@ export default class DayWorkoutVideoPlayer extends Component {
 
     onSeeking = (currentTime) => this.setState({ currentTime });
 
+    handleUpdateDailyWorkout = (index) => {
+        this.setState({ completedModal: false, })
+        this.props.navigation.goBack()
+        const { feedback } = this.state;
+        // const { user_id, token, fitness_goal, fitness_level, fitness_equipment } = this.props.user.userData;
+        // if (this.props.route.params.dayCompleted) {
+
+        //     let data = {
+        //         "workout_date":moment().format('YYYY-MM-DD'),
+        //         "workout_week":this.props.route.params.workout_week,
+        //         "workout_day":moment().format('dddd'),
+        //         "feedback":feedback,
+        //         "workout_user_id":this.props.route.params.data.workout_plan_id
+        //     }
+        //     ProfileServices.updateDailyWorkout(data, token)
+        //         .then((response) => {
+        //             if (response.data.success) {
+        //                 this.setState({ videos: response.data.data, loading: false })
+        //             }
+        //         })
+        //         .catch((err) => { console.log(err.response); this.setState({ videos: [], loading: false }) })
+        // }
+
+    }
 
     render() {
         const { video_path, video_title, video_description } = this.props?.route?.params?.data;
@@ -182,18 +210,6 @@ export default class DayWorkoutVideoPlayer extends Component {
                                     )
                                 })
                             }
-                            {/* <View style={styles.rowContainer}>
-                                <Icon.Octicons name="primitive-dot" size={20} color={'lightgray'} />
-                                <Text style={styles.textStyle}>Have your hands parallel with your chest.</Text>
-                            </View>
-                            <View style={styles.rowContainer}>
-                                <Icon.Octicons name="primitive-dot" size={20} color={'lightgray'} />
-                                <Text style={styles.textStyle}>Focus your mind on your chest. Exhale as you push up and inhale while you lower yourself down</Text>
-                            </View>
-                            <View style={styles.rowContainer}>
-                                <Icon.Octicons name="primitive-dot" size={20} color={'lightgray'} />
-                                <Text style={styles.textStyle}>Push up fast and go down slowly.</Text>
-                            </View> */}
                         </View>
                         : null}
                 </View>
@@ -203,10 +219,19 @@ export default class DayWorkoutVideoPlayer extends Component {
                     onRestart={() => { this.setState({ quitModal: false, playerState: PLAYER_STATES.PLAYING }, () => this.videoPlayer.seek(0)) }}
                 />
                 <CompleteModal visible={this.state.completeModal}
-                    onReplay={() => this.setState({ quitModal: false, playerState: PLAYER_STATES.PLAYING }, () => this.videoPlayer.seek(0))}
-                    onComplete={() => { this.setState({ completeModal: false, completedModal: true }) }} />
-                <CompletedModal visible={this.state.completedModal} onComplete={() => this.setState({ completedModal: false })} />
+                    onReplay={() => this.setState({ completeModal: false, playerState: PLAYER_STATES.PLAYING }, () => this.videoPlayer.seek(0))}
+                    onComplete={() => {
+                        this.setState({ completeModal: false, }, () => setTimeout(() => {
+                            this.setState({ completedModal: true, })
+                        }, 350));
+                    }} />
+                <CompletedModal visible={this.state.completedModal}
+                    onSelect={(value) => this.setState({ feedback: value }, () => this.handleUpdateDailyWorkout())}
+                    onComplete={() => this.setState({ completedModal: false })} />
             </Container >
         )
     }
 }
+
+const mapStateToProps = (state) => { return { user: state.authReducer || {} }; };
+export default connect(mapStateToProps)(DayWorkoutVideoPlayer);
