@@ -7,7 +7,6 @@ export default StyleSheet.create({
     },
     videoContainer: {
         height: '100%',
-        backgroundColor: 'blue',
         width: '100%'
     },
 });

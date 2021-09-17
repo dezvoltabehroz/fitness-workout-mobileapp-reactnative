@@ -94,7 +94,6 @@ class CompleteProfile extends Component {
         const { tab, name, email, dateValue, weight, password, feet, inch } = this.state;
         const user_id = await getLocalData(LOCAL_STORAGE_KEYS.user_id);
         const userToken = await getLocalData(LOCAL_STORAGE_KEYS.userToken);
-        console.log(name, dateValue, inch, weight, weight)
         if (name && dateValue && inch && weight && feet) {
             let data = {
                 "email": email,

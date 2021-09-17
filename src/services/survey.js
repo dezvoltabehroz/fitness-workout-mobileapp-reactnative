@@ -13,6 +13,12 @@ const Api = {
     submitAnswers: function (data, token) {
         return axiosInstance.post('survey/submitAnswers', data, apiHeaderConfiguration(token, TOKEN))
     },
+    updateSurveySubmitDate: function (data, token) {
+        return axiosInstance.post('survey/updateSurveySubmitDate', data, apiHeaderConfiguration(token, TOKEN))
+    },
+    isSurveySubmitted: function (data, token) {
+        return axiosInstance.post('survey/isSurveySubmitted', data, apiHeaderConfiguration(token, TOKEN))
+    },
 
 };
 

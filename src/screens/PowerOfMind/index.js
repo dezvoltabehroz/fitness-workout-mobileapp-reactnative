@@ -77,7 +77,7 @@ class PowerOfMind extends Component {
                                 <View style={styles.headingContainer}>
                                     <Text style={styles.headingText}>Videos</Text>
                                 </View>
-                                <HorizontalList data={this.state.mindBodyVideo} video />
+                                <HorizontalList data={this.state.mindBodyVideo} video  onPress={(item) => navigate(route.VIDEO, { uri: item.media_path })} />
                                 <View style={styles.headingContainer}>
                                     <Text style={styles.headingText}>Audios</Text>
                                 </View>

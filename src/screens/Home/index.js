@@ -213,7 +213,7 @@ class Home extends Component {
                                 height={10}
                                 value={daily_workout_count ? daily_workout_count / 30 * 100 : 1}
                                 {...progressCustomStyles}
-                                onComplete={() => { Alert.alert('Hey!', 'onComplete event fired!'); }}
+                                onComplete={() => {  }}
                             />
                             <View style={styles.goButtonContainer}>
                                 <Button title={'GO!'} onPress={() => this.handleStartWorkout()} />

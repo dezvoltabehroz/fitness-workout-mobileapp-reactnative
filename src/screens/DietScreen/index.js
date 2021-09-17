@@ -17,7 +17,7 @@ import Mark from '../../assets/svg/mark.svg';
 import styles from './style';
 import { route, SCREEN_WIDTH } from "../../lib/utils/constants";
 import themeStyle from "../../assets/styles/theme.style";
-import { PlanServices, ProfileServices } from "../../services";
+import { PlanServices, ProfileServices, SurveysServices } from "../../services";
 import { connect } from "react-redux";
 import { getLocalData, LOCAL_STORAGE_KEYS, storeLocalData } from "../../lib/utils/localstorage";
 import { authActions } from "../../redux/actions/auth";
@@ -58,27 +58,33 @@ class DietScreen extends Component {
             modal: false,
             completed: false,
             loading: true,
-            dietVideos: []
+            dietVideos: [],
+            isServey: "",
         }
         if (Platform.OS === "android") {
             UIManager.setLayoutAnimationEnabledExperimental(true);
         }
     }
     componentDidMount = () => {
+        setTimeout(async () => {
+            let dietValue = await getLocalData(LOCAL_STORAGE_KEYS.DietPreference)
+            if (dietValue) {
+                this.setState({ value: JSON.parse(dietValue) });
+            } else {
+                this.setState({ dietModal: true });
+            }
+        }, 350);
         this.focusListener = this.props.navigation.addListener('focus', () => { this.handleDietDays(); })
         this.props.navigation.setOptions({ headerRight: () => this.headerRight() });
         this.handleDietDays();
     }
 
     handleDietDays = async () => {
+        this.setState({ loading: true })
         const { user_id, token } = this.props.user.userData;
         let data = {
             user_id: user_id
         }
-        setTimeout(async() => {
-            this.setState({ value: JSON.parse(await getLocalData(LOCAL_STORAGE_KEYS.DietPreference)), dietModal: true });
-        }, 350);
-
         PlanServices.getDietPlans(data, token)
             .then(async (res) => {
                 if (res.data.success) {
@@ -87,7 +93,25 @@ class DietScreen extends Component {
                     this.setState({ dietPlans: daysArray })
                     let videoTag = { category: "diet videos" }
                     PlanServices.getFreeVideos(videoTag, token)
-                        .then((response) => { this.setState({ dietVideos: response.data.data, loading: false }) })
+                        .then((response) => {
+
+                            if (response.data.success) {
+                                this.setState({ dietVideos: response.data.data, })
+                                let serveyData = {
+                                    ...data,
+                                    submitted_date: moment().format('YYYY-MM-DD')
+                                }
+                                SurveysServices.isSurveySubmitted(serveyData, token)
+                                    .then((res) => {
+                                        if (res.data.success) {
+                                            this.setState({ isServey: res.data.message, loading: false })
+                                        } else {
+                                            this.setState({ isServey: res.data.message, loading: false })
+                                        }
+                                    })
+                                    .catch((err) => { console.log(err); this.setState({ loading: false }) })
+                            }
+                        })
                         .catch((err) => { console.log(err.response); this.setState({ dietPlans: [], loading: false }) })
                 }
                 else {
@@ -119,7 +143,7 @@ class DietScreen extends Component {
 
     headerRight = () => {
         return (
-            <TouchableOpacity style={{ marginRight: 20 }} onPress={() => { this.setState({ dietModal: !this.state.dietModal }) }} ><More /></TouchableOpacity>
+            <TouchableOpacity style={{ marginRight: 20 }} onPress={() => { this.setState({ dietModal: !dietModal }) }} ><More /></TouchableOpacity>
         )
     }
 
@@ -140,20 +164,46 @@ class DietScreen extends Component {
         } else { this.setState({ upgradeModal: true }); }
     }
 
+    getWeekTitle = (week) => {
+        let weekName;
+        switch (week) {
+            case 1:
+                weekName = "1st"
+                return weekName
+            case 2:
+                weekName = "2nd"
+                return weekName
+            case 3:
+                weekName = "3rd"
+                return weekName
+            case 4:
+                weekName = "4th"
+                return weekName
+            case 5:
+                weekName = "5th"
+                return weekName
+        }
+
+    }
+
     render() {
         const { is_pro } = this.props.user.userData
+        const { isServey, loading, dietVideos, dietPlans, dietModal,
+            dietLoading,
+            value,
+            upgradeModal } = this.state;
         return (
             <Container color>
                 {
-                    this.state.loading ?
+                    loading ?
                         <View style={{ marginTop: "10%" }}>
                             <ActivityIndicator color={themeStyle.BAR_COLOR} size={"small"} />
                         </View>
                         :
                         <ScrollView contentContainerStyle={{ paddingVertical: "5%" }}>
-                            <HorizontalList data={this.state.dietVideos} video />
+                            <HorizontalList data={dietVideos} video onPress={(item) => navigate(route.VIDEO, { uri: item.media_path })} />
                             <View>
-                                {this.state.dietPlans.map((element, index) => {
+                                {dietPlans.map((element, index) => {
                                     let week = element.weekName.split(" ");
                                     let dietWeekDate = [];
                                     let progressCount = []
@@ -165,7 +215,7 @@ class DietScreen extends Component {
                                         <View style={styles.week1Style}>
                                             <View style={styles.itemContainer} >
                                                 <>
-                                                    <TouchableOpacity onPress={() => this.changeWeek(index)} style={[styles.textContainer, { paddingBottom: this.state.weekOneexpanded ? 0 : '5%' }]}>
+                                                    <TouchableOpacity onPress={() => this.changeWeek(index)} style={[styles.textContainer, { paddingBottom: element.expanded ? 0 : '5%' }]}>
                                                         <Text style={styles.greyText}>{'Week'}</Text>
                                                         <View style={styles.rowContainer}>
                                                             <View style={[styles.row, { flex: 1 }]}>
@@ -182,7 +232,7 @@ class DietScreen extends Component {
                                                                                 height={5}
                                                                                 value={progressCount.length / element.dietDays.length * 100 == 0 ? 1 : progressCount.length / element.dietDays.length * 100}
                                                                                 {...progressCustomStyles}
-                                                                                onComplete={() => { Alert.alert('Hey!', 'onComplete event fired!'); }}
+                                                                                onComplete={() => { }}
                                                                             />
                                                                         </View>
                                                                     </View>
@@ -190,7 +240,7 @@ class DietScreen extends Component {
                                                             </View>
                                                             <View style={{ alignItems: "center" }} >
                                                                 {is_pro == 0 ?
-                                                                    <View style={{ top: -42 }}>
+                                                                    <View style={{ top: -43 }}>
                                                                         <Mark />
                                                                     </View>
                                                                     : null}
@@ -202,7 +252,7 @@ class DietScreen extends Component {
                                                                             <Icon.FontAwesome name="angle-right" size={30} color={'gray'} />}
                                                                     </View>
                                                                     :
-                                                                    <View style={{ top: is_pro == 1 ? -15 : 0 }}>
+                                                                    <View style={{ top: is_pro == 1 ? -15 : -15 }}>
                                                                         <Icon.SimpleLineIcons name="lock" size={20} color={'gray'} />
                                                                     </View>}
                                                             </View>
@@ -211,20 +261,36 @@ class DietScreen extends Component {
                                                     </TouchableOpacity>
                                                     {element.expanded ?
                                                         <View style={styles.descriptionContainer}>
-                                                            {element.dietDays.map((item, index) => {
+                                                            {element.dietDays.map((item, i) => {
                                                                 return (
-                                                                    <View style={styles.itemContainer1}>
-                                                                        <TouchableOpacity disabled={item.date == moment().format('YYYY-MM-DD') ? false : true} onPress={() => this.props.navigation.navigate(route.DIETPLANDETAILS, { dietData: element, category: this.state.value == "1" ? "standard" : "vegetarian" })} style={[styles.dayStyle, { borderColor: item.completed ? themeStyle.BAR_COLOR : '#9B9B9B', backgroundColor: "transparent" }]}>
-                                                                            <Text style={[styles.textDescription, { color: item.completed ? themeStyle.BAR_COLOR : '#9B9B9B' }]}>{this.truncateString(item.day, 3)}</Text>
-                                                                        </TouchableOpacity>
-                                                                        {index == 3 ? null :
-                                                                            <View style={{ marginLeft: 10, }}>
-                                                                                <Icon.AntDesign name={"right"} size={20} color={"#9B9B9B"} />
-                                                                            </View>}
-                                                                    </View>)
+                                                                    <>
+                                                                        <View style={styles.itemContainer1}>
+                                                                            <TouchableOpacity disabled={item.date == moment().format('YYYY-MM-DD') ? false : true} onPress={() => this.props.navigation.navigate(route.DIETPLANDETAILS, { dietData: element, category: value == "1" ? "standard" : "vegetarian" })} style={[styles.dayStyle, { borderColor: item.completed ? themeStyle.BAR_COLOR : '#9B9B9B', backgroundColor: "transparent" }]}>
+                                                                                <Text style={[styles.textDescription, { color: item.completed ? themeStyle.BAR_COLOR : '#9B9B9B' }]}>{this.truncateString(item.day, 3)}</Text>
+                                                                            </TouchableOpacity>
+                                                                            {i == 3 ? null :
+                                                                                <View style={{ marginLeft: 10, }}>
+                                                                                    <Icon.AntDesign name={"right"} size={20} color={"#9B9B9B"} />
+                                                                                </View>}
+                                                                        </View>
+                                                                        <Modal isVisible={progressCount.length == 7 && moment(item.date).format("YYYY-MM-DD") == moment().format('YYYY-MM-DD') && isServey && isServey == "Survey has not attempted" ? true : false}>
+                                                                            <View style={styles.cardContainer}>
+                                                                                <View style={{ marginTop: "5%", alignItems: "center" }}>
+                                                                                    <BigCup />
+                                                                                    <Text style={styles.headingText}>Congrats!</Text>
+                                                                                    <Text style={styles.textStyle}>You just completed your {this.getWeekTitle(index + 1)} week</Text>
+                                                                                </View>
+
+                                                                                <View style={{ marginHorizontal: "15%", marginVertical: "5%" }}>
+                                                                                    <Button title={'Continue'} onPress={() => this.setState({ modal: false, completed: true }, () => this.props.navigation.navigate(route.FEEDBACK))} />
+                                                                                </View>
+                                                                            </View>
+                                                                        </Modal>
+                                                                    </>
+                                                                )
                                                             })}
                                                             <TouchableOpacity onPress={() => this.setState({ modal: true })} style={{ marginLeft: 12.5, }}>
-                                                                {this.state.completed ? <Trophy /> : <Cup />}
+                                                                {progressCount.length == 7 ? <Trophy /> : <Cup />}
                                                             </TouchableOpacity>
                                                         </View> : null
                                                     }
@@ -235,26 +301,12 @@ class DietScreen extends Component {
                             </View>
                         </ScrollView>
                 }
-
-                <Modal isVisible={this.state.modal}>
-                    <View style={styles.cardContainer}>
-                        <View style={{ marginTop: "5%", alignItems: "center" }}>
-                            <BigCup />
-                            <Text style={styles.headingText}>Congrats!</Text>
-                            <Text style={styles.textStyle}>You just completed your 1st week</Text>
-                        </View>
-
-                        <View style={{ marginHorizontal: "15%", marginVertical: "5%" }}>
-                            <Button title={'Continue'} onPress={() => this.setState({ modal: false, completed: true }, () => this.props.navigation.navigate(route.FEEDBACK))} />
-                        </View>
-                    </View>
-                </Modal>
-                <DietModal visible={this.state.dietModal} loading={this.state.dietLoading} onValue={(e) => {
+                <DietModal visible={dietModal} loading={dietLoading} onValue={(e) => {
                     this.setState({ value: e })
                     storeLocalData(LOCAL_STORAGE_KEYS.DietPreference, JSON.stringify(e))
                 }}
-                    value={this.state.value} onSkip={() => this.setState({ dietModal: false })} />
-                <UpgradeModal visible={this.state.upgradeModal}
+                    value={value} onSkip={() => this.setState({ dietModal: false })} />
+                <UpgradeModal visible={upgradeModal}
                     onUpgrade={() => this.setState({ upgradeModal: false }, () => this.props.navigation.navigate(route.PAYMENTMETHOD, {}))}
                     onSkip={() => this.setState({ upgradeModal: false })} />
             </Container>

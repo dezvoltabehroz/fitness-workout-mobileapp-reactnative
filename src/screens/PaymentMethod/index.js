@@ -35,10 +35,11 @@ class PaymentMethod extends Component {
 
     componentDidMount = () => {
         this.focusListener = this.props.navigation.addListener('focus', () => { this.handleIsEmailExist(); })
-        this.setState({ loading: true })
+    
         this.handleIsEmailExist()
     }
     handleIsEmailExist = async () => {
+        this.setState({ loading: true })
         const user_id = await getLocalData(LOCAL_STORAGE_KEYS.user_id)
         const userToken = await getLocalData(LOCAL_STORAGE_KEYS.userToken)
         let data = {
