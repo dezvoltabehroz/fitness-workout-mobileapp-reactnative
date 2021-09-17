@@ -38,7 +38,6 @@ class Video extends Component {
                     {videoUri != '' && videoUri ?
                         <View style={Style.videoContainer}>
                             <WebView
-                                style={{ marginTop: (Platform.OS == 'ios') ? 20 : 0, borderRadius: 5 }}
                                 javaScriptEnabled={true}
                                 domStorageEnabled={true}
                                 source={{ uri: videoUri }}
@@ -52,24 +51,7 @@ class Video extends Component {
                                             style={StyleSheet.absoluteFill} /> */}
                         </View>
                         :
-                        <View style={Style.videoContainer}>
-                            <WebView
-                                style={{ marginTop: (Platform.OS == 'ios') ? 20 : 0, borderRadius: 5 }}
-                                javaScriptEnabled={true}
-                                domStorageEnabled={true}
-                                allowFileAccess={true}
-                                source={{ uri: data }}
-                                allowUniversalAccessFromFileURLs={true}
-                                allowFileAccessFromFileURLs={true}
-                            />
-
-                            {/* <Video
-                                            source={TestVideo}
-                                            // source={{ uri: "https://dev1.youcricketer.com/api/videos/1581940780_d00daf6e-5337-4b02-ada2-f9c2bfee34de.mp4" }}
-                                            resizeMode='cover'
-                                            paused={false}
-                                            style={StyleSheet.absoluteFill} /> */}
-                        </View>}
+                        null}
                 </View>
             </Container >
         )

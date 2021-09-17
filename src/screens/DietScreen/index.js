@@ -65,6 +65,9 @@ class DietScreen extends Component {
         }
     }
     componentDidMount = () => {
+        setTimeout(async() => {
+            this.setState({ value: JSON.parse(await getLocalData(LOCAL_STORAGE_KEYS.DietPreference)), dietModal: true });
+        }, 350);
         this.focusListener = this.props.navigation.addListener('focus', () => { this.handleDietDays(); })
         this.props.navigation.setOptions({ headerRight: () => this.headerRight() });
         this.handleDietDays();
@@ -75,10 +78,6 @@ class DietScreen extends Component {
         let data = {
             user_id: user_id
         }
-        setTimeout(async() => {
-            this.setState({ value: JSON.parse(await getLocalData(LOCAL_STORAGE_KEYS.DietPreference)), dietModal: true });
-        }, 350);
-
         PlanServices.getDietPlans(data, token)
             .then(async (res) => {
                 if (res.data.success) {
@@ -182,7 +181,7 @@ class DietScreen extends Component {
                                                                                 height={5}
                                                                                 value={progressCount.length / element.dietDays.length * 100 == 0 ? 1 : progressCount.length / element.dietDays.length * 100}
                                                                                 {...progressCustomStyles}
-                                                                                onComplete={() => { Alert.alert('Hey!', 'onComplete event fired!'); }}
+                                                                                onComplete={() => {  }}
                                                                             />
                                                                         </View>
                                                                     </View>

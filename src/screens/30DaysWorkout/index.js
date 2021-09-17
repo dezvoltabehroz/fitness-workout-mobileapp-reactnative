@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, ScrollView, ImageBackground, TouchableOpacity, UIManager, Platform, LayoutAnimation } from 'react-native';
+import { View, Text, FlatList, ScrollView, ImageBackground, TouchableOpacity, UIManager, Platform, LayoutAnimation, ActivityIndicator } from 'react-native';
 import ProgressBarAnimated from 'react-native-progress-bar-animated';
 import CircularProgress from 'react-native-circular-progress-indicator';
 
@@ -81,7 +81,8 @@ class PowerOfMind extends Component {
         this.focusListener = this.props.navigation.addListener('focus', () => { this.getWorkOutDays(); })
         this.getWorkOutDays();
     }
-    getWorkOutDays=()=>{
+    getWorkOutDays = () => {
+        this.setState({ workoutLoading: true })
         const { user_id, token } = this.props.user.userData;
         let data = {
             user_id: user_id
@@ -124,7 +125,6 @@ class PowerOfMind extends Component {
             if (dayObj.completed) { progressCount.push(1) }
             if (dayObj.date == moment().format('YYYY-MM-DD')) { workoutWeekDate[index] = 1; }
         });
-        console.log(progressCount)
         return (
             <View style={styles.itemContainer} >
                 <TouchableOpacity onPress={() => {
@@ -152,7 +152,7 @@ class PowerOfMind extends Component {
                                             height={5}
                                             value={progressCount.length / item.workoutDays.length * 100 == 0 ? 1 : progressCount.length / item.workoutDays.length * 100}
                                             {...progressCustomStyles}
-                                            onComplete={() => { Alert.alert('Hey!', 'onComplete event fired!'); }}
+                                            onComplete={() => { }}
                                         />
                                     </View>
 
@@ -230,21 +230,28 @@ class PowerOfMind extends Component {
                                             </View>
                                         </View>
                                         <View style={{ flex: 0.2, alignItems: "center" }} >
+                                            {
+                                                moment().format('YYYY-MM-DD') == moment(element.date).format("YYYY-MM-DD") ?
+                                                    <CircularProgress
+                                                        value={element?.completed ? 100 : 0}
+                                                        duration={50}
+                                                        radius={30}
+                                                        textColor={'#1F2729'}
+                                                        textStyle={styles.textStyle}
+                                                        activeStrokeWidth={1}
+                                                        inActiveStrokeWidth={1}
+                                                        activeStrokeColor={themeStyle.BAR_COLOR}
+                                                        inActiveStrokeColor={'lightgray'}
+                                                        inActiveStrokeOpacity={1}
+                                                        valueSuffix={'%'}
+                                                        onAnimationComplete={() => { this.setState({ value: true }) }}
+                                                    />
+                                                    :
+                                                    <View style={{ top:  -5 }}>
+                                                        <Icon.SimpleLineIcons name="lock" size={20} color={'gray'} />
+                                                    </View>
+                                            }
 
-                                            <CircularProgress
-                                                value={element?.completed ? 100 : 0}
-                                                duration={50}
-                                                radius={30}
-                                                textColor={'#1F2729'}
-                                                textStyle={styles.textStyle}
-                                                activeStrokeWidth={1}
-                                                inActiveStrokeWidth={1}
-                                                activeStrokeColor={themeStyle.BAR_COLOR}
-                                                inActiveStrokeColor={'lightgray'}
-                                                inActiveStrokeOpacity={1}
-                                                valueSuffix={'%'}
-                                                onAnimationComplete={() => { this.setState({ value: true }) }}
-                                            />
                                         </View>
                                     </View>
                                 </View>
@@ -264,38 +271,46 @@ class PowerOfMind extends Component {
         return (
             <Container color>
                 <View style={styles.container}>
-                    <ScrollView>
-                        <View style={styles.upperContainer}>
-                            <ImageBackground imageStyle={styles.stylingImage} style={styles.imageStyle} source={require('../../assets/images/chest-work.jpg')}>
-                                <Text style={styles.headingText1} >30 DAY'S WORKOUT</Text>
-                                <View style={styles.rowContainer}>
-                                    <Text style={styles.headingText}>Day {1}</Text>
-                                    <View style={styles.row}>
-                                        <WFire />
-                                        <Text style={[styles.whiteText, { marginHorizontal: 5 }]}>10 Workouts</Text>
-                                    </View>
+                    {
+                        this.state.workoutLoading ?
+                            <View style={{ justifyContent: "center", alignItems: "center", flex: 1 }}>
+
+                                <ActivityIndicator size={"small"} color={themeStyle.BAR_COLOR} />
+                            </View> :
+                            <ScrollView>
+                                <View style={styles.upperContainer}>
+                                    <ImageBackground imageStyle={styles.stylingImage} style={styles.imageStyle} source={require('../../assets/images/chest-work.jpg')}>
+                                        <Text style={styles.headingText1} >30 DAY'S WORKOUT</Text>
+                                        <View style={styles.rowContainer}>
+                                            <Text style={styles.headingText}>Day {1}</Text>
+                                            <View style={styles.row}>
+                                                <WFire />
+                                                <Text style={[styles.whiteText, { marginHorizontal: 5 }]}>10 Workouts</Text>
+                                            </View>
+                                        </View>
+                                        <View style={styles.rowContainer}>
+                                            <Text style={styles.whiteText}>30 Days Left</Text>
+                                            <Text style={styles.whiteText} >10 %</Text>
+                                        </View>
+                                        <ProgressBarAnimated
+                                            width={SCREEN_WIDTH * 0.9}
+                                            height={10}
+                                            value={20}
+                                            {...progressCustomStyles}
+                                            onComplete={() => { }}
+                                        />
+                                    </ImageBackground>
                                 </View>
-                                <View style={styles.rowContainer}>
-                                    <Text style={styles.whiteText}>30 Days Left</Text>
-                                    <Text style={styles.whiteText} >10 %</Text>
-                                </View>
-                                <ProgressBarAnimated
-                                    width={SCREEN_WIDTH * 0.9}
-                                    height={10}
-                                    value={20}
-                                    {...progressCustomStyles}
-                                    onComplete={() => { Alert.alert('Hey!', 'onComplete event fired!'); }}
+                                <FlatList
+                                    data={this.state.workoutPlan}
+                                    contentContainerStyle={{ paddingTop: "5%", paddingBottom: "10%" }}
+                                    renderItem={this._renderItem}
+                                    keyExtractor={item => item.route}
+                                    ItemSeparatorComponent={VerticalSpacer}
                                 />
-                            </ImageBackground>
-                        </View>
-                        <FlatList
-                            data={this.state.workoutPlan}
-                            contentContainerStyle={{ paddingTop: "5%", paddingBottom: "10%" }}
-                            renderItem={this._renderItem}
-                            keyExtractor={item => item.route}
-                            ItemSeparatorComponent={VerticalSpacer}
-                        />
-                    </ScrollView>
+                            </ScrollView>
+                    }
+
                 </View>
                 <UpgradeModal visible={this.state.upgradeModal} onUpgrade={() => this.setState({ upgradeModal: false }, () => navigation.navigate(route.PAYMENTMETHOD, {}))} onSkip={() => this.setState({ upgradeModal: false })} />
             </Container>

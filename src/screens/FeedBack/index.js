@@ -110,7 +110,7 @@ class Feedback extends Component {
                                             height={10}
                                             value={((question + 1) / data.length) * 100}
                                             {...progressCustomStyles}
-                                            onComplete={() => { Alert.alert('Hey!', 'onComplete event fired!'); }}
+                                            onComplete={() => { }}
                                         />
                                     </View>
                                 </View>
