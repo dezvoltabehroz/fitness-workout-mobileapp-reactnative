@@ -32,46 +32,9 @@ class PowerOfMind extends Component {
             workoutLoading: false,
             workoutPlan: [],
             upgradeModal: false,
+            daysCount: [],
+            completedDaysCount: []
         }
-        this.days = [
-            {
-                day: 'Mon',
-                completed: true
-            },
-            {
-                day: 'Tue',
-                completed: true
-            },
-            {
-                day: 'Wed',
-                completed: true
-            },
-            {
-                day: 'Thu',
-                completed: true
-            },
-            {
-                day: 'Fri',
-                completed: true
-            },
-            {
-                day: 'Sat',
-                completed: true
-            },
-            {
-                day: 'Sun',
-                completed: true
-            }]
-        this.days1 = [
-            {
-                day: 'Mon',
-                completed: true
-            },
-            {
-                day: 'Tue',
-                completed: true
-            },
-        ];
         if (Platform.OS === "android") {
             UIManager.setLayoutAnimationEnabledExperimental(true);
         }
@@ -83,7 +46,9 @@ class PowerOfMind extends Component {
     }
     getWorkOutDays = () => {
         this.setState({ workoutLoading: true })
-        const { user_id, token } = this.props.user.userData;
+        const { user_id, token, workout_start_date } = this.props.user.userData;
+        var duration = moment.duration(moment().diff(moment(workout_start_date).format("YYYY-MM-DD")));
+        var today = duration.asDays();
         let data = {
             user_id: user_id
         }
@@ -91,8 +56,18 @@ class PowerOfMind extends Component {
             .then(async (res) => {
                 if (res.data.success) {
                     let arr = [...res.data.data];
-                    arr.forEach((item, index) => { arr[index] = { ...arr[index], expanded: false } })
-                    this.setState({ workoutPlan: arr, workoutLoading: false })
+                    let daysCount = []
+                    let completedDaysCount = []
+                    arr.forEach((item, index) => { arr[index] = { ...arr[index], expanded: false } });
+                    arr.forEach((item, index) => {
+                        item.workoutDays.forEach((element, i) => {
+                            if (element.completed) {
+                                completedDaysCount.push(element)
+                            }
+                            daysCount.push(element)
+                        })
+                    })
+                    this.setState({ workoutPlan: arr, daysCount, completedDaysCount, today, workoutLoading: false })
                 }
             })
             .catch((err) => { console.log(err.response); this.setState({ workoutPlan: [], workoutLoading: false, }) })
@@ -247,7 +222,7 @@ class PowerOfMind extends Component {
                                                         onAnimationComplete={() => { this.setState({ value: true }) }}
                                                     />
                                                     :
-                                                    <View style={{ top:  -5 }}>
+                                                    <View style={{ top: -5 }}>
                                                         <Icon.SimpleLineIcons name="lock" size={20} color={'gray'} />
                                                     </View>
                                             }
@@ -268,6 +243,7 @@ class PowerOfMind extends Component {
 
     render() {
         const { navigation } = this.props;
+        const { daysCount, completedDaysCount, today } = this.state;
         return (
             <Container color>
                 <View style={styles.container}>
@@ -282,20 +258,20 @@ class PowerOfMind extends Component {
                                     <ImageBackground imageStyle={styles.stylingImage} style={styles.imageStyle} source={require('../../assets/images/chest-work.jpg')}>
                                         <Text style={styles.headingText1} >30 DAY'S WORKOUT</Text>
                                         <View style={styles.rowContainer}>
-                                            <Text style={styles.headingText}>Day {1}</Text>
+                                            <Text style={styles.headingText}>Day {Math.round(today)}</Text>
                                             <View style={styles.row}>
                                                 <WFire />
                                                 <Text style={[styles.whiteText, { marginHorizontal: 5 }]}>10 Workouts</Text>
                                             </View>
                                         </View>
                                         <View style={styles.rowContainer}>
-                                            <Text style={styles.whiteText}>30 Days Left</Text>
-                                            <Text style={styles.whiteText} >10 %</Text>
+                                            <Text style={styles.whiteText}>{30 - completedDaysCount.length} Days Left</Text>
+                                            <Text style={styles.whiteText} >{parseFloat(completedDaysCount.length / 30 * 100).toFixed(2)} %</Text>
                                         </View>
                                         <ProgressBarAnimated
                                             width={SCREEN_WIDTH * 0.9}
                                             height={10}
-                                            value={20}
+                                            value={completedDaysCount.length / 30 * 100 == 0 ? 1 : completedDaysCount.length / 30 * 100}
                                             {...progressCustomStyles}
                                             onComplete={() => { }}
                                         />
