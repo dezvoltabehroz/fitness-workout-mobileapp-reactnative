@@ -37,12 +37,20 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>$(PRODUCT_NAME) would like to use your camera.So you can take an instant photo or make an instant video to upload to  your Profile and/or Activity screen(s).</string>
+	<key>NSDocumentsFolderUsageDescription</key>
+	<string>$(PRODUCT_NAME) would like to access your documents folder. So you can select and attach a pre-saved document to upload to your Background check profile area.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Allow $(PRODUCT_NAME) access to your location to share where your photos, and memos with your family and friends are recorded.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Allow $(PRODUCT_NAME) access to your location to share where your photos, and memos with your family and friends are recorded.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Allow $(PRODUCT_NAME) access to your location to share where your photos, and memos with your family and friends are recorded.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>$(PRODUCT_NAME) would like to use your microphone.So it can capture the surrounding sounds and your voice to the video being recorded.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>$(PRODUCT_NAME) would like to use your photo gallery.So you can select and attach pre-taken Photo(s) and pre-recorded Video(s ) to upload to  your Profile and/or Activity screen(s).</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>$(PRODUCT_NAME) would like to use your photo gallery.So you can select and attach pre-taken Photo(s) and pre-recorded Video(s ) to upload to  your Profile and/or Activity screen(s).</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>
