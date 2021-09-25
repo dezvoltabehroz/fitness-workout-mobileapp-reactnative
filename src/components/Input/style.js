@@ -17,7 +17,7 @@ export default StyleSheet.create({
         // marginLeft: '2.5%',
         fontFamily: themeStyle.FONT_REGULAR,
         color: themeStyle.BAR_COLOR,
-        textAlign: "center"
+        // textAlign: "center"
 
     },
     inputContainerWidthStyle: {
