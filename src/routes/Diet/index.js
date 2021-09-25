@@ -28,6 +28,7 @@ function DietRoutes() {
 
             <Stack.Screen name={route.DIETSCREEN} component={DietScreen} options={({ navigation, route }) => ({
                 headerRight: () => (<HeaderRight navigation={navigation} params={route.params} />),
+                headerLeft: () => (<></>),
                 headerTitle: () => (<HeaderWhiteLogo />),
                 headerTitleAlign: screen.SCREEN_TITLE_ALIGN_CENTER,
                 headerStyle: styles.headerStyle1,

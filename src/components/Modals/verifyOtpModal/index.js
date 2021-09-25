@@ -12,8 +12,8 @@ import { Button, Icon, OtpInputs } from '../..';
 
 const UpgradeModal = (props) => {
     return (
-        <Modal isVisible={props.isVisible}  animationInTiming={400}
-        animationOutTiming={200} >
+        <Modal isVisible={props.isVisible} animationInTiming={400}
+            animationOutTiming={200} >
             <View style={styles.modalContainer} >
 
                 <View style={{ marginTop: "5%", }}>
@@ -21,7 +21,7 @@ const UpgradeModal = (props) => {
                         <TouchableOpacity onPress={() => props.onClose()}><Icon.AntDesign name="close" size={20} /></TouchableOpacity>
                     </View>
                     <View>
-                        <Text style={styles.grayText}>Enter code we sent you at {props.email}</Text>
+                        <Text style={styles.headingText}>Enter code we sent you at {props.email}</Text>
                         <View style={styles.inputContainer}>
                             <OtpInputs
                                 length={6}
@@ -35,7 +35,7 @@ const UpgradeModal = (props) => {
                             />
                             {
                                 props.submit && !props.code ? <Text style={[themeStyle1.errorText, { marginBottom: 10, marginTop: 10, textAlign: "center" }]}>Please fill all the fields</Text> :
-                                props.submit && props.code.length < 6 ? <Text style={[themeStyle1.errorText, { marginBottom: 10, marginTop: 10, textAlign: "center" }]}>Please fill all the fields</Text> : null
+                                    props.submit && props.code.length < 6 ? <Text style={[themeStyle1.errorText, { marginBottom: 10, marginTop: 10, textAlign: "center" }]}>Please fill all the fields</Text> : null
                             }
                         </View>
                     </View>
@@ -57,7 +57,9 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         borderRadius: 25
     },
-
+    inputContainer: {
+        marginVertical: "10%",
+    },
     rowContainer: {
         flexDirection: "row",
         justifyContent: "flex-end",

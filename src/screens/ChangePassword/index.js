@@ -60,7 +60,7 @@ class ChangePassword extends Component {
                             }
                         </View>
                         <View style={{ marginHorizontal: "5%", marginTop: "5%" }}>
-                            <Input value={newPassword} label="Enter your new password" onChangeText={(e) => this.setState({ newPassword: e })} />
+                            <Input value={newPassword} secureTextEntry={true} label="Enter your new password" onChangeText={(e) => this.setState({ newPassword: e })} />
                             {
                                 submit && !newPassword ? <Text style={[themeStyle1.errorText,]}>Please fill this field</Text> : null
                             }

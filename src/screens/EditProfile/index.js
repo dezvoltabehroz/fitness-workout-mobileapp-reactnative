@@ -164,7 +164,7 @@ class CompleteProfile extends Component {
                 <View style={styles.cardContainer}>
                     <View style={{ marginTop: "10%", alignItems: "center" }}>
                         <Text style={styles.headingText}>MY ACCOUNT</Text>
-                        <Text style={styles.textStyle}>Lets us know you better to help boost your workout result lorem ipsum...</Text>
+                        <Text style={styles.textStyle}>Lets us know you better to help boost your workout result...</Text>
                     </View>
                     <View style={styles.rowMeasureContainer}>
                         <View style={styles.rowStyle}>
@@ -233,7 +233,7 @@ class CompleteProfile extends Component {
                     date={date}
                     visible={this.state.dateModal}
                     setDate={(name) => this.setState({ date: name })}
-                    onClose={() => this.setState({ dateModal: false })}
+                    onClose={() => this.setState({ dateModal: false, dateValue: "", date: moment() })}
                     onSave={() => this.setState({ dateModal: false, dateValue: moment(this.state.date).format('ll') })} />
                 <HeightModal
                     visible={this.state.heightModal}

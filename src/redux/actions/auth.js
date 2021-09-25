@@ -62,7 +62,6 @@ const removeUser = (navigate) => {
         await clearAllLocalData();
         let id = await getLocalData(LOCAL_STORAGE_KEYS.user_id)
         console.log(id);
-       
         setTimeout(() => {
             dispatch({ type: USER_LOGOUT_SUCCESS })
         }, 2000);

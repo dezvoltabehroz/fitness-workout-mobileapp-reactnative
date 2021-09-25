@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, Alert } from 'react-native';
 import Modal from 'react-native-modal';
 import { Container, Input, Button, Icon, EmailModal, VerifyOtpModal } from '../../components';
 
@@ -96,8 +96,13 @@ class Login extends Component {
                         this.setState({ emailModal: false, btnLoading: false, submit1: false, })
                         setTimeout(() => { this.setState({ confirmOtpModal: true, }) }, 350);
                     }
+                    else {
+                        Alert.alert(`${res.data.message}!`)
+                        this.setState({ btnLoading: false, submit1: false, })
+                    }
                 })
                 .catch((err) => {
+                    this.setState({ btnLoading: false, submit1: false, })
                     console.log(err.response)
                 })
             // this.props.authActions.userLogin(userData, this.props.navigation.replace)
@@ -114,6 +119,7 @@ class Login extends Component {
             }
             AuthServices.verifyCodeForReset(userData)
                 .then((res) => {
+                    console.log(res.data)
                     if (res.data.success) {
                         this.setState({
                             confirmOtpModal: false,
@@ -197,7 +203,7 @@ class Login extends Component {
                     btnLoading={btnLoading}
                     setEmail={(email) => this.setState({ emailReset: email })}
                     sendCodeOnEmail={() => this.setState({ submit1: true, btnLoading: true }, () => this.sendCodeOnEmail())}
-                    onClose={() => this.setState({ emailModal: false })}
+                    onClose={() => this.setState({ emailModal: false,emailReset:"" })}
                 />
                 <VerifyOtpModal
                     isVisible={this.state.confirmOtpModal}

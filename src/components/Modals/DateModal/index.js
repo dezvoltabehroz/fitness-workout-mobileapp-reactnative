@@ -6,6 +6,7 @@ import Resume from '../../../assets/svg/refresh.svg';
 import Completed from '../../../assets/svg/next.svg';
 import themeStyle from '../../../assets/styles/theme.style';
 import Input from '../../Input';
+import moment from 'moment';
 
 
 const UpgradeModal = (props) => {
@@ -22,7 +23,9 @@ const UpgradeModal = (props) => {
                 </View>
                 <View style={{ marginBottom: "10%" }}>
                     <DatePicker
-                        date={props.date}
+                        date={props.date} 
+                        maximumDate={moment()}
+                        minimumDate={moment().subtract(90,"years")}
                         mode="date"
                         onDateChange={(date) => props.setDate(date)}
                     />
