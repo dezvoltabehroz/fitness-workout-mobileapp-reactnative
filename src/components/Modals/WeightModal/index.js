@@ -27,21 +27,23 @@ const WeightModal = (props) => {
                             maxLength={3}
                             value={props.kg}
                             width={SCREEN_WIDTH * 0.25}
-                            placeholder='Kilo' onChangeText={(e) => {
+                            placeholder='Pounds' onChangeText={(e) => {
                                 props.onChangeKilo(e)
                             }} />
+                        <View style={{ width: 10 }}></View>
+                        <Text style={{ color: themeStyle.BAR_COLOR, marginBottom: 15 }}>Lbs</Text>
                         <View style={{ width: 10 }}></View>
                         <Icon.Octicons name="primitive-dot" size={20} color={themeStyle.BAR_COLOR} />
                         <View style={{ width: 10 }}></View>
                         <Input
                             keyboardType={"number-pad"}
                             width={SCREEN_WIDTH * 0.25}
-                            maxLength={1}
+                            maxLength={3}
                             value={props.gram}
-                            placeholder='Gram'
+                            placeholder='Ounces'
                             onChangeText={(e) => props.onChangeGram(e)}
                         />
-                        <Text style={{ color: themeStyle.BAR_COLOR, marginBottom: 15 }}>KG</Text>
+                        <Text style={{ color: themeStyle.BAR_COLOR, marginBottom: 15 }}>Oz</Text>
                         <View style={{ width: 10 }}></View>
                     </View>
                 </View>
