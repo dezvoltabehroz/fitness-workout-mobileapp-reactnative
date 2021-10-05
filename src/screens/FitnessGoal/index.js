@@ -29,6 +29,7 @@ class FitnessGoal extends Component {
     }
     componentDidMount = async () => {
         let goal;
+        console.log(this.props.user.userData.fitness_equipment)
         switch (this.props.user.userData.fitness_goal) {
             case screen.APP_INTRO_Button_1:
                 this.setState({ value: 0 })

@@ -2,8 +2,6 @@ import { Dimensions } from "react-native";
 
 const LOGO = require('../../../assets/images/logo.png');
 
-const NO_PHOTO = require('../../../assets/images/placeholder_user.png');
-const PLACEHOLDER_ORG = require('../../../assets/images/placeholder_org.png');
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 const screen = {
@@ -99,7 +97,8 @@ const route = {
     EDITPROFILE: "EditProfile",
     PROGRESSPICS: "ProgressPics",
     WORKOUTSETTING: "WorkoutSetting",
-    VIDEO: 'Video'
+    VIDEO: 'Video',
+    WORKOUTSETTINGS:"WorkoutSetings"
 
 }
 const TOKEN = "token";
@@ -115,7 +114,5 @@ export {
     LOGO,
     SCREEN_HEIGHT,
     SCREEN_WIDTH,
-    NO_PHOTO,
-    PLACEHOLDER_ORG,
     Fonts,
 }

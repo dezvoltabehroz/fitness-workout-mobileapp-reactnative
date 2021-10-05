@@ -225,7 +225,7 @@ class CompleteProfile extends Component {
                             </View>
                             <View style={{ alignItems: "center" }}>
                                 <Text style={styles.headingText}>MY ACCOUNT</Text>
-                                <Text style={styles.textStyle}>Lets us know you better to help boost your workout result lorem ipsum...</Text>
+                                <Text style={styles.textStyle}>Lets us know you better to help boost your workout result...</Text>
                             </View>
                             <View style={styles.rowMeasureContainer}>
                                 <View style={styles.rowStyle}>
@@ -462,9 +462,9 @@ class CompleteProfile extends Component {
                     animationOutTiming={200} >
                     <View style={styles.cardContainer}>
                         <View style={{ marginTop: "5%", }}>
-                            <View style={{ alignItems: "flex-end" }}>
+                            {/* <View style={{ alignItems: "flex-end" }}>
                                 <TouchableOpacity disabled={!btnLoading} onPress={() => this.setState({ passwordModal: false, })}><Icon.AntDesign name="close" size={20} /></TouchableOpacity>
-                            </View>
+                            </View> */}
                             <Text style={styles.headingText}>Enter Your Password</Text>
                             <View style={{ marginTop: "10%", }}>
                                 <Input editable={!btnLoading} secureTextEntry={true} bottomMargin={true} value={password} placeholder="" onChangeText={(email) => this.setState({ password: email })} />

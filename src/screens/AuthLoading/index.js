@@ -43,8 +43,8 @@ class AuthLoading extends Component {
         return (
             <View style={styles.container}>
                 <Image source={LOGO} style={styles.imageStyle} resizeMode="contain" />
-                <ActivityIndicator color={THEME.COLOR_WHITE} size={"small"} />
-                <Text style={styles.textStyle}>Loading...</Text>
+                {/* <ActivityIndicator color={THEME.COLOR_WHITE} size={"small"} />
+                <Text style={styles.textStyle}>Loading...</Text> */}
             </View>
         )
     }

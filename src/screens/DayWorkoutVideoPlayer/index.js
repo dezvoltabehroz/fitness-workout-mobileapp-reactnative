@@ -30,14 +30,14 @@ class DayWorkoutVideoPlayer extends Component {
             paused: false,
             completedModal: false,
             playerState: PLAYER_STATES.PLAYING,
-            screenType: 'cotain',
+            screenType: 'contain',
             desc: [1, 2, 3, 4, 5],
-            feedback: ""
+            feedback: "",
         }
         this.videoPlayer = null
     }
 
-    componentDidMount = () => {
+    componentDidMount = (volume) => {
         this.props.navigation.setOptions({
             headerRight: () => this.headerRight(),
             headerLeft: () => this.headerLeft(),
@@ -47,7 +47,14 @@ class DayWorkoutVideoPlayer extends Component {
 
     headerRight = () => {
         return (
-            <TouchableOpacity onPress={() => this.setState({ mute: !this.state.mute }, () => this.componentDidMount())
+            <TouchableOpacity onPress={() => this.setState({ mute: !this.state.mute, }, () => {
+                this.componentDidMount();
+                // if (this.state.mute) {
+                //     this.setState({ volume: 10 })
+                // } else {
+                //     this.setState({ volume: 0 })
+                // }
+            })
             } style={{ marginRight: 20 }} >
                 {
                     this.state.mute ?
@@ -58,6 +65,7 @@ class DayWorkoutVideoPlayer extends Component {
             </TouchableOpacity >
         )
     }
+
 
     headerLeft = () => {
         return (
@@ -77,7 +85,7 @@ class DayWorkoutVideoPlayer extends Component {
 
     onPaused = (playerState) => {
         //Handler for Video Pause
-        this.setState({ paused: !this.state.paused, playerState: this.state.playerState });
+        this.setState({ paused: !this.state.paused, playerState: !this.state.paused ? PLAYER_STATES.PAUSED : PLAYER_STATES.PLAYING });
 
     };
 
@@ -112,9 +120,10 @@ class DayWorkoutVideoPlayer extends Component {
     enterFullScreen = () => { };
 
     onFullScreen = () => {
+        this.videoPlayer.presentFullscreenPlayer();
         this.setState({ isFullScreen: !this.state.isFullScreen });
-        if (this.state.screenType == 'content') this.setState({ screenType: 'cover' });
-        else this.setState({ screenType: 'content' });
+        if (this.state.screenType == 'contain') this.setState({ screenType: 'cover' });
+        else this.setState({ screenType: 'contain' });
     };
 
     renderToolbar = () => (
@@ -152,10 +161,15 @@ class DayWorkoutVideoPlayer extends Component {
 
     render() {
         const { video_path, video_title, video_description } = this.props?.route?.params?.data;
+        console.log(this.state.mute)
         return (
             <Container>
+
                 <View style={styles.container}>
                     <View style={this.state.isFullScreen ? styles.mediaPlayer1 : styles.mediaPlayer}>
+
+
+
                         <Video
                             onEnd={this.onEnd}
                             onLoad={this.onLoad}
@@ -165,14 +179,24 @@ class DayWorkoutVideoPlayer extends Component {
                             paused={this.state.paused}
                             ref={(e) => this.videoPlayer = e}
                             resizeMode={this.state.screenType}
-                            onFullScreen={this.state.isFullScreen}
-                            source={{
-                                uri: video_path,
+                            fullscreenOrientation={this.state.isFullScreen ? "landscape" : "portrait"}
+                            // onFullScreen={this.state.isFullScreen}
+                            source={{ uri: video_path, }}
+                            fullscreenAutorotate={true}
+                            fullscreen={true}
+                            // style={this.state.isFullScreen ? styles.videoContainer1 : styles.videoContainer}
+                            style={{
+                                position: "absolute",
+                                top: 0,
+                                left: 0,
+                                bottom: 0,
+                                right: 0,
+                                backgroundColor: "black",
                             }}
-                            style={this.state.isFullScreen ? styles.videoContainer1 : styles.videoContainer}
                             volume={this.state.volume}
                             muted={this.state.mute}
                         />
+
                         <MediaControls
                             duration={this.state.duration}
                             isLoading={this.state.isLoading}
@@ -187,6 +211,7 @@ class DayWorkoutVideoPlayer extends Component {
 
                                 }
                             }}
+
                             onPaused={this.onPaused}
                             onReplay={this.onReplay}
                             onSeek={this.onSeek}
@@ -213,6 +238,80 @@ class DayWorkoutVideoPlayer extends Component {
                         </View>
                         : null}
                 </View>
+
+                {/* <View style={styles.container}>
+                    <View style={this.state.isFullScreen ? styles.mediaPlayer1 : styles.mediaPlayer}>
+
+
+
+                        <Video
+                            onEnd={this.onEnd}
+                            onLoad={this.onLoad}
+                            onLoadStart={this.onLoadStart}
+                            onProgress={this.onProgress}
+                            useNativeControls={true}
+                            paused={this.state.paused}
+                            ref={(e) => this.videoPlayer = e}
+                            resizeMode={this.state.screenType}
+                            fullscreenOrientation={this.state.isFullScreen ? "landscape" : "portrait"}
+                            // onFullScreen={this.state.isFullScreen}
+                            source={{ uri: video_path, }}
+                            fullscreenAutorotate={true}
+                            fullscreen={true}
+                            // style={this.state.isFullScreen ? styles.videoContainer1 : styles.videoContainer}
+                            style={{
+                                position: "absolute",
+                                top: 0,
+                                left: 0,
+                                bottom: 0,
+                                right: 0,
+                                backgroundColor: "black",
+                            }}
+                            volume={this.state.volume}
+                            muted={this.state.mute ? true : false}
+                        />
+
+                        <MediaControls
+                            duration={this.state.duration}
+                            isLoading={this.state.isLoading}
+                            mainColor="#333"
+                            onFullScreen={this.onFullScreen}
+                            sliderStyle={{
+                                //     containerStyle:{
+                                //     backgroundColor:themeStyle.BAR_COLOR
+                                // },
+                                trackStyle: {
+                                    backgroundColor: themeStyle.BAR_COLOR,
+
+                                }
+                            }}
+
+                            onPaused={this.onPaused}
+                            onReplay={this.onReplay}
+                            onSeek={this.onSeek}
+                            onSeeking={this.onSeeking}
+                            playerState={this.state.playerState}
+                            progress={this.state.currentTime}
+                            toolbar={this.renderToolbar()}
+                        />
+                    </View>
+
+                    {!this.state.isFullScreen ?
+                        <View style={styles.lowerContainer}>
+                            <Text style={styles.headingStyle}>{video_title}</Text>
+                            {
+                                this.state.desc.map((item, index) => {
+                                    return (
+                                        <View style={styles.rowContainer}>
+                                            <Icon.Octicons name="primitive-dot" size={20} color={'lightgray'} />
+                                            <Text style={styles.textStyle} >{video_description}</Text>
+                                        </View>
+                                    )
+                                })
+                            }
+                        </View>
+                        : null}
+                </View> */}
                 <QuitModal visible={this.state.quitModal}
                     onQuit={() => { this.videoPlayer.seek(0); this.props.navigation.goBack() }}
                     onResume={() => { this.setState({ quitModal: false, paused: !this.state.paused, playerState: this.state.playerState }) }}

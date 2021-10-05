@@ -64,6 +64,7 @@ class PowerOfMind extends Component {
     }
 
     render() {
+        const { navigate } = this.props.navigation;
         return (
             <Container>
                 <View style={styles.container}>

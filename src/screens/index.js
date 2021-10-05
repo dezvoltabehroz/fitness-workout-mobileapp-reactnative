@@ -103,3 +103,6 @@ export const FeedBack = _FeedBack
 
 import _Video from './Video';
 export const Video = _Video
+
+import _WorkoutSettings from './WorkoutSettings';
+export const WorkoutSettings = _WorkoutSettings

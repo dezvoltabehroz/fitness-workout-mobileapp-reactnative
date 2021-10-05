@@ -143,7 +143,7 @@ class DietScreen extends Component {
 
     headerRight = () => {
         return (
-            <TouchableOpacity style={{ marginRight: 20 }} onPress={() => { this.setState({ dietModal: !dietModal }) }} ><More /></TouchableOpacity>
+            <TouchableOpacity style={{ marginRight: 20 }} onPress={() => { this.setState({ dietModal: !this.state.dietModal }) }} ><More /></TouchableOpacity>
         )
     }
 
@@ -192,6 +192,7 @@ class DietScreen extends Component {
             dietLoading,
             value,
             upgradeModal } = this.state;
+        const { navigate } = this.props.navigation;
         return (
             <Container color>
                 {

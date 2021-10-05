@@ -42,6 +42,8 @@ class Video extends Component {
                                 domStorageEnabled={true}
                                 source={{ uri: videoUri }}
                                 allowFileAccess={true}
+                                allowsFullscreenVideo={true}
+                                allowsInlineMediaPlayback={true}
                             />
                             {/* <Video
                                             source={TestVideo}

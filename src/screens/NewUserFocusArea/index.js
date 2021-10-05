@@ -79,55 +79,61 @@ class AppIntro extends Component {
                                     <>
                                         <View style={styles.shoulderContainer1}>
                                             <View style={styles.shoulderStyle1}>
-                                                <CheckBox isChecked={shoulder} label="Shoulders" onPress={() => {
-                                                    if (shoulder) {
-                                                        let data = [...arr];
-                                                        const index = data.findIndex(item => item === 'shoulder');
-                                                        this.setState({ shoulder: !shoulder, arr: data.filter((_, i) => i != index) })
-                                                    } else {
-                                                        let data = [...arr];
-                                                        data.push('shoulder')
-                                                        this.setState({ shoulder: !shoulder, arr: data })
+                                                <CheckBox
+                                                    disabled={shoulder ? false : arr.length >= 2 ? true : false}
+                                                    isChecked={shoulder} label="Shoulders" onPress={() => {
+                                                        if (shoulder) {
+                                                            let data = [...arr];
+                                                            const index = data.findIndex(item => item === 'shoulder');
+                                                            this.setState({ shoulder: !shoulder, arr: data.filter((_, i) => i != index) })
+                                                        } else {
+                                                            let data = [...arr];
+                                                            data.push('shoulder')
+                                                            this.setState({ shoulder: !shoulder, arr: data })
 
-                                                    }
-                                                }} />
+                                                        }
+                                                    }} />
                                             </View>
                                         </View>
                                         <View style={styles.chestContainer1}>
                                             <View style={styles.chestStyle1}>
-                                                <CheckBox isChecked={chest} label="Chest" onPress={() => {
-                                                    if (chest) {
-                                                        let data = [...arr];
-                                                        const index = data.findIndex(item => item === 'chest');
-                                                        this.setState({ chest: !chest, arr: data.filter((_, i) => i != index) })
-                                                    } else {
-                                                        let data = [...arr];
-                                                        data.push('chest')
-                                                        this.setState({ chest: !chest, arr: data })
+                                                <CheckBox
+                                                    disabled={chest ? false : arr.length >= 2 ? true : false}
+                                                    isChecked={chest} label="Chest" onPress={() => {
+                                                        if (chest) {
+                                                            let data = [...arr];
+                                                            const index = data.findIndex(item => item === 'chest');
+                                                            this.setState({ chest: !chest, arr: data.filter((_, i) => i != index) })
+                                                        } else {
+                                                            let data = [...arr];
+                                                            data.push('chest')
+                                                            this.setState({ chest: !chest, arr: data })
 
-                                                    }
-                                                }} />
+                                                        }
+                                                    }} />
                                             </View>
                                         </View>
                                         <View style={styles.armContainer1}>
                                             <View style={styles.armStyle1}>
-                                                <CheckBox isChecked={arm} label="Arms" onPress={() => {
-                                                    if (arm) {
-                                                        let data = [...arr];
-                                                        const index = data.findIndex(item => item === 'arm');
-                                                        this.setState({ arm: !arm, arr: data.filter((_, i) => i != index) })
-                                                    } else {
-                                                        let data = [...arr];
-                                                        data.push('arm')
-                                                        this.setState({ arm: !arm, arr: data })
+                                                <CheckBox isChecked={arm}
+                                                    disabled={arm ? false : arr.length >= 2 ? true : false}
+                                                    label="Arms" onPress={() => {
+                                                        if (arm) {
+                                                            let data = [...arr];
+                                                            const index = data.findIndex(item => item === 'arm');
+                                                            this.setState({ arm: !arm, arr: data.filter((_, i) => i != index) })
+                                                        } else {
+                                                            let data = [...arr];
+                                                            data.push('arm')
+                                                            this.setState({ arm: !arm, arr: data })
 
-                                                    }
-                                                }} />
+                                                        }
+                                                    }} />
                                             </View>
                                         </View>
                                         <View style={styles.gluteContainer1}>
                                             <View style={styles.gluteStyle1}>
-                                                <CheckBox isChecked={glute} label="Glutes" onPress={() => {
+                                                <CheckBox disabled={glute ? false : arr.length >= 2 ? true : false} isChecked={glute} label="Glutes" onPress={() => {
                                                     if (glute) {
                                                         let data = [...arr];
                                                         const index = data.findIndex(item => item === 'glute');
@@ -144,6 +150,7 @@ class AppIntro extends Component {
                                         <View style={styles.backContainer1}>
                                             <View style={styles.backStyle1}>
                                                 <CheckBox
+                                                    disabled={back ? false : arr.length >= 2 ? true : false}
                                                     isChecked={back}
                                                     label="Back"
                                                     onPress={() => {
@@ -163,6 +170,7 @@ class AppIntro extends Component {
                                         <View style={styles.waistContainer1}>
                                             <View style={styles.waistStyle1}>
                                                 <CheckBox
+                                                    disabled={waist ? false : arr.length >= 2 ? true : false}
                                                     isChecked={waist}
                                                     label="Wasit"
                                                     onPress={() => {
@@ -182,6 +190,7 @@ class AppIntro extends Component {
                                         <View style={styles.legContainer1}>
                                             <View style={styles.legStyle1}>
                                                 <CheckBox
+                                                    disabled={leg ? false : arr.length >= 2 ? true : false}
                                                     isChecked={leg}
                                                     label="Legs"
                                                     onPress={() => {
@@ -203,73 +212,82 @@ class AppIntro extends Component {
                                     <>
                                         <View style={styles.shoulderContainer}>
                                             <View style={styles.shoulderStyle}>
-                                                <CheckBox isChecked={shoulder} label="Shoulders" onPress={() => {
-                                                    if (shoulder) {
-                                                        let data = [...arr];
-                                                        const index = data.findIndex(item => item === 'shoulder');
-                                                        this.setState({ shoulder: !shoulder, arr: data.filter((_, i) => i != index) })
-                                                    } else {
-                                                        let data = [...arr];
-                                                        data.push('shoulder')
-                                                        this.setState({ shoulder: !shoulder, arr: data })
+                                                <CheckBox
+                                                    disabled={shoulder ? false : arr.length >= 2 ? true : false}
+                                                    isChecked={shoulder} label="Shoulders" onPress={() => {
+                                                        if (shoulder) {
+                                                            let data = [...arr];
+                                                            const index = data.findIndex(item => item === 'shoulder');
+                                                            this.setState({ shoulder: !shoulder, arr: data.filter((_, i) => i != index) })
+                                                        } else {
+                                                            let data = [...arr];
+                                                            data.push('shoulder')
+                                                            this.setState({ shoulder: !shoulder, arr: data })
 
-                                                    }
+                                                        }
 
-                                                }} />
+                                                    }} />
                                             </View>
                                         </View>
                                         <View style={styles.chestContainer}>
                                             <View style={styles.chestStyle}>
-                                                <CheckBox isChecked={chest} label="Chest" onPress={() => {
-                                                    if (chest) {
-                                                        let data = [...arr];
-                                                        const index = data.findIndex(item => item === 'chest');
-                                                        this.setState({ chest: !chest, arr: data.filter((_, i) => i != index) })
-                                                    } else {
-                                                        let data = [...arr];
-                                                        data.push('chest')
-                                                        this.setState({ chest: !chest, arr: data })
+                                                <CheckBox
+                                                    disabled={chest ? false : arr.length >= 2 ? true : false}
+                                                    isChecked={chest} label="Chest" onPress={() => {
+                                                        if (chest) {
+                                                            let data = [...arr];
+                                                            const index = data.findIndex(item => item === 'chest');
+                                                            this.setState({ chest: !chest, arr: data.filter((_, i) => i != index) })
+                                                        } else {
+                                                            let data = [...arr];
+                                                            data.push('chest')
+                                                            this.setState({ chest: !chest, arr: data })
 
-                                                    }
+                                                        }
 
-                                                }} />
+                                                    }} />
                                             </View>
                                         </View>
                                         <View style={styles.armContainer}>
                                             <View style={styles.armStyle}>
-                                                <CheckBox isChecked={arm} label="Arms" onPress={() => {
-                                                    if (arm) {
-                                                        let data = [...arr];
-                                                        const index = data.findIndex(item => item === 'arm');
-                                                        this.setState({ arm: !arm, arr: data.filter((_, i) => i != index) })
-                                                    } else {
-                                                        let data = [...arr];
-                                                        data.push('arm')
-                                                        this.setState({ arm: !arm, arr: data })
-                                                    }
+                                                <CheckBox
+                                                    disabled={arm ? false : arr.length >= 2 ? true : false}
+                                                    isChecked={arm} label="Arms" onPress={() => {
+                                                        if (arm) {
+                                                            let data = [...arr];
+                                                            const index = data.findIndex(item => item === 'arm');
+                                                            this.setState({ arm: !arm, arr: data.filter((_, i) => i != index) })
+                                                        } else {
+                                                            let data = [...arr];
+                                                            data.push('arm')
+                                                            this.setState({ arm: !arm, arr: data })
+                                                        }
 
-                                                }} />
+                                                    }} />
                                             </View>
                                         </View>
                                         <View style={styles.gluteContainer}>
                                             <View style={styles.gluteStyle}>
-                                                <CheckBox isChecked={glute} label="Glutes" onPress={() => {
-                                                    if (glute) {
-                                                        let data = [...arr];
-                                                        const index = data.findIndex(item => item === 'glute');
-                                                        this.setState({ glute: !glute, arr: data.filter((_, i) => i != index) })
-                                                    } else {
-                                                        let data = [...arr];
-                                                        data.push('glute')
-                                                        this.setState({ glute: !glute, arr: data })
-                                                    }
+                                                <CheckBox
+                                                    disabled={glute ? false : arr.length >= 2 ? true : false}
+                                                    isChecked={glute} label="Glutes" onPress={() => {
+                                                        if (glute) {
+                                                            let data = [...arr];
+                                                            const index = data.findIndex(item => item === 'glute');
+                                                            this.setState({ glute: !glute, arr: data.filter((_, i) => i != index) })
+                                                        } else {
+                                                            let data = [...arr];
+                                                            data.push('glute')
+                                                            this.setState({ glute: !glute, arr: data })
+                                                        }
 
-                                                }} />
+                                                    }} />
                                             </View>
                                         </View>
                                         <View style={styles.backContainer}>
                                             <View style={styles.backStyle}>
                                                 <CheckBox
+                                                    disabled={back ? false : arr.length >= 2 ? true : false}
                                                     isChecked={back}
                                                     label="Back"
                                                     onPress={() => {
@@ -289,6 +307,7 @@ class AppIntro extends Component {
                                         <View style={styles.legContainer}>
                                             <View style={styles.legStyle}>
                                                 <CheckBox
+                                                    disabled={leg ? false : arr.length >= 2 ? true : false}
                                                     isChecked={leg}
                                                     label="Legs"
                                                     onPress={() => {
@@ -308,6 +327,7 @@ class AppIntro extends Component {
                                         <View style={styles.waistContainer}>
                                             <View style={styles.waistStyle}>
                                                 <CheckBox
+                                                    disabled={waist ? false : arr.length >= 2 ? true : false}
                                                     isChecked={waist}
                                                     label="Waist"
                                                     onPress={() => {
@@ -327,7 +347,7 @@ class AppIntro extends Component {
                                     </>}
                         </ImageBackground>
                         <View style={styles.buttonContainer}>
-                            <ClearButton disabled={equipment == screen.APP_INTRO_Button_4_3 && arr.length >= 3 ? false : equipment != screen.APP_INTRO_Button_4_3 && arr.length >= 2 ? false : true} title={'DONE'} onPress={() => this.handleDone()} />
+                            <ClearButton disabled={equipment == screen.APP_INTRO_Button_4_3 && arr.length == 2 ? false : equipment != screen.APP_INTRO_Button_4_3 && arr.length == 2 ? false : true} title={'DONE'} onPress={() => this.handleDone()} />
                         </View>
                     </View>
                 </ImageBackground>

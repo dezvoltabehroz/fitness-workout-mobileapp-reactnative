@@ -3,7 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { View, Text, StyleSheet } from 'react-native';
 
 import { route, screen } from '../lib/utils/constants';
-import { AuthLoading, PaymentMethod, DaysWorkout, DaysWorkoutVideos, DayWorkoutVideoPlayer, PowerOfMindAudio, DietPlan, CompleteProfile, ProgressPics, Login, SelectEuipment, FocusArea, UpdatingPlan, FitnessGoal, FitnessLevel, AppIntroZero, FeedBack, Video } from '../screens';
+import { AuthLoading, PaymentMethod, DaysWorkout, DaysWorkoutVideos, DayWorkoutVideoPlayer, PowerOfMindAudio, DietPlan, CompleteProfile, ProgressPics, Login, SelectEuipment, FocusArea, UpdatingPlan, FitnessGoal, FitnessLevel, AppIntroZero, FeedBack, Video, WorkoutSettings } from '../screens';
 import IntroRoutes from './Intro';
 import MainRoutes from './Main';
 import { HeaderLeft } from '../components';
@@ -15,11 +15,11 @@ import THEME from '../assets/styles/theme.style';
 import WorkoutSettingsRoutes from './WorkoutSetting';
 
 import Logo from '../assets/svg/logo.svg'
- const HeaderLogo = () => {
-        return (
-            <View><Logo /></View>
-        )
-    }
+const HeaderLogo = () => {
+    return (
+        <View><Logo /></View>
+    )
+}
 
 const HeaderWhiteLogo = () => {
     return (
@@ -30,13 +30,13 @@ const HeaderWhiteLogo = () => {
 const Stack = createStackNavigator();
 
 function AppRoutes() {
-    
+
     return (
         <Stack.Navigator initialRouteName={route.AUTH_LOADING} >
             <Stack.Screen name={route.AUTH_LOADING} component={AuthLoading} options={{
                 headerShown: false
             }} />
-               <Stack.Screen name={route.APPINTROZERO} component={AppIntroZero} options={({ navigation, route }) => ({
+            <Stack.Screen name={route.APPINTROZERO} component={AppIntroZero} options={({ navigation, route }) => ({
                 headerShown: false
             })} />
             <Stack.Screen name={route.APPINTRO} component={IntroRoutes} options={{ headerShown: false }} />
@@ -53,7 +53,15 @@ function AppRoutes() {
                 headerTintColor: THEME.COLOR_WHITE,
                 headerTitleStyle: styles.headerTextStyle,
             })} />
-              <Stack.Screen name={route.VIDEO} component={Video} options={({ navigation, route }) => ({
+            <Stack.Screen name={route.WORKOUTSETTINGS} component={WorkoutSettings} options={({ navigation, route }) => ({
+                headerLeft: () => (<HeaderLeft navigation={navigation} color />),
+                tabBarVisible: false,
+                headerTitle: "Workout Settings",
+                headerStyle: styles.headerStyle1,
+                headerTintColor: THEME.COLOR_WHITE,
+                headerTitleStyle: styles.headerTextStyle,
+            })} />
+            <Stack.Screen name={route.VIDEO} component={Video} options={({ navigation, route }) => ({
                 headerLeft: () => (<HeaderLeft navigation={navigation} color />),
                 tabBarVisible: false,
                 headerTitle: 'Video',
@@ -64,7 +72,7 @@ function AppRoutes() {
             <Stack.Screen name={route.FEEDBACK} component={FeedBack} options={({ navigation, route }) => ({
                 headerLeft: () => (<HeaderLeft navigation={navigation} color />),
                 tabBarVisible: false,
-                headerTitle:'Feedback',
+                headerTitle: 'Feedback',
                 headerStyle: styles.headerStyle1,
                 headerTintColor: THEME.COLOR_WHITE,
                 headerTitleStyle: styles.headerTextStyle,
@@ -121,7 +129,7 @@ function AppRoutes() {
                 headerTintColor: THEME.COLOR_WHITE,
                 headerTitleStyle: styles.headerTextStyle,
             })} />
-                
+
             <Stack.Screen name={route.FITNESSLEVEL} component={FitnessLevel} options={({ navigation, route }) => ({
                 headerBackTitleVisible: false,
                 headerTitleAlign: screen.SCREEN_TITLE_ALIGN_CENTER,
@@ -129,13 +137,13 @@ function AppRoutes() {
                 headerLeft: () => (<HeaderLeft navigation={navigation} />),
                 headerTitle: () => (<HeaderLogo />),
             })} />
-           <Stack.Screen name={route.FITNESSGOAL} component={FitnessGoal} options={({ navigation, route }) => ({
+            <Stack.Screen name={route.FITNESSGOAL} component={FitnessGoal} options={({ navigation, route }) => ({
                 headerBackTitleVisible: false,
                 headerTitleAlign: screen.SCREEN_TITLE_ALIGN_CENTER,
                 headerStyle: styles.headerStyle,
                 headerTitle: () => (<HeaderLogo />),
             })} />
-              <Stack.Screen name={route.SELECTEUIPMENT} component={SelectEuipment} options={({ navigation, route }) => ({
+            <Stack.Screen name={route.SELECTEUIPMENT} component={SelectEuipment} options={({ navigation, route }) => ({
                 headerBackTitleVisible: false,
                 headerTitleAlign: screen.SCREEN_TITLE_ALIGN_CENTER,
                 headerStyle: styles.headerStyle,
