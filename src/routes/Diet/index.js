@@ -15,7 +15,7 @@ const Stack = createStackNavigator();
 function DietRoutes() {
     const HeaderRight = (props) => {
         return (
-            <TouchableOpacity style={{ marginRight: 20 }} onPress={() => { }} ><More /></TouchableOpacity>
+            <TouchableOpacity style={{ marginRight: 20 ,height:50,width:60,justifyContent:"center",alignItems:"flex-end"}} onPress={() => { }} ><More /></TouchableOpacity>
         )
     }
     const HeaderWhiteLogo = (props) => {

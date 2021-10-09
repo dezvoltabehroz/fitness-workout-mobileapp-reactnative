@@ -40,12 +40,17 @@ const CheckedBox = ({ data, onPress, video }) => {
 
     const _renderVideosItems = (item, index) => {
         return (
-            <ImageBackground source={{ uri: item.media_thumbnail }} style={styles.contentVideoContainer}>
-                <Text style={styles.whiteTextStyle2}>{item.media_title}</Text>
-                <TouchableOpacity onPress={() => onPress(item)} style={{ alignItems: "center", justifyContent: "center", marginTop: "10%" }}>
-                    <Icon.AntDesign name="play" size={35} color={THEME.COLOR_WHITE} />
-                </TouchableOpacity>
-            </ImageBackground>
+            <View style={styles.container}>
+                <ImageBackground source={{ uri: item.media_thumbnail }} style={styles.imageContainer}>
+                    {/* // style={styles.contentVideoContainer}> */}
+                    <View style={styles.overlay} />
+                    <Text style={styles.whiteTextStyle2}>{item.media_title}</Text>
+                    <TouchableOpacity onPress={() => onPress(item)} style={{ alignItems: "center", justifyContent: "center", marginTop: "10%" }}>
+                        <Icon.AntDesign name="play" size={35} color={THEME.COLOR_WHITE} />
+                    </TouchableOpacity>
+                </ImageBackground>
+
+            </View>
         )
     }
     return (
@@ -83,14 +88,37 @@ const styles = StyleSheet.create({
         height: SCREEN_HEIGHT * 0.2,
         width: SCREEN_WIDTH * 0.7
     },
-    contentVideoContainer: {
-        backgroundColor: THEME.DASH_LIGHT,
+    imageContainer: {
         borderRadius: 25,
         padding: "5%",
         overflow: "hidden",
         height: SCREEN_HEIGHT * 0.2,
         width: SCREEN_WIDTH * 0.7
-    }
+    },
+    contentVideoContainer: {
+        borderRadius: 25,
+        padding: "5%",
+        overflow: "hidden",
+        height: SCREEN_HEIGHT * 0.2,
+        width: SCREEN_WIDTH * 0.7
+    },
+    container: {
+        flex: 1,
+        borderRadius: 25,
+        overflow: "hidden",
+    },
+    overlay: {
+        ...StyleSheet.absoluteFillObject,
+        backgroundColor: 'rgba(69,85,117,0.7)',
+    },
+    // overlay: {
+    //     position: 'absolute',
+    //     left: 0,
+    //     top: 0,
+    //     opacity: 0.3,
+    //     backgroundColor: 'black',
+    //     width: SCREEN_WIDTH * 0.7
+    // }
 })
 
 export default CheckedBox;
