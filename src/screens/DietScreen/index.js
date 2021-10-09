@@ -155,7 +155,7 @@ class DietScreen extends Component {
     }
 
     changeWeek = (index) => {
-        if (!this.props.user.userData.is_pro == 1) {
+        if (this.props.user.userData.is_pro == 1 || index == 0) {
             let array = [...this.state.dietPlans];
             if (array[index].expanded) { array[index] = { ...array[index], expanded: false } }
             else { array[index] = { ...array[index], expanded: true } }
@@ -245,7 +245,7 @@ class DietScreen extends Component {
                                                                         <Mark />
                                                                     </View>
                                                                     : null}
-                                                                {is_pro == 1 && dietWeekDate && dietWeekDate[index] == 1 ?
+                                                                {is_pro == 1 && dietWeekDate && dietWeekDate[index] == 1 || is_pro != 1 && index == 0 ?
                                                                     <View style={{ top: is_pro == 1 ? -15 : 0 }}>
                                                                         {element.expanded ?
                                                                             <Icon.FontAwesome name="angle-down" size={30} color={'gray'} />
@@ -253,7 +253,7 @@ class DietScreen extends Component {
                                                                             <Icon.FontAwesome name="angle-right" size={30} color={'gray'} />}
                                                                     </View>
                                                                     :
-                                                                    <View style={{ top: is_pro == 1 ? -15 : -15 }}>
+                                                                    <View style={{ top: is_pro == 1 ? -10 : -15 }}>
                                                                         <Icon.SimpleLineIcons name="lock" size={20} color={'gray'} />
                                                                     </View>}
                                                             </View>

@@ -23,11 +23,11 @@ class DaysWorkoutVideos extends Component {
     }
 
     componentDidMount = async () => {
-       
+
         const { user_id, token, fitness_goal, fitness_level, fitness_equipment } = this.props.user.userData;
         let data = {
             "fitness_goal": fitness_goal,
-            "fitness_level": "Normal Fit",//fitness_level,
+            "fitness_level": fitness_level,
             "video_tags": fitness_equipment,
             "video_day": this.props?.route?.params?.data?.day
         }
@@ -41,7 +41,7 @@ class DaysWorkoutVideos extends Component {
     }
 
     handleUpdateDailyWorkout = (index, item) => {
-        const { token,workout_user_id } = this.props.user.userData;
+        const { token, workout_user_id } = this.props.user.userData;
         if ((index + 1) == this.state.videos.length) {
             let data = {
                 "workout_date": moment().format('YYYY-MM-DD'),
