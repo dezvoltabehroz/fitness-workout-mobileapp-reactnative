@@ -6,16 +6,16 @@ export class Item extends Component {
     style_Func = () => {
         let style;
         switch (this.props.value) {
-            case 1:
+            case 0:
                 style = 'Not Fit';
                 break;
-            case 2:
+            case 1:
                 style = 'Average Fit';
                 break;
-            case 3:
+            case 2:
                 style = 'Good Fit';
                 break;
-            case 4:
+            case 3:
                 style = 'Very Fit';
                 break;
             default:
@@ -26,14 +26,16 @@ export class Item extends Component {
     }
     render() {
         return (
-            <View style={{ marginTop: '15%', justifyContent: "center" }}>
-                <Text style={this.checkActive() ? [styles.lineStyle, styles.active] : [styles.line, styles.inactive, { backgroundColor: "#797B7B", }]}> {`${this.style_Func()}`}</Text>
+            <View style={{ marginTop: '15%', justifyContent: "center", alignItems: "center" }}>
+                <View style={this.checkActive() ? styles.lineStyle : styles.line}>
+                    <Text style={this.checkActive() ? styles.active : styles.inactive}> {`${this.style_Func()}`}</Text>
+                </View>
             </View>
         );
     }
 
     checkActive = () => {
-        if (this.props.value == this.props.index)
+        if (this.props.value == this.props.second)
             return true
         else
             return false
@@ -43,8 +45,10 @@ export class Item extends Component {
 
 const styles = StyleSheet.create({
     active: {
-        fontSize: 10,
+        fontSize: 13,
         color: '#5e5e5e',
+
+        textAlign: "center"
     },
     inactive: {
         fontSize: 0,
@@ -52,9 +56,17 @@ const styles = StyleSheet.create({
         color: '#bdc3c7',
     },
     line: {
-        top: 10,
-        height: 5, width: 5,
+        top: 15,
+        height: 7.5, width: 7.5,
         borderRadius: 5,
+        backgroundColor: "#797B7B",
     },
-    lineStyle: { backgroundColor: themeStyle.DASH_DARK, borderRadius: 15, top: 10, padding: 5, textAlign: "center", height: 25, }
+    lineStyle: {
+        backgroundColor: themeStyle.DASH_DARK,
+        borderRadius: 15,
+        top: 15,
+        padding: 5,
+        height: 30,
+        width: "110%",
+    }
 });

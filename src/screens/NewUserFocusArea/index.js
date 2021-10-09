@@ -347,7 +347,7 @@ class AppIntro extends Component {
                                     </>}
                         </ImageBackground>
                         <View style={styles.buttonContainer}>
-                            <ClearButton disabled={equipment == screen.APP_INTRO_Button_4_3 && arr.length == 2 ? false : equipment != screen.APP_INTRO_Button_4_3 && arr.length == 2 ? false : true} title={'DONE'} onPress={() => this.handleDone()} />
+                            <ClearButton disabled={arr.length == 2 ? false : true} title={'DONE'} onPress={() => this.handleDone()} />
                         </View>
                     </View>
                 </ImageBackground>

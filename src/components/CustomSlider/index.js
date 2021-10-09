@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
         flex: 1,
         width: Dimensions.get('window').width * 0.8,
         flexDirection: 'row',
-        flexWrap: "wrap",
+        // flexWrap: "wrap",
         alignSelf:"center",
         // alignItems: 'center',
         justifyContent: 'space-between',

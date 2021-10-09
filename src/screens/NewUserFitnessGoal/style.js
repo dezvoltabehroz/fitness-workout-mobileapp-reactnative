@@ -62,9 +62,9 @@ export default StyleSheet.create({
         fontWeight: "bold"
     },
     decsTextStyle: {
-        width: SCREEN_WIDTH * 0.7,
+        width: SCREEN_WIDTH * 0.6,
         fontSize: THEME.FONT_SIZE_SMALL,
-        color: THEME.PRIMARY_TEXT_COLOR
+        color: "#484848" //THEME.PRIMARY_TEXT_COLOR
     },
     marginHorizontal1: {
         marginHorizontal: "2.5%",
