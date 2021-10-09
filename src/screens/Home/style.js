@@ -138,7 +138,9 @@ export default StyleSheet.create({
         width: SCREEN_WIDTH * 0.91,
     },
     starContainer: {
-        position: "absolute", top: '-2%', left: '10%'
+        position: "absolute",
+        left: '10%',
+        top: 14,
     }
 
 })

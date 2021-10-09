@@ -44,7 +44,7 @@ class AppIntro extends Component {
                         <View style={styles.buttonContainer}>
                             <ClearButton title={'GET STARTED'} onPress={() => replace(route.APPINTRO)} />
                             <View style={styles.buttonContainer1}>
-                                <ClearButton title={'LOG IN'} onPress={() => replace(route.LOGIN)} />
+                                <ClearButton title={'LOG IN'} onPress={() => navigate(route.LOGIN)} />
                             </View>
                         </View>
                         : null

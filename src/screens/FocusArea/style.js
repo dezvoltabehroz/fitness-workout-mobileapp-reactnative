@@ -151,10 +151,10 @@ export default StyleSheet.create({
         height: SCREEN_HEIGHT
     },
     imageStyle: {
-        width: SCREEN_WIDTH * 0.6,
+        width: SCREEN_WIDTH * 0.8,
         height: SCREEN_HEIGHT * 0.55,
         alignSelf: "center",
-        marginRight: "5%",
+        marginRight: "10%",
         marginBottom: "5%"
     },
     shoulderContainer1: {
@@ -164,7 +164,7 @@ export default StyleSheet.create({
         width: 50,
         borderRightWidth: 2,
         height: 30,
-        left: "85%",
+        left: "80%",
         top: "28%"
     },
     shoulderStyle1: {
@@ -210,7 +210,7 @@ export default StyleSheet.create({
         width: 70,
         borderRightWidth: 2,
         height: 30,
-        left: "80%",
+        left: "72%",
         top: "70%"
     },
     gluteStyle1: {
@@ -225,7 +225,7 @@ export default StyleSheet.create({
         width: 60,
         borderRightWidth: 2,
         height: 30,
-        left: "85%",
+        left: "75%",
         top: "45%"
     },
     backStyle1: {
@@ -240,7 +240,7 @@ export default StyleSheet.create({
         width: 60,
         borderRightWidth: 2,
         height: 20,
-        left: "80%",
+        left: "72%",
         top: "55%"
     },
     waistStyle1: {

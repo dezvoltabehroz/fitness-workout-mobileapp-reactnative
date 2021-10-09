@@ -206,7 +206,7 @@ class Home extends Component {
                             <Text style={styles.whiteTextStyle}>30 DAY'S WORKOUT</Text>
                             <View style={styles.rowStyle}>
                                 {this.fitnessLevelFunction()}
-                                <Text style={styles.whiteTextStyle1}>{daily_workout_count ? (daily_workout_count / 30 * 100) : 0}%</Text>
+                                <Text style={styles.whiteTextStyle1}>{daily_workout_count ? Math.floor(daily_workout_count / 30 * 100) : 0}%</Text>
                             </View>
                             <ProgressBarAnimated
                                 width={SCREEN_WIDTH * 0.6}
@@ -230,7 +230,7 @@ class Home extends Component {
                             </View>
                         </ImageBackground>
                         <TouchableOpacity style={{}} onPress={() => navigate(route.POWER_OF_MIND)} >
-                            <ImageBackground source={require('../../assets/images/mind.png')} style={styles.cardContainer1}>
+                            <ImageBackground source={require('../../assets/images/mind.png')}  imageStyle={{borderRadius: 25,}} style={styles.cardContainer1}>
                                 <View>
                                     <Text style={styles.whiteTextStyle1}>POWER OF THE MIND</Text>
                                     <Text style={{ color: THEME.COLOR_WHITE }}>Lorem ipsum dolor sir</Text>

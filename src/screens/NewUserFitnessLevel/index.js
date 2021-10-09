@@ -33,10 +33,10 @@ class AppIntro extends Component {
             case 1:
                 storeLocalData(LOCAL_STORAGE_KEYS.fitnessLevel, JSON.stringify('Average Fit'))
                 break;
-            case  2:
+            case 2:
                 storeLocalData(LOCAL_STORAGE_KEYS.fitnessLevel, JSON.stringify('Good Fit'))
                 break;
-            case  3:
+            case 3:
                 storeLocalData(LOCAL_STORAGE_KEYS.fitnessLevel, JSON.stringify('Very Fit'))
                 break;
         }
@@ -68,7 +68,7 @@ class AppIntro extends Component {
                             <Image resizeMode={"contain"} style={styles.imageStyle} source={require('../../assets/images/outfit.png')} />
                         </View>
                         <View style={{ position: "absolute", top: 18 }}>
-                            <Bar />
+                            <Bar width={SCREEN_WIDTH * 0.9} />
                         </View>
                         <CustomSlider
                             min={0}

@@ -16,7 +16,7 @@ let data = 0;
 class PowerOfMindAudio extends Component {
     constructor(props) {
         super(props);
-        this.url = 'https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_700KB.mp3';
+        this.url = this.props.route?.params?.data?.media_path;
         this.state = {
             playAudio: true,
             paused: true,
@@ -25,7 +25,12 @@ class PowerOfMindAudio extends Component {
             isLoading: true,
 
         };
-        this.sound = new Sound('https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_700KB.mp3', '', (error) => {
+       
+    }
+
+    componentDidMount=()=>{
+        console.log(this.props.route?.params?.data?.media_path)
+        this.sound = new Sound(this.props.route?.params?.data?.media_path, '', (error) => {
             if (error) {
                 console.log('failed to load the sound', error);
             } else {
@@ -35,9 +40,10 @@ class PowerOfMindAudio extends Component {
     }
 
     componentWillUnmount() {
+        
         this.sound.stop()
-        this.url = 'https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_700KB.mp3'
-        this.sound = 'https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_700KB.mp3'
+        this.url = this.props.route?.params?.data?.media_path
+        this.sound = this.props.route?.params?.data?.media_path
         this.setState({
             playAudio: true,
             paused: true,
@@ -92,14 +98,14 @@ class PowerOfMindAudio extends Component {
                         <View style={styles.boxView}>
                             <Text> </Text>
                         </View>
-                        <Image resizeMode="contain" source={require('../../assets/images/you.png')} style={styles.imageStyle} />
+                        <Image resizeMode="contain" source={{ uri: this.props.route?.params?.data?.media_thumbnail }} style={styles.imageStyle} />
                         <View style={styles.textContainer}>
                             <Text style={styles.textStyle1}>Weight Loss</Text>
-                            <Text style={styles.textStyle}>Maroon 5</Text>
+                            <Text style={styles.textStyle}>{this.props.route?.params?.data?.media_title}</Text>
                         </View>
                         <View style={styles.rowContainer}>
                             <View style={styles.timerContainer} >
-                                <Text>{this.state.duration}</Text>
+                                <Text>{this.state.progress}</Text>
                             </View>
                             <SoundCloudWaveform
                                 waveformUrl={"https://w1.sndcdn.com/PP3Eb34ToNki_m.png"}
@@ -113,13 +119,13 @@ class PowerOfMindAudio extends Component {
                                 width={SCREEN_WIDTH * 0.8}
                             />
                             <View style={styles.timerContainer} >
-                                <Text>{this.state.progress}</Text>
+                                <Text>{this.state.duration}</Text>
                             </View>
                         </View>
                         <TouchableOpacity onPress={this.changestate} style={styles.buttonContainer}>
                             {
                                 this.state.playAudio ?
-                                    <Play/>
+                                    <Play />
                                     :
                                     <Pause />
                             }

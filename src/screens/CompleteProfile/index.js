@@ -199,7 +199,6 @@ class CompleteProfile extends Component {
         if (code && code.length == 6 && submit1) {
             if (code == sendedCode) {
                 this.setState({ btnLoading: false, confirmOtpModal: false, code: "", submit1: false, })
-                setTimeout(() => { this.setState({ passwordModal: true }) }, 350);
             } else {
                 Alert.alert("Code is incorrect!", 'Please enter a valid code ');
                 this.setState({ btnLoading: false, code: "", submit1: false, })
@@ -243,6 +242,16 @@ class CompleteProfile extends Component {
                                 </View>
 
                                 <TouchableOpacity onPress={() => this.setState({ emailModal: true })}>
+                                    <Plus />
+                                </TouchableOpacity>
+                            </View>
+                            <View style={styles.rowMeasureContainer}>
+                                <View style={styles.rowStyle}>
+                                    <Icon.Entypo name="lock" color={'#797B7B'} size={20} />
+                                    <Text style={styles.grayText}>{password ? password : 'Password'}</Text>
+                                </View>
+
+                                <TouchableOpacity onPress={() => this.setState({ passwordModal: true })}>
                                     <Plus />
                                 </TouchableOpacity>
                             </View>

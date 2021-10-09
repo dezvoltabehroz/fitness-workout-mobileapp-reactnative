@@ -41,7 +41,14 @@ function AppRoutes() {
             })} />
             <Stack.Screen name={route.APPINTRO} component={IntroRoutes} options={{ headerShown: false }} />
             <Stack.Screen name={route.WORKOUTSETTING} component={WorkoutSettingsRoutes} options={{ headerShown: false }} />
-            <Stack.Screen name={route.LOGIN} component={Login} options={{ headerShown: false }} />
+            <Stack.Screen name={route.LOGIN} component={Login} options={({ navigation, route }) => ({
+                headerLeft: () => (<HeaderLeft navigation={navigation} />),
+                headerBackTitleVisible: false,
+                headerTitle:"",
+                headerTitleAlign: screen.SCREEN_TITLE_ALIGN_CENTER,
+                headerStyle: styles.headerStyle,
+                headerTransparent: true,
+            })} />
             <Stack.Screen name={route.MAIN} component={MainRoutes}
                 options={{ headerShown: false }} />
 
