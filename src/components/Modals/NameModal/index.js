@@ -19,7 +19,7 @@ const UpgradeModal = (props) => {
                     <Text style={styles.headingText}>Full Name</Text>
                 </View>
                 <View style={{ marginBottom: "10%" }}>
-                    <Input placeholder='Name' onChangeText={(e) => props.onChangeText(e)} />
+                    <Input value={props.name} placeholder='Name' onChangeText={(e) => props.onChangeText(e)} />
                 </View>
                 <View style={styles.rowContainer}>
                     <TouchableOpacity style={{ marginHorizontal: 30 }} onPress={() => props.onClose()}>

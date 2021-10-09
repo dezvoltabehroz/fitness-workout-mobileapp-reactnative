@@ -383,6 +383,7 @@ class CompleteProfile extends Component {
                 }
                 <NameModal
                     visible={this.state.nameModal}
+                    name={name}
                     onChangeText={(name) => this.setState({ name: name })}
                     onClose={() => this.setState({ nameModal: false })}
                     onSave={() => this.setState({ nameModal: false })}

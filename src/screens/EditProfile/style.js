@@ -1,5 +1,6 @@
 import { StyleSheet } from "react-native";
 import themeStyle from "../../assets/styles/theme.style";
+import { SCREEN_WIDTH } from "../../lib/utils/constants";
 
 export default StyleSheet.create({
     headingText: {
@@ -35,16 +36,18 @@ export default StyleSheet.create({
         justifyContent: "space-between",
         alignItems: "center"
     },
-   
+
     grayText: {
         color: '#797B7B',
         marginLeft: 10,
+        width: "82.5%",
         fontSize: 13,
         fontFamily: themeStyle.FONT_REGULAR
     },
     rowStyle: {
         flexDirection: "row",
         justifyContent: "center",
-        alignItems:"center",
+
+        alignItems: "center",
     },
 })

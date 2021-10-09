@@ -17,7 +17,7 @@ export const NavigationHeaderLeftButton = (props) => {
 export const NavigationHeaderRightButton = (props) => {
     return (
         <TouchableOpacity
-            style={{ marginRight: 15 }}
+            style={{ marginRight: 15, height: 50, width: 60 ,justifyContent:"center",alignItems:"flex-end"}}
             onPress={() => {
                 props?.edit ?
                     props?.navigation?.navigate(route.EDITPROFILE)

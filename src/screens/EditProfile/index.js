@@ -157,7 +157,7 @@ class CompleteProfile extends Component {
     render() {
         const { tab, name, date, dateValue, weight, submit, submit1, error,
             feet, inch, code, nextLoading, email, emailModal, btnLoading,
-            password, confirmPassword } = this.state;
+            password, confirmPassword, kilo, gram } = this.state;
         const { userData } = this.props.user;
         return (
             <Container>
@@ -172,7 +172,7 @@ class CompleteProfile extends Component {
                             <Text style={styles.grayText}>{name ? name : userData.full_name ? userData.full_name : 'Full Name'}</Text>
                         </View>
 
-                        <TouchableOpacity onPress={() => this.setState({ nameModal: true })}>
+                        <TouchableOpacity onPress={() => this.setState({ nameModal: true,name:userData.full_name })}>
                             <Plus />
                         </TouchableOpacity>
                     </View>
@@ -181,10 +181,11 @@ class CompleteProfile extends Component {
                             <Icon.Entypo name="email" color={'#797B7B'} size={20} />
                             <Text style={styles.grayText}>{email ? email : userData.email ? userData.email : 'Email'}</Text>
                         </View>
-
-                        <TouchableOpacity disabled={userData.email ? true : false} onPress={() => this.setState({ emailModal: true })}>
-                            <Plus />
-                        </TouchableOpacity>
+                        {userData.email ?
+                            null :
+                            <TouchableOpacity disabled={userData.email ? true : false} onPress={() => this.setState({ emailModal: true, email: userData.email })}>
+                                <Plus />
+                            </TouchableOpacity>}
                     </View>
 
                     <View style={styles.rowMeasureContainer}>
@@ -201,7 +202,7 @@ class CompleteProfile extends Component {
                             <Height />
                             <Text style={styles.grayText}>{feet && inch ? `${feet}'${inch}"` : userData.height_feet ? `${userData.height_feet}'${userData.height_inches}"` : "Height"}</Text>
                         </View>
-                        <TouchableOpacity onPress={() => this.setState({ heightModal: true })}>
+                        <TouchableOpacity onPress={() => this.setState({ feet: userData.height_feet, inch: userData.height_inches, heightModal: true, })}>
                             <Plus />
                         </TouchableOpacity>
                     </View>
@@ -211,7 +212,11 @@ class CompleteProfile extends Component {
                             <Text style={styles.grayText}>{weight ? weight : userData.weight ? userData.weight : "Weight"}</Text>
                         </View>
 
-                        <TouchableOpacity onPress={() => this.setState({ weightModal: true })} >
+                        <TouchableOpacity onPress={() => {
+                            let string = `${userData.weight}`
+                            let array = string.split('.');
+                            this.setState({ kilo: `${array[0]}`, gram: `${array[1]}`, weightModal: true, })
+                        }} >
                             <Plus />
                         </TouchableOpacity>
                     </View>
@@ -220,17 +225,18 @@ class CompleteProfile extends Component {
                     </View>
                     {userData.email ?
                         <View style={{ marginHorizontal: "20%" }}>
-                            <Button title={'Change Email'} onPress={() => this.setState({ emailModal: true })} />
+                            <Button title={'Change Email'} onPress={() => this.setState({ emailModal: true, email: userData.email })} />
                         </View> : null}
 
                 </View>
                 <NameModal
                     visible={this.state.nameModal}
+                    name={name}
                     onChangeText={(name) => this.setState({ name: name },)}
-                    onClose={() => this.setState({ nameModal: false })}
+                    onClose={() => this.setState({ nameModal: false,name:"" })}
                     onSave={() => this.setState({ nameModal: false })} />
                 <DateModal
-                    date={date}
+                    date={moment(userData.dob)}
                     visible={this.state.dateModal}
                     setDate={(name) => this.setState({ date: name })}
                     onClose={() => this.setState({ dateModal: false, dateValue: "", date: moment() })}
@@ -241,11 +247,14 @@ class CompleteProfile extends Component {
                     onChangeFeet={(name) => this.setState({ feet: name })}
                     feet={feet}
                     inches={inch}
-                    onClose={() => this.setState({ heightModal: false })}
+                    onClose={() => this.setState({ heightModal: false, feet: "", inch: "" })}
                     onSave={() => this.setState({ heightModal: false })} />
                 <WeightModal
                     visible={this.state.weightModal}
-                    onChangeText={(name) => this.setState({ weight: name })}
+                    kg={kilo}
+                    gram={gram}
+                    onChangeGram={(gram) => this.setState({ gram: gram, weight: `${kilo ? kilo : 0}.${gram ? gram : 0}` })}
+                    onChangeKilo={(kilo) => this.setState({ kilo: kilo, weight: `${kilo ? kilo : 0}.${gram ? gram : 0}` })}
                     onClose={() => this.setState({ weightModal: false })}
                     onSave={() => this.setState({ weightModal: false })} />
                 <EmailModal isVisible={emailModal}
@@ -254,7 +263,7 @@ class CompleteProfile extends Component {
                     btnLoading={btnLoading}
                     setEmail={(email) => this.setState({ email: email })}
                     sendCodeOnEmail={() => this.setState({ submit: true, btnLoading: true }, () => this.sendCodeOnEmail())}
-                    onClose={() => this.setState({ emailModal: false })}
+                    onClose={() => this.setState({ emailModal: false, email: "" })}
                 />
                 <VerifyOtpModal
                     isVisible={this.state.confirmOtpModal}

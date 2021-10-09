@@ -25,7 +25,7 @@ const WeightModal = (props) => {
                         <Input
                             keyboardType={"number-pad"}
                             maxLength={3}
-                            value={props.kg}
+                            value={`${props.kg}`}
                             width={SCREEN_WIDTH * 0.25}
                             placeholder='Pounds' onChangeText={(e) => {
                                 props.onChangeKilo(e)
@@ -39,7 +39,7 @@ const WeightModal = (props) => {
                             keyboardType={"number-pad"}
                             width={SCREEN_WIDTH * 0.25}
                             maxLength={3}
-                            value={props.gram}
+                            value={`${props.gram}`}
                             placeholder='Ounces'
                             onChangeText={(e) => props.onChangeGram(e)}
                         />

@@ -32,7 +32,7 @@ const HeightModal = (props) => {
                     <Input
                         keyboardType={"number-pad"}
                         maxLength={1}
-                        value={props.feet}
+                        value={`${props.feet}`}
                         width={SCREEN_WIDTH * 0.25}
                         placeholder='Feet' onChangeText={(e) => {
                             props.onChangeFeet(e)
@@ -44,7 +44,7 @@ const HeightModal = (props) => {
                         keyboardType={"number-pad"}
                         width={SCREEN_WIDTH * 0.25}
                         maxLength={2}
-                        value={props.inches}
+                        value={`${props.inches}`}
                         placeholder='Inches'
                         onChangeText={(e) => changeInches(e)}
                     />
