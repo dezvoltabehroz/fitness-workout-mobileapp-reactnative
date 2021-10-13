@@ -101,7 +101,7 @@ class Progress extends Component {
 
         const { navigate } = this.props.navigation;
         const { value, data } = this.state;
-        const { height_feet, height_inches, bmi, daily_diet_count, daily_workout_count } = this.props.user.userData;
+        const { height_feet, height_inches, bmi, daily_diet_count, weight, daily_workout_count } = this.props.user.userData;
         const { arm_size, chest_size, shoulder_size, waist_size, tummy_size, hip_size, thigh_size, calf_size } = this.props.user.userData.bodyMeasurementDetails;
 
         return (
@@ -241,16 +241,24 @@ class Progress extends Component {
                             </View>
                             <View style={styles.rowContainer1}>
                                 <Text style={styles.blackText}>Height</Text>
-                                <TouchableOpacity>
+                                <Text style={[styles.grayText, { textDecorationLine: "underline" }]}>{`${height_feet ? height_feet : 0} FT ${height_inches ? height_inches : 0} IN`}</Text>
+                                {/* <TouchableOpacity>
                                     <Text style={styles.colorText}>{screen.EDIT}</Text>
-                                </TouchableOpacity>
+                                </TouchableOpacity> */}
                             </View>
                             <View style={styles.rowContainer1}>
+                                <Text style={styles.blackText}>Weight</Text>
+                                <Text style={[styles.grayText, { textDecorationLine: "underline" }]}>{weight}</Text>
+                                {/* <TouchableOpacity>
+                                    <Text style={styles.colorText}>{screen.EDIT}</Text>
+                                </TouchableOpacity> */}
+                            </View>
+                            {/* <View style={styles.rowContainer1}>
                                 <Text style={styles.colorText}>Current</Text>
                                 <TouchableOpacity>
                                     <Text style={[styles.grayText, { textDecorationLine: "underline" }]}>{`${height_feet ? height_feet : 0} FT ${height_inches ? height_inches : 0} IN`}</Text>
                                 </TouchableOpacity>
-                            </View>
+                            </View> */}
                         </View>
                         <View style={styles.divider}></View>
                         <View style={styles.bmiContainer}>

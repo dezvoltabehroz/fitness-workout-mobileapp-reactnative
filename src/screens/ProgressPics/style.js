@@ -9,7 +9,7 @@ export default StyleSheet.create({
     imageStyle: {
         flex: 1,
         height: SCREEN_HEIGHT * 0.45,
-        width: SCREEN_WIDTH
+        width: SCREEN_WIDTH*0.96
     },
     dateContainer: {
         marginHorizontal: "5%",
@@ -31,5 +31,14 @@ export default StyleSheet.create({
         color:themeStyle.COLOR_WHITE,
         fontFamily: themeStyle.FONT_MEDIUM,
         fontSize: 16
-    }
+    },
+    container1: {
+        flex: 1,
+        overflow: "hidden",
+        justifyContent:"center",alignItems:"center"
+    },
+    overlay: {
+        ...StyleSheet.absoluteFillObject,
+        backgroundColor: 'rgba(0,0,0,0.7)',
+    },
 })
