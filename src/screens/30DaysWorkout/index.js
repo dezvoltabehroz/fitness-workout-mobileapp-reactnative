@@ -168,7 +168,8 @@ class PowerOfMind extends Component {
                                     :
                                     null
                             }
-                            {is_pro == 1 && workoutWeekDate && workoutWeekDate[index] == 1 || index == 0 ?
+                            {is_pro == 1 //&& workoutWeekDate && workoutWeekDate[index] == 1
+                                || index == 0 ?
                                 <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", right: 15 }}>
                                     <CircularProgress
                                         value={progressCount.length / item.workoutDays.length * 100 == 0 ? 0 : progressCount.length / item.workoutDays.length * 100}
@@ -203,7 +204,7 @@ class PowerOfMind extends Component {
                 {item.expanded ?
                     item.workoutDays.map((element, inde) => {
                         return (
-                            <TouchableOpacity disabled={element.date == moment().format('YYYY-MM-DD') ? false : true} onPress={() => {
+                            <TouchableOpacity disabled={ moment().format('YYYY-MM-DD') >= moment(element.date).format("YYYY-MM-DD") ? false : true} onPress={() => {
                                 this.props.navigation.navigate(route.DAYSWORKOUTVIDEOS, { data: element, workout_week: week[1] })
                             }} style={styles.itemContainer} >
                                 <View style={styles.textContainer1}>
@@ -231,7 +232,7 @@ class PowerOfMind extends Component {
                                         </View>
                                         <View style={{ flex: 0.2, alignItems: "center" }} >
                                             {
-                                                moment().format('YYYY-MM-DD') == moment(element.date).format("YYYY-MM-DD") ?
+                                                moment().format('YYYY-MM-DD') >= moment(element.date).format("YYYY-MM-DD") ?
                                                     <CircularProgress
                                                         value={element?.completed ? 100 : 0}
                                                         duration={50}
@@ -247,7 +248,7 @@ class PowerOfMind extends Component {
                                                         onAnimationComplete={() => { this.setState({ value: true }) }}
                                                     />
                                                     :
-                                                    <View style={{ top:  -5 }}>
+                                                    <View style={{ top: -5 }}>
                                                         <Icon.SimpleLineIcons name="lock" size={20} color={'gray'} />
                                                     </View>
                                             }

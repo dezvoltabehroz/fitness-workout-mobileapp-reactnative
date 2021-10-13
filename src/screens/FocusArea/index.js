@@ -34,53 +34,67 @@ class FocusArea extends Component {
         this.setState({ equipment: JSON.parse(equipment) })
         let array = [];
         console.log(this.props.user.userData.tags)
-        // let focusAreaString = this.props.user.userData.tags;
-        // let focusAreaArray = focusAreaString.split(',')
-        // focusAreaArray.forEach(element => {
-        //     if (element) {
-        //         array.push(element)
-        //         if (element == 'shoulder') {
-        //             storeLocalData(LOCAL_STORAGE_KEYS.focusAreaShoulder, JSON.stringify('1'))
-        //             this.setState({ shoulder: true })
-        //         } else if (element == 'arms') {
-        //             storeLocalData(LOCAL_STORAGE_KEYS.focusAreaArms, JSON.stringify('1'))
-        //             this.setState({ arm: true })
-        //         } else if (element == 'chest') {
-        //             storeLocalData(LOCAL_STORAGE_KEYS.focusAreaChest, JSON.stringify('1'))
-        //             this.setState({ chest: true })
-        //         } else if (element == 'back') {
-        //             storeLocalData(LOCAL_STORAGE_KEYS.focusAreaBack, JSON.stringify('1'))
-        //             this.setState({ back: true })
-        //         } else if (element == 'glutes') {
-        //             storeLocalData(LOCAL_STORAGE_KEYS.focusAreaGlutes, JSON.stringify('1'))
-        //             this.setState({ glute: true })
-        //         } else if (element == 'legs') {
-        //             storeLocalData(LOCAL_STORAGE_KEYS.focusAreaLegs, JSON.stringify('1'))
-        //             this.setState({ leg: true })
-        //         } else if (element == 'waist') {
-        //             storeLocalData(LOCAL_STORAGE_KEYS.focusAreaWaist, JSON.stringify('1'))
-        //             this.setState({ waist: true })
-        //         }
-        //     }
-        // });
-        // console.log(array)
-        // this.setState({ arr: array })
+        storeLocalData(LOCAL_STORAGE_KEYS.focusAreaShoulder, JSON.stringify('0'))
+        storeLocalData(LOCAL_STORAGE_KEYS.focusAreaArms, JSON.stringify('0'))
+        storeLocalData(LOCAL_STORAGE_KEYS.focusAreaChest, JSON.stringify('0'))
+        storeLocalData(LOCAL_STORAGE_KEYS.focusAreaBack, JSON.stringify('0'))
+        storeLocalData(LOCAL_STORAGE_KEYS.focusAreaGlutes, JSON.stringify('0'))
+        storeLocalData(LOCAL_STORAGE_KEYS.focusAreaLegs, JSON.stringify('0'))
+        storeLocalData(LOCAL_STORAGE_KEYS.focusAreaWaist, JSON.stringify('0'))
+        let focusAreaString = this.props.user.userData.tags;
+        let focusAreaArray = focusAreaString.split(',')
+        focusAreaArray.forEach(element => {
+            if (element) {
+                array.push(element)
+                if (element == 'shoulder') {
+                    storeLocalData(LOCAL_STORAGE_KEYS.focusAreaShoulder, JSON.stringify('1'))
+                    this.setState({ shoulder: true })
+                } else if (element == 'arms') {
+                    storeLocalData(LOCAL_STORAGE_KEYS.focusAreaArms, JSON.stringify('1'))
+                    this.setState({ arm: true })
+                } else if (element == 'chest') {
+                    storeLocalData(LOCAL_STORAGE_KEYS.focusAreaChest, JSON.stringify('1'))
+                    this.setState({ chest: true })
+                } else if (element == 'back') {
+                    storeLocalData(LOCAL_STORAGE_KEYS.focusAreaBack, JSON.stringify('1'))
+                    this.setState({ back: true })
+                } else if (element == 'glutes') {
+                    storeLocalData(LOCAL_STORAGE_KEYS.focusAreaGlutes, JSON.stringify('1'))
+                    this.setState({ glute: true })
+                } else if (element == 'legs') {
+                    storeLocalData(LOCAL_STORAGE_KEYS.focusAreaLegs, JSON.stringify('1'))
+                    this.setState({ leg: true })
+                } else if (element == 'waist') {
+                    storeLocalData(LOCAL_STORAGE_KEYS.focusAreaWaist, JSON.stringify('1'))
+                    this.setState({ waist: true })
+                }
+            }
+        });
+        console.log(array)
+        this.setState({ arr: array })
     }
 
     handleDone = () => {
         let array = [...this.state.arr];
+        storeLocalData(LOCAL_STORAGE_KEYS.focusAreaShoulder, JSON.stringify('0'))
+        storeLocalData(LOCAL_STORAGE_KEYS.focusAreaArms, JSON.stringify('0'))
+        storeLocalData(LOCAL_STORAGE_KEYS.focusAreaChest, JSON.stringify('0'))
+        storeLocalData(LOCAL_STORAGE_KEYS.focusAreaBack, JSON.stringify('0'))
+        storeLocalData(LOCAL_STORAGE_KEYS.focusAreaGlutes, JSON.stringify('0'))
+        storeLocalData(LOCAL_STORAGE_KEYS.focusAreaLegs, JSON.stringify('0'))
+        storeLocalData(LOCAL_STORAGE_KEYS.focusAreaWaist, JSON.stringify('0'))
         array.forEach(element => {
             if (element == 'shoulder') {
                 storeLocalData(LOCAL_STORAGE_KEYS.focusAreaShoulder, JSON.stringify('1'))
-            } else if (element == 'arm') {
+            } else if (element == 'arms') {
                 storeLocalData(LOCAL_STORAGE_KEYS.focusAreaArms, JSON.stringify('1'))
             } else if (element == 'chest') {
                 storeLocalData(LOCAL_STORAGE_KEYS.focusAreaChest, JSON.stringify('1'))
             } else if (element == 'back') {
                 storeLocalData(LOCAL_STORAGE_KEYS.focusAreaBack, JSON.stringify('1'))
-            } else if (element == 'glute') {
+            } else if (element == 'glutes') {
                 storeLocalData(LOCAL_STORAGE_KEYS.focusAreaGlutes, JSON.stringify('1'))
-            } else if (element == 'leg') {
+            } else if (element == 'legs') {
                 storeLocalData(LOCAL_STORAGE_KEYS.focusAreaLegs, JSON.stringify('1'))
             } else if (element == 'waist') {
                 storeLocalData(LOCAL_STORAGE_KEYS.focusAreaWaist, JSON.stringify('1'))
@@ -119,6 +133,7 @@ class FocusArea extends Component {
                                                         if (shoulder) {
                                                             let data = [...arr];
                                                             const index = data.findIndex(item => item === 'shoulder');
+                                                            console.log(data.filter((_, i) => i != index))
                                                             this.setState({ shoulder: !shoulder, arr: data.filter((_, i) => i != index) })
                                                         } else {
                                                             let data = [...arr];
@@ -137,6 +152,7 @@ class FocusArea extends Component {
                                                         if (chest) {
                                                             let data = [...arr];
                                                             const index = data.findIndex(item => item === 'chest');
+                                                            console.log(data.filter((_, i) => i != index))
                                                             this.setState({ chest: !chest, arr: data.filter((_, i) => i != index) })
                                                         } else {
                                                             let data = [...arr];
@@ -154,11 +170,12 @@ class FocusArea extends Component {
                                                     isChecked={arm} label="Arms" onPress={() => {
                                                         if (arm) {
                                                             let data = [...arr];
-                                                            const index = data.findIndex(item => item === 'arm');
+                                                            const index = data.findIndex(item => item === 'arms');
+                                                            console.log(data.filter((_, i) => i != index))
                                                             this.setState({ arm: !arm, arr: data.filter((_, i) => i != index) })
                                                         } else {
                                                             let data = [...arr];
-                                                            data.push('arm')
+                                                            data.push('arms')
                                                             this.setState({ arm: !arm, arr: data })
 
                                                         }
@@ -172,11 +189,12 @@ class FocusArea extends Component {
                                                     isChecked={glute} label="Glutes" onPress={() => {
                                                         if (glute) {
                                                             let data = [...arr];
-                                                            const index = data.findIndex(item => item === 'glute');
+                                                            const index = data.findIndex(item => item === 'glutes');
+                                                            console.log(data.filter((_, i) => i != index))
                                                             this.setState({ glute: !glute, arr: data.filter((_, i) => i != index) })
                                                         } else {
                                                             let data = [...arr];
-                                                            data.push('glute')
+                                                            data.push('glutes')
                                                             this.setState({ glute: !glute, arr: data })
 
                                                         }
@@ -193,6 +211,7 @@ class FocusArea extends Component {
                                                         if (back) {
                                                             let data = [...arr];
                                                             const index = data.findIndex(item => item === 'back');
+                                                            console.log(data.filter((_, i) => i != index))
                                                             this.setState({ back: !back, arr: data.filter((_, i) => i != index) })
                                                         } else {
                                                             let data = [...arr];
@@ -213,6 +232,7 @@ class FocusArea extends Component {
                                                         if (waist) {
                                                             let data = [...arr];
                                                             const index = data.findIndex(item => item === 'waist');
+                                                            console.log(data.filter((_, i) => i != index))
                                                             this.setState({ waist: !waist, arr: data.filter((_, i) => i != index) })
                                                         } else {
                                                             let data = [...arr];
@@ -232,11 +252,11 @@ class FocusArea extends Component {
                                                     onPress={() => {
                                                         if (leg) {
                                                             let data = [...arr];
-                                                            const index = data.findIndex(item => item === 'leg');
-                                                            this.setState({ leg: !leg, arr: data.filter((_, i) => i != index) })
+                                                            const index = data.findIndex(item => item === 'legs');
+                                                            this.setState({ arr: data.filter((_, i) => i != index), leg: !leg, })
                                                         } else {
                                                             let data = [...arr];
-                                                            data.push('leg')
+                                                            data.push('legs')
                                                             this.setState({ leg: !leg, arr: data })
 
                                                         }
@@ -291,11 +311,11 @@ class FocusArea extends Component {
                                                     isChecked={arm} label="Arms" onPress={() => {
                                                         if (arm) {
                                                             let data = [...arr];
-                                                            const index = data.findIndex(item => item === 'arm');
+                                                            const index = data.findIndex(item => item === 'arms');
                                                             this.setState({ arm: !arm, arr: data.filter((_, i) => i != index) })
                                                         } else {
                                                             let data = [...arr];
-                                                            data.push('arm')
+                                                            data.push('arms')
                                                             this.setState({ arm: !arm, arr: data })
                                                         }
 
@@ -309,11 +329,11 @@ class FocusArea extends Component {
                                                     isChecked={glute} label="Glutes" onPress={() => {
                                                         if (glute) {
                                                             let data = [...arr];
-                                                            const index = data.findIndex(item => item === 'glute');
+                                                            const index = data.findIndex(item => item === 'glutes');
                                                             this.setState({ glute: !glute, arr: data.filter((_, i) => i != index) })
                                                         } else {
                                                             let data = [...arr];
-                                                            data.push('glute')
+                                                            data.push('glutes')
                                                             this.setState({ glute: !glute, arr: data })
                                                         }
 
@@ -349,11 +369,11 @@ class FocusArea extends Component {
                                                     onPress={() => {
                                                         if (leg) {
                                                             let data = [...arr];
-                                                            const index = data.findIndex(item => item === 'leg');
+                                                            const index = data.findIndex(item => item === 'legs');
                                                             this.setState({ leg: !leg, arr: data.filter((_, i) => i != index) })
                                                         } else {
                                                             let data = [...arr];
-                                                            data.push('leg')
+                                                            data.push('legs')
                                                             this.setState({ leg: !leg, arr: data })
                                                         }
 

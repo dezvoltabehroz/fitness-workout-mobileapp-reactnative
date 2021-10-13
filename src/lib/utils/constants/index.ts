@@ -23,7 +23,7 @@ const screen = {
     APP_INTRO_Heading_3: "SELECT EQUIPMENT",
     APP_INTRO_DESCRIPTION_3: "Select the equipment you would like to use in your personal workout program.",
     APP_INTRO_Button_1_3: "Body Weights",
-    APP_INTRO_Button_2_3: "Dumbbell",
+    APP_INTRO_Button_2_3: "Dumbell",
     APP_INTRO_Button_3_3: "Bands",
     APP_INTRO_Button_4_3: "Mixed equipment",
     APP_INTRO_Button_DESCRIPTION_1_3: 'No equipment. I want to use bodyweight exercise only in my personal workout program.',

@@ -105,8 +105,8 @@ class FitnessLevel extends Component {
                                         <Bar width={SCREEN_WIDTH*0.9} />
                                     </View>
                                     <CustomSlider1
-                                        min={0}
-                                        max={3}
+                                        min={1}
+                                        max={4}
                                         selectedValue={seclectedValue}
                                         resetValue={(reset) => this.resetSlider = reset}
                                         LRpadding={40}

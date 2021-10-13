@@ -6,16 +6,16 @@ export class Item extends Component {
     style_Func = () => {
         let style;
         switch (this.props.value) {
-            case 0:
+            case 1:
                 style = 'Not Fit';
                 break;
-            case 1:
+            case 2:
                 style = 'Average Fit';
                 break;
-            case 2:
+            case 3:
                 style = 'Good Fit';
                 break;
-            case 3:
+            case 4:
                 style = 'Very Fit';
                 break;
             default:
@@ -35,7 +35,7 @@ export class Item extends Component {
     }
 
     checkActive = () => {
-        if (this.props.value == this.props.second)
+        if (this.props.value == this.props.index)
             return true
         else
             return false
