@@ -62,19 +62,24 @@ class DaysWorkoutVideos extends Component {
 
     _renderItems = (item, index) => {
         return (
-            <ImageBackground resizeMode={"contain"} source={{ uri: item.video_thumbnail }} style={styles.imageStyle}>
-                <View >
-                    <Text style={styles.headingText}>{item.video_title}</Text>
-                    <Text style={styles.headingText3}>30S <Text style={styles.timeText}>Total Time</Text> </Text>
-                </View>
-                <View style={{ alignItems: "center" }}>
-                    <Icon.AntDesign onPress={() => { this.props.navigation.navigate(route.DAYSWORKOUTVIDEOPLAYER, { data: item, dayCompleted: index + 1 == this.state.videos ? true : false, workout_week: this.props.route.params.workout_week }); this.handleUpdateDailyWorkout(index, item) }} name='play' size={50} color={themeStyle.BAR_COLOR} />
-                </View>
-                <View style={styles.rowContentContainer} >
-                    <Text style={styles.headingText2}>00:25</Text>
-                    <Youtube fill={'#000000'} />
-                </View>
-            </ImageBackground>
+            <View style={styles.container1}>
+                <ImageBackground resizeMode={"contain"} source={{ uri: item.video_thumbnail }} style={styles.imageStyle}>
+                    <View style={styles.overlay} />
+
+                    <View >
+                        <Text style={styles.headingText}>{item.video_title}</Text>
+                        <Text style={styles.headingText3}>30S <Text style={styles.timeText}>Total Time</Text> </Text>
+                    </View>
+                    <View style={{ alignItems: "center" }}>
+                        <Icon.AntDesign onPress={() => { this.props.navigation.navigate(route.DAYSWORKOUTVIDEOPLAYER, { data: item, dayCompleted: index + 1 == this.state.videos ? true : false, workout_week: this.props.route.params.workout_week }); this.handleUpdateDailyWorkout(index, item) }} name='play' size={50} color={themeStyle.BAR_COLOR} />
+                    </View>
+                    <View style={styles.rowContentContainer} >
+                        <Text style={styles.headingText2}>00: 25</Text>
+                        <Youtube fill={'#fff'} />
+                    </View>
+                </ImageBackground>
+            </View>
+
         )
     }
 

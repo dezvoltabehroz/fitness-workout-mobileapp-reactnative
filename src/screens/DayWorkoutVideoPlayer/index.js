@@ -31,18 +31,22 @@ class DayWorkoutVideoPlayer extends Component {
             completedModal: false,
             playerState: PLAYER_STATES.PLAYING,
             screenType: 'contain',
-            desc: [1, 2, 3, 4, 5],
+            desc: [],
             feedback: "",
         }
         this.videoPlayer = null
     }
 
     componentDidMount = (volume) => {
+        const { video_description } = this.props?.route?.params?.data;
         this.props.navigation.setOptions({
             headerRight: () => this.headerRight(),
             headerLeft: () => this.headerLeft(),
             tabBarVisible: false
         });
+        let description = video_description.split(',')
+        console.log(description);
+        this.setState({ desc: description })
     }
 
     headerRight = () => {
@@ -228,10 +232,13 @@ class DayWorkoutVideoPlayer extends Component {
                             {
                                 this.state.desc.map((item, index) => {
                                     return (
-                                        <View style={styles.rowContainer}>
-                                            <Icon.Octicons name="primitive-dot" size={20} color={'lightgray'} />
-                                            <Text style={styles.textStyle} >{video_description}</Text>
-                                        </View>
+                                        item ?
+                                            <View style={styles.rowContainer}>
+                                                <Icon.Octicons name="primitive-dot" size={20} color={'lightgray'} />
+                                                <Text style={styles.textStyle} >{item}</Text>
+                                            </View>
+                                            :
+                                            null
                                     )
                                 })
                             }

@@ -137,6 +137,26 @@ export default StyleSheet.create({
         color: '#797B7B',
         fontSize: 16,
         fontFamily: THEME.FONT_REGULAR
-    }
-
+    },
+    container1: {
+        flex: 1,
+        overflow: "hidden",
+        justifyContent: "center", alignItems: "center"
+    },
+    overlay: {
+        ...StyleSheet.absoluteFillObject,
+        backgroundColor: 'rgba(0,0,0,0.7)',
+    },
+    dateContainer: {
+        flex: 1,
+        marginBottom: "5%",
+        marginTop: "5%",
+        justifyContent: "flex-end",
+        alignItems: "center"
+    },
+    dateText: {
+        color: THEME.COLOR_WHITE,
+        fontFamily: THEME.FONT_MEDIUM,
+        fontSize: 14
+    },
 })

@@ -22,7 +22,7 @@ import Tummy from '../../assets/svg/tummy.svg'
 import Waist from '../../assets/svg/waist.svg'
 
 import styles from './style';
-import { route } from "../../lib/utils/constants";
+import { route, SCREEN_WIDTH } from "../../lib/utils/constants";
 import moment from "moment";
 import { getLocalData, LOCAL_STORAGE_KEYS } from "../../lib/utils/localstorage";
 import { AuthServices, ProfileServices } from "../../services";
@@ -67,7 +67,8 @@ class CompleteProfile extends Component {
             submit: false,
             submit1: false,
             kilo: "",
-            gram: ""
+            gram: "",
+            submit3: false
         }
     }
 
@@ -93,8 +94,9 @@ class CompleteProfile extends Component {
     handleOnPressNext = async () => {
         const { tab, name, email, dateValue, weight, password, feet, inch } = this.state;
         const user_id = await getLocalData(LOCAL_STORAGE_KEYS.user_id);
+
         const userToken = await getLocalData(LOCAL_STORAGE_KEYS.userToken);
-        if (name && dateValue && inch && weight && feet) {
+        if (name && email && dateValue && weight && feet && password) {
             let data = {
                 "email": email,
                 "full_name": name,
@@ -114,6 +116,10 @@ class CompleteProfile extends Component {
                         }
                         this.setState({ nextLoading: false, tab: 1 })
                         this.props.authActions.getUserProfile(userData);
+                    }
+                    else {
+                        this.setState({ nextLoading: false });
+                        alert(response.data.message)
                     }
                 })
                 .catch((err) => console.log(err.response))
@@ -163,15 +169,14 @@ class CompleteProfile extends Component {
     }
 
     setPassword = async () => {
-        const { password, submit, confirmPassword } = this.state;
-        if (password && isPasswordValid(password) && submit && confirmPassword && confirmPassword == password) {
-
+        const { password, submit3, confirmPassword } = this.state;
+        if (password && isPasswordValid(password) && submit3 && confirmPassword && confirmPassword == password) {
             this.setState({
                 btnLoading: false, submit: false,
                 passwordModal: false
             })
         } else {
-            this.setState({ submit: true, btnLoading: false })
+            this.setState({ submit3: true, btnLoading: false })
         }
 
     }
@@ -207,11 +212,14 @@ class CompleteProfile extends Component {
             this.setState({ submit1: true, btnLoading: false })
         }
     }
+    securePasswordEntry(value) {
+        return value && value.replace(/./g, '*')
+    }
 
     render() {
         const { tab, name, date, dateValue, weight, height, email, kilo, gram,
             feet, inch, nextLoading, arm, next2Loading, chest, btnLoading, code, error, confirmPassword, password, submit, submit1,
-            shoulder, waist, hip, tummy, thigh, calft, emailModal, confirmOtpModal, passwordModal } = this.state
+            shoulder, waist, hip, tummy, thigh, calft, emailModal, confirmOtpModal, passwordModal, submit3 } = this.state
 
         return (
             <Container>
@@ -238,7 +246,7 @@ class CompleteProfile extends Component {
                             <View style={styles.rowMeasureContainer}>
                                 <View style={styles.rowStyle}>
                                     <Icon.Entypo name="email" color={'#797B7B'} size={20} />
-                                    <Text style={styles.grayText}>{email ? email : 'Email'}</Text>
+                                    <Text style={{ ...styles.grayText, width: SCREEN_WIDTH * 0.55 }}>{email ? email : 'Email'}</Text>
                                 </View>
 
                                 <TouchableOpacity onPress={() => this.setState({ emailModal: true })}>
@@ -248,7 +256,7 @@ class CompleteProfile extends Component {
                             <View style={styles.rowMeasureContainer}>
                                 <View style={styles.rowStyle}>
                                     <Icon.Entypo name="lock" color={'#797B7B'} size={20} />
-                                    <Text style={styles.grayText}>{password ? password : 'Password'}</Text>
+                                    <Text style={styles.grayText}>{password ? this.securePasswordEntry(password) : 'Password'}</Text>
                                 </View>
 
                                 <TouchableOpacity onPress={() => this.setState({ passwordModal: true })}>
@@ -267,7 +275,7 @@ class CompleteProfile extends Component {
                             <View style={styles.rowMeasureContainer}>
                                 <View style={styles.rowStyle}>
                                     <Height />
-                                    <Text style={styles.grayText}>{feet && inch ? `${feet}'${inch}"` : 'Height'}</Text>
+                                    <Text style={styles.grayText}>{feet ? `${feet}'${inch ? inch : 0}"` : 'Height'}</Text>
                                 </View>
                                 <TouchableOpacity onPress={() => this.setState({ heightModal: true })}>
                                     <Plus />
@@ -400,13 +408,13 @@ class CompleteProfile extends Component {
                     feet={feet}
                     inches={inch}
                     onClose={() => this.setState({ heightModal: false })}
-                    onSave={() => this.setState({ heightModal: false })} />
+                    onSave={() => this.setState({ heightModal: false, inch: inch != "" ? inch : 0 })} />
                 <WeightModal
                     visible={this.state.weightModal}
                     kg={kilo}
                     gram={gram}
-                    onChangeGram={(gram) => this.setState({ gram: gram, weight: `${kilo ? kilo : 0}.${gram ? gram : 0}` })}
-                    onChangeKilo={(kilo) => this.setState({ kilo: kilo, weight: `${kilo ? kilo : 0}.${gram ? gram : 0}` })}
+                    onChangeGram={(gram) => this.setState({ gram: gram, weight: `${kilo != "" ? kilo : 0}.${gram != "" ? gram : 0}` })}
+                    onChangeKilo={(kilo) => this.setState({ kilo: kilo, weight: `${kilo != "" ? kilo : 0}.${gram != "" ? gram : 0}` })}
                     onClose={() => this.setState({ weightModal: false })}
                     onSave={() => this.setState({ weightModal: false })} />
                 <ArmSizeModal
@@ -472,30 +480,30 @@ class CompleteProfile extends Component {
                     animationOutTiming={200} >
                     <View style={styles.cardContainer}>
                         <View style={{ marginTop: "5%", }}>
-                            {/* <View style={{ alignItems: "flex-end" }}>
-                                <TouchableOpacity disabled={!btnLoading} onPress={() => this.setState({ passwordModal: false, })}><Icon.AntDesign name="close" size={20} /></TouchableOpacity>
-                            </View> */}
+                            <View style={{ alignItems: "flex-end" }}>
+                                <TouchableOpacity onPress={() => this.setState({ passwordModal: false, })}><Icon.AntDesign name="close" size={20} /></TouchableOpacity>
+                            </View>
                             <Text style={styles.headingText}>Enter Your Password</Text>
                             <View style={{ marginTop: "10%", }}>
                                 <Input editable={!btnLoading} secureTextEntry={true} bottomMargin={true} value={password} placeholder="" onChangeText={(email) => this.setState({ password: email })} />
                                 {
-                                    submit && !password ? <Text style={[themeStyle1.errorText,]}>Please fill this field</Text> : null
+                                    submit3 && !password ? <Text style={[themeStyle1.errorText,]}>Please fill this field</Text> : null
                                 }
                                 {
-                                    submit && password.length && !isPasswordValid(password) ? <Text style={[themeStyle1.errorText,]}>At lease 8 characters with 1 upper case letter, 1 digit, and 1 special character (Admin12$)</Text> : null
+                                    submit3 && password.length && !isPasswordValid(password) ? <Text style={[themeStyle1.errorText,]}>At lease 8 characters with 1 upper case letter, 1 digit, and 1 special character (Admin12$)</Text> : null
                                 }
                             </View>
                             <Text style={styles.headingText}>Re-type your password</Text>
                             <View style={{ marginTop: "10%", }}>
                                 <Input editable={!btnLoading} secureTextEntry={true} bottomMargin={true} value={confirmPassword} placeholder="" onChangeText={(email) => this.setState({ confirmPassword: email })} />
                                 {
-                                    submit && !confirmPassword ? <Text style={[themeStyle1.errorText,]}>Please fill this field</Text> :
-                                        submit && password != confirmPassword ? <Text style={[themeStyle1.errorText,]}>Password Mismatch</Text> : null
+                                    submit3 && !confirmPassword ? <Text style={[themeStyle1.errorText,]}>Please fill this field</Text> :
+                                        submit3 && password != confirmPassword ? <Text style={[themeStyle1.errorText,]}>Password Mismatch</Text> : null
                                 }
                             </View>
                         </View>
                         <View style={{ marginHorizontal: "15%", marginVertical: "5%" }}>
-                            <Button loading={btnLoading} disabled={password == confirmPassword ? false : true} title={'Continue'} onPress={() => this.setState({ btnLoading: true, submit: true }, () => this.setPassword())} />
+                            <Button loading={btnLoading} disabled={password != "" && password == confirmPassword ? false : true} title={'Continue'} onPress={() => this.setState({ btnLoading: true, submit3: true }, () => this.setPassword())} />
                         </View>
                     </View>
 

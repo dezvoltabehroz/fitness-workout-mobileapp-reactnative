@@ -111,10 +111,9 @@ class ProgressPics extends Component {
                                     ItemSeparatorComponent={VerticalSpacer}
                                     renderItem={({ item, index }) => this._renderItem(item, index)} />
                     }
-
-                    <TouchableOpacity onPress={this.chooseFile} style={styles.buttonContainer}>
+                    {/* <TouchableOpacity onPress={this.chooseFile} style={styles.buttonContainer}>
                         <Text style={styles.btnText}>TAKE PIC</Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                 </View>
                 <UploadingModal visible={this.state.uploading} />
             </Container>
