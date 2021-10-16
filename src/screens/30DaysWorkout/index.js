@@ -204,7 +204,7 @@ class PowerOfMind extends Component {
                 {item.expanded ?
                     item.workoutDays.map((element, inde) => {
                         return (
-                            <TouchableOpacity disabled={ moment().format('YYYY-MM-DD') >= moment(element.date).format("YYYY-MM-DD") ? false : true} onPress={() => {
+                            <TouchableOpacity disabled={moment().format('YYYY-MM-DD') >= moment(element.date).format("YYYY-MM-DD") ? false : true} onPress={() => {
                                 this.props.navigation.navigate(route.DAYSWORKOUTVIDEOS, { data: element, workout_week: week[1] })
                             }} style={styles.itemContainer} >
                                 <View style={styles.textContainer1}>
@@ -269,6 +269,7 @@ class PowerOfMind extends Component {
 
     render() {
         const { navigation } = this.props;
+        const { bmi, daily_diet_count, daily_workout_count, is_pro } = this.props.user.userData;
         return (
             <Container color>
                 <View style={styles.container}>
@@ -283,20 +284,20 @@ class PowerOfMind extends Component {
                                     <ImageBackground imageStyle={styles.stylingImage} style={styles.imageStyle} source={require('../../assets/images/chest-work.jpg')}>
                                         <Text style={styles.headingText1} >30 DAY'S WORKOUT</Text>
                                         <View style={styles.rowContainer}>
-                                            <Text style={styles.headingText}>Day {1}</Text>
-                                            <View style={styles.row}>
+                                            <Text style={styles.headingText}>Day {daily_workout_count == 0 ? 1 : daily_workout_count}</Text>
+                                            {/* <View style={styles.row}>
                                                 <WFire />
                                                 <Text style={[styles.whiteText, { marginHorizontal: 5 }]}>10 Workouts</Text>
-                                            </View>
+                                            </View> */}
                                         </View>
                                         <View style={styles.rowContainer}>
-                                            <Text style={styles.whiteText}>30 Days Left</Text>
-                                            <Text style={styles.whiteText} >10 %</Text>
+                                            <Text style={styles.whiteText}>{30 - daily_workout_count} Days Left</Text>
+                                            <Text style={styles.whiteText} >{daily_workout_count ? Math.floor(daily_workout_count / 30 * 100) : 0}%</Text>
                                         </View>
                                         <ProgressBarAnimated
                                             width={SCREEN_WIDTH * 0.9}
                                             height={10}
-                                            value={20}
+                                            value={daily_workout_count ? Math.floor(daily_workout_count / 30 * 100) : 0}
                                             {...progressCustomStyles}
                                             onComplete={() => { }}
                                         />
