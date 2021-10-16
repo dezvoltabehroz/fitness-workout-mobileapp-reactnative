@@ -23,25 +23,25 @@ export default StyleSheet.create({
     },
     headingText: {
         fontSize: 18,
-        color: '#1F2729',
+        color: '#fff',
         textTransform: "uppercase",
         fontFamily: themeStyle.FONT_BOLD
     },
     headingText2: {
         fontSize: 35,
-        color: '#1F2729',
+        color: '#fff',
         textTransform: "uppercase",
         fontFamily: themeStyle.FONT_BOLD
     },
     headingText3: {
         fontSize: 30,
-        color: '#1F2729',
+        color: '#fff',
         textTransform: "uppercase",
         fontFamily: themeStyle.FONT_BOLD
     },
     timeText: {
         fontSize: 12,
-        color: '#1F2729',
+        color: '#fff',
         textTransform: "uppercase",
         fontFamily: themeStyle.FONT_REGULAR
     },
@@ -49,5 +49,14 @@ export default StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center"
-    }
+    },
+    container1: {
+        flex: 1,
+        overflow: "hidden",
+        justifyContent: "center", alignItems: "center"
+    },
+    overlay: {
+        ...StyleSheet.absoluteFillObject,
+        backgroundColor: 'rgba(0,0,0,0.7)',
+    },
 })

@@ -18,6 +18,8 @@ import { connect } from 'react-redux';
 import { PlanServices, ProfileServices } from '../../services';
 import { getLocalData, LOCAL_STORAGE_KEYS } from '../../lib/utils/localstorage';
 import themeStyle from '../../assets/styles/theme.style';
+import RenderHTML from 'react-native-render-html';
+import { SCREEN_WIDTH } from '../../lib/utils/constants';
 
 class DietPlanDetails extends Component {
     constructor(props) {
@@ -31,12 +33,15 @@ class DietPlanDetails extends Component {
 
     componentDidMount = async () => {
         this.setState({ loading: true })
+        console.log(this.props.user.userData.fitness_goal.toLowerCase())
+        console.log(JSON.parse(await getLocalData(LOCAL_STORAGE_KEYS.DietPreference)));
         let data = {
             "category_name": JSON.parse(await getLocalData(LOCAL_STORAGE_KEYS.DietPreference)),
-            // "fitness_goal": this.props.user.userData.fitness_goal,
-            "fitness_goal": "muscle gain",
+            "fitness_goal": this.props.user.userData.fitness_goal.toLowerCase(),
+            // "fitness_goal": "muscle gain",
             "week_name": this.props.route.params.dietData.weekName
         }
+        console.log(data);
         PlanServices.getMealPlan(data, this.props.user.userData.token)
             .then((res) => {
                 console.log(res.data);
@@ -92,7 +97,8 @@ class DietPlanDetails extends Component {
                                                                     <EarlyRise />}
                                                     <Text style={styles.headingText}>{item.dietName}</Text>
                                                 </View>
-                                                {
+                                                <RenderHTML contentWidth={SCREEN_WIDTH} source={{ html: item.description }} />
+                                                {/* {
                                                     item?.description.map((element, i) => {
                                                         return (
                                                             <View style={styles.rowContainer}>
@@ -101,7 +107,7 @@ class DietPlanDetails extends Component {
                                                             </View>
                                                         )
                                                     })
-                                                }
+                                                } */}
                                             </View>
                                         )
                                     })

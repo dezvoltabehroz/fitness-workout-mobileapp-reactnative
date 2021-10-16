@@ -27,8 +27,8 @@ export default StyleSheet.create({
         marginTop: "5%",
         flexDirection: "row",
         backgroundColor: THEME.COLOR_WHITE,
-        height: 67,
-        borderRadius: 34,
+        height: 72,
+        borderRadius: 40,
         alignItems: "center",
         paddingHorizontal: "5%",
         elevation: 5,
@@ -45,8 +45,8 @@ export default StyleSheet.create({
         borderWidth: 1,
         borderColor: THEME.PRIMARY_TEXT_COLOR,
         backgroundColor: 'transparent',
-        height: 67,
-        borderRadius: 34,
+        height: 72,
+        borderRadius: 40,
         alignItems: "center",
         paddingHorizontal: "5%",
         marginTop: '5%'
@@ -55,9 +55,9 @@ export default StyleSheet.create({
         fontWeight: "bold"
     },
     decsTextStyle: {
-        width: SCREEN_WIDTH * 0.7,
+        width: SCREEN_WIDTH * 0.6,
         fontSize: THEME.FONT_SIZE_SMALL,
-        color: THEME.PRIMARY_TEXT_COLOR
+        color: "#484848"//THEME.PRIMARY_TEXT_COLOR
     },
     marginHorizontal1: {
         marginHorizontal: "2.5%",

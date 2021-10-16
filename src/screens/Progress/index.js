@@ -17,6 +17,7 @@ import THEME from '../../assets/styles/theme.style';
 import styles from './style';
 import { getLocalData, LOCAL_STORAGE_KEYS } from '../../lib/utils/localstorage';
 import { ProfileServices } from '../../services';
+import moment from 'moment';
 
 const SVG_HEIGHT = 15;
 const SVG_WIDTH = 15;
@@ -55,8 +56,9 @@ class Progress extends Component {
 
     headerRight = () => {
         return (
-            <TouchableOpacity style={{ marginRight: 0 }} onPress={() => { this.setState({ modal: !this.state.modal }) }} ><Target /></TouchableOpacity>
-        )
+            this.props.user.userData.is_pro == 0 ?
+                <TouchableOpacity style={{ marginRight: 0 }} onPress={() => { this.setState({ modal: !this.state.modal }) }} ><Target /></TouchableOpacity>
+                : null)
     }
 
     chooseFile = async () => {
@@ -101,7 +103,7 @@ class Progress extends Component {
 
         const { navigate } = this.props.navigation;
         const { value, data } = this.state;
-        const { height_feet, height_inches, bmi, daily_diet_count, daily_workout_count } = this.props.user.userData;
+        const { height_feet, height_inches, bmi, daily_diet_count, weight, daily_workout_count, is_pro } = this.props.user.userData;
         const { arm_size, chest_size, shoulder_size, waist_size, tummy_size, hip_size, thigh_size, calf_size } = this.props.user.userData.bodyMeasurementDetails;
 
         return (
@@ -137,77 +139,80 @@ class Progress extends Component {
                                 </View>
                             </View>
                         </View>
-                        <View style={styles.rowContainer}>
-                            <Text style={styles.textStyle1}>Current</Text>
-                            <Text style={styles.textStyle}>May</Text>
-                            <Text style={styles.textStyle}>June</Text>
-                            <Text style={styles.textStyle}>July</Text>
-                        </View>
-                        <View style={{ justifyContent: 'center', alignItems: 'center', }}>
-                            <LineChart
-                                style={{
-                                    marginVertical: 8,
-                                    borderRadius: 16,
-                                }}
-                                data={{
-                                    labels: ["01", "02", "03", "04", "05", "06", "07", "08", "09"],
-                                    datasets: [
-                                        {
-                                            data: [
-                                                Math.random() * 100,
-                                                Math.random() * 100,
-                                                Math.random() * 100,
-                                                Math.random() * 100,
-                                                Math.random() * 100,
-                                                Math.random() * 100
+                        {is_pro == 1 ?
+                            <>
+                                <View style={styles.rowContainer}>
+                                    <Text style={styles.textStyle1}>Current</Text>
+                                    <Text style={styles.textStyle}>May</Text>
+                                    <Text style={styles.textStyle}>June</Text>
+                                    <Text style={styles.textStyle}>July</Text>
+                                </View>
+                                <View style={{ justifyContent: 'center', alignItems: 'center', }}>
+                                    <LineChart
+                                        style={{
+                                            marginVertical: 8,
+                                            borderRadius: 16,
+                                        }}
+                                        data={{
+                                            labels: ["01", "02", "03", "04", "05", "06", "07", "08", "09"],
+                                            datasets: [
+                                                {
+                                                    data: [
+                                                        Math.random() * 100,
+                                                        Math.random() * 100,
+                                                        Math.random() * 100,
+                                                        Math.random() * 100,
+                                                        Math.random() * 100,
+                                                        Math.random() * 100
+                                                    ]
+                                                }
                                             ]
-                                        }
-                                    ]
-                                }}
-                                width={SCREEN_WIDTH * 1.15}
-                                height={220}
-                                yAxisLabel=""
-                                withHorizontalLines={true}
-                                withVerticalLines={false}
-                                withInnerLines={true}
-                                withOuterLines={true}
-                                withShadow={false}
-                                yAxisInterval={0} // optional, defaults to 1
-                                chartConfig={{
-                                    backgroundColor: 'white',
-                                    backgroundGradientFrom: "white",
-                                    backgroundGradientTo: "white",
-                                    decimalPlaces: 0, // optional, defaults to 2dp
-                                    color: () => `rgba(68, 189, 232, 1)`,
-                                    labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-                                    style: {
-                                        borderRadius: 16,
-                                    },
-                                    propsForDots: {
-                                        r: "3",
-                                        strokeWidth: "1",
-                                        stroke: "#44BDE8"
+                                        }}
+                                        width={SCREEN_WIDTH * 1.15}
+                                        height={220}
+                                        yAxisLabel=""
+                                        withHorizontalLines={true}
+                                        withVerticalLines={false}
+                                        withInnerLines={true}
+                                        withOuterLines={true}
+                                        withShadow={false}
+                                        yAxisInterval={0} // optional, defaults to 1
+                                        chartConfig={{
+                                            backgroundColor: 'white',
+                                            backgroundGradientFrom: "white",
+                                            backgroundGradientTo: "white",
+                                            decimalPlaces: 0, // optional, defaults to 2dp
+                                            color: () => `rgba(68, 189, 232, 1)`,
+                                            labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+                                            style: {
+                                                borderRadius: 16,
+                                            },
+                                            propsForDots: {
+                                                r: "3",
+                                                strokeWidth: "1",
+                                                stroke: "#44BDE8"
 
-                                    },
-                                    propsForHorizontalLabels: {
-                                        alignmentBaseline: 'text-before-edge'
-                                    },
-                                    propsForBackgroundLines: {
-                                        strokeDasharray: '',
-                                        stroke: "lightgrey",
-                                        // strokeWidth: "1"
-                                    },
-                                }}
-                                // bezier
-                                style={{
-                                    marginVertical: 8,
-                                    borderRadius: 16,
-                                    marginLeft: 0,
-                                    paddingLeft: 0
-                                }}
-                                verticalLabelRotation={0}
-                            />
-                        </View>
+                                            },
+                                            propsForHorizontalLabels: {
+                                                alignmentBaseline: 'text-before-edge'
+                                            },
+                                            propsForBackgroundLines: {
+                                                strokeDasharray: '',
+                                                stroke: "lightgrey",
+                                                // strokeWidth: "1"
+                                            },
+                                        }}
+                                        // bezier
+                                        style={{
+                                            marginVertical: 8,
+                                            borderRadius: 16,
+                                            marginLeft: 0,
+                                            paddingLeft: 0
+                                        }}
+                                        verticalLabelRotation={0}
+                                    />
+                                </View>
+                            </> : null}
                         <View style={styles.divider}></View>
                         <View style={styles.bmiContainer}>
                             <View style={styles.rowContainer}>
@@ -241,16 +246,24 @@ class Progress extends Component {
                             </View>
                             <View style={styles.rowContainer1}>
                                 <Text style={styles.blackText}>Height</Text>
-                                <TouchableOpacity>
+                                <Text style={[styles.grayText, { textDecorationLine: "underline" }]}>{`${height_feet ? height_feet : 0} FT ${height_inches ? height_inches : 0} IN`}</Text>
+                                {/* <TouchableOpacity>
                                     <Text style={styles.colorText}>{screen.EDIT}</Text>
-                                </TouchableOpacity>
+                                </TouchableOpacity> */}
                             </View>
                             <View style={styles.rowContainer1}>
+                                <Text style={styles.blackText}>Weight</Text>
+                                <Text style={[styles.grayText, { textDecorationLine: "underline" }]}>{weight}</Text>
+                                {/* <TouchableOpacity>
+                                    <Text style={styles.colorText}>{screen.EDIT}</Text>
+                                </TouchableOpacity> */}
+                            </View>
+                            {/* <View style={styles.rowContainer1}>
                                 <Text style={styles.colorText}>Current</Text>
                                 <TouchableOpacity>
                                     <Text style={[styles.grayText, { textDecorationLine: "underline" }]}>{`${height_feet ? height_feet : 0} FT ${height_inches ? height_inches : 0} IN`}</Text>
                                 </TouchableOpacity>
-                            </View>
+                            </View> */}
                         </View>
                         <View style={styles.divider}></View>
                         <View style={styles.bmiContainer}>
@@ -314,36 +327,50 @@ class Progress extends Component {
                                 : null
                             }
                         </View>
-                        <View style={styles.divider}></View>
-                        <View style={styles.bmiContainer}>
-                            <View style={styles.rowContainer}>
-                                <Text style={styles.blackheading}>PROGRESS PICS</Text>
-                                <TouchableOpacity onPress={() => this.props.navigation.navigate(route.PROGRESSPICS)}>
-                                    <Text style={styles.colorText}>{screen.SEEMORE}</Text>
-                                </TouchableOpacity>
-                            </View>
-
-                        </View>
-
                         {
-                            this.state.data.length == 0 ?
-                                <View style={{ justifyContent: "center", alignItems: "center", height: SCREEN_HEIGHT * 0.3, width: SCREEN_WIDTH, backgroundColor: "#E4E4E4" }}>
-                                    <TouchableOpacity onPress={this.chooseFile}>
-                                        <Camera />
-                                    </TouchableOpacity>
-                                </View>
-                                :
-                                <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
-                                    <TouchableOpacity onPress={() => this.props.navigation.navigate(route.DIETPLAN)}>
-                                        <Image source={{ uri: this.state.data[0].pic_path }} style={{ height: SCREEN_HEIGHT * 0.3, width: SCREEN_WIDTH * 0.5 }} />
-                                    </TouchableOpacity>
-                                    <View style={{ justifyContent: "center", alignItems: "center", height: SCREEN_HEIGHT * 0.3, width: SCREEN_WIDTH * 0.5, backgroundColor: "#E4E4E4" }}>
-                                        <TouchableOpacity onPress={this.chooseFile}>
-                                            <Camera />
-                                        </TouchableOpacity>
+                            is_pro == 1 ?
+                                <>
+                                    <View style={styles.divider}></View>
+                                    <View style={styles.bmiContainer}>
+                                        <View style={styles.rowContainer}>
+                                            <Text style={styles.blackheading}>PROGRESS PICS</Text>
+                                            <TouchableOpacity onPress={() => this.props.navigation.navigate(route.PROGRESSPICS)}>
+                                                <Text style={styles.colorText}>{screen.SEEMORE}</Text>
+                                            </TouchableOpacity>
+                                        </View>
                                     </View>
-                                </View>
+
+                                    {
+                                        this.state.data.length == 0 ?
+                                            <View style={{ justifyContent: "center", alignItems: "center", height: SCREEN_HEIGHT * 0.3, width: SCREEN_WIDTH, backgroundColor: "#E4E4E4" }}>
+                                                <Text>No progress photo found!</Text>
+                                            </View>
+                                            :
+                                            <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-around" }}>
+                                                <View style={styles.container1} onPress={() => this.props.navigation.navigate(route.DIETPLAN)}>
+                                                    <ImageBackground resizeMode="contain" source={{ uri: this.state.data[0].pic_path }} style={{ height: SCREEN_HEIGHT * 0.3, width: SCREEN_WIDTH * 0.49 }} >
+                                                        <View style={styles.overlay} />
+                                                        <View style={styles.dateContainer}>
+                                                            <Text style={styles.dateText}>{moment(this.state.data[0].created_at).format('ll')}</Text>
+                                                        </View>
+                                                    </ImageBackground>
+                                                </View>
+                                                <View style={styles.container1} onPress={() => this.props.navigation.navigate(route.DIETPLAN)}>
+                                                    <ImageBackground resizeMode="contain" source={{ uri: this.state.data[1].pic_path }} style={{ height: SCREEN_HEIGHT * 0.3, width: SCREEN_WIDTH * 0.49 }}>
+
+                                                        <View style={styles.overlay} />
+                                                        <View style={styles.dateContainer}>
+                                                            <Text style={styles.dateText}>{moment(this.state.data[1].created_at).format('ll')}</Text>
+                                                        </View>
+                                                    </ImageBackground>
+                                                </View>
+                                            </View>
+                                    }
+                                </>
+                                :
+                                null
                         }
+
 
 
                     </ScrollView>

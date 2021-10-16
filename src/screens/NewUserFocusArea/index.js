@@ -73,7 +73,7 @@ class AppIntro extends Component {
                             <Text style={styles.headingTextStyle}>{screen.APP_INTRO_Heading_5}</Text>
                             <Text style={styles.decsTextStyle}>Select two focus areas so we could personalize your plan.</Text>
                         </View>
-                        <ImageBackground style={styles.imageStyle} resizeMode="cover" source={gender == 'male' ? require('../../assets/images/boy.png') : require('../../assets/images/girl.png')}>
+                        <ImageBackground style={styles.imageStyle} resizeMode="contain" source={gender == 'male' ? require('../../assets/images/boy.png') : require('../../assets/images/girl.png')}>
                             {
                                 gender == 'male' ?
                                     <>
@@ -347,7 +347,7 @@ class AppIntro extends Component {
                                     </>}
                         </ImageBackground>
                         <View style={styles.buttonContainer}>
-                            <ClearButton disabled={equipment == screen.APP_INTRO_Button_4_3 && arr.length == 2 ? false : equipment != screen.APP_INTRO_Button_4_3 && arr.length == 2 ? false : true} title={'DONE'} onPress={() => this.handleDone()} />
+                            <ClearButton disabled={arr.length == 2 ? false : true} title={'DONE'} onPress={() => this.handleDone()} />
                         </View>
                     </View>
                 </ImageBackground>

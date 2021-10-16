@@ -69,7 +69,6 @@ class CreatingPlan extends Component {
             token: JSON.parse(userToken)
         }
         await this.props.authActions.getUserProfile(userData, replace);
-
     }
 
 

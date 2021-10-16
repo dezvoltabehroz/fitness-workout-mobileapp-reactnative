@@ -78,8 +78,8 @@ export default class CustomSlider extends Component {
         for (let i = this.props.min; i < this.props.max + 1; i++) {
             items.push(
                 <Item
-                    value={i}
-                    index={this.props.selectedValue}
+                    value={this.props.selectedValue}
+                    index={i}
                     first={this.state.first}
                     second={this.state.second}
                 />
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
         flex: 1,
         width: Dimensions.get('window').width * 0.8,
         flexDirection: 'row',
-        flexWrap: "wrap",
+        // flexWrap: "wrap",
         alignSelf:"center",
         // alignItems: 'center',
         justifyContent: 'space-between',

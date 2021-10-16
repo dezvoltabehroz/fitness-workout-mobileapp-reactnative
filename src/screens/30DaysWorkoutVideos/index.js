@@ -23,11 +23,11 @@ class DaysWorkoutVideos extends Component {
     }
 
     componentDidMount = async () => {
-       
+
         const { user_id, token, fitness_goal, fitness_level, fitness_equipment } = this.props.user.userData;
         let data = {
             "fitness_goal": fitness_goal,
-            "fitness_level": "Normal Fit",//fitness_level,
+            "fitness_level": fitness_level,
             "video_tags": fitness_equipment,
             "video_day": this.props?.route?.params?.data?.day
         }
@@ -41,7 +41,7 @@ class DaysWorkoutVideos extends Component {
     }
 
     handleUpdateDailyWorkout = (index, item) => {
-        const { token,workout_user_id } = this.props.user.userData;
+        const { token, workout_user_id } = this.props.user.userData;
         if ((index + 1) == this.state.videos.length) {
             let data = {
                 "workout_date": moment().format('YYYY-MM-DD'),
@@ -62,19 +62,24 @@ class DaysWorkoutVideos extends Component {
 
     _renderItems = (item, index) => {
         return (
-            <ImageBackground resizeMode={"contain"} source={{ uri: item.video_thumbnail }} style={styles.imageStyle}>
-                <View >
-                    <Text style={styles.headingText}>{item.video_title}</Text>
-                    <Text style={styles.headingText3}>30S <Text style={styles.timeText}>Total Time</Text> </Text>
-                </View>
-                <View style={{ alignItems: "center" }}>
-                    <Icon.AntDesign onPress={() => { this.props.navigation.navigate(route.DAYSWORKOUTVIDEOPLAYER, { data: item, dayCompleted: index + 1 == this.state.videos ? true : false, workout_week: this.props.route.params.workout_week }); this.handleUpdateDailyWorkout(index, item) }} name='play' size={50} color={themeStyle.BAR_COLOR} />
-                </View>
-                <View style={styles.rowContentContainer} >
-                    <Text style={styles.headingText2}>00:25</Text>
-                    <Youtube fill={'#000000'} />
-                </View>
-            </ImageBackground>
+            <View style={styles.container1}>
+                <ImageBackground resizeMode={"contain"} source={{ uri: item.video_thumbnail }} style={styles.imageStyle}>
+                    <View style={styles.overlay} />
+
+                    <View >
+                        <Text style={styles.headingText}>{item.video_title}</Text>
+                        <Text style={styles.headingText3}>30S <Text style={styles.timeText}>Total Time</Text> </Text>
+                    </View>
+                    <View style={{ alignItems: "center" }}>
+                        <Icon.AntDesign onPress={() => { this.props.navigation.navigate(route.DAYSWORKOUTVIDEOPLAYER, { data: item, dayCompleted: index + 1 == this.state.videos ? true : false, workout_week: this.props.route.params.workout_week }); this.handleUpdateDailyWorkout(index, item) }} name='play' size={50} color={themeStyle.BAR_COLOR} />
+                    </View>
+                    <View style={styles.rowContentContainer} >
+                        <Text style={styles.headingText2}>00: 25</Text>
+                        <Youtube fill={'#fff'} />
+                    </View>
+                </ImageBackground>
+            </View>
+
         )
     }
 

@@ -7,6 +7,7 @@ import { bindActionCreators } from 'redux';
 import themeStyle from '../../assets/styles/theme.style';
 
 import { Container, UploadingModal } from '../../components';
+import { VerticalSpacer } from '../../lib/utils/global';
 import { getLocalData, LOCAL_STORAGE_KEYS } from '../../lib/utils/localstorage';
 import { authActions } from '../../redux/actions/auth';
 import { ProfileServices } from '../../services';
@@ -35,11 +36,18 @@ class ProgressPics extends Component {
 
     _renderItem = (item, index) => {
         return (
-            <ImageBackground source={{ uri: item.pic_path }} style={styles.imageStyle} >
-                <View style={styles.dateContainer}>
-                    <Text style={styles.dateText}>{moment().format('ll')}</Text>
-                </View>
-            </ImageBackground>
+            <View style={styles.container1}>
+
+                <ImageBackground source={{ uri: item.pic_path }} style={styles.imageStyle} >
+                    <View style={styles.overlay} />
+                    <View style={styles.dateContainer}>
+                        <Text style={styles.dateText}>{moment().format('ll')}</Text>
+                    </View>
+
+                </ImageBackground>
+
+            </View>
+
         )
     }
 
@@ -97,12 +105,15 @@ class ProgressPics extends Component {
                                     <Text style={{ fontSize: 16, fontWeight: "bold" }}>No record found!</Text>
                                 </View>
                                 :
-                                <FlatList data={this.state.data} renderItem={({ item, index }) => this._renderItem(item, index)} />
+                                <FlatList data={this.state.data}
+                                    showsVerticalScrollIndicator={false}
+                                    contentContainerStyle={{ paddingVertical: 7.5 }}
+                                    ItemSeparatorComponent={VerticalSpacer}
+                                    renderItem={({ item, index }) => this._renderItem(item, index)} />
                     }
-
-                    <TouchableOpacity onPress={this.chooseFile} style={styles.buttonContainer}>
+                    {/* <TouchableOpacity onPress={this.chooseFile} style={styles.buttonContainer}>
                         <Text style={styles.btnText}>TAKE PIC</Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                 </View>
                 <UploadingModal visible={this.state.uploading} />
             </Container>

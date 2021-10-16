@@ -23,6 +23,7 @@ class FitnessLevel extends Component {
         };
     }
     componentDidMount = async () => {
+        console.log(this.props.user.userData.fitness_level)
         switch (this.props.user.userData.fitness_level) {
             case 'Not Fit':
                 this.setState({ seclectedValue: 1 })
@@ -101,7 +102,7 @@ class FitnessLevel extends Component {
                                         <Image resizeMode={"contain"} style={styles.imageStyle} source={require('../../assets/images/outfit.png')} />
                                     </View>
                                     <View style={{ position: "absolute", top: 18 }}>
-                                        <Bar />
+                                        <Bar width={SCREEN_WIDTH*0.9} />
                                     </View>
                                     <CustomSlider1
                                         min={1}

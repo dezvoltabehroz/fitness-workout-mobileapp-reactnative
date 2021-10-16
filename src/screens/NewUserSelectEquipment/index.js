@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, StatusBar } from 'react-native';
+import { View, Text, TouchableOpacity, StatusBar, FlatList } from 'react-native';
 
-import { ColorContainer, ClearButton } from '../../components';
+import { ColorContainer, ClearButton, Icon } from '../../components';
 import { route, screen } from '../../lib/utils/constants';
 
 import HeaderView from './components/headerView';
@@ -25,11 +25,36 @@ class AppIntro extends Component {
         this.state = {
             timer: false,
             value: 0,
+            fitnessEquipment: [{
+                title: screen.APP_INTRO_Button_1_3,
+                description: screen.APP_INTRO_Button_DESCRIPTION_1_3,
+                svg: <Fit height={SVG_HEIGHT} width={SVG_WIDTH} />,
+                selected: false
+            },
+            {
+                title: screen.APP_INTRO_Button_2_3,
+                description: screen.APP_INTRO_Button_DESCRIPTION_2_3,
+                svg: <Muscles height={SVG_HEIGHT} width={SVG_WIDTH} />,
+                selected: false
+            },
+            {
+                title: screen.APP_INTRO_Button_3_3,
+                description: screen.APP_INTRO_Button_DESCRIPTION_3_3,
+                svg: <Band height={SVG_HEIGHT} width={SVG_WIDTH} />,
+                selected: false
+            },
+            {
+                title: screen.APP_INTRO_Button_4_3,
+                description: screen.APP_INTRO_Button_DESCRIPTION_4_3,
+                svg: <Weight height={SVG_HEIGHT} width={SVG_WIDTH} />,
+                selected: false
+            }],
+            selectedEquipment: [],
         };
     }
 
     componentDidMount = async () => {
-        storeLocalData(LOCAL_STORAGE_KEYS.fitnessEquipment, JSON.stringify(screen.APP_INTRO_Button_1_3))
+        // storeLocalData(LOCAL_STORAGE_KEYS.fitnessEquipment, JSON.stringify(screen.APP_INTRO_Button_1_3))
     }
 
     style_Func_1 = () => {
@@ -104,8 +129,38 @@ class AppIntro extends Component {
         }
     }
 
+    handleSelectEquipment = (item, index) => {
+        let fitnessEquipment = [...this.state.fitnessEquipment]
+        let selectedEquipment = [...this.state.selectedEquipment];
+
+        if (item.title == 'Mixed equipment') {
+            selectedEquipment = [];
+            fitnessEquipment.map((item, i) => { fitnessEquipment[i] = { ...fitnessEquipment[i], selected: false } })
+            fitnessEquipment[index] = { ...fitnessEquipment[index], selected: true }
+            selectedEquipment.push(item.title)
+            this.setState({ fitnessEquipment, selectedEquipment })
+
+        } else if (item.title != 'Mixed equipment' && selectedEquipment.length < 2) {
+            const valueIndex = selectedEquipment.indexOf('Mixed equipment');
+            const equipmentIndex = fitnessEquipment.findIndex((obj) => obj.title == 'Mixed equipment');
+            if (valueIndex !== -1) {
+                selectedEquipment.splice(valueIndex, 1);
+                fitnessEquipment[equipmentIndex] = { ...fitnessEquipment[equipmentIndex], selected: false }
+            }
+            if (fitnessEquipment[index].selected) {
+                const objIndex = selectedEquipment.indexOf(item.title);
+                selectedEquipment.splice(objIndex, 1);
+                fitnessEquipment[index] = { ...fitnessEquipment[index], selected: false }
+            } else {
+                fitnessEquipment[index] = { ...fitnessEquipment[index], selected: true }
+                selectedEquipment.push(item.title)
+            }
+            this.setState({ fitnessEquipment, selectedEquipment })
+        }
+    }
+
     render() {
-        const { navigate, goBack } = this.props.navigation;
+        const { navigate, goBack, } = this.props.navigation;
         return (
             <ColorContainer>
                 <StatusBar backgroundColor={themeStyle.PRIMARY_BACKGROUND_COLOR} barStyle={"dark-content"} />
@@ -119,45 +174,47 @@ class AppIntro extends Component {
                         <Text style={styles.headingTextStyle}>{screen.APP_INTRO_Heading_3}</Text>
                         <Text style={[styles.decsTextStyle, { textAlign: "center" }]}>{screen.APP_INTRO_DESCRIPTION_3}</Text>
                     </View>
-                    <TouchableOpacity onPress={() => this.setValue(0)} style={this.style_Func_1()}>
-                        <View style={styles.marginHorizontal1}>
-                            <Fit height={SVG_HEIGHT} width={SVG_WIDTH} />
-                        </View>
-                        <View style={styles.marginHorizontal}>
-                            <Text style={styles.decsHeading}>{screen.APP_INTRO_Button_1_3}</Text>
-                            <Text style={styles.decsTextStyle}>{screen.APP_INTRO_Button_DESCRIPTION_1_3}</Text>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => this.setValue(1)} style={this.style_Func_2()}>
-                        <View style={styles.marginHorizontal1}>
-                            <Muscles height={SVG_HEIGHT} width={SVG_WIDTH} />
-                        </View>
-                        <View style={styles.marginHorizontal}>
-                            <Text style={styles.decsHeading}>{screen.APP_INTRO_Button_2_3}</Text>
-                            <Text style={styles.decsTextStyle}>{screen.APP_INTRO_Button_DESCRIPTION_2_3}</Text>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => this.setValue(2)} style={this.style_Func_3()}>
-                        <View style={styles.marginHorizontal1}>
-                            <Band height={SVG_HEIGHT} width={SVG_WIDTH} />
-                        </View>
-                        <View style={styles.marginHorizontal}>
-                            <Text style={styles.decsHeading}>{screen.APP_INTRO_Button_3_3}</Text>
-                            <Text style={styles.decsTextStyle}>{screen.APP_INTRO_Button_DESCRIPTION_3_3}</Text>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => this.setValue(3)} style={this.style_Func_4()}>
-                        <View style={styles.marginHorizontal1}>
-                            <Weight height={SVG_HEIGHT} width={SVG_WIDTH} />
-                        </View>
-                        <View style={styles.marginHorizontal}>
-                            <Text style={styles.decsHeading}>{screen.APP_INTRO_Button_4_3}</Text>
-                            <Text style={styles.decsTextStyle}>{screen.APP_INTRO_Button_DESCRIPTION_4_3}</Text>
-                        </View>
-                    </TouchableOpacity>
+                    {
+                        this.state.fitnessEquipment?.map((item, index) => {
+                            return (
+                                <TouchableOpacity disabled={item.selected} onPress={() => { this.handleSelectEquipment(item, index) }} style={item.selected ? styles.selectedButtonStyle : styles.unSelectedButtonStyle}>
+                                    <View style={styles.marginHorizontal1}>
+                                        {item.svg}
+                                    </View>
+                                    <View style={styles.marginHorizontal}>
+                                        <Text style={styles.decsHeading}>{item.title}</Text>
+                                        <Text style={styles.decsTextStyle}>{item.description}</Text>
+                                    </View>
+                                    {
+                                        item.selected ?
+                                            <TouchableOpacity onPress={() => {
+                                                let fitnessEquipment = [...this.state.fitnessEquipment]
+                                                let selectedEquipment = [...this.state.selectedEquipment];
+                                                const objIndex = selectedEquipment.indexOf(item.title);
+                                                selectedEquipment.splice(objIndex, 1);
+                                                fitnessEquipment[index] = { ...fitnessEquipment[index], selected: false }
+                                                console.log(selectedEquipment)
+                                                this.setState({ fitnessEquipment: fitnessEquipment, selectedEquipment: selectedEquipment })
+                                                console.log(selectedEquipment)
+                                            }} >
+                                                <Icon.Entypo name="circle-with-cross" color={"red"} size={20} />
+                                            </TouchableOpacity>
+                                            :
+                                            null
+                                    }
+                                </TouchableOpacity>
+                            )
+                        })
+                    }
                 </View>
                 <View style={styles.buttonContainer}>
-                    <ClearButton title={screen.NEXT} onPress={() => navigate(route.APPINTRO4th)} />
+                    <ClearButton title={screen.NEXT} onPress={() => {
+                        let equipmentString = "";
+                        let selectedArray = [...this.state.selectedEquipment];
+                        selectedArray.map((item, index) => { equipmentString = equipmentString.concat(`${item}${index == (selectedArray.length - 1) ? "" : ","}`) })
+                        storeLocalData(LOCAL_STORAGE_KEYS.fitnessEquipment, JSON.stringify(equipmentString))
+                        navigate(route.APPINTRO4th)
+                    }} />
                 </View>
             </ColorContainer>
 

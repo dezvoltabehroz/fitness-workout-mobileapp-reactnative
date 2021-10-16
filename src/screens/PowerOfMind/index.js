@@ -31,7 +31,7 @@ class PowerOfMind extends Component {
                 }
             ],
             mindBodyAudio: [],
-            mindBodyVideo:[],
+            mindBodyVideo: [],
             laoding: true
         }
     }
@@ -48,7 +48,7 @@ class PowerOfMind extends Component {
 
     _renderMenuItem = ({ item, index }) => {
         return (
-            <TouchableOpacity onPress={() => { this.props.navigation.navigate(route.POWEROFMINDAUDIO) }} style={styles.itemContainer} >
+            <TouchableOpacity onPress={() => { this.props.navigation.navigate(route.POWEROFMINDAUDIO, { data: item }) }} style={styles.itemContainer} >
                 <ImageBackground source={require('../../assets/images/you.png')} style={styles.contentContainer1}>
                     <View style={styles.opacity}>
 
@@ -56,9 +56,8 @@ class PowerOfMind extends Component {
                 </ImageBackground>
                 <View style={styles.textContainer}>
                     <Text style={styles.greyText}>{'5min'}</Text>
-                    <Text style={styles.headingText}>{item.title}</Text>
+                    <Text style={styles.headingText}>{item.media_title}</Text>
                 </View>
-
             </TouchableOpacity >
         )
     }
@@ -78,7 +77,7 @@ class PowerOfMind extends Component {
                                 <View style={styles.headingContainer}>
                                     <Text style={styles.headingText}>Videos</Text>
                                 </View>
-                                <HorizontalList data={this.state.mindBodyVideo} video  onPress={(item) => navigate(route.VIDEO, { uri: item.media_path })} />
+                                <HorizontalList data={this.state.mindBodyVideo} video onPress={(item) => navigate(route.VIDEO, { uri: item.media_path })} />
                                 <View style={styles.headingContainer}>
                                     <Text style={styles.headingText}>Audios</Text>
                                 </View>

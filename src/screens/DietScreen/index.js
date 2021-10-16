@@ -155,7 +155,7 @@ class DietScreen extends Component {
     }
 
     changeWeek = (index) => {
-        if (!this.props.user.userData.is_pro == 1) {
+        if (this.props.user.userData.is_pro == 1 || index == 0) {
             let array = [...this.state.dietPlans];
             if (array[index].expanded) { array[index] = { ...array[index], expanded: false } }
             else { array[index] = { ...array[index], expanded: true } }
@@ -240,12 +240,12 @@ class DietScreen extends Component {
                                                                 </View>
                                                             </View>
                                                             <View style={{ alignItems: "center" }} >
-                                                                {is_pro == 0 ?
+                                                                {is_pro == 0 && index != 0 ?
                                                                     <View style={{ top: -43 }}>
                                                                         <Mark />
                                                                     </View>
                                                                     : null}
-                                                                {is_pro == 1 && dietWeekDate && dietWeekDate[index] == 1 ?
+                                                                {is_pro == 1 || index == 0 ?
                                                                     <View style={{ top: is_pro == 1 ? -15 : 0 }}>
                                                                         {element.expanded ?
                                                                             <Icon.FontAwesome name="angle-down" size={30} color={'gray'} />
@@ -253,7 +253,7 @@ class DietScreen extends Component {
                                                                             <Icon.FontAwesome name="angle-right" size={30} color={'gray'} />}
                                                                     </View>
                                                                     :
-                                                                    <View style={{ top: is_pro == 1 ? -15 : -15 }}>
+                                                                    <View style={{ top: -15 }}>
                                                                         <Icon.SimpleLineIcons name="lock" size={20} color={'gray'} />
                                                                     </View>}
                                                             </View>
@@ -266,7 +266,7 @@ class DietScreen extends Component {
                                                                 return (
                                                                     <>
                                                                         <View style={styles.itemContainer1}>
-                                                                            <TouchableOpacity disabled={item.date == moment().format('YYYY-MM-DD') ? false : true} onPress={() => this.props.navigation.navigate(route.DIETPLANDETAILS, { dietData: element, category: value == "1" ? "standard" : "vegetarian" })} style={[styles.dayStyle, { borderColor: item.completed ? themeStyle.BAR_COLOR : '#9B9B9B', backgroundColor: "transparent" }]}>
+                                                                            <TouchableOpacity disabled={moment().format('YYYY-MM-DD') >= moment(item.date).format("YYYY-MM-DD") ? false : true} onPress={() => this.props.navigation.navigate(route.DIETPLANDETAILS, { dietData: element, category: value == "1" ? "standard" : "vegetarian" })} style={[styles.dayStyle, { borderColor: item.completed ? themeStyle.BAR_COLOR : '#9B9B9B', backgroundColor: "transparent" }]}>
                                                                                 <Text style={[styles.textDescription, { color: item.completed ? themeStyle.BAR_COLOR : '#9B9B9B' }]}>{this.truncateString(item.day, 3)}</Text>
                                                                             </TouchableOpacity>
                                                                             {i == 3 ? null :
