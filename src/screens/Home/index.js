@@ -233,7 +233,7 @@ class Home extends Component {
                             <ImageBackground source={require('../../assets/images/mind.png')}  imageStyle={{borderRadius: 25,}} style={styles.cardContainer1}>
                                 <View>
                                     <Text style={styles.whiteTextStyle1}>POWER OF THE MIND</Text>
-                                    <Text style={{ color: THEME.COLOR_WHITE }}>Lorem ipsum dolor sir</Text>
+                                    {/* <Text style={{ color: THEME.COLOR_WHITE }}>Lorem ipsum dolor sir</Text> */}
                                 </View>
                                 <View style={styles.starContainer}>
                                     <Blue />

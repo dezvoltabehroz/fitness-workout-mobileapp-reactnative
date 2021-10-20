@@ -65,21 +65,19 @@ class DietScreen extends Component {
             UIManager.setLayoutAnimationEnabledExperimental(true);
         }
     }
-    componentDidMount = () => {
-        setTimeout(async () => {
-            let dietValue = await getLocalData(LOCAL_STORAGE_KEYS.DietPreference)
-            if (dietValue) {
-                this.setState({ value: JSON.parse(dietValue) });
-            } else {
-                this.setState({ dietModal: true });
-            }
-        }, 350);
+    componentDidMount = async () => {
+        let dietValue = await getLocalData(LOCAL_STORAGE_KEYS.DietPreference)
+        if (dietValue) {
+            this.setState({ value: JSON.parse(dietValue) });
+        } else {
+            this.setState({ dietModal: true });
+        }
         this.focusListener = this.props.navigation.addListener('focus', () => { this.handleDietDays(); })
         this.props.navigation.setOptions({ headerRight: () => this.headerRight() });
         this.handleDietDays();
     }
 
-    handleDietDays = async () => {
+    handleDietDays = () => {
         this.setState({ loading: true })
         const { user_id, token } = this.props.user.userData;
         let data = {
@@ -143,7 +141,7 @@ class DietScreen extends Component {
 
     headerRight = () => {
         return (
-            <TouchableOpacity style={{ marginRight: 20 }} onPress={() => { this.setState({ dietModal: !this.state.dietModal }) }} ><More /></TouchableOpacity>
+            <TouchableOpacity style={{ paddingRight: 25, width: 100, alignItems: "flex-end" }} onPress={() => { this.setState({ dietModal: !this.state.dietModal }) }} ><More /></TouchableOpacity>
         )
     }
 
@@ -306,7 +304,7 @@ class DietScreen extends Component {
                     this.setState({ value: e })
                     storeLocalData(LOCAL_STORAGE_KEYS.DietPreference, JSON.stringify(e))
                 }}
-                    value={value} onSkip={() => this.setState({ dietModal: false })} />
+                    value={value} onClose={() => { if (value) { this.setState({ dietModal: false }) } else { this.props.navigation.goBack() } }} onSkip={() => this.setState({ dietModal: false })} />
                 <UpgradeModal visible={upgradeModal}
                     onUpgrade={() => this.setState({ upgradeModal: false }, () => this.props.navigation.navigate(route.PAYMENTMETHOD, {}))}
                     onSkip={() => this.setState({ upgradeModal: false })} />

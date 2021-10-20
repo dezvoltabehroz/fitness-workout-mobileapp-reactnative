@@ -21,8 +21,10 @@ function SettingRoutes() {
     return (
         <Stack.Navigator initialRouteName={route.SETTINGS} >
             <Stack.Screen name={route.SETTINGS} component={Settings} options={{
+                headerLeft: () => (<></>),
                 headerTitle: screen.SETTINGS,
                 headerStyle: styles.headerStyle1,
+                headerTitleAlign: "center",
                 headerTintColor: THEME.COLOR_WHITE,
                 headerTitleStyle: styles.headerTextStyle1,
             }} />
@@ -41,7 +43,7 @@ function SettingRoutes() {
                 headerTintColor: THEME.COLOR_WHITE,
                 headerTitleStyle: styles.headerTextStyle1,
             })} />
-             <Stack.Screen name={route.CHANGEPASSWORD} component={ChangePassword} options={({ navigation, route }) => ({
+            <Stack.Screen name={route.CHANGEPASSWORD} component={ChangePassword} options={({ navigation, route }) => ({
                 headerLeft: () => (<HeaderLeft navigation={navigation} color />),
                 headerTitle: 'Change Password',
                 headerStyle: styles.headerStyle1,

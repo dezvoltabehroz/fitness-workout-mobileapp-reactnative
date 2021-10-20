@@ -178,7 +178,7 @@ class CompleteProfile extends Component {
                     </View>
                     <View style={styles.rowMeasureContainer}>
                         <View style={styles.rowStyle}>
-                            <Icon.Entypo name="email" color={'#797B7B'} size={20} />
+                            <Icon.Entypo name="email" color={'#9b9b9b'} size={20} />
                             <Text style={styles.grayText}>{email ? email : userData.email ? userData.email : 'Email'}</Text>
                         </View>
                         {userData.email ?
@@ -208,7 +208,7 @@ class CompleteProfile extends Component {
                     </View>
                     <View style={styles.rowMeasureContainer}>
                         <View style={styles.rowStyle}>
-                            <Icon.FontAwesome name="tachometer" color={'#797B7B'} size={20} />
+                            <Icon.FontAwesome name="tachometer" color={'#9b9b9b'} size={20} />
                             <Text style={styles.grayText}>{weight ? weight : userData.weight ? userData.weight : "Weight"}</Text>
                         </View>
 

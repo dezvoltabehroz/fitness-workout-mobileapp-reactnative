@@ -121,7 +121,7 @@ class FocusArea extends Component {
                             <Text style={styles.headingTextStyle}>{screen.APP_INTRO_Heading_5}</Text>
                             <Text style={styles.decsTextStyle}>Select two focus areas so we could personalize your plan.</Text>
                         </View>
-                        <ImageBackground style={styles.imageStyle} resizeMode="contain" source={gender == 'Male' ? require('../../assets/images/boy.png') : require('../../assets/images/girl.png')}>
+                        <ImageBackground  style={gender == 'male' ? styles.imageStyle : styles.imageStyleGirl} resizeMode="contain" source={gender == 'Male' ? require('../../assets/images/boy.png') : require('../../assets/images/girl.png')}>
                             {
                                 gender == 'Male' ?
                                     <>
@@ -227,7 +227,7 @@ class FocusArea extends Component {
                                                 <CheckBox
                                                     isChecked={waist}
                                                     disabled={waist ? false : arr.length >= 2 ? true : false}
-                                                    label="Wasit"
+                                                    label="Waist"
                                                     onPress={() => {
                                                         if (waist) {
                                                             let data = [...arr];

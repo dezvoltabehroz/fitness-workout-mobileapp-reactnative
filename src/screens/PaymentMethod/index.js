@@ -180,7 +180,7 @@ class PaymentMethod extends Component {
                         <View style={{ marginTop: "5%", alignItems: "center" }}>
                             <Run />
                             <Text style={styles.headingText}>Complete Profile</Text>
-                            <Text style={styles.textStyle}>Lorem ipsum dolor</Text>
+                            {/* <Text style={styles.textStyle}>Lorem ipsum dolor</Text> */}
                         </View>
 
                         <View style={{ marginHorizontal: "15%", marginVertical: "5%" }}>

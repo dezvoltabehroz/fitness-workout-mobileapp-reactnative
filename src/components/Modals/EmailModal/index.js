@@ -35,7 +35,7 @@ const UpgradeModal = (props) => {
                 </View>
 
                 <View style={{ marginHorizontal: "15%", marginVertical: "5%" }}>
-                    <Button loading={props.btnLoading} disabled={props.email && !props.submit ? false : true} title={'Continue'} onPress={() => props.sendCodeOnEmail()} />
+                    <Button loading={props.btnLoading} disabled={props.email ? false : true} title={'Continue'} onPress={() => props.sendCodeOnEmail()} />
                 </View>
             </View>
         </Modal>

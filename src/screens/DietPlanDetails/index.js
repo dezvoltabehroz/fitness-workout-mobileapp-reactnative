@@ -46,6 +46,7 @@ class DietPlanDetails extends Component {
             .then((res) => {
                 console.log(res.data);
                 if (res.data.success) { this.setState({ diet: res.data.data[0].diet, loading: false }) }
+                else { this.setState({ diet: [], loading: false }) }
             })
             .catch((err) => { console.log(err); this.setState({ diet: [], loading: false }) })
     }

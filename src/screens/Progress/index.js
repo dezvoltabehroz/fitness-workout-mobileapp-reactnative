@@ -106,6 +106,7 @@ class Progress extends Component {
         const { height_feet, height_inches, bmi, daily_diet_count, weight, daily_workout_count, is_pro } = this.props.user.userData;
         const { arm_size, chest_size, shoulder_size, waist_size, tummy_size, hip_size, thigh_size, calf_size } = this.props.user.userData.bodyMeasurementDetails;
 
+
         return (
             <Container>
                 <StatusBar backgroundColor={THEME.BAR_COLOR} barStyle={"light-content"} />
@@ -212,8 +213,9 @@ class Progress extends Component {
                                         verticalLabelRotation={0}
                                     />
                                 </View>
+                                <View style={styles.divider}></View>
                             </> : null}
-                        <View style={styles.divider}></View>
+
                         <View style={styles.bmiContainer}>
                             <View style={styles.rowContainer}>
                                 <Text style={styles.blackheading}>BMI(kg/m2) : {parseFloat(bmi).toFixed(2)}</Text>
@@ -314,13 +316,13 @@ class Progress extends Component {
                                     <View style={styles.rowMeasureContainer}>
                                         <Text style={styles.grayText}>Thigh Size</Text>
                                         <TouchableOpacity>
-                                            <Text style={styles.colorText1}>{thigh_size} IN</Text>
+                                            <Text style={styles.colorText1}>{thigh_size ? thigh_size : 0} IN</Text>
                                         </TouchableOpacity>
                                     </View>
                                     <View style={styles.rowContainer}>
                                         <Text style={styles.grayText}>Calf Size</Text>
                                         <TouchableOpacity>
-                                            <Text style={styles.colorText1}>{calf_size} IN</Text>
+                                            <Text style={styles.colorText1}>{calf_size ? calf_size : 0} IN</Text>
                                         </TouchableOpacity>
                                     </View>
                                 </>

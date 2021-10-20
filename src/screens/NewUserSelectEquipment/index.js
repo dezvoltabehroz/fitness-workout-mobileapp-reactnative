@@ -177,7 +177,19 @@ class AppIntro extends Component {
                     {
                         this.state.fitnessEquipment?.map((item, index) => {
                             return (
-                                <TouchableOpacity disabled={item.selected} onPress={() => { this.handleSelectEquipment(item, index) }} style={item.selected ? styles.selectedButtonStyle : styles.unSelectedButtonStyle}>
+                                <TouchableOpacity onPress={() => {
+                                    if (item.selected) {
+
+                                        let fitnessEquipment = [...this.state.fitnessEquipment]
+                                        let selectedEquipment = [...this.state.selectedEquipment];
+                                        const objIndex = selectedEquipment.indexOf(item.title);
+                                        selectedEquipment.splice(objIndex, 1);
+                                        fitnessEquipment[index] = { ...fitnessEquipment[index], selected: false }
+                                        console.log(selectedEquipment)
+                                        this.setState({ fitnessEquipment: fitnessEquipment, selectedEquipment: selectedEquipment })
+                                        console.log(selectedEquipment)
+                                    } else { this.handleSelectEquipment(item, index) }
+                                }} style={item.selected ? styles.selectedButtonStyle : styles.unSelectedButtonStyle}>
                                     <View style={styles.marginHorizontal1}>
                                         {item.svg}
                                     </View>
@@ -185,23 +197,7 @@ class AppIntro extends Component {
                                         <Text style={styles.decsHeading}>{item.title}</Text>
                                         <Text style={styles.decsTextStyle}>{item.description}</Text>
                                     </View>
-                                    {
-                                        item.selected ?
-                                            <TouchableOpacity onPress={() => {
-                                                let fitnessEquipment = [...this.state.fitnessEquipment]
-                                                let selectedEquipment = [...this.state.selectedEquipment];
-                                                const objIndex = selectedEquipment.indexOf(item.title);
-                                                selectedEquipment.splice(objIndex, 1);
-                                                fitnessEquipment[index] = { ...fitnessEquipment[index], selected: false }
-                                                console.log(selectedEquipment)
-                                                this.setState({ fitnessEquipment: fitnessEquipment, selectedEquipment: selectedEquipment })
-                                                console.log(selectedEquipment)
-                                            }} >
-                                                <Icon.Entypo name="circle-with-cross" color={"red"} size={20} />
-                                            </TouchableOpacity>
-                                            :
-                                            null
-                                    }
+
                                 </TouchableOpacity>
                             )
                         })

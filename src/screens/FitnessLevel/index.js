@@ -18,7 +18,7 @@ class FitnessLevel extends Component {
         super(props);
         this.state = {
             timer: false,
-            value: 5,
+            value: 0,
             seclectedValue: null
         };
     }
@@ -26,23 +26,23 @@ class FitnessLevel extends Component {
         console.log(this.props.user.userData.fitness_level)
         switch (this.props.user.userData.fitness_level) {
             case 'Not Fit':
-                this.setState({ seclectedValue: 1 })
+                this.setState({ seclectedValue: 1, value: 1 })
                 await storeLocalData(LOCAL_STORAGE_KEYS.fitnessLevel, JSON.stringify('Not Fit'))
                 break;
             case 'Average Fit':
-                this.setState({ seclectedValue: 2 })
+                this.setState({ seclectedValue: 2, value: 2 })
                 await storeLocalData(LOCAL_STORAGE_KEYS.fitnessLevel, JSON.stringify('Average Fit'))
                 break;
             case 'Good Fit':
-                this.setState({ seclectedValue: 3 })
+                this.setState({ seclectedValue: 3, value: 3 })
                 await storeLocalData(LOCAL_STORAGE_KEYS.fitnessLevel, JSON.stringify('Good Fit'))
                 break;
             case 'Very Fit':
-                this.setState({ seclectedValue: 4 })
+                this.setState({ seclectedValue: 4, value: 4 })
                 await storeLocalData(LOCAL_STORAGE_KEYS.fitnessLevel, JSON.stringify('Very Fit'))
                 break;
             default:
-                this.setState({ seclectedValue: 1 })
+                this.setState({ seclectedValue: 1, value: 1 })
                 await storeLocalData(LOCAL_STORAGE_KEYS.fitnessLevel, JSON.stringify('Not Fit'))
                 break;
         }
@@ -56,21 +56,44 @@ class FitnessLevel extends Component {
         switch (values) {
             case 1:
                 await storeLocalData(LOCAL_STORAGE_KEYS.fitnessLevel, JSON.stringify('Not Fit'))
+                this.setState({ value: values })
                 goal = await getLocalData(LOCAL_STORAGE_KEYS.fitnessLevel)
                 break;
             case 2:
                 await storeLocalData(LOCAL_STORAGE_KEYS.fitnessLevel, JSON.stringify('Average Fit'))
+                this.setState({ value: values })
                 goal = await getLocalData(LOCAL_STORAGE_KEYS.fitnessLevel)
                 break;
             case 3:
                 await storeLocalData(LOCAL_STORAGE_KEYS.fitnessLevel, JSON.stringify('Good Fit'))
+                this.setState({ value: values })
                 goal = await getLocalData(LOCAL_STORAGE_KEYS.fitnessLevel)
                 break;
             case 4:
                 await storeLocalData(LOCAL_STORAGE_KEYS.fitnessLevel, JSON.stringify('Very Fit'))
+                this.setState({ value: values })
                 goal = await getLocalData(LOCAL_STORAGE_KEYS.fitnessLevel)
                 break;
         }
+    }
+
+    handleText = () => {
+        let text = "";
+        switch (this.state.value) {
+            case 1:
+                text = "No exercise for at least a month"
+                break;
+            case 2:
+                text = "I take part in little exercise without difficulty"
+                break;
+            case 3:
+                text = "I exercise regularly & with ease"
+                break;
+            case 4:
+                text = "Exercise is part of my lifestyle"
+                break;
+        }
+        return text
     }
 
     render() {
@@ -91,7 +114,7 @@ class FitnessLevel extends Component {
                     </View>
                     <View style={[styles.secondHeadingContainer, { flex: 0.1 }]} >
                         <Text style={styles.secondHeadingStyle}>
-                            Oh, trust me, I'm really fit
+                            Oh, trust me, {this.handleText()}
                         </Text>
                     </View>
                     <View style={{ flex: 0.5 }} >
@@ -102,7 +125,7 @@ class FitnessLevel extends Component {
                                         <Image resizeMode={"contain"} style={styles.imageStyle} source={require('../../assets/images/outfit.png')} />
                                     </View>
                                     <View style={{ position: "absolute", top: 18 }}>
-                                        <Bar width={SCREEN_WIDTH*0.9} />
+                                        <Bar width={SCREEN_WIDTH * 0.9} />
                                     </View>
                                     <CustomSlider1
                                         min={1}

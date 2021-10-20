@@ -41,6 +41,7 @@ class PowerOfMind extends Component {
         let data = { category: "mind body" }
         PlanServices.getFreeVideos(data, token)
             .then((res) => {
+                console.log(res.data.data)
                 this.setState({ mindBodyAudio: res.data.data.audio, mindBodyVideo: res.data.data.video, laoding: false })
             })
             .catch((err) => { console.log(err.response) })

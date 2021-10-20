@@ -20,7 +20,6 @@ export default StyleSheet.create({
     headerTextStyle1: {
         color: "#fff",
         textTransform: "uppercase",
-        paddingLeft:"10%"
     }
 
 })

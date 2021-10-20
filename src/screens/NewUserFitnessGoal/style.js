@@ -48,15 +48,15 @@ export default StyleSheet.create({
         shadowRadius: 3.84,
     },
     unSelectedButtonStyle: {
+        marginTop: '5%',
         flexDirection: "row",
         borderWidth: 1,
-        borderColor: THEME.PRIMARY_TEXT_COLOR,
         backgroundColor: 'transparent',
         height: 67,
         borderRadius: 34,
         alignItems: "center",
         paddingHorizontal: "5%",
-        marginTop: '5%'
+        borderColor: THEME.PRIMARY_TEXT_COLOR,
     },
     decsHeading: {
         fontWeight: "bold"

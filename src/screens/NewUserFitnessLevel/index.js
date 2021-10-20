@@ -17,7 +17,7 @@ class AppIntro extends Component {
         super(props);
         this.state = {
             timer: false,
-            value: 5,
+            value: 3,
             currentPage: 0
         };
     }
@@ -29,22 +29,45 @@ class AppIntro extends Component {
         switch (values) {
             case 0:
                 storeLocalData(LOCAL_STORAGE_KEYS.fitnessLevel, JSON.stringify('Not Fit'))
+                this.setState({value:values})
                 break;
             case 1:
                 storeLocalData(LOCAL_STORAGE_KEYS.fitnessLevel, JSON.stringify('Average Fit'))
+                this.setState({value:values})
                 break;
             case 2:
                 storeLocalData(LOCAL_STORAGE_KEYS.fitnessLevel, JSON.stringify('Good Fit'))
+                this.setState({value:values})
                 break;
             case 3:
                 storeLocalData(LOCAL_STORAGE_KEYS.fitnessLevel, JSON.stringify('Very Fit'))
+                this.setState({value:values})
                 break;
         }
     }
 
+    handleText=()=>{
+        let text="";
+        switch (this.state.value) {
+            case 0:
+                text="No exercise for at least a month"
+                break;
+            case 1:
+                text="I take part in little exercise without difficulty"
+                break;
+            case 2:
+                text="I exercise regularly & with ease"
+                break;
+            case 3:
+                text="Exercise is part of my lifestyle"
+                break;
+        }
+        return text
+    }
+
     render() {
         const { navigate, goBack } = this.props.navigation;
-        const { currentPage } = this.state;
+        const { currentPage ,value} = this.state;
         return (
             <ColorContainer>
                 <StatusBar backgroundColor={themeStyle.PRIMARY_BACKGROUND_COLOR} barStyle={"dark-content"} />
@@ -60,7 +83,7 @@ class AppIntro extends Component {
                     </View>
                     <View style={[styles.secondHeadingContainer, { flex: 0.1 }]} >
                         <Text style={styles.secondHeadingStyle}>
-                            Oh, trust me, I'm really fit
+                            Oh, trust me, {this.handleText()}
                         </Text>
                     </View>
                     <View style={{ flex: 0.5 }} >

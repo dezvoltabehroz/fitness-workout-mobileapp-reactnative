@@ -111,7 +111,23 @@ function MainRoutes(props) {
 
 const styles = StyleSheet.create({
     circleStyle: {
-        height: 70, width: 70, marginTop: -40, borderRadius: 40, justifyContent: "center", alignItems: "center", backgroundColor: "white"
+        height: 80,
+        width: 80,
+        marginTop: -40,
+        borderRadius: 40,
+        justifyContent: "center",
+        alignItems: "center",
+        paddingBottom: "5%",
+        backgroundColor: "white",
+        shadowColor: THEME.DASH_DARK,
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+
+        elevation: 5,
     },
     simpleStyle: {
         justifyContent: "center",

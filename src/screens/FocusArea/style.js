@@ -27,8 +27,8 @@ export default StyleSheet.create({
         width: 50,
         borderLeftWidth: 2,
         height: 30,
-        left: "15%",
-        top: "29%"
+        left: "20%",
+        top: "30%"
     },
     shoulderStyle: {
         position: "absolute",
@@ -43,8 +43,8 @@ export default StyleSheet.create({
         width: 70,
         borderRightWidth: 2,
         height: 30,
-        right: "-10%",
-        top: "32%"
+        right: "10%",
+        top: "30%"
     },
     armStyle: {
         position: "absolute",
@@ -58,13 +58,13 @@ export default StyleSheet.create({
         width: 100,
         borderLeftWidth: 2,
         height: 20,
-        right: "66%",
-        top: "38%"
+        right: "62%",
+        top: "40%"
     },
     chestStyle: {
         position: "absolute",
         bottom: "80%",
-        right: '60%'
+        right: '70%'
     },
     legContainer: {
         position: "absolute",
@@ -88,7 +88,7 @@ export default StyleSheet.create({
         width: 70,
         borderLeftWidth: 2,
         height: 20,
-        left: "6%",
+        left: "17%",
         top: "50%"
     },
     waistStyle: {
@@ -103,7 +103,7 @@ export default StyleSheet.create({
         width: 80,
         borderRightWidth: 2,
         height: 20,
-        left: "64%",
+        left: "61%",
         top: "45%"
     },
     backStyle: {
@@ -118,7 +118,7 @@ export default StyleSheet.create({
         width: 75,
         borderLeftWidth: 2,
         height: 30,
-        right: "66%",
+        right: "62%",
         top: "65%"
     },
     gluteStyle: {
@@ -128,7 +128,7 @@ export default StyleSheet.create({
     },
     decsTextStyle: {
         fontSize: THEME.FONT_SIZE_SMALL,
-        color: THEME.PRIMARY_TEXT_COLOR
+        color: "#484848"// THEME.PRIMARY_TEXT_COLOR
     },
     dashContainer: {
         flex: 1,
@@ -155,6 +155,12 @@ export default StyleSheet.create({
         height: SCREEN_HEIGHT * 0.55,
         alignSelf: "center",
         marginRight: "10%",
+        marginBottom: "5%"
+    },
+    imageStyleGirl: {
+        width: SCREEN_WIDTH * 0.8,
+        height: SCREEN_HEIGHT * 0.55,
+        alignSelf: "center",
         marginBottom: "5%"
     },
     shoulderContainer1: {

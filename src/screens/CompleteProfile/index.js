@@ -92,37 +92,44 @@ class CompleteProfile extends Component {
     }
 
     handleOnPressNext = async () => {
-        const { tab, name, email, dateValue, weight, password, feet, inch } = this.state;
+        const { tab, name, email, dateValue, weight, password, feet, inch, code, sendedCode } = this.state;
         const user_id = await getLocalData(LOCAL_STORAGE_KEYS.user_id);
 
         const userToken = await getLocalData(LOCAL_STORAGE_KEYS.userToken);
         if (name && email && dateValue && weight && feet && password) {
-            let data = {
-                "email": email,
-                "full_name": name,
-                "dob": moment(dateValue).format('YYYY-MM-DD'),
-                "height_feet": parseInt(feet),
-                "height_inches": parseInt(inch),
-                "weight": parseFloat(weight),
-                "password": password,
-                "user_id": JSON.parse(user_id)
-            }
-            ProfileServices.updateProfile(data, JSON.parse(userToken))
-                .then((response) => {
-                    if (response.data.success) {
-                        let userData = {
-                            "user_id": JSON.parse(user_id),
-                            "token": JSON.parse(userToken)
+            if (code == sendedCode) {
+                let data = {
+                    "email": email,
+                    "full_name": name,
+                    "dob": moment(dateValue).format('YYYY-MM-DD'),
+                    "height_feet": parseInt(feet),
+                    "height_inches": parseInt(inch),
+                    "weight": parseFloat(weight),
+                    "password": password,
+                    "user_id": JSON.parse(user_id)
+                }
+                ProfileServices.updateProfile(data, JSON.parse(userToken))
+                    .then((response) => {
+                        if (response.data.success) {
+                            let userData = {
+                                "user_id": JSON.parse(user_id),
+                                "token": JSON.parse(userToken)
+                            }
+                            this.setState({ nextLoading: false, tab: 1 })
+                            this.props.authActions.getUserProfile(userData);
                         }
-                        this.setState({ nextLoading: false, tab: 1 })
-                        this.props.authActions.getUserProfile(userData);
-                    }
-                    else {
-                        this.setState({ nextLoading: false });
-                        alert(response.data.message)
-                    }
-                })
-                .catch((err) => console.log(err.response))
+                        else {
+                            this.setState({ nextLoading: false });
+                            alert(response.data.message)
+                        }
+                    })
+                    .catch((err) => console.log(err.response))
+            }
+            else {
+                this.setState({ nextLoading: false })
+                alert('Please verify your email first');
+            }
+
         } else {
             this.setState({ nextLoading: false })
             alert('Please fill complete data')
@@ -190,7 +197,7 @@ class CompleteProfile extends Component {
             AuthServices.sendCodeOnEmail(data, this.props.user.userData.token)
                 .then((res) => {
                     console.log(res.data.data)
-                    this.setState({ emailModal: false, btnLoading: false, submit: false, sendedCode: res.data.data })
+                    this.setState({ submit: false, emailModal: false, btnLoading: false, sendedCode: res.data.data })
                     setTimeout(() => { this.setState({ confirmOtpModal: true, }) }, 350);
                 })
                 .catch((error) => console.log(error.response))
@@ -212,6 +219,7 @@ class CompleteProfile extends Component {
             this.setState({ submit1: true, btnLoading: false })
         }
     }
+
     securePasswordEntry(value) {
         return value && value.replace(/./g, '*')
     }
@@ -245,7 +253,7 @@ class CompleteProfile extends Component {
                             </View>
                             <View style={styles.rowMeasureContainer}>
                                 <View style={styles.rowStyle}>
-                                    <Icon.Entypo name="email" color={'#797B7B'} size={20} />
+                                    <Icon.Entypo name="email" color={'#9b9b9b'} size={20} />
                                     <Text style={{ ...styles.grayText, width: SCREEN_WIDTH * 0.55 }}>{email ? email : 'Email'}</Text>
                                 </View>
 
@@ -255,7 +263,7 @@ class CompleteProfile extends Component {
                             </View>
                             <View style={styles.rowMeasureContainer}>
                                 <View style={styles.rowStyle}>
-                                    <Icon.Entypo name="lock" color={'#797B7B'} size={20} />
+                                    <Icon.Entypo name="lock" color={'#9b9b9b'} size={20} />
                                     <Text style={styles.grayText}>{password ? this.securePasswordEntry(password) : 'Password'}</Text>
                                 </View>
 
@@ -283,7 +291,7 @@ class CompleteProfile extends Component {
                             </View>
                             <View style={styles.rowMeasureContainer}>
                                 <View style={styles.rowStyle}>
-                                    <Icon.FontAwesome name="tachometer" color={'#797B7B'} size={20} />
+                                    <Icon.FontAwesome name="tachometer" color={'#9b9b9b'} size={20} />
                                     <Text style={styles.grayText}>{kilo || gram ? `${kilo ? kilo : 0}.${gram ? gram : 0}` : 'Weight'}</Text>
                                 </View>
                                 <TouchableOpacity onPress={() => this.setState({ weightModal: true })} >
@@ -307,7 +315,7 @@ class CompleteProfile extends Component {
                                 </View>
                                 <View style={{ alignItems: "center" }}>
                                     <Text style={styles.headingText}>MY MEASUREMENTS</Text>
-                                    <Text style={styles.textStyle}>Lets us know you better to help boost your workout result lorem ipsum...</Text>
+                                    <Text style={styles.textStyle}>Lets us know you better to help boost your workout result...</Text>
                                 </View>
                                 <View style={styles.rowMeasureContainer}>
                                     <View style={styles.rowStyle}>
@@ -463,7 +471,7 @@ class CompleteProfile extends Component {
                     btnLoading={btnLoading}
                     setEmail={(email) => this.setState({ email: email })}
                     sendCodeOnEmail={() => this.setState({ submit: true, btnLoading: true }, () => this.sendCodeOnEmail())}
-                    onClose={() => this.setState({ emailModal: false })}
+                    onClose={() => this.setState({ emailModal: false, email: "", submit: false })}
                 />
                 <VerifyOtpModal
                     isVisible={this.state.confirmOtpModal}
@@ -474,7 +482,9 @@ class CompleteProfile extends Component {
                     btnLoading={btnLoading}
                     setError={(e) => this.setState({ error: e })}
                     setCode={(code) => this.setState({ code: code })}
-                    onClose={() => this.setState({ confirmOtpModal: false })}
+                    onClose={() => {
+                        this.setState({ confirmOtpModal: false })
+                    }}
                     verifyCode={() => this.setState({ submit1: true, btnLoading: true }, () => this.verifyCode())} />
                 <Modal isVisible={this.state.passwordModal} animationInTiming={400}
                     animationOutTiming={200} >

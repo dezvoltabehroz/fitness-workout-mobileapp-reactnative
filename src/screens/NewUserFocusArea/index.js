@@ -73,7 +73,7 @@ class AppIntro extends Component {
                             <Text style={styles.headingTextStyle}>{screen.APP_INTRO_Heading_5}</Text>
                             <Text style={styles.decsTextStyle}>Select two focus areas so we could personalize your plan.</Text>
                         </View>
-                        <ImageBackground style={styles.imageStyle} resizeMode="contain" source={gender == 'male' ? require('../../assets/images/boy.png') : require('../../assets/images/girl.png')}>
+                        <ImageBackground style={gender == 'male' ? styles.imageStyle : styles.imageStyleGirl} resizeMode="contain" source={gender == 'male' ? require('../../assets/images/boy.png') : require('../../assets/images/girl.png')}>
                             {
                                 gender == 'male' ?
                                     <>
@@ -172,7 +172,7 @@ class AppIntro extends Component {
                                                 <CheckBox
                                                     disabled={waist ? false : arr.length >= 2 ? true : false}
                                                     isChecked={waist}
-                                                    label="Wasit"
+                                                    label="Waist"
                                                     onPress={() => {
                                                         if (waist) {
                                                             let data = [...arr];

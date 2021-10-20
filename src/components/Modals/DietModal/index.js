@@ -17,7 +17,7 @@ const UpgradeModal = (props) => {
             <View style={styles.modalContainer}>
                 <View style={styles.rowContainer}>
                     <Text style={styles.headingText}>What is your dietary preference?</Text>
-                    <Icon.AntDesign disabled={props.loading} onPress={() => props.onSkip()} name="close" size={25} />
+                    <Icon.AntDesign disabled={props.loading} onPress={() => props.onClose()} name="close" size={25} />
                 </View>
                 <TouchableOpacity onPress={() => props.onValue('vegetarian')} style={props.value == 'vegetarian' ? styles.rowContainer2 : styles.rowContainer1}>
                     <Vegitable />
@@ -28,7 +28,7 @@ const UpgradeModal = (props) => {
                     <Text style={props.value == 'standard' ? styles.rowTextStyleColor : styles.rowTextStyle}>Standard Diet</Text>
                 </TouchableOpacity>
                 <View style={styles.buttonContainer}>
-                    <Button loading={props.loading} title={'DONE'} onPress={() => props.onSkip()} />
+                    <Button disabled={props.value ? false : true} loading={props.loading} title={'DONE'} onPress={() => props.onSkip()} />
                 </View>
             </View>
         </Modal>

@@ -51,6 +51,9 @@ class Login extends Component {
                         storeLocalData(LOCAL_STORAGE_KEYS.user_id, JSON.stringify(res.data.data.id))
                         await this.props.authActions.userLogin(this.props.navigation.replace)
                         this.setState({ loading: false })
+                    } else {
+                        Alert.alert(`${res.data.message}!`)
+                        this.setState({ submit: true, loading: false })
                     }
                 })
                 .catch((err) => {
@@ -203,7 +206,7 @@ class Login extends Component {
                     btnLoading={btnLoading}
                     setEmail={(email) => this.setState({ emailReset: email })}
                     sendCodeOnEmail={() => this.setState({ submit1: true, btnLoading: true }, () => this.sendCodeOnEmail())}
-                    onClose={() => this.setState({ emailModal: false,emailReset:"" })}
+                    onClose={() => this.setState({ emailModal: false, emailReset: "" })}
                 />
                 <VerifyOtpModal
                     isVisible={this.state.confirmOtpModal}

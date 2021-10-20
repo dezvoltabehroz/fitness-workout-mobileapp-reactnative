@@ -56,7 +56,7 @@ export default StyleSheet.create({
     },
     decsTextStyle: {
         width: SCREEN_WIDTH * 0.6,
-        fontSize: THEME.FONT_SIZE_SMALL,
+        fontSize: 11,
         color: "#484848"//THEME.PRIMARY_TEXT_COLOR
     },
     marginHorizontal1: {

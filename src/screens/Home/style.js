@@ -130,17 +130,18 @@ export default StyleSheet.create({
     },
     cardContainer1: {
         // backgroundColor: THEME.DASH_LIGHT,
-        margin: "5%",
+        marginBottom: "7.5%",
         borderRadius: 25,
-        paddingHorizontal: 30,
+        marginLeft: "2%",
+        paddingHorizontal: "5%",
         justifyContent: "center",
-        height: SCREEN_HEIGHT * 0.255,
-        width: SCREEN_WIDTH * 0.91,
+        height: SCREEN_HEIGHT * 0.25,
+        width: SCREEN_WIDTH * 0.96,
     },
     starContainer: {
         position: "absolute",
         left: '10%',
-        top: 14,
+        top: 11,
     }
 
 })

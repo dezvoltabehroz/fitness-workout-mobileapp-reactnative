@@ -67,7 +67,9 @@ export default StyleSheet.create({
     },
     secondHeadingStyle: {
         fontSize: 18,
-        fontWeight: "bold"
+        fontWeight: "bold",
+        marginHorizontal: "5%",
+        textAlign: "center"
     },
     buttonContainer: {
         marginRight: "5%",
