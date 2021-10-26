@@ -241,7 +241,7 @@ class CompleteProfile extends Component {
                     onClose={() => this.setState({ nameModal: false, name: "" })}
                     onSave={() => this.setState({ nameModal: false })} />
                 <DateModal
-                    date={Platform.OS=='ios'?new Date(userData.dob):moment(userData.dob)}
+                    date={Platform.OS=='ios'?new Date():moment()}
                     visible={this.state.dateModal}
                     setDate={(name) => this.setState({ date: name })}
                     onClose={() => this.setState({ dateModal: false, dateValue: "", date: moment() })}

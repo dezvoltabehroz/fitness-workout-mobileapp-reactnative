@@ -30,8 +30,6 @@ const UpgradeModal = (props) => {
                         onDateChange={(date) => props.setDate(date)}
                     />
                 </View>
-
-
                 <View style={styles.rowContainer}>
                     <TouchableOpacity style={{ marginHorizontal: 30 }} onPress={() => props.onClose()}>
                         <Text style={styles.blackText}>Cancel</Text>
