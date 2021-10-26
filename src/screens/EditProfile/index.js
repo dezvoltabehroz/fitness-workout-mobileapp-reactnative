@@ -93,8 +93,9 @@ class CompleteProfile extends Component {
         ProfileServices.updateSpecificPersonalInfo(data, JSON.parse(userToken))
             .then(async (response) => {
                 if (response.data.success) {
+                    await this.props.authActions.userLogin();
                     this.setState({ nextLoading: false, })
-                    await this.props.authActions.userLogin(this.props.navigation.replace)
+                    this.props.navigation.goBack();
                 }
             })
             .catch((err) => console.log(err.response))
@@ -131,7 +132,7 @@ class CompleteProfile extends Component {
     }
 
     verifyCode = () => {
-        const { code, submit1, sendedCode, email,editEmail } = this.state;
+        const { code, submit1, sendedCode, email, editEmail } = this.state;
         const { user_id, token } = this.props.user.userData;
         if (code && code.length == 6 && submit1) {
             if (code == sendedCode) {
@@ -144,7 +145,7 @@ class CompleteProfile extends Component {
                         if (res.data.success) {
                             let userData = { "token": token, "user_id": user_id }
                             await this.props.authActions.getUserProfile(userData)
-                            this.setState({ emailModal: false, btnLoading: false, confirmOtpModal: false, email:editEmail, code: "", submit1: false, })
+                            this.setState({ emailModal: false, btnLoading: false, confirmOtpModal: false, email: editEmail, code: "", submit1: false, })
                         }
                     })
                     .catch((err) => { console.log(err.response) })
@@ -241,7 +242,7 @@ class CompleteProfile extends Component {
                     onClose={() => this.setState({ nameModal: false, name: "" })}
                     onSave={() => this.setState({ nameModal: false })} />
                 <DateModal
-                    date={Platform.OS=='ios'?new Date(date):moment(date)}
+                    date={Platform.OS == 'ios' ? new Date(date) : moment(date)}
                     visible={this.state.dateModal}
                     setDate={(name) => this.setState({ date: name })}
                     onClose={() => this.setState({ dateModal: false, dateValue: "", date: moment() })}
