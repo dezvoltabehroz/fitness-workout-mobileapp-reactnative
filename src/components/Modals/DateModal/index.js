@@ -24,8 +24,8 @@ const UpgradeModal = (props) => {
                 <View style={{ marginBottom: "10%" }}>
                     <DatePicker
                         date={props.date} 
-                        maximumDate={Platform.OS=='ios'?new Date(moment().format("YYYY-MM-DD")):moment().format("YYYY-MM-DD")}
-                        minimumDate={Platform.OS=='ios'?new Date(moment().subtract(90,"years")):moment().subtract(90,"years")}
+                        maximumDate={new Date(moment().format("YYYY-MM-DD"))}
+                        minimumDate={new Date(moment().subtract(90,"years"))}
                         mode="date"
                         onDateChange={(date) => props.setDate(date)}
                     />
