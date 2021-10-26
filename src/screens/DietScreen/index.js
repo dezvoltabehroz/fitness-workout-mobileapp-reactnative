@@ -22,6 +22,7 @@ import { connect } from "react-redux";
 import { getLocalData, LOCAL_STORAGE_KEYS, storeLocalData } from "../../lib/utils/localstorage";
 import { authActions } from "../../redux/actions/auth";
 import { bindActionCreators } from "redux";
+import { planActions } from "../../redux/actions/plan";
 
 const progressCustomStyles = {
     borderRadius: 10,
@@ -46,7 +47,7 @@ class DietScreen extends Component {
         ]
         this.state = {
             upgradeModal: false,
-            dietPlans: [],
+            dietPlans: this.props.plan.dietPlan,
             like: false,
             dietLoading: false,
             noOfPurchased: 28,
@@ -77,46 +78,63 @@ class DietScreen extends Component {
         this.handleDietDays();
     }
 
-    handleDietDays = () => {
-        this.setState({ loading: true })
-        const { user_id, token } = this.props.user.userData;
-        let data = {
-            user_id: user_id
-        }
-        PlanServices.getDietPlans(data, token)
-            .then(async (res) => {
-                if (res.data.success) {
-                    let daysArray = [...res.data.data];
-                    daysArray.forEach((item, index) => { daysArray[index] = { ...daysArray[index], expanded: false } })
-                    this.setState({ dietPlans: daysArray })
-                    let videoTag = { category: "diet videos" }
-                    PlanServices.getFreeVideos(videoTag, token)
-                        .then((response) => {
-
-                            if (response.data.success) {
-                                this.setState({ dietVideos: response.data.data, })
-                                let serveyData = {
-                                    ...data,
-                                    submitted_date: moment().format('YYYY-MM-DD')
+    handleDietDays = async () => {
+        if (this.props.plan.dietPlan.length>0) {
+            this.setState({ dietPlans: this.props.plan.dietPlan })
+            const { user_id, token } = this.props.user.userData;
+            let videoTag = { category: "diet videos" }
+            PlanServices.getFreeVideos(videoTag, token)
+                .then((response) => {
+                    if (response.data.success) {
+                        this.setState({ dietVideos: response.data.data, })
+                        let serveyData = {
+                            user_id: user_id,
+                            submitted_date: moment().format('YYYY-MM-DD')
+                        }
+                        SurveysServices.isSurveySubmitted(serveyData, token)
+                            .then((res) => {
+                                if (res.data.success) {
+                                    this.setState({ isServey: res.data.message, loading: false })
+                                } else {
+                                    this.setState({ isServey: res.data.message, loading: false })
                                 }
-                                SurveysServices.isSurveySubmitted(serveyData, token)
-                                    .then((res) => {
-                                        if (res.data.success) {
-                                            this.setState({ isServey: res.data.message, loading: false })
-                                        } else {
-                                            this.setState({ isServey: res.data.message, loading: false })
-                                        }
-                                    })
-                                    .catch((err) => { console.log(err); this.setState({ loading: false }) })
+                            })
+                            .catch((err) => { console.log(err); this.setState({ loading: false }) })
+                    }
+                })
+                .catch((err) => { console.log(err.response); this.setState({ dietPlans: [], loading: false }) })
+        } else {
+            await this.props.planActions.getDietPlan();
+            setTimeout(() => {
+                this.setState({ dietPlans: this.props.plan.dietPlan })
+                const { user_id, token } = this.props.user.userData;
+                let videoTag = { category: "diet videos" }
+                PlanServices.getFreeVideos(videoTag, token)
+                    .then((response) => {
+                        if (response.data.success) {
+                            this.setState({ dietVideos: response.data.data, })
+                            let serveyData = {
+                                user_id: user_id,
+                                submitted_date: moment().format('YYYY-MM-DD')
                             }
-                        })
-                        .catch((err) => { console.log(err.response); this.setState({ dietPlans: [], loading: false }) })
-                }
-                else {
-                    this.handleStartDietPlan();
-                }
-            })
-            .catch((err) => { console.log(err.response); this.setState({ dietPlans: [], loading: false }) })
+                            SurveysServices.isSurveySubmitted(serveyData, token)
+                                .then((res) => {
+                                    if (res.data.success) {
+                                        this.setState({ isServey: res.data.message, loading: false })
+                                    } else {
+                                        this.setState({ isServey: res.data.message, loading: false })
+                                    }
+                                })
+                                .catch((err) => { console.log(err); this.setState({ loading: false }) })
+                        }
+                    })
+                    .catch((err) => { console.log(err.response); this.setState({ dietPlans: [], loading: false }) })
+            }, 2000);
+        }
+
+      
+
+
     }
 
     handleStartDietPlan = () => {
@@ -202,11 +220,11 @@ class DietScreen extends Component {
                         <ScrollView contentContainerStyle={{ paddingVertical: "5%" }}>
                             <HorizontalList data={dietVideos} video onPress={(item) => navigate(route.VIDEO, { uri: item.media_path })} />
                             <View>
-                                {dietPlans.map((element, index) => {
-                                    let week = element.weekName.split(" ");
+                                {dietPlans?.map((element, index) => {
+                                    let week = element?.weekName?.split(" ");
                                     let dietWeekDate = [];
                                     let progressCount = []
-                                    element.dietDays.forEach((dayObj, i) => {
+                                    element?.dietDays?.forEach((dayObj, i) => {
                                         if (dayObj.completed) { progressCount.push(1) }
                                         if (dayObj.date == moment().format('YYYY-MM-DD')) { dietWeekDate[index] = 1; }
                                     });
@@ -264,11 +282,11 @@ class DietScreen extends Component {
                                                                 return (
                                                                     <>
                                                                         <View style={styles.itemContainer1}>
-                                                                            <TouchableOpacity disabled={moment().format('YYYY-MM-DD') >= moment(item.date).format("YYYY-MM-DD") ? false : true} onPress={() => this.props.navigation.navigate(route.DIETPLANDETAILS, { dietData: element, category: value == "1" ? "standard" : "vegetarian" })} style={[styles.dayStyle, { borderColor: item.completed ? themeStyle.BAR_COLOR : '#9B9B9B', backgroundColor: "transparent" }]}>
+                                                                            <TouchableOpacity disabled={moment().format('YYYY-MM-DD') >= moment(item.date).format("YYYY-MM-DD") ? false : true} onPress={() => this.props.navigation.navigate(route.DIETPLANDETAILS, { dietData: element, dietDate: item.date, category: value == "1" ? "standard" : "vegetarian" })} style={[styles.dayStyle, { borderColor: item.completed ? themeStyle.BAR_COLOR : '#9B9B9B', backgroundColor: "transparent" }]}>
                                                                                 <Text style={[styles.textDescription, { color: item.completed ? themeStyle.BAR_COLOR : '#9B9B9B' }]}>{this.truncateString(item.day, 3)}</Text>
                                                                             </TouchableOpacity>
                                                                             {i == 3 ? null :
-                                                                                <View style={{ marginLeft: 10, }}>
+                                                                                <View style={{ marginLeft: '2%', }}>
                                                                                     <Icon.AntDesign name={"right"} size={20} color={"#9B9B9B"} />
                                                                                 </View>}
                                                                         </View>
@@ -288,7 +306,7 @@ class DietScreen extends Component {
                                                                     </>
                                                                 )
                                                             })}
-                                                            <TouchableOpacity onPress={() => this.setState({ modal: true })} style={{ marginLeft: 12.5, }}>
+                                                            <TouchableOpacity onPress={() => this.setState({ modal: true })} style={{ marginLeft: '2%', }}>
                                                                 {progressCount.length == 7 ? <Trophy /> : <Cup />}
                                                             </TouchableOpacity>
                                                         </View> : null
@@ -304,7 +322,7 @@ class DietScreen extends Component {
                     this.setState({ value: e })
                     storeLocalData(LOCAL_STORAGE_KEYS.DietPreference, JSON.stringify(e))
                 }}
-                    value={value} onClose={() => { if (value) { this.setState({ dietModal: false }) } else { this.props.navigation.goBack() } }} onSkip={() => this.setState({ dietModal: false })} />
+                    value={value} onClose={() => { if (value) { this.setState({ dietModal: false }) } else { this.setState({ dietModal: false }); this.props.navigation.goBack() } }} onSkip={() => this.setState({ dietModal: false })} />
                 <UpgradeModal visible={upgradeModal}
                     onUpgrade={() => this.setState({ upgradeModal: false }, () => this.props.navigation.navigate(route.PAYMENTMETHOD, {}))}
                     onSkip={() => this.setState({ upgradeModal: false })} />
@@ -312,6 +330,11 @@ class DietScreen extends Component {
         )
     }
 }
-const mapStateToProps = (state) => { return { user: state.authReducer || {} }; };
-const mapDispatchToProps = dispatch => { return { authActions: bindActionCreators(authActions, dispatch) }; };
+const mapStateToProps = (state) => { return { user: state.authReducer || {}, plan: state.planReducer || {} }; };
+const mapDispatchToProps = dispatch => {
+    return {
+        authActions: bindActionCreators(authActions, dispatch),
+        planActions: bindActionCreators(planActions, dispatch)
+    };
+};
 export default connect(mapStateToProps, mapDispatchToProps)(DietScreen);

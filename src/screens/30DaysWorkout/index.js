@@ -29,8 +29,8 @@ class PowerOfMind extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            workoutLoading: false,
-            workoutPlan: [],
+            workoutLoading: true,
+            workoutPlan: this.props.plan.workoutPlan,
             upgradeModal: false,
         }
         this.days = [
@@ -82,20 +82,7 @@ class PowerOfMind extends Component {
         this.getWorkOutDays();
     }
     getWorkOutDays = () => {
-        this.setState({ workoutLoading: true })
-        const { user_id, token } = this.props.user.userData;
-        let data = {
-            user_id: user_id
-        }
-        PlanServices.getWorkoutPlans(data, token)
-            .then(async (res) => {
-                if (res.data.success) {
-                    let arr = [...res.data.data];
-                    arr.forEach((item, index) => { arr[index] = { ...arr[index], expanded: false } })
-                    this.setState({ workoutPlan: arr, workoutLoading: false })
-                }
-            })
-            .catch((err) => { console.log(err.response); this.setState({ workoutPlan: [], workoutLoading: false, }) })
+        this.setState({ workoutPlan: this.props.plan.workoutPlan,workoutLoading:false })
     }
 
     changeLayout = (index) => {
@@ -320,5 +307,10 @@ class PowerOfMind extends Component {
         )
     }
 }
-const mapStateToProps = (state) => { return { user: state.authReducer || {} }; };
+const mapStateToProps = (state) => {
+    return {
+        user: state.authReducer || {},
+        plan: state.planReducer || {}
+    };
+};
 export default connect(mapStateToProps)(PowerOfMind);

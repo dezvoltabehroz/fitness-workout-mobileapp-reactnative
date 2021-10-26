@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Alert, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { Alert, Platform, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import Modal from 'react-native-modal';
 import themeStyle from "../../assets/styles/theme.style";
 import themeStyle1 from "../../assets/styles/common.style";
@@ -42,6 +42,7 @@ class CompleteProfile extends Component {
             confirmPassword: "",
             code: "",
             submit: false,
+            editEmail: "",
             nextLoading: false,
             btnLoading: false,
             passwordModal: false,
@@ -112,29 +113,30 @@ class CompleteProfile extends Component {
     }
 
     sendCodeOnEmail = () => {
-        const { email, submit } = this.state;
-        if (email && isEmailValid(email) && submit) {
+        const { email, submit, editEmail } = this.state;
+        if (editEmail && isEmailValid(editEmail) && submit) {
             let data = {
-                "email": email,
+                "email": editEmail,
             }
             AuthServices.sendCodeOnEmail(data, this.props.user.userData.token)
                 .then((res) => {
+                    console.log(res.data.data)
                     this.setState({ emailModal: false, btnLoading: false, submit: false, sendedCode: res.data.data })
                     setTimeout(() => { this.setState({ confirmOtpModal: true, }) }, 350);
                 })
                 .catch((error) => console.log(error.response))
         } else {
-            this.setState({ submit1: true, btnLoading: false })
+            this.setState({ submit: true, btnLoading: false })
         }
     }
 
     verifyCode = () => {
-        const { code, submit1, sendedCode, email } = this.state;
+        const { code, submit1, sendedCode, email,editEmail } = this.state;
         const { user_id, token } = this.props.user.userData;
         if (code && code.length == 6 && submit1) {
             if (code == sendedCode) {
                 let data = {
-                    "email": email,
+                    "email": editEmail,
                     "user_id": user_id
                 }
                 ProfileServices.updateUserEmail(data, token)
@@ -142,7 +144,7 @@ class CompleteProfile extends Component {
                         if (res.data.success) {
                             let userData = { "token": token, "user_id": user_id }
                             await this.props.authActions.getUserProfile(userData)
-                            this.setState({ emailModal: false, btnLoading: false, confirmOtpModal: false, code: "", submit1: false, })
+                            this.setState({ emailModal: false, btnLoading: false, confirmOtpModal: false, email:editEmail, code: "", submit1: false, })
                         }
                     })
                     .catch((err) => { console.log(err.response) })
@@ -157,86 +159,89 @@ class CompleteProfile extends Component {
     render() {
         const { tab, name, date, dateValue, weight, submit, submit1, error,
             feet, inch, code, nextLoading, email, emailModal, btnLoading,
-            password, confirmPassword, kilo, gram } = this.state;
+            password, confirmPassword, kilo, gram, editEmail } = this.state;
         const { userData } = this.props.user;
         return (
             <Container>
-                <View style={styles.cardContainer}>
-                    <View style={{ marginTop: "10%", alignItems: "center" }}>
-                        <Text style={styles.headingText}>MY ACCOUNT</Text>
-                        <Text style={styles.textStyle}>Lets us know you better to help boost your workout result...</Text>
-                    </View>
-                    <View style={styles.rowMeasureContainer}>
-                        <View style={styles.rowStyle}>
-                            <Name />
-                            <Text style={styles.grayText}>{name ? name : userData.full_name ? userData.full_name : 'Full Name'}</Text>
+                <ScrollView contentContainerStyle={{ paddingBottom: "10%" }}>
+                    <View style={styles.cardContainer}>
+
+                        <View style={{ marginTop: "10%", alignItems: "center" }}>
+                            <Text style={styles.headingText}>MY ACCOUNT</Text>
+                            <Text style={styles.textStyle}>Lets us know you better to help boost your workout result...</Text>
+                        </View>
+                        <View style={styles.rowMeasureContainer}>
+                            <View style={styles.rowStyle}>
+                                <Name />
+                                <Text style={styles.grayText}>{name ? name : userData.full_name ? userData.full_name : 'Full Name'}</Text>
+                            </View>
+
+                            <TouchableOpacity onPress={() => this.setState({ nameModal: true, name: userData.full_name })}>
+                                <Plus />
+                            </TouchableOpacity>
+                        </View>
+                        <View style={styles.rowMeasureContainer}>
+                            <View style={styles.rowStyle}>
+                                <Icon.Entypo name="email" color={'#9b9b9b'} size={20} />
+                                <Text style={styles.grayText}>{email ? email : userData.email ? userData.email : 'Email'}</Text>
+                            </View>
+                            {userData.email ?
+                                null :
+                                <TouchableOpacity disabled={userData.email ? true : false} onPress={() => this.setState({ emailModal: true, email: userData.email })}>
+                                    <Plus />
+                                </TouchableOpacity>}
                         </View>
 
-                        <TouchableOpacity onPress={() => this.setState({ nameModal: true,name:userData.full_name })}>
-                            <Plus />
-                        </TouchableOpacity>
-                    </View>
-                    <View style={styles.rowMeasureContainer}>
-                        <View style={styles.rowStyle}>
-                            <Icon.Entypo name="email" color={'#9b9b9b'} size={20} />
-                            <Text style={styles.grayText}>{email ? email : userData.email ? userData.email : 'Email'}</Text>
+                        <View style={styles.rowMeasureContainer}>
+                            <View style={styles.rowStyle}>
+                                <DOB />
+                                <Text style={styles.grayText}>{dateValue ? moment(dateValue).format('YYYY-MM-DD') : userData.dob ? moment(userData.dob).format('YYYY-MM-DD') : 'Date of Birth'}</Text>
+                            </View>
+                            <TouchableOpacity onPress={() => this.setState({ dateModal: true })}>
+                                <Plus />
+                            </TouchableOpacity>
+                        </View>
+                        <View style={styles.rowMeasureContainer}>
+                            <View style={styles.rowStyle}>
+                                <Height />
+                                <Text style={styles.grayText}>{feet && inch ? `${feet}'${inch}"` : userData.height_feet ? `${userData.height_feet}'${userData.height_inches}"` : "Height"}</Text>
+                            </View>
+                            <TouchableOpacity onPress={() => this.setState({ feet: userData.height_feet, inch: userData.height_inches, heightModal: true, })}>
+                                <Plus />
+                            </TouchableOpacity>
+                        </View>
+                        <View style={styles.rowMeasureContainer}>
+                            <View style={styles.rowStyle}>
+                                <Icon.FontAwesome name="tachometer" color={'#9b9b9b'} size={20} />
+                                <Text style={styles.grayText}>{weight ? weight : userData.weight ? userData.weight : "Weight"}</Text>
+                            </View>
+
+                            <TouchableOpacity onPress={() => {
+                                let string = `${userData.weight}`
+                                let array = string.split('.');
+                                this.setState({ kilo: `${array[0]}`, gram: `${array[1]}`, weightModal: true, })
+                            }} >
+                                <Plus />
+                            </TouchableOpacity>
+                        </View>
+                        <View style={{ margin: "8%", marginHorizontal: "20%" }}>
+                            <Button loading={nextLoading || this.props.user.loading} title={'Save'} disabled={this.btnDisabled()} onPress={() => this.setState({ nextLoading: true }, () => this.handleOnPressNext())} />
                         </View>
                         {userData.email ?
-                            null :
-                            <TouchableOpacity disabled={userData.email ? true : false} onPress={() => this.setState({ emailModal: true, email: userData.email })}>
-                                <Plus />
-                            </TouchableOpacity>}
-                    </View>
+                            <View style={{ marginHorizontal: "20%" }}>
+                                <Button title={'Change Email'} onPress={() => this.setState({ editEmail: userData.email, emailModal: true, email: "" })} />
+                            </View> : null}
 
-                    <View style={styles.rowMeasureContainer}>
-                        <View style={styles.rowStyle}>
-                            <DOB />
-                            <Text style={styles.grayText}>{dateValue ? moment(dateValue).format('YYYY-MM-DD') : userData.dob ? moment(userData.dob).format('YYYY-MM-DD') : 'Date of Birth'}</Text>
-                        </View>
-                        <TouchableOpacity onPress={() => this.setState({ dateModal: true })}>
-                            <Plus />
-                        </TouchableOpacity>
                     </View>
-                    <View style={styles.rowMeasureContainer}>
-                        <View style={styles.rowStyle}>
-                            <Height />
-                            <Text style={styles.grayText}>{feet && inch ? `${feet}'${inch}"` : userData.height_feet ? `${userData.height_feet}'${userData.height_inches}"` : "Height"}</Text>
-                        </View>
-                        <TouchableOpacity onPress={() => this.setState({ feet: userData.height_feet, inch: userData.height_inches, heightModal: true, })}>
-                            <Plus />
-                        </TouchableOpacity>
-                    </View>
-                    <View style={styles.rowMeasureContainer}>
-                        <View style={styles.rowStyle}>
-                            <Icon.FontAwesome name="tachometer" color={'#9b9b9b'} size={20} />
-                            <Text style={styles.grayText}>{weight ? weight : userData.weight ? userData.weight : "Weight"}</Text>
-                        </View>
-
-                        <TouchableOpacity onPress={() => {
-                            let string = `${userData.weight}`
-                            let array = string.split('.');
-                            this.setState({ kilo: `${array[0]}`, gram: `${array[1]}`, weightModal: true, })
-                        }} >
-                            <Plus />
-                        </TouchableOpacity>
-                    </View>
-                    <View style={{ margin: "8%", marginHorizontal: "20%" }}>
-                        <Button loading={nextLoading || this.props.user.loading} title={'Save'} disabled={this.btnDisabled()} onPress={() => this.setState({ nextLoading: true }, () => this.handleOnPressNext())} />
-                    </View>
-                    {userData.email ?
-                        <View style={{ marginHorizontal: "20%" }}>
-                            <Button title={'Change Email'} onPress={() => this.setState({ emailModal: true, email: userData.email })} />
-                        </View> : null}
-
-                </View>
+                </ScrollView>
                 <NameModal
                     visible={this.state.nameModal}
                     name={name}
                     onChangeText={(name) => this.setState({ name: name },)}
-                    onClose={() => this.setState({ nameModal: false,name:"" })}
+                    onClose={() => this.setState({ nameModal: false, name: "" })}
                     onSave={() => this.setState({ nameModal: false })} />
                 <DateModal
-                    date={moment(userData.dob)}
+                    date={Platform.OS=='ios'?new Date(userData.dob):moment(userData.dob)}
                     visible={this.state.dateModal}
                     setDate={(name) => this.setState({ date: name })}
                     onClose={() => this.setState({ dateModal: false, dateValue: "", date: moment() })}
@@ -258,12 +263,12 @@ class CompleteProfile extends Component {
                     onClose={() => this.setState({ weightModal: false })}
                     onSave={() => this.setState({ weightModal: false })} />
                 <EmailModal isVisible={emailModal}
-                    email={email}
+                    email={editEmail}
                     submit={submit}
                     btnLoading={btnLoading}
-                    setEmail={(email) => this.setState({ email: email })}
+                    setEmail={(email) => this.setState({ editEmail: email })}
                     sendCodeOnEmail={() => this.setState({ submit: true, btnLoading: true }, () => this.sendCodeOnEmail())}
-                    onClose={() => this.setState({ emailModal: false, email: "" })}
+                    onClose={() => this.setState({ emailModal: false, editEmail: "" })}
                 />
                 <VerifyOtpModal
                     isVisible={this.state.confirmOtpModal}

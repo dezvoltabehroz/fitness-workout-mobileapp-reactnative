@@ -81,7 +81,7 @@ class AppIntro extends Component {
                         <Text style={styles.headingTextStyle}>{screen.APP_INTRO_Heading_2}</Text>
                         <Text style={styles.decsTextStyle}>{screen.APP_INTRO_DESCRIPTION_2}</Text>
                     </View>
-                    <View style={[styles.secondHeadingContainer, { flex: 0.1 }]} >
+                    <View style={[styles.secondHeadingContainer, { flex: 0.2 }]} >
                         <Text style={styles.secondHeadingStyle}>
                             Oh, trust me, {this.handleText()}
                         </Text>

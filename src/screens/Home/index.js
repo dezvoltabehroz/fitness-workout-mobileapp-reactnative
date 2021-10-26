@@ -20,6 +20,7 @@ import styles from './style';
 import { getLocalData, LOCAL_STORAGE_KEYS } from '../../lib/utils/localstorage';
 import { PlanServices, ProfileServices } from '../../services';
 import moment from 'moment';
+import { planActions } from '../../redux/actions/plan';
 
 const SVG_HEIGHT = 15;
 const SVG_WIDTH = 15;
@@ -32,6 +33,8 @@ class Home extends Component {
             value: 0,
             fitnessLevel: "Very Fit",
             challenges: [],
+            dietLoading: false,
+            workoutLoading: false,
             data: [
                 {
                     title: "Morning Workouts",
@@ -111,6 +114,7 @@ class Home extends Component {
     }
 
     handleStartWorkout = () => {
+        this.setState({ workoutLoading: true })
         const { navigate } = this.props.navigation;
         const { user_id, token } = this.props.user.userData;
         console.log(token)
@@ -125,12 +129,17 @@ class Home extends Component {
                     user_id: user_id
                 }
                 await this.props.authActions.getUserProfile(userData)
-                navigate(route.DAYS_WORLOUT)
+                await this.props.planActions.getWorkoutPlan();
+                setTimeout(() => {
+                    this.setState({ workoutLoading: false })
+                    navigate(route.DAYS_WORLOUT)
+                }, 2000)
             })
             .catch((err) => console.log(err.response))
     }
 
     handleStartDietPlan = () => {
+        this.setState({ dietLoading: true })
         const { navigate } = this.props.navigation;
         const { user_id, token } = this.props.user.userData;
         let data = {
@@ -143,9 +152,12 @@ class Home extends Component {
                     token: token,
                     user_id: user_id
                 }
-                await this.props.authActions.getUserProfile(userData)
-                navigate(route.DIET)
-
+                await this.props.authActions.getUserProfile(userData);
+                await this.props.planActions.getDietPlan();
+                setTimeout(() => {
+                    this.setState({ dietLoading: false })
+                    navigate(route.DIET)
+                }, 2000);
             })
             .catch((err) => console.log(err.response))
     }
@@ -154,7 +166,7 @@ class Home extends Component {
 
         const { navigate } = this.props.navigation;
         const { value, data, challenges } = this.state;
-        const { bmi, daily_diet_count, daily_workout_count, is_pro } = this.props.user.userData;
+        const { bmi, daily_diet_count, daily_workout_count, is_pro } = this.props?.user?.userData;
         const progressCustomStyles = {
             borderRadius: 10,
             borderWidth: 0,
@@ -180,7 +192,7 @@ class Home extends Component {
                                 <View style={styles.alignItems}>
                                     <View style={styles.row}>
                                         <Fire height={SVG_HEIGHT} width={SVG_WIDTH} />
-                                        <Text style={styles.barTextStyle}>{daily_workout_count ? daily_workout_count : 0}</Text>
+                                        <Text style={styles.barTextStyle}>{daily_workout_count!=undefined ? daily_workout_count : 0}</Text>
                                     </View>
                                     <Text style={styles.decsTextStyle}>WORKOUT DAYS</Text>
                                 </View>
@@ -188,7 +200,7 @@ class Home extends Component {
                                 <View style={styles.alignItems}>
                                     <View style={styles.row}>
                                         <Apple height={SVG_HEIGHT} width={SVG_WIDTH} />
-                                        <Text style={styles.barTextStyle}>{daily_diet_count ? daily_diet_count : 0}</Text>
+                                        <Text style={styles.barTextStyle}>{daily_diet_count!=undefined ? daily_diet_count : 0}</Text>
                                     </View>
                                     <Text style={styles.decsTextStyle}>DIET DAYS</Text>
                                 </View>
@@ -196,7 +208,7 @@ class Home extends Component {
                                 <View style={styles.alignItems}>
                                     <View style={styles.row}>
                                         <BMI height={SVG_HEIGHT} width={SVG_WIDTH} />
-                                        <Text style={styles.barTextStyle}>{bmi ? parseFloat(bmi).toFixed(2) : 0}</Text>
+                                        <Text style={styles.barTextStyle}>{bmi!=undefined ? parseFloat(bmi).toFixed(2) : 0}</Text>
                                     </View>
                                     <Text style={styles.decsTextStyle}>BMI</Text>
                                 </View>
@@ -206,17 +218,17 @@ class Home extends Component {
                             <Text style={styles.whiteTextStyle}>30 DAY'S WORKOUT</Text>
                             <View style={styles.rowStyle}>
                                 {this.fitnessLevelFunction()}
-                                <Text style={styles.whiteTextStyle1}>{daily_workout_count ? Math.floor(daily_workout_count / 30 * 100) : 0}%</Text>
+                                <Text style={styles.whiteTextStyle1}>{daily_workout_count!=undefined ? Math.floor(daily_workout_count / 30 * 100) : 0}%</Text>
                             </View>
                             <ProgressBarAnimated
                                 width={SCREEN_WIDTH * 0.6}
                                 height={10}
-                                value={daily_workout_count ? daily_workout_count / 30 * 100 : 1}
+                                value={daily_workout_count!=undefined ? daily_workout_count / 30 * 100 : 1}
                                 {...progressCustomStyles}
-                                onComplete={() => {  }}
+                                onComplete={() => { }}
                             />
                             <View style={styles.goButtonContainer}>
-                                <Button title={'GO!'} onPress={() => this.handleStartWorkout()} />
+                                <Button loading={this.state.workoutLoading} title={'GO!'} onPress={() => this.handleStartWorkout()} />
                             </View>
                         </ImageBackground>
                         <View style={{ bottom: '3%' }}>
@@ -226,11 +238,11 @@ class Home extends Component {
                         <ImageBackground source={require('../../assets/images/diet.png')} style={styles.cardContainer} >
                             <Text style={styles.whiteTextStyle1}>DIET PLAN IS READY!</Text>
                             <View style={styles.goButtonContainer}>
-                                <Button title={'GO!'} onPress={() => this.handleStartDietPlan()} />
+                                <Button loading={this.state.dietLoading} title={'GO!'} onPress={() => this.handleStartDietPlan()} />
                             </View>
                         </ImageBackground>
                         <TouchableOpacity style={{}} onPress={() => navigate(route.POWER_OF_MIND)} >
-                            <ImageBackground source={require('../../assets/images/mind.png')}  imageStyle={{borderRadius: 25,}} style={styles.cardContainer1}>
+                            <ImageBackground source={require('../../assets/images/mind.png')} imageStyle={{ borderRadius: 25, }} style={styles.cardContainer1}>
                                 <View>
                                     <Text style={styles.whiteTextStyle1}>POWER OF THE MIND</Text>
                                     {/* <Text style={{ color: THEME.COLOR_WHITE }}>Lorem ipsum dolor sir</Text> */}
@@ -248,6 +260,15 @@ class Home extends Component {
     }
 }
 
-const mapStateToProps = (state) => { return { user: state.authReducer || {} }; };
-const mapDispatchToProps = dispatch => { return { authActions: bindActionCreators(authActions, dispatch) }; };
+const mapStateToProps = (state) => {
+    return {
+        user: state.authReducer || {}
+    };
+};
+const mapDispatchToProps = dispatch => {
+    return {
+        authActions: bindActionCreators(authActions, dispatch),
+        planActions: bindActionCreators(planActions, dispatch)
+    };
+};
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

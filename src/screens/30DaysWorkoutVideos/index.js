@@ -12,6 +12,8 @@ import { connect } from "react-redux";
 import { PlanServices, ProfileServices } from "../../services";
 import { getLocalData, LOCAL_STORAGE_KEYS, storeLocalData } from '../../lib/utils/localstorage';
 import moment from "moment";
+import { planActions } from "../../redux/actions/plan";
+import { bindActionCreators } from "redux";
 class DaysWorkoutVideos extends Component {
     constructor(props) {
         super(props);
@@ -44,15 +46,17 @@ class DaysWorkoutVideos extends Component {
         const { token, workout_user_id } = this.props.user.userData;
         if ((index + 1) == this.state.videos.length) {
             let data = {
-                "workout_date": moment().format('YYYY-MM-DD'),
+                "workout_date": moment(this.props?.route?.params?.workoutDate).format('YYYY-MM-DD'),
                 "workout_week": this.props?.route?.params?.workout_week,
-                "workout_day": moment().format('dddd'),
+                "workout_day": moment(this.props?.route?.params?.workoutDate).format('dddd'),
                 "feedback": "Satisfied",
                 "workout_user_id": workout_user_id
             }
             ProfileServices.updateDailyWorkout(data, token)
-                .then((response) => {
-                    if (response.data.success) { }
+                .then(async (response) => {
+                    if (response.data.success) {
+                        await this.props.planActions.getWorkoutPlan();
+                    }
                 })
                 .catch((err) => { console.log(err.response); this.setState({ loading: false }) })
         }
@@ -68,13 +72,14 @@ class DaysWorkoutVideos extends Component {
 
                     <View >
                         <Text style={styles.headingText}>{item.video_title}</Text>
-                        <Text style={styles.headingText3}>30S <Text style={styles.timeText}>Total Time</Text> </Text>
+                        {/* <Text style={styles.headingText3}>30S <Text style={styles.timeText}>Total Time</Text> </Text> */}
                     </View>
                     <View style={{ alignItems: "center" }}>
                         <Icon.AntDesign onPress={() => { this.props.navigation.navigate(route.DAYSWORKOUTVIDEOPLAYER, { data: item, dayCompleted: index + 1 == this.state.videos ? true : false, workout_week: this.props.route.params.workout_week }); this.handleUpdateDailyWorkout(index, item) }} name='play' size={50} color={themeStyle.BAR_COLOR} />
                     </View>
                     <View style={styles.rowContentContainer} >
-                        <Text style={styles.headingText2}>00: 25</Text>
+                        {/* <Text style={styles.headingText2}>00: 25</Text> */}
+                        <Text style={styles.headingText2}> </Text>
                         <Youtube fill={'#fff'} />
                     </View>
                 </ImageBackground>
@@ -112,4 +117,9 @@ class DaysWorkoutVideos extends Component {
     }
 }
 const mapStateToProps = (state) => { return { user: state.authReducer || {} }; };
-export default connect(mapStateToProps)(DaysWorkoutVideos);
+const mapDispatchToProps = dispatch => {
+    return {
+        planActions: bindActionCreators(planActions, dispatch)
+    };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(DaysWorkoutVideos);

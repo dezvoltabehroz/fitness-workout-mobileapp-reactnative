@@ -28,7 +28,7 @@ class WorkoutSettings extends Component {
                     </View>
                     <View style={styles.itemContainer}>
                         <Text style={styles.textStyle}>Equipment Types: </Text>
-                        <Text style={styles.textStyle1}>{this.props.user.userData.fitness_equipment}</Text>
+                        <Text style={styles.textStyle1}>{this.props.user.userData.fitness_equipment=="allEquipment"?"Mixed Equipment":this.props.user.userData.fitness_equipment}</Text>
                     </View>
                     <View style={styles.itemContainer}>
                         <Text style={styles.textStyle}>Focus Area: </Text>

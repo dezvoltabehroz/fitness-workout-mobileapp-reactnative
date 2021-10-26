@@ -30,15 +30,16 @@ class AppIntro extends Component {
 
     render() {
 
-        const { navigate,replace } = this.props.navigation;
+        const { navigate, replace } = this.props.navigation;
         const { timer } = this.state;
 
         return (
             <Container>
-                <StatusBar translucent={true} backgroundColor={'transparent'} barStyle={"light-content"} />
+                <StatusBar translucent={true} backgroundColor={"transparent"} barStyle={"light-content"} />
+                <View style={{ flex: 1 }}>
                 <ImageBackground
                     style={{ height: SCREEN_HEIGHT, width: SCREEN_WIDTH }}
-                    resizeMode={"cover"}
+                    resizeMode={"contain"}
                     source={require('../../assets/images/Splash.gif')}>
                     {timer ?
                         <View style={styles.buttonContainer}>
@@ -49,6 +50,8 @@ class AppIntro extends Component {
                         </View>
                         : null
                     }</ImageBackground>
+                </View>
+             
 
             </Container>
 

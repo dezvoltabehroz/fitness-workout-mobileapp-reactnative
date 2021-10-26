@@ -372,9 +372,6 @@ class Progress extends Component {
                                 :
                                 null
                         }
-
-
-
                     </ScrollView>
                 </View>
                 <UpgradeModal visible={this.state.modal} onUpgrade={() => this.props.navigation.navigate(route.PAYMENTMETHOD, {})} onSkip={() => this.setState({ modal: false })} />

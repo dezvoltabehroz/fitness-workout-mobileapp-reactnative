@@ -15,6 +15,7 @@ import styles from './style';
 import themeStyle from '../../assets/styles/theme.style';
 import { getLocalData, LOCAL_STORAGE_KEYS, storeLocalData } from '../../lib/utils/localstorage';
 import { connect } from 'react-redux';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const SVG_HEIGHT = 36;
 const SVG_WIDTH = 36;
@@ -184,39 +185,41 @@ class SelectEuipment extends Component {
                 <HeaderView goBack={() => goBack()} />
 
                 <View style={styles.container}>
-                    <View style={styles.targetContainer}>
-                        <Target />
-                    </View>
-                    <View style={styles.headingContainer}>
-                        <Text style={styles.headingTextStyle}>{screen.APP_INTRO_Heading_3}</Text>
-                        <Text style={[styles.decsTextStyle, { textAlign: "center" }]}>{screen.APP_INTRO_DESCRIPTION_3}</Text>
-                    </View>
-                    {
-                        this.state.fitnessEquipment?.map((item, index) => {
-                            return (
-                                <TouchableOpacity onPress={() => {
-                                    if (item.selected) {
-                                        let fitnessEquipment = [...this.state.fitnessEquipment]
-                                        let selectedEquipment = [...this.state.selectedEquipment];
-                                        const objIndex = selectedEquipment.indexOf(item.title);
-                                        selectedEquipment.splice(objIndex, 1);
-                                        fitnessEquipment[index] = { ...fitnessEquipment[index], selected: false }
-                                        console.log(selectedEquipment)
-                                        this.setState({ fitnessEquipment: fitnessEquipment, selectedEquipment: selectedEquipment })
-                                        console.log(selectedEquipment)
-                                    } else this.handleSelectEquipment(item, index)
-                                }} style={item.selected ? styles.selectedButtonStyle : styles.unSelectedButtonStyle}>
-                                    <View style={styles.marginHorizontal1}>
-                                        {item.svg}
-                                    </View>
-                                    <View style={styles.marginHorizontal}>
-                                        <Text style={styles.decsHeading}>{item.title}</Text>
-                                        <Text style={styles.decsTextStyle}>{item.description}</Text>
-                                    </View>
-                                </TouchableOpacity>
-                            )
-                        })
-                    }
+                    <ScrollView showsVerticalScrollIndicator={false}>
+                        <View style={styles.targetContainer}>
+                            <Target />
+                        </View>
+                        <View style={styles.headingContainer}>
+                            <Text style={styles.headingTextStyle}>{screen.APP_INTRO_Heading_3}</Text>
+                            <Text style={[styles.decsTextStyle, { textAlign: "center" }]}>{screen.APP_INTRO_DESCRIPTION_3}</Text>
+                        </View>
+                        {
+                            this.state.fitnessEquipment?.map((item, index) => {
+                                return (
+                                    <TouchableOpacity onPress={() => {
+                                        if (item.selected) {
+                                            let fitnessEquipment = [...this.state.fitnessEquipment]
+                                            let selectedEquipment = [...this.state.selectedEquipment];
+                                            const objIndex = selectedEquipment.indexOf(item.title);
+                                            selectedEquipment.splice(objIndex, 1);
+                                            fitnessEquipment[index] = { ...fitnessEquipment[index], selected: false }
+                                            console.log(selectedEquipment)
+                                            this.setState({ fitnessEquipment: fitnessEquipment, selectedEquipment: selectedEquipment })
+                                            console.log(selectedEquipment)
+                                        } else this.handleSelectEquipment(item, index)
+                                    }} style={item.selected ? styles.selectedButtonStyle : styles.unSelectedButtonStyle}>
+                                        <View style={styles.marginHorizontal1}>
+                                            {item.svg}
+                                        </View>
+                                        <View style={styles.marginHorizontal}>
+                                            <Text style={styles.decsHeading}>{item.title}</Text>
+                                            <Text style={styles.decsTextStyle}>{item.description}</Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                )
+                            })
+                        }
+                    </ScrollView>
                 </View>
                 <View style={styles.buttonContainer}>
                     <ClearButton title={screen.NEXT} onPress={() => {

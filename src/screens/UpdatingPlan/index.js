@@ -35,10 +35,12 @@ class UpdatingPlan extends Component {
         const leg = await getLocalData(LOCAL_STORAGE_KEYS.focusAreaLegs)
         const gender = await getLocalData(LOCAL_STORAGE_KEYS.gender)
 
+        let fitnessEquipment = JSON.parse(equipment) == "Mixed equipment" ? "All Equipment" : JSON.parse(equipment)
+      
         let data = {
             "fitness_goal": JSON.parse(goal),
             "fitness_level": JSON.parse(level),
-            "fitness_equipment": JSON.parse(equipment),
+            "fitness_equipment": fitnessEquipment,
             "focus_area_arms": JSON.parse(arm),
             "focus_area_waist": JSON.parse(waist),
             "focus_area_legs": JSON.parse(leg),

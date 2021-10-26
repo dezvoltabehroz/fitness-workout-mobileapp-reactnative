@@ -22,14 +22,16 @@ export default StyleSheet.create({
         paddingLeft: "5.5%"
     },
     contentContainer1: {
-        borderRadius: 10,
-        overflow: "hidden",
+        
+       
         width: SCREEN_WIDTH * 0.4,
         height: SCREEN_HEIGHT * 0.2,
     },
     opacity: {
         flex: 1,
-        backgroundColor: '#00000059'
+        borderRadius: 10,
+        backgroundColor: '#00000059',
+        
     },
     itemContainer: {
         backgroundColor: THEME.COLOR_WHITE,

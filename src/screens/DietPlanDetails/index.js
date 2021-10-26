@@ -20,6 +20,8 @@ import { getLocalData, LOCAL_STORAGE_KEYS } from '../../lib/utils/localstorage';
 import themeStyle from '../../assets/styles/theme.style';
 import RenderHTML from 'react-native-render-html';
 import { SCREEN_WIDTH } from '../../lib/utils/constants';
+import { planActions } from '../../redux/actions/plan';
+import { bindActionCreators } from 'redux';
 
 class DietPlanDetails extends Component {
     constructor(props) {
@@ -33,7 +35,7 @@ class DietPlanDetails extends Component {
 
     componentDidMount = async () => {
         this.setState({ loading: true })
-        console.log(this.props.user.userData.fitness_goal.toLowerCase())
+        console.log("this.props.route.params.dietData.weekName : ", this.props.route.params.dietData)
         console.log(JSON.parse(await getLocalData(LOCAL_STORAGE_KEYS.DietPreference)));
         let data = {
             "category_name": JSON.parse(await getLocalData(LOCAL_STORAGE_KEYS.DietPreference)),
@@ -55,14 +57,22 @@ class DietPlanDetails extends Component {
         const { user_id, token, diet_user_id } = this.props.user.userData;
         let week = this.props.route.params.dietData.weekName.split(' ')
         let data = {
-            "diet_date": moment().format('YYYY-MM-DD'),
+            "diet_date": moment(this.props.route.params.dietDate).format('YYYY-MM-DD'),
             "diet_week": week[1],
-            "diet_day": moment().format('dddd'),
+            "diet_day": moment(this.props.route.params.dietDate).format('dddd'),
             "feedback": "Satisfied",
             "diet_user_id": diet_user_id
         }
+        console.log(data)
         ProfileServices.updateDailyDiet(data, token)
-            .then((res) => { if (res.data.success) { this.setState({ finished: false }); this.props.navigation.goBack(); } })
+            .then(async (res) => {
+                if (res.data.success) {
+                    await this.props.planActions.getDietPlan();
+                    setTimeout(() => {
+                        this.setState({ finished: false }); this.props.navigation.goBack();
+                    }, 2000);
+                }
+            })
             .catch((err) => { console.log(err.response) })
     }
 
@@ -137,4 +147,9 @@ class DietPlanDetails extends Component {
     }
 }
 const mapStateToProps = (state) => { return { user: state.authReducer || {} }; };
-export default connect(mapStateToProps)(DietPlanDetails);
+const mapDispatchToProps = dispatch => {
+    return {
+        planActions: bindActionCreators(planActions, dispatch)
+    };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(DietPlanDetails);

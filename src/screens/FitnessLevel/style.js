@@ -62,7 +62,8 @@ export default StyleSheet.create({
         alignItems: "center"
     },
     secondHeadingContainer: {
-        marginTop: "15%",
+        // marginTop: "15%",
+        justifyContent:"center",
         alignItems: "center"
     },
     secondHeadingStyle: {

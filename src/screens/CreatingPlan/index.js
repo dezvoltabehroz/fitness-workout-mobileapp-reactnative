@@ -37,10 +37,12 @@ class CreatingPlan extends Component {
         const leg = await getLocalData(LOCAL_STORAGE_KEYS.focusAreaLegs)
         const gender = await getLocalData(LOCAL_STORAGE_KEYS.gender)
 
+        let fitnessEuipment = JSON.parse(equipment) == "Mixed Equipment" ? "All Equipment" : JSON.parse(equipment)
+      
         let data = {
             "fitness_goal": JSON.parse(goal),
             "fitness_level": JSON.parse(level),
-            "fitness_equipment": JSON.parse(equipment),
+            "fitness_equipment": fitnessEuipment,
             "focus_area_arms": JSON.parse(arm),
             "focus_area_waist": JSON.parse(waist),
             "focus_area_legs": JSON.parse(leg),
@@ -83,7 +85,7 @@ class CreatingPlan extends Component {
                     <View style={styles.headingContainer}>
                         {value ? <Tick /> : null}
                         <Text style={styles.headingTextStyle}>{screen.CREATINGPLAN_HEADING}</Text>
-                        <Text style={styles.decsTextStyle}>{value?screen.CREATINGPLAN_DESCRIPTION:"In Progress..."}</Text>
+                        <Text style={styles.decsTextStyle}>{value ? screen.CREATINGPLAN_DESCRIPTION : "In Progress..."}</Text>
                     </View>
 
                     <View style={styles.progressContainer}>

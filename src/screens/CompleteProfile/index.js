@@ -210,7 +210,7 @@ class CompleteProfile extends Component {
         const { code, submit1, sendedCode } = this.state;
         if (code && code.length == 6 && submit1) {
             if (code == sendedCode) {
-                this.setState({ btnLoading: false, confirmOtpModal: false, code: "", submit1: false, })
+                this.setState({ btnLoading: false, confirmOtpModal: false, submit1: false, })
             } else {
                 Alert.alert("Code is incorrect!", 'Please enter a valid code ');
                 this.setState({ btnLoading: false, code: "", submit1: false, })
@@ -233,75 +233,80 @@ class CompleteProfile extends Component {
             <Container>
                 {
                     tab == 0 ?
-                        <View style={styles.cardContainer}>
-                            <View style={styles.row}>
-                                <Icon.Octicons name="primitive-dot" color={tab == 0 ? themeStyle.BAR_COLOR : '#797B7B'} size={15} />
-                                <Icon.Octicons name="primitive-dot" color={tab == 1 ? themeStyle.BAR_COLOR : '#797B7B'} size={15} style={{ marginLeft: '5%' }} />
-                            </View>
-                            <View style={{ alignItems: "center" }}>
-                                <Text style={styles.headingText}>MY ACCOUNT</Text>
-                                <Text style={styles.textStyle}>Lets us know you better to help boost your workout result...</Text>
-                            </View>
-                            <View style={styles.rowMeasureContainer}>
-                                <View style={styles.rowStyle}>
-                                    <Name />
-                                    <Text style={styles.grayText}>{name ? name : 'Full Name'}</Text>
-                                </View>
-                                <TouchableOpacity onPress={() => this.setState({ nameModal: true })}>
-                                    <Plus />
-                                </TouchableOpacity>
-                            </View>
-                            <View style={styles.rowMeasureContainer}>
-                                <View style={styles.rowStyle}>
-                                    <Icon.Entypo name="email" color={'#9b9b9b'} size={20} />
-                                    <Text style={{ ...styles.grayText, width: SCREEN_WIDTH * 0.55 }}>{email ? email : 'Email'}</Text>
-                                </View>
+                        <ScrollView>
 
-                                <TouchableOpacity onPress={() => this.setState({ emailModal: true })}>
-                                    <Plus />
-                                </TouchableOpacity>
-                            </View>
-                            <View style={styles.rowMeasureContainer}>
-                                <View style={styles.rowStyle}>
-                                    <Icon.Entypo name="lock" color={'#9b9b9b'} size={20} />
-                                    <Text style={styles.grayText}>{password ? this.securePasswordEntry(password) : 'Password'}</Text>
-                                </View>
 
-                                <TouchableOpacity onPress={() => this.setState({ passwordModal: true })}>
-                                    <Plus />
-                                </TouchableOpacity>
-                            </View>
-                            <View style={styles.rowMeasureContainer}>
-                                <View style={styles.rowStyle}>
-                                    <DOB />
-                                    <Text style={styles.grayText}>{dateValue ? dateValue : 'Date of Birth'}</Text>
+                            <View style={styles.cardContainer}>
+
+                                <View style={styles.row}>
+                                    <Icon.Octicons name="primitive-dot" color={tab == 0 ? themeStyle.BAR_COLOR : '#797B7B'} size={15} />
+                                    <Icon.Octicons name="primitive-dot" color={tab == 1 ? themeStyle.BAR_COLOR : '#797B7B'} size={15} style={{ marginLeft: '5%' }} />
                                 </View>
-                                <TouchableOpacity onPress={() => this.setState({ dateModal: true })}>
-                                    <Plus />
-                                </TouchableOpacity>
-                            </View>
-                            <View style={styles.rowMeasureContainer}>
-                                <View style={styles.rowStyle}>
-                                    <Height />
-                                    <Text style={styles.grayText}>{feet ? `${feet}'${inch ? inch : 0}"` : 'Height'}</Text>
+                                <View style={{ alignItems: "center" }}>
+                                    <Text style={styles.headingText}>MY ACCOUNT</Text>
+                                    <Text style={styles.textStyle}>Lets us know you better to help boost your workout result...</Text>
                                 </View>
-                                <TouchableOpacity onPress={() => this.setState({ heightModal: true })}>
-                                    <Plus />
-                                </TouchableOpacity>
-                            </View>
-                            <View style={styles.rowMeasureContainer}>
-                                <View style={styles.rowStyle}>
-                                    <Icon.FontAwesome name="tachometer" color={'#9b9b9b'} size={20} />
-                                    <Text style={styles.grayText}>{kilo || gram ? `${kilo ? kilo : 0}.${gram ? gram : 0}` : 'Weight'}</Text>
+                                <View style={styles.rowMeasureContainer}>
+                                    <View style={styles.rowStyle}>
+                                        <Name />
+                                        <Text style={styles.grayText}>{name ? name : 'Full Name'}</Text>
+                                    </View>
+                                    <TouchableOpacity onPress={() => this.setState({ nameModal: true })}>
+                                        <Plus />
+                                    </TouchableOpacity>
                                 </View>
-                                <TouchableOpacity onPress={() => this.setState({ weightModal: true })} >
-                                    <Plus />
-                                </TouchableOpacity>
+                                <View style={styles.rowMeasureContainer}>
+                                    <View style={styles.rowStyle}>
+                                        <Icon.Entypo name="email" color={'#9b9b9b'} size={20} />
+                                        <Text style={{ ...styles.grayText, width: SCREEN_WIDTH * 0.55 }}>{email ? email : 'Email'}</Text>
+                                    </View>
+
+                                    <TouchableOpacity onPress={() => this.setState({ emailModal: true })}>
+                                        <Plus />
+                                    </TouchableOpacity>
+                                </View>
+                                <View style={styles.rowMeasureContainer}>
+                                    <View style={styles.rowStyle}>
+                                        <Icon.Entypo name="lock" color={'#9b9b9b'} size={20} />
+                                        <Text style={styles.grayText}>{password ? this.securePasswordEntry(password) : 'Password'}</Text>
+                                    </View>
+
+                                    <TouchableOpacity onPress={() => this.setState({ passwordModal: true })}>
+                                        <Plus />
+                                    </TouchableOpacity>
+                                </View>
+                                <View style={styles.rowMeasureContainer}>
+                                    <View style={styles.rowStyle}>
+                                        <DOB />
+                                        <Text style={styles.grayText}>{dateValue ? dateValue : 'Date of Birth'}</Text>
+                                    </View>
+                                    <TouchableOpacity onPress={() => this.setState({ dateModal: true })}>
+                                        <Plus />
+                                    </TouchableOpacity>
+                                </View>
+                                <View style={styles.rowMeasureContainer}>
+                                    <View style={styles.rowStyle}>
+                                        <Height />
+                                        <Text style={styles.grayText}>{feet ? `${feet}'${inch ? inch : 0}"` : 'Height'}</Text>
+                                    </View>
+                                    <TouchableOpacity onPress={() => this.setState({ heightModal: true })}>
+                                        <Plus />
+                                    </TouchableOpacity>
+                                </View>
+                                <View style={styles.rowMeasureContainer}>
+                                    <View style={styles.rowStyle}>
+                                        <Icon.FontAwesome name="tachometer" color={'#9b9b9b'} size={20} />
+                                        <Text style={styles.grayText}>{kilo || gram ? `${kilo ? kilo : 0}.${gram ? gram : 0}` : 'Weight'}</Text>
+                                    </View>
+                                    <TouchableOpacity onPress={() => this.setState({ weightModal: true })} >
+                                        <Plus />
+                                    </TouchableOpacity>
+                                </View>
+                                <View style={{ margin: "8%" }}>
+                                    <Button loading={nextLoading} title={'Next'} onPress={() => { this.setState({ nextLoading: true }, () => this.handleOnPressNext()) }} />
+                                </View>
                             </View>
-                            <View style={{ margin: "8%" }}>
-                                <Button loading={nextLoading} title={'Next'} onPress={() => { this.setState({ nextLoading: true }, () => this.handleOnPressNext()) }} />
-                            </View>
-                        </View>
+                        </ScrollView>
                         :
                         null
                 }

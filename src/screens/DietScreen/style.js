@@ -55,7 +55,8 @@ export default StyleSheet.create({
     itemContainer1: {
         flexDirection: 'row',
         justifyContent: "space-between",
-        padding: 5,
+        paddingVertical: '2%',
+        paddingHorizontal: '1%',
         alignItems: "center"
     },
     dayStyle: {
