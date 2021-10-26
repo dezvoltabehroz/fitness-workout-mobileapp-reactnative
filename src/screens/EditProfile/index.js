@@ -58,6 +58,7 @@ class CompleteProfile extends Component {
         this.setState({
             name: full_name,
             dateValue: dob,
+            date:dob,
             weight: weight,
             feet: height_feet,
             inch: height_inches,
