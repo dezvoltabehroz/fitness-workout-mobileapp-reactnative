@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity, Platform } from 'react-native';
 import Modal from 'react-native-modal'
 import DatePicker from 'react-native-date-picker'
 import Resume from '../../../assets/svg/refresh.svg';
@@ -24,8 +24,8 @@ const UpgradeModal = (props) => {
                 <View style={{ marginBottom: "10%" }}>
                     <DatePicker
                         date={props.date} 
-                        maximumDate={new Date()}
-                        minimumDate={moment().subtract(90,"years")}
+                        maximumDate={Platform.OS=='ios'?new Date(moment().format("YYYY-MM-DD")):moment().format("YYYY-MM-DD")}
+                        minimumDate={Platform.OS=='ios'?new Date(moment().subtract(90,"years")):moment().subtract(90,"years")}
                         mode="date"
                         onDateChange={(date) => props.setDate(date)}
                     />
