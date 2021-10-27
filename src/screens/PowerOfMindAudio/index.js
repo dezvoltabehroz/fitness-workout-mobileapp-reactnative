@@ -105,7 +105,7 @@ class PowerOfMindAudio extends Component {
                         </View>
                         <View style={styles.rowContainer}>
                             <View style={styles.timerContainer} >
-                                <Text>{this.state.progress}</Text>
+                                {/* <Text>{this.state.progress}</Text> */}
                             </View>
                             <SoundCloudWaveform
                                 waveformUrl={"https://w1.sndcdn.com/PP3Eb34ToNki_m.png"}
@@ -119,7 +119,7 @@ class PowerOfMindAudio extends Component {
                                 width={SCREEN_WIDTH * 0.8}
                             />
                             <View style={styles.timerContainer} >
-                                <Text>{this.state.duration}</Text>
+                                {/* <Text>{this.state.duration}</Text> */}
                             </View>
                         </View>
                         <TouchableOpacity onPress={this.changestate} style={styles.buttonContainer}>
