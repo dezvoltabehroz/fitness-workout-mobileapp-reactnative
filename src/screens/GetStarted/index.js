@@ -36,7 +36,7 @@ class AppIntro extends Component {
         return (
             <Container>
                 <StatusBar translucent={true} backgroundColor={"transparent"} barStyle={"light-content"} />
-                <View style={{ flex: 1 }}>
+                <View style={{ flex: 1 ,backgroundColor:'#15bceb'}}>
                 <ImageBackground
                     style={{ height: SCREEN_HEIGHT, width: SCREEN_WIDTH }}
                     resizeMode={"contain"}
@@ -45,7 +45,7 @@ class AppIntro extends Component {
                         <View style={styles.buttonContainer}>
                             <ClearButton title={'GET STARTED'} onPress={() => replace(route.APPINTRO)} />
                             <View style={styles.buttonContainer1}>
-                                <ClearButton title={'LOG IN'} onPress={() => navigate(route.LOGIN)} />
+                                <ClearButton title={'LOG IN'} onPress={() => replace(route.LOGIN)} />
                             </View>
                         </View>
                         : null

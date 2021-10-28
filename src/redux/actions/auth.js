@@ -58,10 +58,10 @@ const getUserProfile = (userData, navigate) => {
 
 const removeUser = (navigate) => {
     return async (dispatch) => {
-        navigate(route.APPINTROZERO)
         await clearAllLocalData();
         let id = await getLocalData(LOCAL_STORAGE_KEYS.user_id)
-        console.log(id);
+        console.log("id : ",id);
+        navigate(route.APPINTROZERO)
         setTimeout(() => {
             dispatch({ type: USER_LOGOUT_SUCCESS })
         }, 2000);

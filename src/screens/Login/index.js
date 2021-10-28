@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { View, Text, TouchableOpacity, Alert } from 'react-native';
 import Modal from 'react-native-modal';
-import { Container, Input, Button, Icon, EmailModal, VerifyOtpModal } from '../../components';
+import { Container, Input, Button, Icon, EmailModal, VerifyOtpModal, HeaderLeft } from '../../components';
 
 import OutLine from '../../assets/svg/out-line.svg';
 
@@ -36,6 +36,11 @@ class Login extends Component {
             submit1: false,
             emailModal: false
         }
+    }
+
+    componentDidMount = () => {
+        this.props.navigation.setOptions({ headerLeft: () => (<HeaderLeft navigation={this.props.navigation} login={this.props.route?.params?.inAPP ? false : true} />) });
+
     }
 
     handleLoginFunction = () => {

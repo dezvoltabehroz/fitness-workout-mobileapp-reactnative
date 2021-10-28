@@ -135,7 +135,7 @@ class Settings extends Component {
                                             </View>
                                         </TouchableOpacity>
                                         :
-                                        <TouchableOpacity onPress={() => this.props.navigation.navigate(route.LOGIN)} style={styles.rowContainer}>
+                                        <TouchableOpacity onPress={() => this.props.navigation.navigate(route.LOGIN,{inAPP:true})} style={styles.rowContainer}>
                                             <Logout />
                                             <View style={styles.itemContainer}>
                                                 <Text style={styles.text}>Login</Text>
