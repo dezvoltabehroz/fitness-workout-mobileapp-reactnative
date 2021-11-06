@@ -19,7 +19,7 @@ const screen = {
     APP_INTRO_Button_DESCRIPTION_2: 'I want to build muscle & get stronger',
     APP_INTRO_Button_DESCRIPTION_3: 'I want to slim down, lose fat & feel better',
     APP_INTRO_Heading_2: "SET YOUR FITNESS LEVEL",
-    APP_INTRO_DESCRIPTION_2: "Please honestly choose your current fitness level so we can create a personal plan that offers the right amount of challenge for you.",
+    APP_INTRO_DESCRIPTION_2: "Choose your current fitness level so we can create a personal plan that offers the right amount of challenge for you.",
     APP_INTRO_Heading_3: "SELECT EQUIPMENT",
     APP_INTRO_DESCRIPTION_3: "Select the equipment you would like to use in your personal workout program.",
     APP_INTRO_Button_1_3: "Body Weights",

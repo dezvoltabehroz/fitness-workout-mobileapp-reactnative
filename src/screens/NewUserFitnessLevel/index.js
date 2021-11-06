@@ -59,7 +59,7 @@ class AppIntro extends Component {
                 text="I exercise regularly & with ease"
                 break;
             case 3:
-                text="Exercise is part of my lifestyle"
+                text="Oh, trust me, Exercise is part of my lifestyle"
                 break;
         }
         return text
@@ -83,7 +83,7 @@ class AppIntro extends Component {
                     </View>
                     <View style={[styles.secondHeadingContainer, { flex: 0.2 }]} >
                         <Text style={styles.secondHeadingStyle}>
-                            Oh, trust me, {this.handleText()}
+                            {this.handleText()}
                         </Text>
                     </View>
                     <View style={{ flex: 0.5 }} >
