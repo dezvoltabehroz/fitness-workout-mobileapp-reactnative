@@ -4,7 +4,7 @@ import Modal from 'react-native-modal'
 import themeStyle from "../../assets/styles/theme.style";
 import {
     Button, Container, Icon, NameModal, DateModal, HeightModal, WeightModal, Input,
-    ArmSizeModal, ChestSizeModal, CalftSizeModal, ShoulderSizeModal, ThighSizeModal, TummySizeModal, HipSizeModal, WaistSizeModal, VerifyOtpModal, EmailModal
+    ArmSizeModal, ChestSizeModal, CalftSizeModal, ShoulderSizeModal, ThighSizeModal, TummySizeModal, HipSizeModal, WaistSizeModal, VerifyOtpModal, EmailModal, ColorButton, ClearButton
 } from "../../components";
 
 import Plus from '../../assets/svg/plus.svg'
@@ -36,7 +36,7 @@ class CompleteProfile extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            tab: 0,
+            tab: 1,
             nameModal: false,
             dateModal: false,
             weightModal: false,
@@ -66,6 +66,7 @@ class CompleteProfile extends Component {
             confirmPassword: "",
             submit: false,
             submit1: false,
+            nextSkipLoading: false,
             kilo: "",
             gram: "",
             submit3: false,
@@ -177,6 +178,31 @@ class CompleteProfile extends Component {
 
     }
 
+    handleOnSkip = async () => {
+
+        const user_id = await getLocalData(LOCAL_STORAGE_KEYS.user_id);
+        const userToken = await getLocalData(LOCAL_STORAGE_KEYS.userToken);
+        let data = {
+            "arm_size": 0,
+            "chest_size": 0,
+            "shoulder_size": 0,
+            "waist_size": 0,
+            "tummy_size": 0,
+            "hip_size": 0,
+            "thigh_size": 0,
+            "calf_size": 0,
+            "user_id": JSON.parse(user_id)
+        }
+        ProfileServices.updateMeasurement(data, JSON.parse(userToken))
+            .then((response) => {
+                if (response.data.success) {
+                    this.setState({ nextSkipLoading: false, })
+                    this.props.navigation.replace(route.LOGIN)
+                }
+            })
+            .catch((err) => console.log(err.response))
+    }
+
     setPassword = async () => {
         const { password, submit3, confirmPassword } = this.state;
         if (password && isPasswordValid(password) && submit3 && confirmPassword && confirmPassword == password) {
@@ -229,7 +255,7 @@ class CompleteProfile extends Component {
     render() {
         const { tab, name, date, dateValue, weight, height, email, kilo, gram,
             feet, inch, nextLoading, arm, next2Loading, chest, btnLoading, code, error, confirmPassword, password, submit, submit1,
-            shoulder, waist, hip, tummy, thigh, calft, emailModal, confirmOtpModal, passwordModal, submit3 } = this.state
+            shoulder, waist, hip, tummy, thigh, calft, emailModal, nextSkipLoading, confirmOtpModal, passwordModal, submit3 } = this.state
 
         return (
             <Container>
@@ -399,6 +425,9 @@ class CompleteProfile extends Component {
                                 <View style={{ margin: "8%" }}>
                                     <Button loading={next2Loading} title={'Next'} onPress={() => { this.setState({ next2Loading: true }, () => this.handleOnPressNext2()) }} />
                                 </View>
+                                <View style={{ margin: "8%" }}>
+                                    <ClearButton loading={nextSkipLoading} title={'Skip'} onPress={() => { this.setState({ nextSkipLoading: true }, () => this.handleOnSkip()) }} />
+                                </View>
                             </View>
                         </ScrollView>
                         :
@@ -476,7 +505,7 @@ class CompleteProfile extends Component {
                     email={email}
                     submit={submit}
                     btnLoading={btnLoading}
-                    setEmail={(email) => this.setState({ email: email })}
+                    setEmail={(email) => this.setState({ email: email.trim() })}
                     sendCodeOnEmail={() => this.setState({ submit: true, btnLoading: true }, () => this.sendCodeOnEmail())}
                     onClose={() => this.setState({ emailModal: false, email: "", submit: false })}
                 />

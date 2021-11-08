@@ -28,7 +28,7 @@ export default StyleSheet.create({
         borderLeftWidth: 2,
         height: 50,
         left: "18%",
-        top: "27%"
+        top: SCREEN_HEIGHT*0.145
     },
     shoulderStyle: {
         position: "absolute",

@@ -227,7 +227,7 @@ class SelectEuipment extends Component {
                         let selectedArray = [...this.state.selectedEquipment];
                         selectedArray.map((item, index) => { equipmentString = equipmentString.concat(`${item}${index == (selectedArray.length - 1) ? "" : ","}`) })
                         storeLocalData(LOCAL_STORAGE_KEYS.fitnessEquipment, JSON.stringify(equipmentString))
-                        navigate(route.FOCUSAREA)
+                        navigate(route.APPINTRO4th, { update: true })
                     }} />
                 </View>
             </ColorContainer>

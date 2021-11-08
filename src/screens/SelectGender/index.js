@@ -45,10 +45,15 @@ class AppIntro extends Component {
                     </View>
                     <View style={styles.rowContainer1}>
                         <TouchableOpacity onPress={() => this.setState({ male: true, female: false }, () => {
-                             storeLocalData(LOCAL_STORAGE_KEYS.gender, JSON.stringify('Male'))
+                            storeLocalData(LOCAL_STORAGE_KEYS.gender, JSON.stringify('Male'))
                             setTimeout(() => {
-                            navigate(route.APPINTRO5th, { gender: 'male' })
-                        }, 500)})} >
+                                if (this.props.route?.params?.update) {
+                                    navigate(route.FOCUSAREA, { gender: 'Male' })
+                                } else {
+                                    navigate(route.APPINTRO5th, { gender: 'male' })
+                                }
+                            }, 500)
+                        })} >
                             <View>
                                 {
                                     male
@@ -61,10 +66,15 @@ class AppIntro extends Component {
                             <Text style={{ textAlign: "center", color: male ? themeStyle.BAR_COLOR : themeStyle.PRIMARY_TEXT_COLOR }}>Male</Text>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => this.setState({ male: false, female: true }, () => {
-                                storeLocalData(LOCAL_STORAGE_KEYS.gender, JSON.stringify('Female'))
+                            storeLocalData(LOCAL_STORAGE_KEYS.gender, JSON.stringify('Female'))
                             setTimeout(() => {
-                            navigate(route.APPINTRO5th, { gender: 'female' })
-                        }, 500)})}>
+                                if (this.props.route?.params?.update) {
+                                    navigate(route.FOCUSAREA, { gender: 'Female' })
+                                } else {
+                                    navigate(route.APPINTRO5th, { gender: 'female' })
+                                }
+                            }, 500)
+                        })}>
                             <View>
                                 {
                                     female ?

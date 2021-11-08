@@ -15,6 +15,7 @@ import { isEmailValid, isPasswordValid } from '../../lib/utils/global';
 
 import themeStyle1 from '../../assets/styles/common.style';
 import { LOCAL_STORAGE_KEYS, storeLocalData } from '../../lib/utils/localstorage';
+import themeStyle from '../../assets/styles/theme.style';
 
 class Login extends Component {
     constructor(props) {
@@ -33,6 +34,7 @@ class Login extends Component {
             submit: false,
             loading: false,
             btnLoading: false,
+            secureTextEntry: true,
             submit1: false,
             emailModal: false
         }
@@ -53,7 +55,7 @@ class Login extends Component {
             AuthServices.userLogin(userData)
                 .then(async (res) => {
                     if (res.data.success) {
-                        storeLocalData(LOCAL_STORAGE_KEYS.user_id, JSON.stringify(res.data.data.id))
+                        await storeLocalData(LOCAL_STORAGE_KEYS.user_id, JSON.stringify(res.data.data.id))
                         await this.props.authActions.userLogin(this.props.navigation.replace)
                         this.setState({ loading: false })
                     } else {
@@ -166,7 +168,11 @@ class Login extends Component {
                             }
                         </View>
                         <View style={{ marginHorizontal: "5%", marginTop: "5%" }}>
-                            <Input value={password} secureTextEntry={true} label="Enter your password" onChangeText={(e) => this.setState({ password: e })} />
+                            <Input value={password} secureTextEntry={this.state.secureTextEntry} rightIcon={this.state.secureTextEntry ?
+                                <Icon.Entypo name="eye-with-line" size={20} color={themeStyle.DASH_DARK}
+                                    onPress={() => this.setState({ secureTextEntry: !this.state.secureTextEntry })} /> :
+                                <Icon.Entypo name="eye" size={20} color={themeStyle.DASH_DARK}
+                                    onPress={() => this.setState({ secureTextEntry: !this.state.secureTextEntry })} />} label="Enter your password" onChangeText={(e) => this.setState({ password: e })} />
                             {
                                 submit && !password ? <Text style={[themeStyle1.errorText, { marginBottom: 10 }]}>Please fill this field</Text> : null
                             }

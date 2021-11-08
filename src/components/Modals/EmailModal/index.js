@@ -28,7 +28,7 @@ const UpgradeModal = (props) => {
                             props.submit && !props.email ? <Text style={[themeStyle1.errorText,]}>Please fill this field</Text> : null
                         }
                         {
-                            props.submit && props.email.length && !isEmailValid(props.email) ? <Text style={[themeStyle1.errorText,]}>Email is invalid</Text> : null
+                            props.submit && props.email.length && !isEmailValid(props.email.trim()) ? <Text style={[themeStyle1.errorText,]}>Email is invalid</Text> : null
                         }
                     </View>
 

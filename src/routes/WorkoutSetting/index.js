@@ -42,6 +42,7 @@ function WorkoutSettingsRoutes() {
                 headerLeft: () => (<HeaderLeft navigation={navigation} />),
                 headerTitle: () => (<HeaderLogo />),
             })} />
+           
             <Stack.Screen name={route.FOCUSAREA} component={FocusArea} options={({ navigation, route }) => ({
                 headerBackTitleVisible: false,
                 headerTitleAlign: screen.SCREEN_TITLE_ALIGN_CENTER,
@@ -57,6 +58,7 @@ function WorkoutSettingsRoutes() {
                 headerLeft: () => (<HeaderLeft navigation={navigation} />),
                 headerTitle: () => (<HeaderLogo />),
             })} />
+            
         </Stack.Navigator>
     );
 }

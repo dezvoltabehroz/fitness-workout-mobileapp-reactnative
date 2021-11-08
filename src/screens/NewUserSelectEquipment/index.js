@@ -51,6 +51,7 @@ class AppIntro extends Component {
                 selected: false
             }],
             selectedEquipment: [],
+            nextBtn: true
         };
     }
 
@@ -139,7 +140,7 @@ class AppIntro extends Component {
             fitnessEquipment.map((item, i) => { fitnessEquipment[i] = { ...fitnessEquipment[i], selected: false } })
             fitnessEquipment[index] = { ...fitnessEquipment[index], selected: true }
             selectedEquipment.push(item.title)
-            this.setState({ fitnessEquipment, selectedEquipment })
+            this.setState({ fitnessEquipment, selectedEquipment, nextBtn: false })
 
         } else if (item.title != 'Mixed equipment' && selectedEquipment.length < 2) {
             const valueIndex = selectedEquipment.indexOf('Mixed equipment');
@@ -209,7 +210,7 @@ class AppIntro extends Component {
 
                 </View>
                 <View style={styles.buttonContainer}>
-                    <ClearButton title={screen.NEXT} onPress={() => {
+                    <ClearButton title={screen.NEXT} disabled={this.state.nextBtn == false ? false : this.state.selectedEquipment.length == 2 ? false : true} onPress={() => {
                         let equipmentString = "";
                         let selectedArray = [...this.state.selectedEquipment];
                         selectedArray.map((item, index) => { equipmentString = equipmentString.concat(`${item}${index == (selectedArray.length - 1) ? "" : ","}`) })
