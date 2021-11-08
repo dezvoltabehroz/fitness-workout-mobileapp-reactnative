@@ -3,7 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { View, Text, StyleSheet } from 'react-native';
 
 import { route, screen } from '../lib/utils/constants';
-import { AuthLoading, PaymentMethod, DaysWorkout, DaysWorkoutVideos, DayWorkoutVideoPlayer, PowerOfMindAudio, DietPlan, CompleteProfile, ProgressPics, Login, SelectEuipment, FocusArea, UpdatingPlan, FitnessGoal, FitnessLevel, AppIntroZero, FeedBack, Video, WorkoutSettings } from '../screens';
+import { AuthLoading, PaymentMethod, DaysWorkout, DaysWorkoutVideos, DayWorkoutVideoPlayer, PowerOfMindAudio, DietPlan, CompleteProfile, ProgressPics, Login, SelectEuipment, FocusArea, UpdatingPlan, FitnessGoal, FitnessLevel, AppIntroZero, FeedBack, Video, WorkoutSettings, AppIntro4th } from '../screens';
 import IntroRoutes from './Intro';
 import MainRoutes from './Main';
 import { HeaderLeft } from '../components';
@@ -43,14 +43,20 @@ function AppRoutes() {
             <Stack.Screen name={route.WORKOUTSETTING} component={WorkoutSettingsRoutes} options={{ headerShown: false }} />
             <Stack.Screen name={route.LOGIN} component={Login} options={({ navigation, route }) => ({
                 headerBackTitleVisible: false,
-                headerTitle:"",
+                headerTitle: "",
                 headerTitleAlign: screen.SCREEN_TITLE_ALIGN_CENTER,
                 headerStyle: styles.headerStyle,
                 headerTransparent: true,
             })} />
             <Stack.Screen name={route.MAIN} component={MainRoutes}
                 options={{ headerShown: false }} />
-
+            <Stack.Screen name={route.APPINTRO4th} component={AppIntro4th} options={({ navigation, route }) => ({
+                headerBackTitleVisible: false,
+                headerTitleAlign: screen.SCREEN_TITLE_ALIGN_CENTER,
+                headerStyle: styles.headerStyle,
+                headerLeft: () => (<HeaderLeft navigation={navigation} />),
+                headerTitle: () => (<HeaderLogo />),
+            })} />
             <Stack.Screen name={route.POWEROFMINDAUDIO} component={PowerOfMindAudio} options={({ navigation, route }) => ({
                 headerLeft: () => (<HeaderLeft navigation={navigation} color />),
                 tabBarVisible: false,

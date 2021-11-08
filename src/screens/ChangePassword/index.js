@@ -16,7 +16,10 @@ class ChangePassword extends Component {
             currentPassword: "",
             newPassword: "",
             confirmPassword: "",
-            loading: false
+            loading: false,
+            secureCurrentPass:true,
+            securePass:true,
+            secureConfirmPass:true
         }
     }
 
@@ -54,13 +57,21 @@ class ChangePassword extends Component {
                     </View>
                     <View style={{ flex: 0.8, marginTop: "10%" }}>
                         <View style={{ marginHorizontal: "5%" }}>
-                            <Input value={currentPassword} label="Enter your current password" onChangeText={(e) => this.setState({ currentPassword: e })} />
+                            <Input value={currentPassword} secureTextEntry={this.state.secureCurrentPass} rightIcon={this.state.secureCurrentPass ?
+                                <Icon.Entypo name="eye-with-line" size={20} color={themeStyle.DASH_DARK}
+                                    onPress={() => this.setState({ secureCurrentPass: !this.state.secureCurrentPass })} /> :
+                                <Icon.Entypo name="eye" size={20} color={themeStyle.DASH_DARK}
+                                    onPress={() => this.setState({ secureCurrentPass: !this.state.secureCurrentPass })} />} label="Enter your current password" onChangeText={(e) => this.setState({ currentPassword: e })} />
                             {
                                 submit && !currentPassword ? <Text style={[themeStyle1.errorText, { marginBottom: 10 }]}>Please fill this field</Text> : null
                             }
                         </View>
                         <View style={{ marginHorizontal: "5%", marginTop: "5%" }}>
-                            <Input value={newPassword} secureTextEntry={true} label="Enter your new password" onChangeText={(e) => this.setState({ newPassword: e })} />
+                            <Input value={newPassword} secureTextEntry={this.state.securePass} rightIcon={this.state.securePass ?
+                                <Icon.Entypo name="eye-with-line" size={20} color={themeStyle.DASH_DARK}
+                                    onPress={() => this.setState({ securePass: !this.state.securePass })} /> :
+                                <Icon.Entypo name="eye" size={20} color={themeStyle.DASH_DARK}
+                                    onPress={() => this.setState({ securePass: !this.state.securePass })} />} label="Enter your new password" onChangeText={(e) => this.setState({ newPassword: e })} />
                             {
                                 submit && !newPassword ? <Text style={[themeStyle1.errorText,]}>Please fill this field</Text> : null
                             }
@@ -70,7 +81,11 @@ class ChangePassword extends Component {
 
                         </View>
                         <View style={{ marginHorizontal: "5%", marginTop: "5%" }}>
-                            <Input value={confirmPassword} secureTextEntry={true} label="Re-Type your new password" onChangeText={(e) => this.setState({ confirmPassword: e })} />
+                            <Input value={confirmPassword} secureTextEntry={this.state.secureConfirmPass} rightIcon={this.state.secureConfirmPass ?
+                                <Icon.Entypo name="eye-with-line" size={20} color={themeStyle.DASH_DARK}
+                                    onPress={() => this.setState({ secureConfirmPass: !this.state.secureConfirmPass })} /> :
+                                <Icon.Entypo name="eye" size={20} color={themeStyle.DASH_DARK}
+                                    onPress={() => this.setState({ secureConfirmPass: !this.state.secureConfirmPass })} />} label="Re-Type your new password" onChangeText={(e) => this.setState({ confirmPassword: e })} />
                             {
                                 submit && !confirmPassword ? <Text style={[themeStyle1.errorText,]}>Please fill this field</Text> :
                                     submit && newPassword != confirmPassword ? <Text style={[themeStyle1.errorText,]}>Password Mismatch</Text> : null

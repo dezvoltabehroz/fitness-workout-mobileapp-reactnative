@@ -166,7 +166,6 @@ class Home extends Component {
 
         const { navigate } = this.props.navigation;
         const { value, data, challenges } = this.state;
-        const { bmi, daily_diet_count, daily_workout_count, is_pro } = this.props?.user?.userData;
         const progressCustomStyles = {
             borderRadius: 10,
             borderWidth: 0,
@@ -180,7 +179,7 @@ class Home extends Component {
                     <View style={styles.headingContainer}>
                         <View style={{ ...styles.rowContainer, marginBottom: '2.5%' }}>
                             <Text style={styles.whiteTextStyle}>YOUR PERSONALIZED PLAN</Text>
-                            {is_pro == 0 ?
+                            {this.props?.user?.userData?.is_pro == 0 ?
                                 <TouchableOpacity onPress={() => this.setState({ modal: true })}>
                                     <Target />
                                 </TouchableOpacity> : null}
@@ -192,7 +191,7 @@ class Home extends Component {
                                 <View style={styles.alignItems}>
                                     <View style={styles.row}>
                                         <Fire height={SVG_HEIGHT} width={SVG_WIDTH} />
-                                        <Text style={styles.barTextStyle}>{daily_workout_count!=undefined ? daily_workout_count : 0}</Text>
+                                        <Text style={styles.barTextStyle}>{this.props?.user?.userData?.daily_workout_count != undefined && this.props?.user?.userData?.daily_workout_count ? this.props?.user?.userData?.daily_workout_count : 0}</Text>
                                     </View>
                                     <Text style={styles.decsTextStyle}>WORKOUT DAYS</Text>
                                 </View>
@@ -200,7 +199,7 @@ class Home extends Component {
                                 <View style={styles.alignItems}>
                                     <View style={styles.row}>
                                         <Apple height={SVG_HEIGHT} width={SVG_WIDTH} />
-                                        <Text style={styles.barTextStyle}>{daily_diet_count!=undefined ? daily_diet_count : 0}</Text>
+                                        <Text style={styles.barTextStyle}>{this.props?.user?.userData?.daily_diet_count != undefined && this.props?.user?.userData?.daily_diet_count ? this.props?.user?.userData?.daily_diet_count : 0}</Text>
                                     </View>
                                     <Text style={styles.decsTextStyle}>DIET DAYS</Text>
                                 </View>
@@ -208,7 +207,7 @@ class Home extends Component {
                                 <View style={styles.alignItems}>
                                     <View style={styles.row}>
                                         <BMI height={SVG_HEIGHT} width={SVG_WIDTH} />
-                                        <Text style={styles.barTextStyle}>{bmi!=undefined ? parseFloat(bmi).toFixed(2) : 0}</Text>
+                                        <Text style={styles.barTextStyle}>{this.props?.user?.userData?.bmi != undefined && this.props?.user?.userData?.bmi ? parseFloat(this.props?.user?.userData?.bmi).toFixed(2) : 0}</Text>
                                     </View>
                                     <Text style={styles.decsTextStyle}>BMI</Text>
                                 </View>
@@ -218,12 +217,12 @@ class Home extends Component {
                             <Text style={styles.whiteTextStyle}>30 DAY'S WORKOUT</Text>
                             <View style={styles.rowStyle}>
                                 {this.fitnessLevelFunction()}
-                                <Text style={styles.whiteTextStyle1}>{daily_workout_count!=undefined ? Math.floor(daily_workout_count / 30 * 100) : 0}%</Text>
+                                <Text style={styles.whiteTextStyle1}>{this.props?.user?.userData?.daily_workout_count != undefined && this.props?.user?.userData?.daily_workout_count ? Math.floor(this.props?.user?.userData?.daily_workout_count / 30 * 100) : 0}%</Text>
                             </View>
                             <ProgressBarAnimated
                                 width={SCREEN_WIDTH * 0.6}
                                 height={10}
-                                value={daily_workout_count!=undefined ? daily_workout_count / 30 * 100 : 1}
+                                value={this.props?.user?.userData?.daily_workout_count != undefined ? this.props?.user?.userData?.daily_workout_count / 30 * 100 : 1}
                                 {...progressCustomStyles}
                                 onComplete={() => { }}
                             />

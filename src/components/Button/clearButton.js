@@ -10,7 +10,8 @@ const ClearButton = (props) => {
         buttonStyle = {},
         disabledTitleStyle = {},
         titleStyle = {},
-        loadingStyle = {},
+        loadingProps = {color:'#44BDE8'},
+        loadingStyle={},
         icon = {},
         iconRight = false,
         onPress = () => { },
@@ -28,7 +29,9 @@ const ClearButton = (props) => {
             disabledStyle={disabledStyle}
             disabledTitleStyle={disabledTitleStyle}
             loading={loading}
+            load
             onPress={onPress}
+            loadingProps={loadingProps}
             loadingStyle={loadingStyle}
             raised={raised}
             title={title}

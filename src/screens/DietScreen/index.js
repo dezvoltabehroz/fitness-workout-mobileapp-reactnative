@@ -60,7 +60,7 @@ class DietScreen extends Component {
             completed: false,
             loading: true,
             dietVideos: [],
-            value:"",
+            value: "",
             isServey: "",
         }
         if (Platform.OS === "android") {
@@ -69,8 +69,8 @@ class DietScreen extends Component {
     }
     componentDidMount = async () => {
         let dietValue = await getLocalData(LOCAL_STORAGE_KEYS.DietPreference);
-     
-        if (dietValue!=null) {
+
+        if (dietValue != null) {
             this.setState({ value: JSON.parse(dietValue) });
         } else {
             this.setState({ dietModal: true });
@@ -82,12 +82,12 @@ class DietScreen extends Component {
 
     handleDietDays = async () => {
         let dietValue = await getLocalData(LOCAL_STORAGE_KEYS.DietPreference);
-        if (dietValue!=null) {
+        if (dietValue != null) {
             this.setState({ value: JSON.parse(dietValue) });
         } else {
             this.setState({ dietModal: true });
         }
-        if (this.props.plan.dietPlan.length>0) {
+        if (this.props.plan.dietPlan.length > 0) {
             this.setState({ dietPlans: this.props.plan.dietPlan })
             const { user_id, token } = this.props.user.userData;
             let videoTag = { category: "diet videos" }
@@ -140,7 +140,7 @@ class DietScreen extends Component {
             }, 2000);
         }
 
-      
+
 
 
     }
@@ -326,11 +326,14 @@ class DietScreen extends Component {
                             </View>
                         </ScrollView>
                 }
-                <DietModal visible={dietModal} loading={dietLoading} onValue={(e) => {
-                    this.setState({ value: e })
-                    storeLocalData(LOCAL_STORAGE_KEYS.DietPreference, JSON.stringify(e))
-                }}
-                    value={value} onClose={() => { if (value) { this.setState({ dietModal: false }) } else { this.setState({ dietModal: false }); this.props.navigation.goBack() } }} onSkip={() => this.setState({ dietModal: false })} />
+                <DietModal visible={dietModal}
+                    loading={dietLoading}
+                    onValue={(e) => {
+                        this.setState({ value: e })
+                    }}
+                    value={value}
+                    onClose={async () => { let dietValue = await getLocalData(LOCAL_STORAGE_KEYS.DietPreference); if (dietValue != null) { this.setState({ dietModal: false }); } else if (value) { this.setState({ dietModal: false, value: "" }); this.props.navigation.goBack() } else { this.setState({ dietModal: false }); this.props.navigation.goBack() } }}
+                    onSkip={() => { storeLocalData(LOCAL_STORAGE_KEYS.DietPreference, JSON.stringify(value)); this.setState({ dietModal: false }) }} />
                 <UpgradeModal visible={upgradeModal}
                     onUpgrade={() => this.setState({ upgradeModal: false }, () => this.props.navigation.navigate(route.PAYMENTMETHOD, {}))}
                     onSkip={() => this.setState({ upgradeModal: false })} />

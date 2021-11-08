@@ -105,7 +105,7 @@ class FocusArea extends Component {
 
     render() {
         const { navigate, goBack } = this.props.navigation;
-        let { gender } = this.props.user.userData;
+        let { gender } = this.props.route?.params;
         const { shoulder, chest, glute, back, arm, leg, waist, arr, equipment } = this.state;
         return (
             <Container>
@@ -121,9 +121,9 @@ class FocusArea extends Component {
                             <Text style={styles.headingTextStyle}>{screen.APP_INTRO_Heading_5}</Text>
                             <Text style={styles.decsTextStyle}>Select two focus areas so we could personalize your plan.</Text>
                         </View>
-                        <ImageBackground  style={gender == 'male' ? styles.imageStyle : styles.imageStyleGirl} resizeMode="contain" source={gender == 'Male' ? require('../../assets/images/boy.png') : require('../../assets/images/girl.png')}>
+                        <ImageBackground  style={this.props.route?.params?.gender == 'Male' ? styles.imageStyle : styles.imageStyleGirl} resizeMode="contain" source={this.props.route?.params?.gender == 'Male' ? require('../../assets/images/boy.png') : require('../../assets/images/girl.png')}>
                             {
-                                gender == 'Male' ?
+                                this.props.route?.params?.gender == 'Male' ?
                                     <>
                                         <View style={styles.shoulderContainer1}>
                                             <View style={styles.shoulderStyle1}>

@@ -268,7 +268,7 @@ class CompleteProfile extends Component {
                     email={editEmail}
                     submit={submit}
                     btnLoading={btnLoading}
-                    setEmail={(email) => this.setState({ editEmail: email })}
+                    setEmail={(email) => this.setState({ editEmail: email.trim() })}
                     sendCodeOnEmail={() => this.setState({ submit: true, btnLoading: true }, () => this.sendCodeOnEmail())}
                     onClose={() => this.setState({ emailModal: false, editEmail: "" })}
                 />

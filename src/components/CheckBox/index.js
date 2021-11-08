@@ -12,7 +12,7 @@ const CheckedBox = ({ label, isChecked, onPress, disabled }) => {
                 {isChecked ? <Icon.Ionicons name='ios-radio-button-on-outline' color={themeStyle.DASH_DARK} size={20} /> : <Icon.Ionicons name='ios-radio-button-off-outline' color={themeStyle.DASH_DARK} size={20} />}
             </View>
             <View style={{ marginHorizontal: 5 }}>
-                <Text style={{ color: themeStyle.DASH_DARK, fontSize: 12 }} >{label}</Text>
+                <Text style={{ color: themeStyle.DASH_DARK, fontSize: 13 }} >{label}</Text>
             </View>
         </TouchableOpacity>
     )
