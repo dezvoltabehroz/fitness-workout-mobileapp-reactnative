@@ -8,7 +8,7 @@ export const NavigationHeaderLeftButton = (props) => {
     return (
         <TouchableOpacity
             style={{ marginLeft: 15 }}
-            onPress={() => props?.navigation?.goBack()}>
+            onPress={() => { props.login ? props?.navigation?.replace(route.APPINTROZERO) : props?.navigation?.goBack() }}>
             <Icon.AntDesign name={props.cross ? "close" : "arrowleft"} size={25} color={props?.color ? "white" : "black"} />
         </TouchableOpacity>
     );
@@ -17,7 +17,7 @@ export const NavigationHeaderLeftButton = (props) => {
 export const NavigationHeaderRightButton = (props) => {
     return (
         <TouchableOpacity
-            style={{ marginRight: 15, height: 50, width: 60 ,justifyContent:"center",alignItems:"flex-end"}}
+            style={{ marginRight: 15, height: 50, width: 60, justifyContent: "center", alignItems: "flex-end" }}
             onPress={() => {
                 props?.edit ?
                     props?.navigation?.navigate(route.EDITPROFILE)

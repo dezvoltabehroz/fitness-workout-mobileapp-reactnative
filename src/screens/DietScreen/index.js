@@ -60,6 +60,7 @@ class DietScreen extends Component {
             completed: false,
             loading: true,
             dietVideos: [],
+            value:"",
             isServey: "",
         }
         if (Platform.OS === "android") {
@@ -67,8 +68,9 @@ class DietScreen extends Component {
         }
     }
     componentDidMount = async () => {
-        let dietValue = await getLocalData(LOCAL_STORAGE_KEYS.DietPreference)
-        if (dietValue) {
+        let dietValue = await getLocalData(LOCAL_STORAGE_KEYS.DietPreference);
+     
+        if (dietValue!=null) {
             this.setState({ value: JSON.parse(dietValue) });
         } else {
             this.setState({ dietModal: true });
@@ -79,6 +81,12 @@ class DietScreen extends Component {
     }
 
     handleDietDays = async () => {
+        let dietValue = await getLocalData(LOCAL_STORAGE_KEYS.DietPreference);
+        if (dietValue!=null) {
+            this.setState({ value: JSON.parse(dietValue) });
+        } else {
+            this.setState({ dietModal: true });
+        }
         if (this.props.plan.dietPlan.length>0) {
             this.setState({ dietPlans: this.props.plan.dietPlan })
             const { user_id, token } = this.props.user.userData;

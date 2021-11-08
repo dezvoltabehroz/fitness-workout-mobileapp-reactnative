@@ -68,7 +68,9 @@ class CompleteProfile extends Component {
             submit1: false,
             kilo: "",
             gram: "",
-            submit3: false
+            submit3: false,
+            secureText: false,
+            secureTextConfirm: false
         }
     }
 
@@ -500,7 +502,13 @@ class CompleteProfile extends Component {
                             </View>
                             <Text style={styles.headingText}>Enter Your Password</Text>
                             <View style={{ marginTop: "10%", }}>
-                                <Input editable={!btnLoading} secureTextEntry={true} bottomMargin={true} value={password} placeholder="" onChangeText={(email) => this.setState({ password: email })} />
+                                <Input editable={!btnLoading}
+                                    rightIcon={this.state.secureText ?
+                                        <Icon.Entypo name="eye" size={20} color={themeStyle.DASH_DARK}
+                                            onPress={() => this.setState({ secureText: !this.state.secureText })} /> :
+                                        <Icon.Entypo name="eye-with-line" size={20} color={themeStyle.DASH_DARK}
+                                            onPress={() => this.setState({ secureText: !this.state.secureText })} />}
+                                    secureTextEntry={!this.state.secureText} bottomMargin={true} value={password} placeholder="" onChangeText={(email) => this.setState({ password: email })} />
                                 {
                                     submit3 && !password ? <Text style={[themeStyle1.errorText,]}>Please fill this field</Text> : null
                                 }
@@ -510,7 +518,14 @@ class CompleteProfile extends Component {
                             </View>
                             <Text style={styles.headingText}>Re-type your password</Text>
                             <View style={{ marginTop: "10%", }}>
-                                <Input editable={!btnLoading} secureTextEntry={true} bottomMargin={true} value={confirmPassword} placeholder="" onChangeText={(email) => this.setState({ confirmPassword: email })} />
+                                <Input
+                                    rightIcon={this.state.secureTextConfirm ? <Icon.Entypo name="eye" size={20} color={themeStyle.DASH_DARK}
+                                        onPress={() => this.setState({ secureTextConfirm: !this.state.secureTextConfirm })} /> :
+                                        <Icon.Entypo name="eye-with-line" size={20} color={themeStyle.DASH_DARK}
+                                            onPress={() => this.setState({ secureTextConfirm: !this.state.secureTextConfirm })} />}
+                                    editable={!btnLoading} secureTextEntry={!this.state.secureTextConfirm}
+                                    bottomMargin={true} value={confirmPassword}
+                                    placeholder="" onChangeText={(email) => this.setState({ confirmPassword: email })} />
                                 {
                                     submit3 && !confirmPassword ? <Text style={[themeStyle1.errorText,]}>Please fill this field</Text> :
                                         submit3 && password != confirmPassword ? <Text style={[themeStyle1.errorText,]}>Password Mismatch</Text> : null

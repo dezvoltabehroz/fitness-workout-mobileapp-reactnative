@@ -42,7 +42,6 @@ function AppRoutes() {
             <Stack.Screen name={route.APPINTRO} component={IntroRoutes} options={{ headerShown: false }} />
             <Stack.Screen name={route.WORKOUTSETTING} component={WorkoutSettingsRoutes} options={{ headerShown: false }} />
             <Stack.Screen name={route.LOGIN} component={Login} options={({ navigation, route }) => ({
-                headerLeft: () => (<HeaderLeft navigation={navigation} />),
                 headerBackTitleVisible: false,
                 headerTitle:"",
                 headerTitleAlign: screen.SCREEN_TITLE_ALIGN_CENTER,

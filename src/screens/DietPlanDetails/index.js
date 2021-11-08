@@ -29,7 +29,8 @@ class DietPlanDetails extends Component {
         this.state = {
             finished: false,
             diet: [],
-            loading: false
+            loading: false,
+            finishLoading:false
         }
     }
 
@@ -40,7 +41,6 @@ class DietPlanDetails extends Component {
         let data = {
             "category_name": JSON.parse(await getLocalData(LOCAL_STORAGE_KEYS.DietPreference)),
             "fitness_goal": this.props.user.userData.fitness_goal.toLowerCase(),
-            // "fitness_goal": "muscle gain",
             "week_name": this.props.route.params.dietData.weekName
         }
         console.log(data);
@@ -54,6 +54,7 @@ class DietPlanDetails extends Component {
     }
 
     handleFinishedModal = () => {
+        this.setState({finishLoading:true})
         const { user_id, token, diet_user_id } = this.props.user.userData;
         let week = this.props.route.params.dietData.weekName.split(' ')
         let data = {
@@ -69,7 +70,7 @@ class DietPlanDetails extends Component {
                 if (res.data.success) {
                     await this.props.planActions.getDietPlan();
                     setTimeout(() => {
-                        this.setState({ finished: false }); this.props.navigation.goBack();
+                        this.setState({ finished: false,finishLoading:true }); this.props.navigation.goBack();
                     }, 2000);
                 }
             })
@@ -77,7 +78,7 @@ class DietPlanDetails extends Component {
     }
 
     render() {
-        const { diet, loading } = this.state;
+        const { diet, loading, finishLoading } = this.state;
         return (
             <Container >
                 {
@@ -86,30 +87,36 @@ class DietPlanDetails extends Component {
                             <ActivityIndicator color={themeStyle.BAR_COLOR} size={"small"} />
                         </View>
                         :
-                        <ScrollView contentContainerStyle={{ paddingBottom: '10%' }}>
-                            <View style={styles.container}>
-                                {
-                                    diet.map((item, index) => {
-                                        return (
-                                            <View style={styles.cardContainer}>
-                                                <View style={styles.rowContainer}>
-                                                    {index == 4 ?
-                                                        <Dinner />
-                                                        :
-                                                        index == 3 ?
-                                                            <Snacks />
+                        diet.length == 0 ?
+                            <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+                                <Text>No record found!</Text>
+                            </View>
+                            :
+                            <ScrollView contentContainerStyle={{ paddingBottom: '10%' }}>
+                                <View style={styles.container}>
+                                    {
+
+                                        diet.map((item, index) => {
+                                            return (
+                                                <View style={styles.cardContainer}>
+                                                    <View style={styles.rowContainer}>
+                                                        {index == 4 ?
+                                                            <Dinner />
                                                             :
-                                                            index == 2 ?
-                                                                <Lunch />
+                                                            index == 3 ?
+                                                                <Snacks />
                                                                 :
-                                                                index == 1 ?
-                                                                    <Breakfast />
+                                                                index == 2 ?
+                                                                    <Lunch />
                                                                     :
-                                                                    <EarlyRise />}
-                                                    <Text style={styles.headingText}>{item.dietName}</Text>
-                                                </View>
-                                                <RenderHTML contentWidth={SCREEN_WIDTH} source={{ html: item.description }} />
-                                                {/* {
+                                                                    index == 1 ?
+                                                                        <Breakfast />
+                                                                        :
+                                                                        <EarlyRise />}
+                                                        <Text style={styles.headingText}>{item.dietName}</Text>
+                                                    </View>
+                                                    <RenderHTML contentWidth={SCREEN_WIDTH} source={{ html: item.description }} />
+                                                    {/* {
                                                     item?.description.map((element, i) => {
                                                         return (
                                                             <View style={styles.rowContainer}>
@@ -119,26 +126,34 @@ class DietPlanDetails extends Component {
                                                         )
                                                     })
                                                 } */}
-                                            </View>
-                                        )
-                                    })
-                                }
-                            </View>
-                        </ScrollView>
+                                                </View>
+                                            )
+                                        })
+                                    }
+                                </View>
+                            </ScrollView>
 
                 }
-
-                <TouchableOpacity onPress={() => this.setState({ finished: true })} style={{ position: "absolute", top: '85%', left: "78%" }}>
-                    <Tick />
-                </TouchableOpacity>
+                {diet.length == 0 ?
+                    null :
+                    <TouchableOpacity onPress={() => this.setState({ finished: true })} style={{ position: "absolute", top: '85%', left: "78%" }}>
+                        <Tick />
+                    </TouchableOpacity>}
                 <Modal isVisible={this.state.finished} style={{ marginTop: "5%", alignItems: "center" }} animationInTiming={400}
                     animationOutTiming={200}>
-                    <View style={styles.cardContainer}>
-                        <TouchableOpacity onPress={() => this.handleFinishedModal()} >
-                            <Tick />
-                        </TouchableOpacity>
-                        <Text style={styles.headingText}>Finished!</Text>
-                    </View>
+                    {
+                        finishLoading ?
+                            <View style={styles.cardContainer}>
+                                <ActivityIndicator color={themeStyle.BAR_COLOR} size={"small"} />
+                            </View>
+                            :
+                            <View style={styles.cardContainer}>
+                                <TouchableOpacity onPress={() => this.handleFinishedModal()} >
+                                    <Tick />
+                                </TouchableOpacity>
+                                <Text style={styles.headingText}>Finished!</Text>
+                            </View>
+                    }
 
                 </Modal>
             </Container>
