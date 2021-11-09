@@ -34,7 +34,7 @@ export default class CustomSlider extends Component {
                         trackStyle={{ backgroundColor: 'transparent' }}
                         selectedStyle={{ backgroundColor: "transparent" }}
                         values={this.props.single ? [this.state.multiSliderValue[1]] : [this.state.multiSliderValue[0], this.state.multiSliderValue[1]]}
-                        sliderLength={Dimensions.get('window').width * 0.7}
+                        sliderLength={Dimensions.get('window').width * 0.8}
                         onValuesChange={this.multiSliderValuesChange}
                         min={this.props.min}
                         max={this.props.max}

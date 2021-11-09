@@ -64,9 +64,10 @@ const styles = StyleSheet.create({
     lineStyle: {
         backgroundColor: themeStyle.DASH_DARK,
         borderRadius: 15,
-        top: 15,
+        top: 5,
+        position:"absolute",
         padding: 5,
-        height: 30,
-        width: "110%",
+        // height: 30,
+        // width: "110%",
     }
 });

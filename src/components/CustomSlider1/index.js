@@ -34,7 +34,7 @@ export default class CustomSlider extends Component {
                         trackStyle={{ backgroundColor: 'transparent' }}
                         selectedStyle={{ backgroundColor: "transparent" }}
                         values={this.props.single ? [this.state.multiSliderValue] : [this.state.multiSliderValue[0], this.state.multiSliderValue[1]]}
-                        sliderLength={Dimensions.get('window').width * 0.7}
+                        sliderLength={Dimensions.get('window').width * 0.8}
                         onValuesChange={this.multiSliderValuesChange}
                         min={this.props.single ?this.props.min:0}
                         max={this.props.single ?this.props.max:0}
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     container: {
         justifyContent: 'center',
         alignItems: 'center',
-        marginHorizontal: "5%"
+        // marginHorizontal: "5%"
     },
     column: {
         flex: 1,
