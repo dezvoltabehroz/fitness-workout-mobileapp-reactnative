@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import { View,Text } from 'react-native';
 import { connect } from 'react-redux';
 
-import { Button, Container, Input } from '../../components';
+import { Button, Container, Icon, Input } from '../../components';
 import { isPasswordValid } from '../../lib/utils/global';
 import { route } from '../../lib/utils/constants';
 import { AuthServices } from '../../services';
 import styles from './style';
 import themeStyle1 from '../../assets/styles/common.style';
+import themeStyle from '../../assets/styles/theme.style';
 class ChangePassword extends Component {
     constructor(props) {
         super(props);
@@ -76,7 +77,7 @@ class ChangePassword extends Component {
                                 submit && !newPassword ? <Text style={[themeStyle1.errorText,]}>Please fill this field</Text> : null
                             }
                             {
-                                submit && newPassword.length && !isPasswordValid(newPassword) ? <Text style={[themeStyle1.errorText,]}>Email is invalid</Text> : null
+                                submit && newPassword.length && !isPasswordValid(newPassword) ? <Text style={[themeStyle1.errorText,]}>At lease 8 characters with 1 upper case letter, 1 digit, and 1 special character (Admin12$)</Text> : null
                             }
 
                         </View>
