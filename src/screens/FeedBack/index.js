@@ -48,7 +48,7 @@ class Feedback extends Component {
     }
 
     handleSubmitFunction = () => {
-        const { user_id, token } = this.props.user.userData;
+        const { user_id, token, workout_user_id, diet_user_id } = this.props.user.userData;
         const { answers } = this.state;
         let data = {
             "user_id": user_id,
@@ -60,7 +60,9 @@ class Feedback extends Component {
                 if (res.data.success) {
                     let serveyData = {
                         "user_id": user_id,
-                        "submitted_date": moment().format('YYYY-MM-DD')
+                        "submitted_date": moment().format('YYYY-MM-DD'),
+                        "workout_user_id": workout_user_id,
+                        // "diet_user_id": diet_user_id
                     }
                     SurveysServices.updateSurveySubmitDate(serveyData, token)
                         .then((response) => { if (response.data.success) { this.props.navigation.goBack(); } })
