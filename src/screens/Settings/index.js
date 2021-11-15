@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, ScrollView, TouchableOpacity,ActivityIndicator } from "react-native";
+import { View, Text, ScrollView, TouchableOpacity, ActivityIndicator } from "react-native";
 
 import { Container } from "../../components";
 import Profile from '../../assets/svg/Profile.svg'
@@ -135,12 +135,23 @@ class Settings extends Component {
                                             </View>
                                         </TouchableOpacity>
                                         :
-                                        <TouchableOpacity onPress={() => this.props.navigation.navigate(route.LOGIN,{inAPP:true})} style={styles.rowContainer}>
+                                        <TouchableOpacity onPress={() => this.props.navigation.navigate(route.LOGIN, { inAPP: true })} style={styles.rowContainer}>
                                             <Logout />
                                             <View style={styles.itemContainer}>
                                                 <Text style={styles.text}>Login</Text>
                                             </View>
                                         </TouchableOpacity>}
+                                {
+                                    this.props.user.userData.workout_user_id != null ?
+                                        <TouchableOpacity onPress={() => this.props.navigation.navigate(route.FEEDBACK)} style={styles.rowContainer}>
+                                            <Developer />
+                                            <View style={styles.itemContainer}>
+                                                <Text style={styles.text}>Surveys</Text>
+                                            </View>
+                                        </TouchableOpacity>
+                                        :
+                                        null
+                                }
 
                             </View>
                         </ScrollView>
