@@ -47,9 +47,9 @@ class Login extends Component {
 
     handleLoginFunction = () => {
         const { email, password, submit } = this.state;
-        if (email && password && submit && isEmailValid(email)) {
+        if (email && password && submit && isEmailValid(email.trim())) {
             let userData = {
-                "email": email,
+                "email": email.trim(),
                 "password": password,
             }
             AuthServices.userLogin(userData)
