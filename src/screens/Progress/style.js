@@ -48,6 +48,7 @@ export default StyleSheet.create({
         flexDirection: "row",
         marginVertical: "5%",
         // marginBottom: "15%",
+        paddingHorizontal: "10%",
         justifyContent: "space-between",
         alignItems: "center",
         backgroundColor: THEME.COLOR_WHITE,

@@ -139,7 +139,6 @@ class Home extends Component {
     }
 
     handleStartDietPlan = () => {
-        this.setState({ dietLoading: true })
         const { navigate } = this.props.navigation;
         const { user_id, token } = this.props.user.userData;
         let data = {
@@ -154,10 +153,7 @@ class Home extends Component {
                 }
                 await this.props.authActions.getUserProfile(userData);
                 await this.props.planActions.getDietPlan();
-                setTimeout(() => {
-                    this.setState({ dietLoading: false })
-                    navigate(route.DIET)
-                }, 2000);
+                navigate(route.DIET)
             })
             .catch((err) => console.log(err.response))
     }
@@ -203,14 +199,14 @@ class Home extends Component {
                                     </View>
                                     <Text style={styles.decsTextStyle}>DIET DAYS</Text>
                                 </View>
-                                <View style={styles.verticalLine} ></View>
+                                {/* <View style={styles.verticalLine} ></View>
                                 <View style={styles.alignItems}>
                                     <View style={styles.row}>
                                         <BMI height={SVG_HEIGHT} width={SVG_WIDTH} />
                                         <Text style={styles.barTextStyle}>{this.props?.user?.userData?.bmi != undefined && this.props?.user?.userData?.bmi ? parseFloat(this.props?.user?.userData?.bmi).toFixed(2) : 0}</Text>
                                     </View>
                                     <Text style={styles.decsTextStyle}>BMI</Text>
-                                </View>
+                                </View> */}
                             </View>
                         </View>
                         <ImageBackground source={require('../../assets/images/rob.jpg')} style={styles.workoutDayContainer}>

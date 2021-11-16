@@ -64,8 +64,6 @@ class Settings extends Component {
                         </View>
                         :
                         <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContainer}>
-
-
                             <View style={styles.upperContainer}>
                                 <Text style={styles.heading} >Account</Text>
                                 <TouchableOpacity onPress={() => {

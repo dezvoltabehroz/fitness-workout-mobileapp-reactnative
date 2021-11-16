@@ -36,7 +36,7 @@ class CompleteProfile extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            tab: 1,
+            tab: 0,
             nameModal: false,
             dateModal: false,
             weightModal: false,
@@ -526,9 +526,9 @@ class CompleteProfile extends Component {
                     animationOutTiming={200} >
                     <View style={styles.cardContainer}>
                         <View style={{ marginTop: "5%", }}>
-                            <View style={{ alignItems: "flex-end" }}>
+                            {/* <View style={{ alignItems: "flex-end" }}>
                                 <TouchableOpacity onPress={() => this.setState({ passwordModal: false, })}><Icon.AntDesign name="close" size={20} /></TouchableOpacity>
-                            </View>
+                            </View> */}
                             <Text style={styles.headingText}>Enter Your Password</Text>
                             <View style={{ marginTop: "10%", }}>
                                 <Input editable={!btnLoading}

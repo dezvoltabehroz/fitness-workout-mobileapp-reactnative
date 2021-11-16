@@ -118,7 +118,7 @@ class Progress extends Component {
                                 <View style={styles.alignItems}>
                                     <View style={styles.row}>
                                         <Fire height={SVG_HEIGHT} width={SVG_WIDTH} />
-                                        <Text style={styles.barTextStyle}>{daily_workout_count}</Text>
+                                        <Text style={styles.barTextStyle}>{daily_workout_count != undefined && daily_workout_count ? daily_workout_count : 0}</Text>
                                     </View>
                                     <Text style={styles.decsTextStyle}>WORKOUT DAYS</Text>
                                 </View>
@@ -126,18 +126,18 @@ class Progress extends Component {
                                 <View style={styles.alignItems}>
                                     <View style={styles.row}>
                                         <Apple height={SVG_HEIGHT} width={SVG_WIDTH} />
-                                        <Text style={styles.barTextStyle}>{daily_diet_count}</Text>
+                                        <Text style={styles.barTextStyle}>{daily_diet_count != undefined && daily_diet_count ? daily_diet_count : 0}</Text>
                                     </View>
                                     <Text style={styles.decsTextStyle}>DIET DAYS</Text>
                                 </View>
-                                <View style={styles.verticalLine} ></View>
+                                {/* <View style={styles.verticalLine} ></View>
                                 <View style={styles.alignItems}>
                                     <View style={styles.row}>
                                         <BMI height={SVG_HEIGHT} width={SVG_WIDTH} />
                                         <Text style={styles.barTextStyle}>{parseFloat(bmi).toFixed(2)}</Text>
                                     </View>
                                     <Text style={styles.decsTextStyle}>BMI</Text>
-                                </View>
+                                </View> */}
                             </View>
                         </View>
                         {is_pro == 1 ?
@@ -248,14 +248,14 @@ class Progress extends Component {
                             </View>
                             <View style={styles.rowContainer1}>
                                 <Text style={styles.blackText}>Height</Text>
-                                <Text style={[styles.grayText, { textDecorationLine: "underline" }]}>{`${height_feet ? height_feet : 0} FT ${height_inches ? height_inches : 0} IN`}</Text>
+                                <Text style={[styles.grayText, { textDecorationLine: "underline" }]}>{`${height_feet != undefined && height_feet ? height_feet : 0} FT ${height_inches != undefined && height_inches ? height_inches : 0} IN`}</Text>
                                 {/* <TouchableOpacity>
                                     <Text style={styles.colorText}>{screen.EDIT}</Text>
                                 </TouchableOpacity> */}
                             </View>
                             <View style={styles.rowContainer1}>
                                 <Text style={styles.blackText}>Weight</Text>
-                                <Text style={[styles.grayText, { textDecorationLine: "underline" }]}>{weight}</Text>
+                                <Text style={[styles.grayText, { textDecorationLine: "underline" }]}>{weight != undefined && weight ? weight : 0}</Text>
                                 {/* <TouchableOpacity>
                                     <Text style={styles.colorText}>{screen.EDIT}</Text>
                                 </TouchableOpacity> */}

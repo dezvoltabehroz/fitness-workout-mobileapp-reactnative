@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, StatusBar, Linking } from 'react-native';
+import { View, Text, TouchableOpacity, StatusBar, Linking, Alert } from 'react-native';
 
 import { Button, ColorContainer, ClearButton } from '../../components';
 import messaging from '@react-native-firebase/messaging';
@@ -27,7 +27,7 @@ class AppIntro extends Component {
         };
     }
     componentDidMount = async () => {
-        this.requestUserPermission();
+        // this.requestUserPermission();
         storeLocalData(LOCAL_STORAGE_KEYS.focusAreaShoulder, JSON.stringify('0'))
         storeLocalData(LOCAL_STORAGE_KEYS.focusAreaArms, JSON.stringify('0'))
         storeLocalData(LOCAL_STORAGE_KEYS.focusAreaChest, JSON.stringify('0'))
@@ -38,56 +38,7 @@ class AppIntro extends Component {
         storeLocalData(LOCAL_STORAGE_KEYS.fitnessGoal, JSON.stringify(screen.APP_INTRO_Button_1))
         const goal = await getLocalData(LOCAL_STORAGE_KEYS.fitnessGoal)
     }
-    requestUserPermission = async function () {
-        const authorizationStatus = await messaging().requestPermission({
-            alert: true,
-            announcement: false,
-            badge: true,
-            carPlay: true,
-            provisional: true,
-            sound: true,
-        });
-        if (authorizationStatus === messaging.AuthorizationStatus.AUTHORIZED) {
-            console.log('User has notification permissions enabled.');
-        } else if (authorizationStatus === messaging.AuthorizationStatus.PROVISIONAL) {
-            console.log('User has provisional notification permissions.');
-        } else {
-            Alert.alert("Attension", "You need to allow push notification from settings",
-                [
-                    { text: "OK", onPress: () => Linking.openSettings() }
-                ])
-            console.log('User has notification permissions disabled');
-        }
-
-        const authStatus = await messaging().hasPermission();
-        const enabled =
-            authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
-            authStatus === messaging.AuthorizationStatus.PROVISIONAL;
-        if (enabled) {
-            this.getFcmToken();
-        } else {
-            console.log('Authorization status:', authStatus);
-        }
-
-    }
-
-    getFcmToken = async () => {
-        const fcmToken = await messaging().getToken();
-        if (fcmToken) {
-            AuthServices.generateUserId(fcmToken)
-                .then( (res) => {
-                    console.log(fcmToken)
-                    storeLocalData(LOCAL_STORAGE_KEYS.fcmToken, JSON.stringify(fcmToken))
-                    storeLocalData(LOCAL_STORAGE_KEYS.user_id, JSON.stringify(res.data.data.user_id))
-                    storeLocalData(LOCAL_STORAGE_KEYS.userToken, JSON.stringify(res.data.data.token))
-                })
-                .catch((err) => {
-                    console.log(err)
-                })
-        } else {
-            console.log("Failed", "No token received");
-        }
-    }
+   
 
     style_Func_1 = () => {
         let style = {};

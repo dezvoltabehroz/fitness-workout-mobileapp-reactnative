@@ -181,9 +181,9 @@ class Feedback extends Component {
                                                                         if ((index + 1) == data.length) { this.setState({ submitEnabled: true }) }
                                                                         else { this.scroll.scrollTo({ x: (width + SCREEN_WIDTH) }); this.setState({ answer: "" }) }
                                                                     })} />
-                                                                    <View style={{ marginTop: "5%" }}>
+                                                                    {/* <View style={{ marginTop: "5%" }}>
                                                                         <Button title={"Skip"} onPress={() => { }} />
-                                                                    </View>
+                                                                    </View> */}
 
                                                                 </>}
                                                         </View>
