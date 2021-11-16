@@ -143,7 +143,7 @@ class Settings extends Component {
                                             </View>
                                         </TouchableOpacity>}
                                 {
-                                    this.props.user.userData.workout_user_id != null ?
+                                    this.props.user.userData.workout_user_id != null && this.props.user.userData.is_pro == 1 ?
                                         <TouchableOpacity onPress={() => this.props.navigation.navigate(route.FEEDBACK)} style={styles.rowContainer}>
                                             <Developer />
                                             <View style={styles.itemContainer}>
