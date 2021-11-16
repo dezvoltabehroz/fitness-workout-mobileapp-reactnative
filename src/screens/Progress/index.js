@@ -223,7 +223,7 @@ class Progress extends Component {
                                     <Text style={styles.colorText}>{screen.EDIT}</Text>
                                 </TouchableOpacity> */}
                             </View>
-                            <View style={styles.row} >
+                            {/* <View style={styles.row} >
                                 <View style={{ height: 10, width: SCREEN_WIDTH * 0.15, backgroundColor: "#9BE5FF" }}></View>
                                 <View style={{ width: 5 }}></View>
                                 <View style={{ height: 10, width: SCREEN_WIDTH * 0.15, backgroundColor: "#4E44E0" }}></View>
@@ -245,7 +245,7 @@ class Progress extends Component {
                                 <View style={{ height: 10, width: SCREEN_WIDTH * 0.15, backgroundColor: "#B98D00" }}></View>
                                 <View style={{ width: 5 }}></View>
                                 <View style={{ height: 10, width: SCREEN_WIDTH * 0.05, backgroundColor: "#D33946" }}></View>
-                            </View>
+                            </View> */}
                             <View style={styles.rowContainer1}>
                                 <Text style={styles.blackText}>Height</Text>
                                 <Text style={[styles.grayText, { textDecorationLine: "underline" }]}>{`${height_feet != undefined && height_feet ? height_feet : 0} FT ${height_inches != undefined && height_inches ? height_inches : 0} IN`}</Text>
