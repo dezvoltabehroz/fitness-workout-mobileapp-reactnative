@@ -55,6 +55,8 @@ class Settings extends Component {
 
     render() {
         const { navigation } = this.props;
+        const { full_name } = this.props.user.userData;
+        console.log(full_name);
         return (
             <Container>
                 {
@@ -67,12 +69,13 @@ class Settings extends Component {
                             <View style={styles.upperContainer}>
                                 <Text style={styles.heading} >Account</Text>
                                 <TouchableOpacity onPress={() => {
-                                    if (this.state.email) {
+                                    if (this.state.email && full_name != null) {
                                         navigation.navigate(route.PROFILE)
                                     }
                                     else {
                                         navigation.navigate(route.COMPLETEPROFILE)
                                     }
+                                    // navigation.navigate(route.COMPLETEPROFILE)
                                 }} style={styles.rowContainer}>
                                     <Profile />
                                     <View style={styles.itemContainer}>

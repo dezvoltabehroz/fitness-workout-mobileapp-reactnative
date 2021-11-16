@@ -38,6 +38,8 @@ class CompleteProfile extends Component {
             weight: "",
             feet: "",
             inch: "",
+            kilo: "",
+            gram: "",
             password: "",
             confirmPassword: "",
             code: "",
@@ -55,13 +57,15 @@ class CompleteProfile extends Component {
 
     componentDidMount = () => {
         let { full_name, dob, weight, height_inches, height_feet } = this.props.user.userData;
+        console.log(full_name, dob, weight, height_inches, height_feet);
+        console.log(height_feet != null ? height_feet : "");
         this.setState({
-            name: full_name,
-            dateValue: dob,
-            date:dob,
-            weight: weight,
-            feet: height_feet,
-            inch: height_inches,
+            name: full_name == null ? "" : full_name,
+            dateValue: "",
+            date: dob == null ? new Date() : dob,
+            weight: weight == null ? 0 : weight,
+            feet: height_feet != null ? `${height_feet}` : "",
+            inch: height_inches != null ? `${height_inches}` : "",
             loading: false
         })
     }
@@ -219,9 +223,13 @@ class CompleteProfile extends Component {
                             </View>
 
                             <TouchableOpacity onPress={() => {
-                                let string = `${userData.weight}`
-                                let array = string.split('.');
-                                this.setState({ kilo: `${array[0]}`, gram: `${array[1]}`, weightModal: true, })
+                                if (userData.weight != null) {
+                                    let string = `${userData.weight}`
+                                    let array = string.split('.');
+                                    this.setState({ kilo: `${array[0]}`, gram: `${array[1]}`, weightModal: true, })
+                                } else {
+                                    this.setState({ kilo: ``, gram: ``, weightModal: true, })
+                                }
                             }} >
                                 <Plus />
                             </TouchableOpacity>

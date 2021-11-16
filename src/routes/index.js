@@ -36,8 +36,12 @@ function AppRoutes() {
             <Stack.Screen name={route.AUTH_LOADING} component={AuthLoading} options={{
                 headerShown: false
             }} />
-             <Stack.Screen name={route.GENERATEUSERWITHEMAILPASSWORD} component={GenerateUserWithEmailPassword} options={({ navigation, route }) => ({
-                headerShown: false
+             <Stack.Screen name={route.GENERATEUSERWITHEMAILPASSWORD} component={GenerateUserWithEmailPassword}  options={({ navigation, route }) => ({
+                headerBackTitleVisible: false,
+                headerTitle: "",
+                headerTitleAlign: screen.SCREEN_TITLE_ALIGN_CENTER,
+                headerStyle: styles.headerStyle,
+                headerTransparent: true,
             })} />
             <Stack.Screen name={route.APPINTROZERO} component={AppIntroZero} options={({ navigation, route }) => ({
                 headerShown: false

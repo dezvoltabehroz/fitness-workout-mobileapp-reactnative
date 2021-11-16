@@ -41,7 +41,9 @@ class Login extends Component {
     }
 
     componentDidMount = () => {
-        this.props.navigation.setOptions({ headerLeft: () => (<HeaderLeft navigation={this.props.navigation} login={this.props.route?.params?.inAPP ? false : true} />) });
+        this.props.navigation.setOptions({
+             headerLeft: () => (<HeaderLeft navigation={this.props.navigation}
+                 login={this.props.route?.params?.inAPP ? false : true} />) });
 
     }
 
