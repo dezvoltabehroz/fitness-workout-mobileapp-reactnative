@@ -48,7 +48,7 @@ class Login extends Component {
     }
 
     handleLoginFunction = () => {
-        const { email, password, submit } = this.state;
+        const { email, password, submit, confirmPassword } = this.state;
         if (email && password && submit && isEmailValid(email.trim())) {
             let userData = {
                 "email": email.trim(),
@@ -58,7 +58,7 @@ class Login extends Component {
                 .then(async (res) => {
                     if (res.data.success) {
                         await storeLocalData(LOCAL_STORAGE_KEYS.user_id, JSON.stringify(res.data.data.id))
-                        await this.props.authActions.userLogin('intro',this.props.navigation.replace)
+                        await this.props.authActions.userLogin('intro', this.props.navigation.replace)
                         this.setState({ loading: false })
                     } else {
                         Alert.alert(`${res.data.message}!`)
@@ -140,9 +140,9 @@ class Login extends Component {
         }
     }
 
-    handleCreateUserFunction=()=>{
-        const { email, password, submit } = this.state;
-        if (email && password && submit && isEmailValid(email.trim())) {
+    handleCreateUserFunction = () => {
+        const { email, password, submit, confirmPassword } = this.state;
+        if (email && password && submit && isEmailValid(email.trim()) && isPasswordValid(password) && confirmPassword == password) {
             let userData = {
                 "email": email.trim(),
                 "password": password,
@@ -213,10 +213,10 @@ class Login extends Component {
                                 <Icon.Entypo name="eye" size={20} color={themeStyle.DASH_DARK}
                                     onPress={() => this.setState({ secureTextEntryConfirmPassword: !this.state.secureTextEntryConfirmPassword })} />}
                                 label="Enter confirm password" onChangeText={(e) => this.setState({ confirmPassword: e })} />
-                           {
-                                    submit && !confirmPassword ? <Text style={[themeStyle1.errorText,]}>Please fill this field</Text> :
-                                        submit && password != confirmPassword ? <Text style={[themeStyle1.errorText,]}>Password Mismatch</Text> : null
-                                }
+                            {
+                                submit && !confirmPassword ? <Text style={[themeStyle1.errorText,]}>Please fill this field</Text> :
+                                    submit && password != confirmPassword ? <Text style={[themeStyle1.errorText,]}>Password Mismatch</Text> : null
+                            }
                         </View>
 
                         <View style={{ marginHorizontal: "15%", marginTop: "5%" }}>
