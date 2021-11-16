@@ -107,7 +107,7 @@ class PaymentMethod extends Component {
                 .then((res) => {
                     if (res.data.success) {
                         this.setState({ btnLoading: false, })
-                        this.props.authActions.userLogin(this.props.navigation.replace)
+                        this.props.authActions.userLogin("",this.props.navigation.replace)
                     } else {
                         this.setState({ btnLoading: false, })
                     }

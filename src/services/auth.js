@@ -19,7 +19,7 @@ const Api = {
         return axiosInstance.post('auth/forgetPassword', data, apiHeaderConfiguration(EMPTY, EMPTY))
     },
     sendCodeOnEmail: function (data, token) {
-        return axiosInstance.post('auth/sendCodeOnEmail', data, apiHeaderConfiguration(token, TOKEN))
+        return axiosInstance.post('auth/sendCodeOnEmail', data, apiHeaderConfiguration(EMPTY, EMPTY))
     },
     updatePassword: function (data, token) {
         return axiosInstance.post('auth/updatePassword', data, apiHeaderConfiguration(token, TOKEN))
@@ -29,6 +29,9 @@ const Api = {
     },
     changePassword: function (data, token) {
         return axiosInstance.post('auth/changePassword', data, apiHeaderConfiguration(token, TOKEN))
+    },
+    createUserWithEmailPassword:function (data) {
+        return axiosInstance.post('registration/registerEmailPassword', data, apiHeaderConfiguration(EMPTY, EMPTY))
     },
 };
 

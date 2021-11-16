@@ -16,7 +16,7 @@ import messaging from '@react-native-firebase/messaging';
 import { clearAllLocalData, getLocalData, LOCAL_STORAGE_KEYS, storeLocalData } from '../../lib/utils/localstorage';
 import { LOGO, route } from '../../lib/utils/constants';
 
-const setUserProfile = (userData, authData, navigate) => {
+const setUserProfile = (userData, authData, navigate, isNewUser) => {
     return async (dispatch) => {
         let token = await getLocalData(LOCAL_STORAGE_KEYS.userToken)
         let data = JSON.parse(token)
@@ -28,12 +28,15 @@ const setUserProfile = (userData, authData, navigate) => {
             }
             await dispatch({ type: USER_LOGIN_SUCCESS, userData: userDataJson, userToken: data, loading: false });
             if (navigate != null)
-                navigate(route.MAIN);
+                if (isNewUser == 'intro')
+                    navigate(route.APPINTRO);
+                else
+                    navigate(route.MAIN);
         }
     }
 };
 
-const getUserProfile = (userData, navigate) => {
+const getUserProfile = (userData, navigate, isNewUser) => {
     return (dispatch) => {
         let loading = true;
         if (loading) {
@@ -41,13 +44,15 @@ const getUserProfile = (userData, navigate) => {
         }
         ProfileServices.getFullProfile({ user_id: userData.user_id }, userData.token)
             .then(async (responseData) => {
+
                 if (responseData.data.success) {
                     await storeLocalData('USER', JSON.stringify(responseData.data.data))
                     await dispatch(setUserProfile(responseData.data.data, userData, navigate))
                 }
                 else {
+                    console.log(responseData.data)
                     // navigate(route.MAIN)
-                    await dispatch(setUserProfile({}, userData, navigate))
+                    await dispatch(setUserProfile({}, userData, navigate, isNewUser))
                     dispatch({ type: LOADING_SUCCESS, loading: !loading })
                 }
 
@@ -60,7 +65,7 @@ const removeUser = (navigate) => {
     return async (dispatch) => {
         await clearAllLocalData();
         let id = await getLocalData(LOCAL_STORAGE_KEYS.user_id)
-        console.log("id : ",id);
+        console.log("id : ", id);
         navigate(route.APPINTROZERO)
         setTimeout(() => {
             dispatch({ type: USER_LOGOUT_SUCCESS })
@@ -68,13 +73,13 @@ const removeUser = (navigate) => {
     }
 };
 
-const userLogin = (navigate) => {
+const userLogin = (isNewUser, navigate) => {
     return (dispatch) => {
-        requestUserPermission(dispatch, navigate);
+        requestUserPermission(dispatch, navigate, isNewUser);
     }
 }
 
-const requestUserPermission = async function (dispatch, navigate) {
+const requestUserPermission = async function (dispatch, navigate, isNewUser) {
     const authorizationStatus = await messaging().requestPermission({
         alert: true,
         announcement: false,
@@ -100,16 +105,17 @@ const requestUserPermission = async function (dispatch, navigate) {
         authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
         authStatus === messaging.AuthorizationStatus.PROVISIONAL;
     if (enabled) {
-        getFcmToken(dispatch, navigate);
+        getFcmToken(dispatch, navigate, isNewUser);
     } else {
         console.log('Authorization status:', authStatus);
     }
 
 }
 
-const getFcmToken = async (dispatch, navigate) => {
+const getFcmToken = async (dispatch, navigate, isNewUser) => {
     const fcmToken = await messaging().getToken();
     if (fcmToken) {
+        console.log(fcmToken)
         const localFcm = await getLocalData(LOCAL_STORAGE_KEYS.fcmToken)
         if (fcmToken == JSON.parse(localFcm)) {
             const user_id = await getLocalData(LOCAL_STORAGE_KEYS.user_id)
@@ -118,7 +124,7 @@ const getFcmToken = async (dispatch, navigate) => {
                     if (res.data.success) {
                         storeLocalData(LOCAL_STORAGE_KEYS.fcmToken, JSON.stringify(fcmToken))
                         storeLocalData(LOCAL_STORAGE_KEYS.userToken, JSON.stringify(res.data.data))
-                        dispatch(getUserProfile({ user_id: user_id, token: res.data.data }, navigate))
+                        dispatch(getUserProfile({ user_id: user_id, token: res.data.data }, navigate, isNewUser))
                         // navigate(route.MAIN);
                     } else {
                         navigate(route.APPINTRO)
@@ -129,6 +135,7 @@ const getFcmToken = async (dispatch, navigate) => {
                     console.log(err.response)
                 })
         } else {
+
             const user_id = await getLocalData(LOCAL_STORAGE_KEYS.user_id)
             AuthServices.refreshToken({ user_id: user_id })
                 .then((res) => {
@@ -143,7 +150,7 @@ const getFcmToken = async (dispatch, navigate) => {
                                     storeLocalData(LOCAL_STORAGE_KEYS.fcmToken, JSON.stringify(fcmToken))
                                     storeLocalData(LOCAL_STORAGE_KEYS.userToken, JSON.stringify(res.data.data))
                                     // navigate(route.MAIN);
-                                    dispatch(getUserProfile({ user_id: user_id, token: res.data.data }, navigate))
+                                    dispatch(getUserProfile({ user_id: user_id, token: res.data.data }, navigate, isNewUser))
                                 }
                             })
                             .catch((err) => {

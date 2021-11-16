@@ -24,6 +24,7 @@ class Login extends Component {
             email: "",
             emailReset: "",
             code: "",
+            sendedCode: "",
             password: "",
             newPassword: "",
             confirmPassword: "",
@@ -35,13 +36,14 @@ class Login extends Component {
             loading: false,
             btnLoading: false,
             secureTextEntry: true,
+            secureTextEntryConfirmPassword: true,
             submit1: false,
             emailModal: false
         }
     }
 
     componentDidMount = () => {
-        this.props.navigation.setOptions({ headerLeft: () => (<HeaderLeft navigation={this.props.navigation} login={this.props.route?.params?.inAPP ? false : true} />) });
+        this.props.navigation.setOptions({ headerLeft: () => (<HeaderLeft navigation={this.props.navigation} login={this.props.route?.params?.newUser ? false : true} />) });
 
     }
 
@@ -56,7 +58,7 @@ class Login extends Component {
                 .then(async (res) => {
                     if (res.data.success) {
                         await storeLocalData(LOCAL_STORAGE_KEYS.user_id, JSON.stringify(res.data.data.id))
-                        await this.props.authActions.userLogin("",this.props.navigation.replace)
+                        await this.props.authActions.userLogin('intro',this.props.navigation.replace)
                         this.setState({ loading: false })
                     } else {
                         Alert.alert(`${res.data.message}!`)
@@ -95,15 +97,16 @@ class Login extends Component {
     }
 
     sendCodeOnEmail = () => {
-        const { emailReset, submit1 } = this.state;
-        if (emailReset && submit1 && isEmailValid(emailReset)) {
+        const { email, submit1 } = this.state;
+        if (email && submit1 && isEmailValid(email.trim())) {
             let userData = {
-                "email": emailReset,
+                "email": email.trim(),
             }
-            AuthServices.forgetPassword(userData)
+            AuthServices.sendCodeOnEmail(userData)
                 .then((res) => {
+                    console.log(res.data);
                     if (res.data.success) {
-                        this.setState({ emailModal: false, btnLoading: false, submit1: false, })
+                        this.setState({ emailModal: false, btnLoading: false, submit1: false, sendedCode: res.data.data })
                         setTimeout(() => { this.setState({ confirmOtpModal: true, }) }, 350);
                     }
                     else {
@@ -124,27 +127,46 @@ class Login extends Component {
     verifyCode = () => {
         const { code, submit1, sendedCode } = this.state;
         if (code && code.length == 6 && submit1) {
-            let userData = {
-                "code": `${code}`
+            console.log("code : ", code)
+            console.log("sendedCode : ", sendedCode)
+            if (code == sendedCode) {
+                this.setState({ btnLoading: false, confirmOtpModal: false, submit1: false, })
+            } else {
+                Alert.alert("Code is incorrect!", 'Please enter a valid code ');
+                this.setState({ btnLoading: false, code: "", submit1: false, })
             }
-            AuthServices.verifyCodeForReset(userData)
-                .then((res) => {
-                    console.log(res.data)
-                    if (res.data.success) {
-                        this.setState({
-                            confirmOtpModal: false,
-                            emailModal: false, btnLoading: false, code: "", submit1: false,
-                            user_id: res.data.data[0].id
-                        })
-                        setTimeout(() => { this.setState({ passwordModal: true, }) }, 350);
-                    } else {
-                        Alert.alert("Code is incorrect!", 'Please enter a valid code ')
-                    }
-                })
-                .catch((error) => console.log(error.response))
         } else {
             this.setState({ submit1: true, btnLoading: false })
         }
+    }
+
+    handleCreateUserFunction=()=>{
+        const { email, password, submit } = this.state;
+        if (email && password && submit && isEmailValid(email.trim())) {
+            let userData = {
+                "email": email.trim(),
+                "password": password,
+            }
+            AuthServices.createUserWithEmailPassword(userData)
+                .then(async (res) => {
+                    if (res.data.success) {
+                        this.handleLoginFunction()
+                    } else {
+                        Alert.alert(`${res.data.message}!`)
+                        this.setState({ submit: true, loading: false })
+                    }
+                })
+                .catch((err) => {
+                    console.log(err.response)
+                })
+
+        } else {
+            this.setState({ submit: true, loading: false })
+        }
+    }
+
+    securePasswordEntry(value) {
+        return value && value.replace(/./g, '*')
     }
 
     render() {
@@ -155,19 +177,23 @@ class Login extends Component {
                     <View style={styles.outLineContainer}>
 
                         <OutLine />
-                        <Text style={styles.heading}>Log In</Text>
+                        <Text style={styles.heading}>Create User</Text>
                     </View>
                     <View style={{ flex: 0.8, marginTop: "10%" }}>
                         <View style={{ marginHorizontal: "5%" }}>
-                            <Input value={email} label="Enter your email" onChangeText={(e) => this.setState({ email: e })} />
+                            <Text style={{ fontSize: 16 }}>Enter your email</Text>
+                            <TouchableOpacity onPress={() => this.setState({ emailModal: true })} style={{ borderBottomWidth: 1, flexDirection: "row", justifyContent: "space-between", alignItems: "center", borderBottomColor: themeStyle.DASH_DARK, height: 45 }}>
+                                <Text style={{ color: themeStyle.DASH_DARK }}>{email ? email : ""}</Text>
+                            </TouchableOpacity>
+                            {/* <Input value={email} label="Enter your email" onChangeText={(e) => this.setState({ email: e })} />
                             {
                                 submit && !email ? <Text style={[themeStyle1.errorText, { marginBottom: 10 }]}>Please fill this field</Text> : null
                             }
                             {
                                 submit && email.length && !isEmailValid(email) ? <Text style={[themeStyle1.errorText, { marginBottom: 10 }]}>Email is invalid</Text> : null
-                            }
+                            } */}
                         </View>
-                        <View style={{ marginHorizontal: "5%", marginTop: "5%" }}>
+                        <View style={{ marginHorizontal: "2.5%", marginTop: "5%" }}>
                             <Input value={password} secureTextEntry={this.state.secureTextEntry} rightIcon={this.state.secureTextEntry ?
                                 <Icon.Entypo name="eye-with-line" size={20} color={themeStyle.DASH_DARK}
                                     onPress={() => this.setState({ secureTextEntry: !this.state.secureTextEntry })} /> :
@@ -176,12 +202,25 @@ class Login extends Component {
                             {
                                 submit && !password ? <Text style={[themeStyle1.errorText, { marginBottom: 10 }]}>Please fill this field</Text> : null
                             }
+                            {
+                                submit && password.length && !isPasswordValid(password) ? <Text style={[themeStyle1.errorText,]}>At lease 8 characters with 1 upper case letter, 1 digit, and 1 special character (Admin12$)</Text> : null
+                            }
                         </View>
-                        <TouchableOpacity onPress={() => this.setState({ emailModal: true })} style={{ marginVertical: "5%", alignItems: "center" }}>
-                            <Text style={{ textAlign: "center" }}>Forgot Password?</Text>
-                        </TouchableOpacity>
-                        <View style={{ marginHorizontal: "15%", }}>
-                            <Button loading={this.props.user.loading || loading} title="Login " onPress={() => this.setState({ submit: true, loading: true }, () => this.handleLoginFunction())} />
+                        <View style={{ marginHorizontal: "2.5%", marginTop: "5%" }}>
+                            <Input value={confirmPassword} secureTextEntry={this.state.secureTextEntryConfirmPassword} rightIcon={this.state.secureTextEntryConfirmPassword ?
+                                <Icon.Entypo name="eye-with-line" size={20} color={themeStyle.DASH_DARK}
+                                    onPress={() => this.setState({ secureTextEntryConfirmPassword: !this.state.secureTextEntryConfirmPassword })} /> :
+                                <Icon.Entypo name="eye" size={20} color={themeStyle.DASH_DARK}
+                                    onPress={() => this.setState({ secureTextEntryConfirmPassword: !this.state.secureTextEntryConfirmPassword })} />}
+                                label="Enter confirm password" onChangeText={(e) => this.setState({ confirmPassword: e })} />
+                           {
+                                    submit && !confirmPassword ? <Text style={[themeStyle1.errorText,]}>Please fill this field</Text> :
+                                        submit && password != confirmPassword ? <Text style={[themeStyle1.errorText,]}>Password Mismatch</Text> : null
+                                }
+                        </View>
+
+                        <View style={{ marginHorizontal: "15%", marginTop: "5%" }}>
+                            <Button loading={this.props.user.loading || loading} title="Create " onPress={() => this.setState({ submit: true, loading: true }, () => this.handleCreateUserFunction())} />
                         </View>
                     </View>
                 </View>
@@ -211,20 +250,20 @@ class Login extends Component {
 
                 </Modal> */}
                 <EmailModal isVisible={emailModal}
-                    reset={true}
-                    email={emailReset}
+                    reset={false}
+                    email={email}
                     submit={submit1}
                     btnLoading={btnLoading}
-                    setEmail={(email) => this.setState({ emailReset: email })}
+                    setEmail={(email) => this.setState({ email: email })}
                     sendCodeOnEmail={() => this.setState({ submit1: true, btnLoading: true }, () => this.sendCodeOnEmail())}
-                    onClose={() => this.setState({ emailModal: false, emailReset: "" })}
+                    onClose={() => this.setState({ emailModal: false, email: "" })}
                 />
                 <VerifyOtpModal
                     isVisible={this.state.confirmOtpModal}
                     code={code}
                     submit={submit1}
                     error={error}
-                    email={emailReset}
+                    email={email}
                     btnLoading={btnLoading}
                     setError={(e) => this.setState({ error: e })}
                     setCode={(code) => this.setState({ code: code })}
