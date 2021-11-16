@@ -130,14 +130,14 @@ class Progress extends Component {
                                     </View>
                                     <Text style={styles.decsTextStyle}>DIET DAYS</Text>
                                 </View>
-                                <View style={styles.verticalLine} ></View>
+                                {/* <View style={styles.verticalLine} ></View>
                                 <View style={styles.alignItems}>
                                     <View style={styles.row}>
                                         <BMI height={SVG_HEIGHT} width={SVG_WIDTH} />
                                         <Text style={styles.barTextStyle}>{parseFloat(bmi).toFixed(2)}</Text>
                                     </View>
                                     <Text style={styles.decsTextStyle}>BMI</Text>
-                                </View>
+                                </View> */}
                             </View>
                         </View>
                         {is_pro == 1 ?
