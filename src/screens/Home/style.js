@@ -142,7 +142,7 @@ export default StyleSheet.create({
     starContainer: {
         position: "absolute",
         left: '10%',
-        top: 11,
+        top: 0,
     }
 
 })

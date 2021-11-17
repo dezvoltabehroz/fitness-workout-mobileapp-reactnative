@@ -94,6 +94,42 @@ class CompleteProfile extends Component {
         )
     }
 
+    handleOnPressNextSpecific = async () => {
+        const { tab, name, email, dateValue, weight, password, feet, inch, code, sendedCode } = this.state;
+        const user_id = await getLocalData(LOCAL_STORAGE_KEYS.user_id);
+
+        const userToken = await getLocalData(LOCAL_STORAGE_KEYS.userToken);
+        if (name && dateValue && weight && feet) {
+            let data = {
+                "full_name": name,
+                "dob": moment(dateValue).format('YYYY-MM-DD'),
+                "height_feet": parseInt(feet),
+                "height_inches": parseInt(inch),
+                "weight": parseFloat(weight),
+                "user_id": JSON.parse(user_id)
+            }
+            ProfileServices.updateSpecificPersonalInfo(data, JSON.parse(userToken))
+                .then(async (response) => {
+                    if (response.data.success) {
+                        let userData = {
+                            "user_id": JSON.parse(user_id),
+                            "token": JSON.parse(userToken)
+                        }
+                        this.setState({ nextLoading: false, tab: 1 })
+                        this.props.authActions.getUserProfile(userData);
+                        // await this.props.authActions.userLogin("");
+                        // this.setState({ nextLoading: false, })
+                        // this.props.navigation.goBack();
+                    }
+                })
+                .catch((err) => console.log(err.response))
+        } else {
+            this.setState({ nextLoading: false })
+            alert('Please fill complete data')
+        }
+    }
+
+
     handleOnPressNext = async () => {
         const { tab, name, email, dateValue, weight, password, feet, inch, code, sendedCode } = this.state;
         const user_id = await getLocalData(LOCAL_STORAGE_KEYS.user_id);
@@ -179,7 +215,7 @@ class CompleteProfile extends Component {
     }
 
     handleOnSkip = async () => {
-
+        const { userData } = this.props.user;
         const user_id = await getLocalData(LOCAL_STORAGE_KEYS.user_id);
         const userToken = await getLocalData(LOCAL_STORAGE_KEYS.userToken);
         let data = {
@@ -197,7 +233,12 @@ class CompleteProfile extends Component {
             .then((response) => {
                 if (response.data.success) {
                     this.setState({ nextSkipLoading: false, })
-                    this.props.navigation.replace(route.LOGIN)
+                    if (userData.email) {
+                        this.props.navigation.goBack()
+                    } else {
+                        this.props.navigation.navigate(route.LOGIN, { inAPP: true })
+
+                    }
                 }
             })
             .catch((err) => console.log(err.response))
@@ -256,7 +297,7 @@ class CompleteProfile extends Component {
         const { tab, name, date, dateValue, weight, height, email, kilo, gram,
             feet, inch, nextLoading, arm, next2Loading, chest, btnLoading, code, error, confirmPassword, password, submit, submit1,
             shoulder, waist, hip, tummy, thigh, calft, emailModal, nextSkipLoading, confirmOtpModal, passwordModal, submit3 } = this.state
-
+        const { userData } = this.props.user;
         return (
             <Container>
                 {
@@ -283,26 +324,31 @@ class CompleteProfile extends Component {
                                         <Plus />
                                     </TouchableOpacity>
                                 </View>
-                                <View style={styles.rowMeasureContainer}>
-                                    <View style={styles.rowStyle}>
-                                        <Icon.Entypo name="email" color={'#9b9b9b'} size={20} />
-                                        <Text style={{ ...styles.grayText, width: SCREEN_WIDTH * 0.55 }}>{email ? email : 'Email'}</Text>
-                                    </View>
+                                {userData.email ?
+                                    null
+                                    :
+                                    <>
+                                        <View style={styles.rowMeasureContainer}>
+                                            <View style={styles.rowStyle}>
+                                                <Icon.Entypo name="email" color={'#9b9b9b'} size={20} />
+                                                <Text style={{ ...styles.grayText, width: SCREEN_WIDTH * 0.55 }}>{email ? email : 'Email'}</Text>
+                                            </View>
 
-                                    <TouchableOpacity onPress={() => this.setState({ emailModal: true })}>
-                                        <Plus />
-                                    </TouchableOpacity>
-                                </View>
-                                <View style={styles.rowMeasureContainer}>
-                                    <View style={styles.rowStyle}>
-                                        <Icon.Entypo name="lock" color={'#9b9b9b'} size={20} />
-                                        <Text style={styles.grayText}>{password ? this.securePasswordEntry(password) : 'Password'}</Text>
-                                    </View>
+                                            <TouchableOpacity onPress={() => this.setState({ emailModal: true })}>
+                                                <Plus />
+                                            </TouchableOpacity>
+                                        </View>
+                                        <View style={styles.rowMeasureContainer}>
+                                            <View style={styles.rowStyle}>
+                                                <Icon.Entypo name="lock" color={'#9b9b9b'} size={20} />
+                                                <Text style={styles.grayText}>{password ? this.securePasswordEntry(password) : 'Password'}</Text>
+                                            </View>
 
-                                    <TouchableOpacity onPress={() => this.setState({ passwordModal: true })}>
-                                        <Plus />
-                                    </TouchableOpacity>
-                                </View>
+                                            <TouchableOpacity onPress={() => this.setState({ passwordModal: true })}>
+                                                <Plus />
+                                            </TouchableOpacity>
+                                        </View>
+                                    </>}
                                 <View style={styles.rowMeasureContainer}>
                                     <View style={styles.rowStyle}>
                                         <DOB />
@@ -331,7 +377,7 @@ class CompleteProfile extends Component {
                                     </TouchableOpacity>
                                 </View>
                                 <View style={{ margin: "8%" }}>
-                                    <Button loading={nextLoading} title={'Next'} onPress={() => { this.setState({ nextLoading: true }, () => this.handleOnPressNext()) }} />
+                                    <Button loading={nextLoading} title={'Next'} onPress={() => { this.setState({ nextLoading: true }, () => userData.email ? this.handleOnPressNextSpecific() : this.handleOnPressNext()) }} />
                                 </View>
                             </View>
                         </ScrollView>

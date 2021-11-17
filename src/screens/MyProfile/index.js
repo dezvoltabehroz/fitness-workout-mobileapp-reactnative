@@ -24,12 +24,11 @@ class MyProfile extends Component {
 
     chooseFile = () => {
         var options = {
-            title: 'Select Avatar',
-            noData: true,
+            title: 'Select Profile Photo',
             storageOptions: {
                 skipBackup: true,
-                path: 'images',
-            },
+                path: 'images'
+            }
         };
 
         launchImageLibrary(options, response => {
@@ -40,7 +39,7 @@ class MyProfile extends Component {
                 let formData = new FormData();
                 formData.append('user_id', this.props.user.userData.user_id);
                 formData.append('image', {
-                    uri: Platform.OS === 'android' ? response.assets[0].uri : response.uri,
+                    uri: response.assets[0].uri,
                     name: `${new Date().getTime().toString()}.jpg`,
                     filename: new Date().getTime().toString() + '.jpg',
                     type: 'image/jpg'

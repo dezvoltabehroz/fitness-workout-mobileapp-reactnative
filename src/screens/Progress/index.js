@@ -217,12 +217,12 @@ class Progress extends Component {
                             </> : null}
 
                         <View style={styles.bmiContainer}>
-                            <View style={styles.rowContainer}>
+                            {/* <View style={styles.rowContainer}>
                                 <Text style={styles.blackheading}>BMI(kg/m2) : {parseFloat(bmi).toFixed(2)}</Text>
-                                {/* <TouchableOpacity>
+                                <TouchableOpacity>
                                     <Text style={styles.colorText}>{screen.EDIT}</Text>
-                                </TouchableOpacity> */}
-                            </View>
+                                </TouchableOpacity>
+                            </View> */}
                             {/* <View style={styles.row} >
                                 <View style={{ height: 10, width: SCREEN_WIDTH * 0.15, backgroundColor: "#9BE5FF" }}></View>
                                 <View style={{ width: 5 }}></View>
