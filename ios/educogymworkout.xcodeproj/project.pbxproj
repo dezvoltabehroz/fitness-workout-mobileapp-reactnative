@@ -606,7 +606,7 @@
 				CODE_SIGN_ENTITLEMENTS = educogymworkout/educogymworkout.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = 9Z8ZYCQ94Y;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = educogymworkout/Info.plist;
@@ -640,7 +640,7 @@
 				CODE_SIGN_ENTITLEMENTS = educogymworkout/educogymworkout.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = 9Z8ZYCQ94Y;
 				INFOPLIST_FILE = educogymworkout/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
