@@ -265,9 +265,15 @@ class CompleteProfile extends Component {
             }
             AuthServices.sendCodeOnEmail(data, this.props.user.userData.token)
                 .then((res) => {
-                    console.log(res.data.data)
-                    this.setState({ submit: false, emailModal: false, btnLoading: false, sendedCode: res.data.data })
-                    setTimeout(() => { this.setState({ confirmOtpModal: true, }) }, 350);
+                    console.log(res.data.data);
+                    if (res.data.success) {
+                        this.setState({ submit: false, emailModal: false, btnLoading: false, sendedCode: res.data.data })
+                        setTimeout(() => { this.setState({ confirmOtpModal: true, }) }, 350);
+                    }  else {
+                        Alert.alert(`${res.data.message}!`)
+                        this.setState({ btnLoading: false, submit: false, })
+                    }
+
                 })
                 .catch((error) => console.log(error.response))
         } else {
