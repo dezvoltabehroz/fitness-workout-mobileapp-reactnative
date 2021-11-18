@@ -16,6 +16,8 @@ import messaging from '@react-native-firebase/messaging';
 import { clearAllLocalData, getLocalData, LOCAL_STORAGE_KEYS, storeLocalData } from '../../lib/utils/localstorage';
 import { LOGO, route } from '../../lib/utils/constants';
 
+import { CommonActions } from '@react-navigation/native';
+
 const setUserProfile = (userData, authData, navigate, isNewUser) => {
     return async (dispatch) => {
         let token = await getLocalData(LOCAL_STORAGE_KEYS.userToken)
@@ -61,12 +63,16 @@ const getUserProfile = (userData, navigate, isNewUser) => {
     };
 };
 
-const removeUser = (navigate) => {
+const removeUser = (navigation) => {
     return async (dispatch) => {
         await clearAllLocalData();
         let id = await getLocalData(LOCAL_STORAGE_KEYS.user_id)
         console.log("id : ", id);
-        navigate(route.APPINTROZERO)
+        // navigate(route.APPINTROZERO)
+        navigation.reset({
+            index: 0,
+            routes: [{ name: route.APPINTROZERO }]
+       })
         setTimeout(() => {
             dispatch({ type: USER_LOGOUT_SUCCESS })
         }, 2000);

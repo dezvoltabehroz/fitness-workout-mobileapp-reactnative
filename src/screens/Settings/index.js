@@ -129,7 +129,7 @@ class Settings extends Component {
                                 </View>
                                 {
                                     this.state.email ?
-                                        <TouchableOpacity onPress={() => this.props.authActions.removeUser(this.props.navigation.replace)} style={styles.rowContainer}>
+                                        <TouchableOpacity onPress={() => this.props.authActions.removeUser(this.props.navigation)} style={styles.rowContainer}>
                                             <Logout />
                                             <View style={styles.itemContainer}>
                                                 <Text style={styles.text}>Logout</Text>

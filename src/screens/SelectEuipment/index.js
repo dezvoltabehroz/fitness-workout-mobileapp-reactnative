@@ -51,6 +51,7 @@ class SelectEuipment extends Component {
                 selected: false
             }],
             selectedEquipment: [],
+            nextBtn: true,
         };
     }
 
@@ -58,11 +59,17 @@ class SelectEuipment extends Component {
         console.log(this.props.user.userData.fitness_equipment)
         let equipmentString = this.props.user.userData.fitness_equipment;
         let equipmentArray = equipmentString.split(',')
+        console.log(equipmentArray)
         let fitnessEquipment = [...this.state.fitnessEquipment]
         let selectedEquipment = [...this.state.selectedEquipment]
         equipmentArray.forEach(element => {
             fitnessEquipment.map((item, index) => {
-                if (item.title == element) {
+
+                if (element == 'All Equipment' && item.title == screen.APP_INTRO_Button_4_3) {
+                    this.setState({ nextBtn: false })
+                    fitnessEquipment[index] = { ...fitnessEquipment[index], selected: true }
+                    selectedEquipment.push(item.title)
+                } else if (item.title == element) {
                     fitnessEquipment[index] = { ...fitnessEquipment[index], selected: true }
                     selectedEquipment.push(item.title)
                 }
@@ -156,7 +163,7 @@ class SelectEuipment extends Component {
             fitnessEquipment.map((item, i) => { fitnessEquipment[i] = { ...fitnessEquipment[i], selected: false } })
             fitnessEquipment[index] = { ...fitnessEquipment[index], selected: true }
             selectedEquipment.push(item.title)
-            this.setState({ fitnessEquipment, selectedEquipment })
+            this.setState({ fitnessEquipment, selectedEquipment, nextBtn: false })
 
         } else if (item.title != 'Mixed equipment' && selectedEquipment.length < 2) {
             const valueIndex = selectedEquipment.indexOf('Mixed equipment');
@@ -164,6 +171,7 @@ class SelectEuipment extends Component {
             if (valueIndex !== -1) {
                 selectedEquipment.splice(valueIndex, 1);
                 fitnessEquipment[equipmentIndex] = { ...fitnessEquipment[equipmentIndex], selected: false }
+                this.setState({nextBtn:true})
             }
             if (fitnessEquipment[index].selected) {
                 const objIndex = selectedEquipment.indexOf(item.title);
@@ -222,7 +230,7 @@ class SelectEuipment extends Component {
                     </ScrollView>
                 </View>
                 <View style={styles.buttonContainer}>
-                    <ClearButton title={screen.NEXT} onPress={() => {
+                    <ClearButton title={screen.NEXT} disabled={this.state.nextBtn == false ? false : this.state.selectedEquipment.length == 2 ? false : true} onPress={() => {
                         let equipmentString = "";
                         let selectedArray = [...this.state.selectedEquipment];
                         selectedArray.map((item, index) => { equipmentString = equipmentString.concat(`${item}${index == (selectedArray.length - 1) ? "" : ","}`) })

@@ -50,7 +50,7 @@ class PowerOfMind extends Component {
     _renderMenuItem = ({ item, index }) => {
         return (
             <TouchableOpacity onPress={() => { this.props.navigation.navigate(route.POWEROFMINDAUDIO, { data: item }) }} style={styles.itemContainer} >
-                <ImageBackground imageStyle={{ overflow: "hidden",borderRadius: 10, }} source={require('../../assets/images/you.png')} style={styles.contentContainer1}>
+                <ImageBackground imageStyle={{ overflow: "hidden", borderRadius: 10, }} source={require('../../assets/images/you.png')} style={styles.contentContainer1}>
                     <View style={styles.opacity}>
 
                     </View>
@@ -79,17 +79,21 @@ class PowerOfMind extends Component {
                                     <Text style={styles.headingText}>Videos</Text>
                                 </View>
                                 <HorizontalList data={this.state.mindBodyVideo} video onPress={(item) => navigate(route.VIDEO, { uri: item.media_path })} />
-                                <View style={styles.headingContainer}>
-                                    <Text style={styles.headingText}>Audios</Text>
-                                </View>
-                                <FlatList
-                                    data={this.state.mindBodyAudio.slice(0, 99)}
-                                    numColumns={2}
-                                    renderItem={this._renderMenuItem}
-                                    contentContainerStyle={styles.contentContainer}
-                                    keyExtractor={item => item.route}
-                                    ItemSeparatorComponent={VerticalSpacer}
-                                />
+                                {this.props.user.userData.is_pro != 1 ?
+                                    null :
+                                    <>
+                                        <View style={styles.headingContainer}>
+                                            <Text style={styles.headingText}>Audios</Text>
+                                        </View>
+                                        <FlatList
+                                            data={this.state.mindBodyAudio.slice(0, 99)}
+                                            numColumns={2}
+                                            renderItem={this._renderMenuItem}
+                                            contentContainerStyle={styles.contentContainer}
+                                            keyExtractor={item => item.route}
+                                            ItemSeparatorComponent={VerticalSpacer}
+                                        />
+                                    </>}
                             </ScrollView>
                     }
                 </View>
