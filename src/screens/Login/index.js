@@ -156,13 +156,13 @@ class Login extends Component {
         return (
             <Container>
                 <View style={styles.container}>
-
+                <KeyboardAwareScrollView>
                     <View style={styles.outLineContainer}>
                         <Image source={require("../../assets/images/login.png")} resizeMode="contain" style={{ height: SCREEN_HEIGHT * 0.4 }} />
                         <Text style={styles.heading}>Log In</Text>
                     </View>
-                    <KeyboardAwareScrollView>
-                        <View style={{ flex: 0.8, marginTop: "10%" }}>
+                  
+                        <View style={{ flex: 0.8, marginTop: "5%" }}>
                             <View style={{ marginHorizontal: "5%" }}>
                                 <Input value={email} label="Enter your email" onChangeText={(e) => this.setState({ email: e })} />
                                 {
