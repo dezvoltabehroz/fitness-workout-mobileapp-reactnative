@@ -1,6 +1,7 @@
 import moment from 'moment';
 import React, { Component } from 'react';
-import { Alert, FlatList, Text, View, ActivityIndicator, TouchableOpacity, ScrollView } from 'react-native';
+import { Alert, FlatList, Text, View, ActivityIndicator, TouchableOpacity, ScrollView, ImageBackground } from 'react-native';
+import { launchImageLibrary } from 'react-native-image-picker';
 
 import ProgressBarAnimated from 'react-native-progress-bar-animated';
 import { connect } from 'react-redux';
@@ -73,6 +74,36 @@ class Feedback extends Component {
             .catch((err) => err.response)
     }
 
+    chooseFile = async (item) => {
+        var options = {
+            title: 'Select Avatar',
+            storageOptions: {
+                skipBackup: true,
+                path: 'images',
+            },
+        };
+        launchImageLibrary(options, (response) => {
+            if (response.didCancel) {
+            } else {
+                this.setState({ uploading: true });
+                switch (item) {
+                    case 'frontImage':
+                        this.setState({ frontImage: response.assets[0].uri })
+                        break;
+                    case 'backImage':
+                        this.setState({ backImage: response.assets[0].uri })
+                        break;
+                    case 'rightImage':
+                        this.setState({ rightImage: response.assets[0].uri })
+                        break;
+                    case 'leftImage':
+                        this.setState({ leftImage: response.assets[0].uri })
+                        break;
+                }
+            }
+        });
+    };
+
     handleAnswerFunction = (text, index) => {
         let array = [...this.state.data];
         let anwserArray = [...this.state.answers]
@@ -90,7 +121,7 @@ class Feedback extends Component {
     }
 
     render() {
-        const { question, data, width, loading, answers, submitEnabled, submitLoading, answer } = this.state;
+        const { question, data, width, loading, answers, submitEnabled, submitLoading, answer, frontImage, backImage, rightImage, leftImage } = this.state;
         const progressCustomStyles = {
             borderRadius: 10,
             borderWidth: 0,
@@ -136,10 +167,51 @@ class Feedback extends Component {
                                                 <View style={{ backgroundColor: "white", padding: "5%", borderRadius: 20, marginHorizontal: "5%" }}>
                                                     <ScrollView showsVerticalScrollIndicator={false}>
                                                         <View style={{ flex: 0.8 }}>
-                                                            <Text style={{ color: 'lightgray' }}>{item.options_array.length == 0 ? "Type Answer" : "Select Answer"}</Text>
+                                                            <Text style={{ color: 'lightgray' }}>{item.ques_id == 16 && item.options_array.length == 0 ? "Capture Image" : item.options_array.length == 0 ? "Type Answer" : "Select Answer"}</Text>
                                                             <Text style={{ fontWeight: "bold", fontSize: 18 }}>{item.ques_statement}</Text>
+
                                                             <View>
-                                                                {
+                                                                {item.options_array.length == 0 && item.ques_id == 16 ?
+                                                                    <View>
+                                                                        <View style={{ flexDirection: "row", marginTop: "5%" }}>
+                                                                            {frontImage ?
+                                                                                <ImageBackground source={{ uri: frontImage }} imageStyle={{ borderRadius: 20 }} style={{ marginHorizontal: "2.5%", width: SCREEN_WIDTH * 0.35, height: 125 }}>
+                                                                                </ImageBackground>
+                                                                                :
+                                                                                <TouchableOpacity onPress={() => this.chooseFile('frontImage')} style={{ backgroundColor: "lightgray", borderRadius: 20, width: SCREEN_WIDTH * 0.35, marginHorizontal: "2.5%", justifyContent: "center", alignItems: "center", height: 125 }}>
+                                                                                    <Icon.FontAwesome name="camera" color="gray" size={40} />
+                                                                                    <Text style={styles.grayText}>Front Picture</Text>
+                                                                                </TouchableOpacity>}
+                                                                            {backImage ?
+                                                                                <ImageBackground source={{ uri: frontImage }} imageStyle={{ borderRadius: 20 }} style={{ marginHorizontal: "2.5%", width: SCREEN_WIDTH * 0.35, height: 125 }}>
+                                                                                </ImageBackground>
+                                                                                :
+                                                                                <TouchableOpacity onPress={() => this.chooseFile('backImage')} style={{ backgroundColor: "lightgray", borderRadius: 20, width: SCREEN_WIDTH * 0.35, marginHorizontal: "2.5%", justifyContent: "center", alignItems: "center", height: 125 }}>
+                                                                                    <Icon.FontAwesome name="camera" color="gray" size={40} />
+                                                                                    <Text style={styles.grayText}>Back Picture</Text>
+                                                                                </TouchableOpacity>}
+                                                                        </View>
+                                                                        <View style={{ flexDirection: "row", marginTop: "5%" }}>
+                                                                            {rightImage ?
+                                                                                <ImageBackground source={{ uri: frontImage }} imageStyle={{ borderRadius: 20 }} style={{ marginHorizontal: "2.5%", width: SCREEN_WIDTH * 0.35, height: 125 }}>
+                                                                                </ImageBackground>
+                                                                                :
+                                                                                <TouchableOpacity onPress={() => this.chooseFile('rightImage')} style={{ backgroundColor: "lightgray", borderRadius: 20, width: SCREEN_WIDTH * 0.35, marginHorizontal: "2.5%", justifyContent: "center", alignItems: "center", height: 125 }}>
+                                                                                    <Icon.FontAwesome name="camera" color="gray" size={40} />
+                                                                                    <Text style={styles.grayText}>Right side Picture</Text>
+                                                                                </TouchableOpacity>}
+                                                                            {leftImage ?
+                                                                                <ImageBackground source={{ uri: frontImage }} imageStyle={{ borderRadius: 20 }} style={{ marginHorizontal: "2.5%", width: SCREEN_WIDTH * 0.35, height: 125 }}>
+                                                                                </ImageBackground>
+                                                                                :
+                                                                                <TouchableOpacity onPress={() => this.chooseFile('leftImage')} style={{ backgroundColor: "lightgray", borderRadius: 20, width: SCREEN_WIDTH * 0.35, marginHorizontal: "2.5%", justifyContent: "center", alignItems: "center", height: 125 }}>
+                                                                                    <Icon.FontAwesome name="camera" color="gray" size={40} />
+                                                                                    <Text style={styles.grayText}>Left side Picture</Text>
+                                                                                </TouchableOpacity>}
+                                                                        </View>
+                                                                    </View>
+                                                                    :
+
                                                                     item.options_array.length == 0 ?
                                                                         <View>
                                                                             <Input value={answer} placeholder="Enter your answer" onChangeText={(text) => this.handleAnswerFunction(text, index)} />
@@ -193,10 +265,10 @@ class Feedback extends Component {
                                         )
                                     })
                                 }
-                            </ScrollView>
-                        </View>
+                            </ScrollView >
+                        </View >
                 }
-            </Container>
+            </Container >
         )
     }
 

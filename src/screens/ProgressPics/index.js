@@ -38,7 +38,7 @@ class ProgressPics extends Component {
         return (
             <View style={styles.container1}>
 
-                <ImageBackground source={{ uri: item.pic_path }} style={styles.imageStyle} >
+                <ImageBackground source={{ uri: item }} style={styles.imageStyle} >
                     <View style={styles.overlay} />
                     <View style={styles.dateContainer}>
                         <Text style={styles.dateText}>{moment().format('ll')}</Text>
