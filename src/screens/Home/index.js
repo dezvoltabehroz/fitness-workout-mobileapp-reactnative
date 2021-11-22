@@ -209,7 +209,7 @@ class Home extends Component {
                                 </View> */}
                             </View>
                         </View>
-                        <ImageBackground source={require('../../assets/images/rob.jpg')} style={styles.workoutDayContainer}>
+                        <ImageBackground source={require('../../assets/images/workout.jpeg')} style={styles.workoutDayContainer}>
                             <Text style={styles.whiteTextStyle}>30 DAY'S WORKOUT</Text>
                             <View style={styles.rowStyle}>
                                 {this.fitnessLevelFunction()}
@@ -236,7 +236,7 @@ class Home extends Component {
                                 <Button loading={this.state.dietLoading} title={'GO!'} onPress={() => this.handleStartDietPlan()} />
                             </View>
                         </ImageBackground>
-                        <TouchableOpacity style={{}} onPress={() => navigate(route.POWER_OF_MIND)} >
+                        <TouchableOpacity style={{}} onPress={() => navigate(route.POWER_OF_MIND)} style={{ alignItems: "center", justifyContent: "center" }} >
                             <ImageBackground source={require('../../assets/images/Power-of-Mind.png')} imageStyle={{ borderRadius: 25, }} style={styles.cardContainer1}>
                                 <View>
                                     <Text style={styles.whiteTextStyle1}>POWER OF THE MIND</Text>

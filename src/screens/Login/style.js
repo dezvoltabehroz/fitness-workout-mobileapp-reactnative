@@ -8,7 +8,8 @@ export default StyleSheet.create({
     },
     outLineContainer: {
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
+        paddingTop: "5%"
     },
     heading: {
         marginTop: 30,
@@ -37,11 +38,11 @@ export default StyleSheet.create({
         backgroundColor: '#3B5998',
         paddingHorizontal: "10%"
     },
-    alignItems:{
-         flex: 0.3, alignItems: "center" 
+    alignItems: {
+        flex: 0.3, alignItems: "center"
     },
-    flex:{
-         flex: 0.8 
+    flex: {
+        flex: 0.8
     },
     appleBtnContainer: {
         marginHorizontal: '10%',
