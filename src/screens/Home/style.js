@@ -137,7 +137,7 @@ export default StyleSheet.create({
         paddingHorizontal: "5%",
         justifyContent: "center",
         height: SCREEN_HEIGHT * 0.25,
-        width: SCREEN_WIDTH * 0.96,
+        width: SCREEN_WIDTH * 0.9,
     },
     starContainer: {
         position: "absolute",

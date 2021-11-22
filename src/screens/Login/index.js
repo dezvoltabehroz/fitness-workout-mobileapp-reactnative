@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { View, Text, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, Alert, Image } from 'react-native';
 import Modal from 'react-native-modal';
 import { Container, Input, Button, Icon, EmailModal, VerifyOtpModal, HeaderLeft } from '../../components';
 
@@ -16,7 +16,8 @@ import { isEmailValid, isPasswordValid } from '../../lib/utils/global';
 import themeStyle1 from '../../assets/styles/common.style';
 import { LOCAL_STORAGE_KEYS, storeLocalData } from '../../lib/utils/localstorage';
 import themeStyle from '../../assets/styles/theme.style';
-
+import { SCREEN_HEIGHT } from '../../lib/utils/constants';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview'
 class Login extends Component {
     constructor(props) {
         super(props);
@@ -42,8 +43,9 @@ class Login extends Component {
 
     componentDidMount = () => {
         this.props.navigation.setOptions({
-             headerLeft: () => (<HeaderLeft navigation={this.props.navigation}
-                 login={this.props.route?.params?.inAPP ? false : true} />) });
+            headerLeft: () => (<HeaderLeft navigation={this.props.navigation}
+                login={this.props.route?.params?.inAPP ? false : true} />)
+        });
 
     }
 
@@ -58,7 +60,7 @@ class Login extends Component {
                 .then(async (res) => {
                     if (res.data.success) {
                         await storeLocalData(LOCAL_STORAGE_KEYS.user_id, JSON.stringify(res.data.data.id))
-                        await this.props.authActions.userLogin("",this.props.navigation.replace)
+                        await this.props.authActions.userLogin("", this.props.navigation.replace)
                         this.setState({ loading: false })
                     } else {
                         Alert.alert(`${res.data.message}!`)
@@ -154,38 +156,40 @@ class Login extends Component {
         return (
             <Container>
                 <View style={styles.container}>
-                    <View style={styles.outLineContainer}>
 
-                        <OutLine />
+                    <View style={styles.outLineContainer}>
+                        <Image source={require("../../assets/images/login.png")} resizeMode="contain" style={{ height: SCREEN_HEIGHT * 0.4 }} />
                         <Text style={styles.heading}>Log In</Text>
                     </View>
-                    <View style={{ flex: 0.8, marginTop: "10%" }}>
-                        <View style={{ marginHorizontal: "5%" }}>
-                            <Input value={email} label="Enter your email" onChangeText={(e) => this.setState({ email: e })} />
-                            {
-                                submit && !email ? <Text style={[themeStyle1.errorText, { marginBottom: 10 }]}>Please fill this field</Text> : null
-                            }
-                            {
-                                submit && email.length && !isEmailValid(email) ? <Text style={[themeStyle1.errorText, { marginBottom: 10 }]}>Email is invalid</Text> : null
-                            }
+                    <KeyboardAwareScrollView>
+                        <View style={{ flex: 0.8, marginTop: "10%" }}>
+                            <View style={{ marginHorizontal: "5%" }}>
+                                <Input value={email} label="Enter your email" onChangeText={(e) => this.setState({ email: e })} />
+                                {
+                                    submit && !email ? <Text style={[themeStyle1.errorText, { marginBottom: 10 }]}>Please fill this field</Text> : null
+                                }
+                                {
+                                    submit && email.length && !isEmailValid(email) ? <Text style={[themeStyle1.errorText, { marginBottom: 10 }]}>Email is invalid</Text> : null
+                                }
+                            </View>
+                            <View style={{ marginHorizontal: "5%", marginTop: "5%" }}>
+                                <Input value={password} secureTextEntry={this.state.secureTextEntry} rightIcon={this.state.secureTextEntry ?
+                                    <Icon.Entypo name="eye-with-line" size={20} color={themeStyle.DASH_DARK}
+                                        onPress={() => this.setState({ secureTextEntry: !this.state.secureTextEntry })} /> :
+                                    <Icon.Entypo name="eye" size={20} color={themeStyle.DASH_DARK}
+                                        onPress={() => this.setState({ secureTextEntry: !this.state.secureTextEntry })} />} label="Enter your password" onChangeText={(e) => this.setState({ password: e })} />
+                                {
+                                    submit && !password ? <Text style={[themeStyle1.errorText, { marginBottom: 10 }]}>Please fill this field</Text> : null
+                                }
+                            </View>
+                            <TouchableOpacity onPress={() => this.setState({ emailModal: true })} style={{ marginVertical: "5%", alignItems: "center" }}>
+                                <Text style={{ textAlign: "center" }}>Forgot Password?</Text>
+                            </TouchableOpacity>
+                            <View style={{ marginHorizontal: "15%", }}>
+                                <Button loading={this.props.user.loading || loading} title="Login " onPress={() => this.setState({ submit: true, loading: true }, () => this.handleLoginFunction())} />
+                            </View>
                         </View>
-                        <View style={{ marginHorizontal: "5%", marginTop: "5%" }}>
-                            <Input value={password} secureTextEntry={this.state.secureTextEntry} rightIcon={this.state.secureTextEntry ?
-                                <Icon.Entypo name="eye-with-line" size={20} color={themeStyle.DASH_DARK}
-                                    onPress={() => this.setState({ secureTextEntry: !this.state.secureTextEntry })} /> :
-                                <Icon.Entypo name="eye" size={20} color={themeStyle.DASH_DARK}
-                                    onPress={() => this.setState({ secureTextEntry: !this.state.secureTextEntry })} />} label="Enter your password" onChangeText={(e) => this.setState({ password: e })} />
-                            {
-                                submit && !password ? <Text style={[themeStyle1.errorText, { marginBottom: 10 }]}>Please fill this field</Text> : null
-                            }
-                        </View>
-                        <TouchableOpacity onPress={() => this.setState({ emailModal: true })} style={{ marginVertical: "5%", alignItems: "center" }}>
-                            <Text style={{ textAlign: "center" }}>Forgot Password?</Text>
-                        </TouchableOpacity>
-                        <View style={{ marginHorizontal: "15%", }}>
-                            <Button loading={this.props.user.loading || loading} title="Login " onPress={() => this.setState({ submit: true, loading: true }, () => this.handleLoginFunction())} />
-                        </View>
-                    </View>
+                    </KeyboardAwareScrollView>
                 </View>
                 {/* <Modal isVisible={this.state.emailModal}>
                     <View style={styles.cardContainer}>

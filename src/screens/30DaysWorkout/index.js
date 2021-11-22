@@ -268,7 +268,7 @@ class PowerOfMind extends Component {
                             </View> :
                             <ScrollView>
                                 <View style={styles.upperContainer}>
-                                    <ImageBackground imageStyle={styles.stylingImage} style={styles.imageStyle} source={require('../../assets/images/chest-work.jpg')}>
+                                    <ImageBackground imageStyle={styles.stylingImage} style={styles.imageStyle} source={require('../../assets/images/30.jpeg')}>
                                         <Text style={styles.headingText1} >30 DAY'S WORKOUT</Text>
                                         <View style={styles.rowContainer}>
                                             <Text style={styles.headingText}>Day {daily_workout_count == 0 ? 1 : daily_workout_count}</Text>
