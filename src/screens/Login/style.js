@@ -9,7 +9,7 @@ export default StyleSheet.create({
     outLineContainer: {
         justifyContent: "center",
         alignItems: "center",
-        paddingTop: "5%"
+        paddingTop: "10%"
     },
     heading: {
         marginTop: 30,
