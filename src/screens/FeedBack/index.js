@@ -151,20 +151,20 @@ class Feedback extends Component {
             .then((res) => {
                 console.log(res.data)
                 this.setState({ uploading: false })
-                // if (res.data.success) {
-                //     if ((i + 1) == data.length) { this.setState({ submitEnabled: true }) }
-                //     else {
-                //         this.setState({ question: i + 1, width: width + SCREEN_WIDTH })
-                //         this.scroll.scrollTo({ x: (width + SCREEN_WIDTH) }); this.setState({ answer: "" })
-                //     }
-                // } else {
-                //     Alert.alert(`${res.data.message}`)
-                // }
-                if ((i + 1) == data.length) { this.setState({ submitEnabled: true }) }
-                else {
-                    this.setState({ question: i + 1, width: width + SCREEN_WIDTH })
-                    this.scroll.scrollTo({ x: this.state.width }); this.setState({ answer: "" })
+                if (res.data.success) {
+                    if ((i + 1) == data.length) { this.setState({ submitEnabled: true }) }
+                    else {
+                        this.setState({ question: i + 1, width: width + SCREEN_WIDTH })
+                        this.scroll.scrollTo({ x: this.state.width}); this.setState({ answer: "" })
+                    }
+                } else {
+                    Alert.alert(`${res.data.message}`)
                 }
+                // if ((i + 1) == data.length) { this.setState({ submitEnabled: true }) }
+                // else {
+                //     this.setState({ question: i + 1, width: width + SCREEN_WIDTH })
+                //     this.scroll.scrollTo({ x: this.state.width }); this.setState({ answer: "" })
+                // }
             })
             .catch((err) => console.log(err.response))
 
