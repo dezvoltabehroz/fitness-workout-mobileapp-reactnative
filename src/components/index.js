@@ -102,3 +102,6 @@ export const VerifyOtpModal = _VerifyOtpModal;
 
 import _EmailModal from './Modals/EmailModal';
 export const EmailModal = _EmailModal;
+
+import _ImageStyleModal from './Modals/ImageStyleModal';
+export const ImageStyleModal = _ImageStyleModal;

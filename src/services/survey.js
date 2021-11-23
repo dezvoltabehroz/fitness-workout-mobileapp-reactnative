@@ -19,6 +19,15 @@ const Api = {
     isSurveySubmitted: function (data, token) {
         return axiosInstance.post('survey/isSurveySubmitted', data, apiHeaderConfiguration(token, TOKEN))
     },
+    updateSurveyAnswers: function (data, token) {
+        return axiosInstance.post('survey/updateSurveyAnswers', data, apiHeaderConfiguration(token, TOKEN))
+    },
+    updateSurveyMeasurements: function (data, token) {
+        return axiosInstance.post('survey/surveyMeasurement', data, apiHeaderConfiguration(token, TOKEN))
+    },
+    uploadSurveyImages: function (data, token) {
+        return axios.post(`${BASE_URL}survey/uploadSurveyImages`, data, apiHeaderConfiguration(token, TOKEN))
+    }
 
 };
 
