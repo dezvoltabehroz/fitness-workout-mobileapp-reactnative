@@ -140,8 +140,6 @@ class Feedback extends Component {
         const { user_id, token, workout_user_id, diet_user_id } = this.props.user.userData;
         this.setState({ uploading: true });
         let surveysAnswer = [...this.state.answers];
-        console.log("surveysAnswer : ", surveysAnswer);
-        console.log("this.state.data : ", this.state.data);
         let surveyData = {
             "user_id": parseInt(user_id),
             "workout_user_id": parseInt(workout_user_id),
@@ -297,7 +295,8 @@ class Feedback extends Component {
             SurveysServices.uploadSurveyImages(formData, token)
                 .then((res) => {
                     console.log(res.data)
-                    this.setState({ uploading: true })
+                    this.setState({ uploading: false })
+                    this.props.navigation.goBack();
                 })
                 .catch((err) => console.log(err.response))
         } else {
