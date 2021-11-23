@@ -1,6 +1,6 @@
 import moment from 'moment';
 import React, { Component } from 'react';
-import { Alert, FlatList, Text, View, ActivityIndicator, TouchableOpacity, ScrollView, ImageBackground } from 'react-native';
+import { Alert, FlatList, Text, View, ActivityIndicator, TouchableOpacity, ScrollView, ImageBackground, Platform } from 'react-native';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 
 import ProgressBarAnimated from 'react-native-progress-bar-animated';
@@ -104,16 +104,16 @@ class Feedback extends Component {
             } else {
                 switch (item) {
                     case 'frontImage':
-                        this.setState({ frontImage: response.assets[0].uri })
+                        this.setState({ frontImage: Platform.OS == 'ios' ? response.uri : response.assets[0].uri })
                         break;
                     case 'backImage':
-                        this.setState({ backImage: response.assets[0].uri })
+                        this.setState({ backImage: Platform.OS == 'ios' ? response.uri : response.assets[0].uri })
                         break;
                     case 'rightImage':
-                        this.setState({ rightImage: response.assets[0].uri })
+                        this.setState({ rightImage: Platform.OS == 'ios' ? response.uri : response.assets[0].uri })
                         break;
                     case 'leftImage':
-                        this.setState({ leftImage: response.assets[0].uri })
+                        this.setState({ leftImage: Platform.OS == 'ios' ? response.uri : response.assets[0].uri })
                         break;
                 }
             }
@@ -155,7 +155,7 @@ class Feedback extends Component {
                     if ((i + 1) == data.length) { this.setState({ submitEnabled: true }) }
                     else {
                         this.setState({ question: i + 1, width: width + SCREEN_WIDTH })
-                        this.scroll.scrollTo({ x: this.state.width}); this.setState({ answer: "" })
+                        this.scroll.scrollTo({ x: this.state.width }); this.setState({ answer: "" })
                     }
                 } else {
                     Alert.alert(`${res.data.message}`)
