@@ -115,6 +115,13 @@ export default StyleSheet.create({
         color: THEME.COLOR_WHITE,
         // marginHorizontal: 5
     },
+    backTextStyle1:{
+        fontSize: 12,
+        marginLeft: "6%",
+        marginBottom:5,
+        fontFamily: THEME.FONT_REGULAR,
+        color: THEME.COLOR_WHITE,
+    },
     whiteTextStyle2: {
         fontSize: 13,
         fontFamily: THEME.FONT_MEDIUM,
