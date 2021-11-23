@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import Modal from 'react-native-modal'
 
 import Resume from '../../../assets/svg/refresh.svg';
@@ -7,6 +7,7 @@ import Completed from '../../../assets/svg/next.svg';
 import themeStyle from '../../../assets/styles/theme.style';
 import Input from '../../Input';
 import { Button } from '../..';
+import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../../../lib/utils/constants';
 
 
 const HipSizeModal = (props) => {
@@ -27,22 +28,34 @@ const HipSizeModal = (props) => {
                 {
                     props.frontImage ?
                         <>
-                            <Text>FRONT PICTIRE</Text>
+                            <Text style={{ fontSize: 16, fontWeight: "bold" }}>FRONT PICTIRE</Text>
+                            <View style={{ marginVertical: "5%" }}>
+                                <Image source={require('../../../assets/images/Front.jpg')} style={{ height: SCREEN_HEIGHT * 0.3, width: SCREEN_WIDTH * 0.6 }} />
+                            </View>
                         </>
                         :
                         props.backImage ?
                             <>
-                                <Text>BACK PICTIRE</Text>
+                                <Text style={{ fontSize: 16, fontWeight: "bold" }}>BACK PICTIRE</Text>
+                                <View style={{ marginVertical: "5%" }}>
+                                    <Image source={require('../../../assets/images/Back.jpg')} style={{ height: SCREEN_HEIGHT * 0.3, width: SCREEN_WIDTH * 0.6}} />
+                                </View>
                             </>
                             :
                             props.rightImage ?
                                 <>
-                                    <Text>RIGHT SIDE PICTIRE</Text>
+                                    <Text style={{ fontSize: 16, fontWeight: "bold" }}>RIGHT SIDE PICTIRE</Text>
+                                    <View style={{ marginVertical: "5%" }}>
+                                        <Image source={require('../../../assets/images/right.jpg')} style={{ height: SCREEN_HEIGHT * 0.3, width: SCREEN_WIDTH * 0.6 }} />
+                                    </View>
                                 </>
                                 :
                                 props.leftImage ?
                                     <>
-                                        <Text>LEFT SIDE PICTIRE</Text>
+                                        <Text style={{ fontSize: 16, fontWeight: "bold" }}>LEFT SIDE PICTIRE</Text>
+                                        <View style={{ marginVertical: "5%" }}>
+                                            <Image source={require('../../../assets/images/left.jpg')} style={{ height: SCREEN_HEIGHT * 0.3, width: SCREEN_WIDTH * 0.6 }} />
+                                        </View>
                                     </>
                                     : null
                 }

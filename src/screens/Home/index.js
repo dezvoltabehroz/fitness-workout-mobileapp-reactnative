@@ -231,7 +231,7 @@ class Home extends Component {
                             <HorizontalList video data={challenges} onPress={(item) => navigate(route.VIDEO, { uri: item.media_path })} />
                         </View>
                         <ImageBackground source={require('../../assets/images/diet.png')} style={styles.cardContainer} >
-                            <Text style={styles.whiteTextStyle1}>DIET PLAN IS READY!</Text>
+                            <Text style={styles.whiteTextStyle1}>YOUR DIET PLAN IS READY!</Text>
                             <View style={styles.goButtonContainer}>
                                 <Button loading={this.state.dietLoading} title={'GO!'} onPress={() => this.handleStartDietPlan()} />
                             </View>
@@ -239,7 +239,7 @@ class Home extends Component {
                         <TouchableOpacity style={{}} onPress={() => navigate(route.POWER_OF_MIND)} style={{ alignItems: "center", justifyContent: "center" }} >
                             <ImageBackground source={require('../../assets/images/Power-of-Mind.png')} imageStyle={{ borderRadius: 25, }} style={styles.cardContainer1}>
                                 <View>
-                                    <Text style={styles.whiteTextStyle1}>POWER OF THE MIND</Text>
+                                    <Text style={styles.backTextStyle1}>POWER OF THE MIND</Text>
                                     {/* <Text style={{ color: THEME.COLOR_WHITE }}>Lorem ipsum dolor sir</Text> */}
                                 </View>
                                 <View style={styles.starContainer}>

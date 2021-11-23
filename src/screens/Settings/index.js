@@ -85,7 +85,7 @@ class Settings extends Component {
                                 <View style={styles.rowContainer}>
                                     <Workout />
                                     <TouchableOpacity onPress={() => navigation.navigate(route.WORKOUTSETTINGS)} style={styles.itemContainer}>
-                                        <Text style={styles.text}>Workout Settings</Text>
+                                        <Text style={styles.text}>Change your Workout Settings</Text>
                                     </TouchableOpacity>
                                 </View>
                                 <TouchableOpacity onPress={() => navigation.navigate(route.PAYMENTMETHOD)} style={styles.rowContainer}>
