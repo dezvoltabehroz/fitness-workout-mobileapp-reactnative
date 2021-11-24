@@ -159,12 +159,18 @@ class Progress extends Component {
                                             datasets: [
                                                 {
                                                     data: [
-                                                        Math.random() * 100,
-                                                        Math.random() * 100,
-                                                        Math.random() * 100,
-                                                        Math.random() * 100,
-                                                        Math.random() * 100,
-                                                        Math.random() * 100
+                                                        45,
+                                                        15,
+                                                        98,
+                                                        66,
+                                                        32,
+                                                        78
+                                                        // Math.random() * 100,
+                                                        // Math.random() * 100,
+                                                        // Math.random() * 100,
+                                                        // Math.random() * 100,
+                                                        // Math.random() * 100,
+                                                        // Math.random() * 100
                                                     ]
                                                 }
                                             ]

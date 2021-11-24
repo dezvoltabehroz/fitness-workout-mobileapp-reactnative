@@ -119,6 +119,7 @@ export default StyleSheet.create({
         fontSize: 12,
         marginLeft: "6.5%",
         marginBottom: 5,
+        backgroundColor: "gray",
         fontFamily: THEME.FONT_BOLD,
         color: THEME.COLOR_WHITE,
     },
