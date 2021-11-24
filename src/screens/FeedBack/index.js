@@ -105,7 +105,7 @@ class Feedback extends Component {
                 switch (item) {
                     case 'frontImage':
                         this.setState({ imageModal: false })
-                        this.setState({ frontImage: Platform.OS == 'ios' ? response.uri : response.assets[0].uri })
+                        this.setState({ frontImage: response.assets[0].uri })
                         break;
                     case 'backImage':
                         this.setState({ imageModal: false })
