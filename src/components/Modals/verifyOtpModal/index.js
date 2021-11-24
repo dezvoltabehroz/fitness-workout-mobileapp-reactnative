@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native';
 import Modal from 'react-native-modal'
 
 import Resume from '../../../assets/svg/refresh.svg';
@@ -43,6 +43,12 @@ const UpgradeModal = (props) => {
                 </View>
                 <View style={{ marginHorizontal: "15%", marginVertical: "5%" }}>
                     <Button loading={props.btnLoading} disabled={props.code && !props.submit ? false : true} title={'Continue'} onPress={() => props.verifyCode()} />
+                </View>
+                <View style={{ marginHorizontal: "15%", marginBottom: "5%", alignItems: "center" }}>
+                    {props.resendLoading ?
+                        <ActivityIndicator size="small" color={themeStyle.DASH_DARK} />
+                        :
+                        <Text onPress={() => props.onResendCode()} style={{ fontFamily: themeStyle.FONT_BOLD, color: themeStyle.DASH_DARK, textDecorationLine: "underline" }} >Resend Code</Text>}
                 </View>
             </View>
         </Modal>

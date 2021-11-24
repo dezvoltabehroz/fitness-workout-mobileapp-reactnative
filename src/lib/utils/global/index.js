@@ -81,7 +81,7 @@ export const isEmailValid = (email) => {
  * @param password
  */
 export const isPasswordValid = (password) => {
-    return /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*_])(?=.{8,})/.test(password)
+    return /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#+\$%\^&\*_])(?=.{8,})/.test(password)
 }
 
 /**

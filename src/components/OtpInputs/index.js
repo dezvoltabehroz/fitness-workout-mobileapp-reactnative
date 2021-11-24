@@ -12,7 +12,7 @@ const OtpInput = ({ length, onFocus, ...props }) => {
     }, [props.error])
 
     return <SmoothPinCodeInput
-        value={otp}
+        value={props.otpValue}
         onTextChange={code => {
             props.setOtpValue(code);
             setOtp(code)
@@ -21,13 +21,13 @@ const OtpInput = ({ length, onFocus, ...props }) => {
         cellSpacing={5}
         cellStyleFocused={{
             borderColor: themeStyle.PRIMARY_BACKGROUND_COLOR,
-            width: 50,
+            width: 40,
             height: 49,
             borderWidth: 1,
             borderRadius: 10
         }}
         cellStyle={{
-            width: 50,
+            width: 40,
             height: 49,
             borderColor: themeStyle.PRIMARY_BACKGROUND_COLOR,
             borderWidth: 1,
