@@ -140,10 +140,11 @@ class Login extends Component {
                     this.setState({ sendedCode: res.data.data, resendLoading: false })
                 } else {
                     Alert.alert(`${res.data.message}!`)
-                    this.setState({ btnLoading: false, submit: false, })
+                    this.setState({ btnLoading: false, submit: false,resendLoading: false })
                 }
+
             })
-            .catch((error) => console.log(error.response))
+            .catch((error) => {console.log(error.response);this.setState({ resendLoading: false })})
     }
 
     verifyCode = () => {
