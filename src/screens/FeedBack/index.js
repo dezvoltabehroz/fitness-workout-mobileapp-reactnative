@@ -104,19 +104,15 @@ class Feedback extends Component {
             } else {
                 switch (item) {
                     case 'frontImage':
-                        this.setState({ imageModal: false })
                         this.setState({ frontImage: response.assets[0].uri })
                         break;
                     case 'backImage':
-                        this.setState({ imageModal: false })
                         this.setState({ backImage: response.assets[0].uri })
                         break;
                     case 'rightImage':
-                        this.setState({ imageModal: false })
                         this.setState({ rightImage: response.assets[0].uri })
                         break;
                     case 'leftImage':
-                        this.setState({ imageModal: false })
                         this.setState({ leftImage: response.assets[0].uri })
                         break;
                 }
@@ -360,70 +356,8 @@ class Feedback extends Component {
                                                         <View style={{ flex: 0.8 }}>
                                                             <Text style={{ color: 'lightgray' }}>{item.ques_id == 16 && item.options_array.length == 0 ? "Capture Image" : item.options_array.length == 0 ? "Type Answer" : "Select Answer"}</Text>
                                                             <Text style={{ fontWeight: "bold", fontSize: 18 }}>{item.ques_statement}</Text>
-                                                            <View>
-                                                                <View style={{ flexDirection: "row", marginTop: "5%" }}>
-                                                                    {frontImage ?
-                                                                        <ImageBackground source={{ uri: frontImage }} imageStyle={{ borderRadius: 20 }} style={{ marginHorizontal: "2.5%", width: SCREEN_WIDTH * 0.35, height: 125 }}>
-                                                                            <View style={{ alignItems: "flex-end" }}>
-                                                                                <TouchableOpacity onPress={() => this.setState({ frontImage: "" })} style={{ height: 30, width: 30, backgroundColor: themeStyle.DASH_DARK, margin: 5, borderRadius: 15, justifyContent: "center", alignItems: "center" }}>
-                                                                                    <Icon.Entypo name="cross" size={15} color={"white"} />
-                                                                                </TouchableOpacity>
-                                                                            </View>
-                                                                        </ImageBackground>
-                                                                        :
-                                                                        <TouchableOpacity onPress={() =>
-                                                                            this.chooseFile('frontImage')
-                                                                            //  this.setState({ imageType: "frontImage", imageModal: false })
-                                                                        } style={{ backgroundColor: "lightgray", borderRadius: 20, width: SCREEN_WIDTH * 0.35, marginHorizontal: "2.5%", justifyContent: "center", alignItems: "center", height: 125 }}>
-                                                                            <Icon.FontAwesome name="camera" color="gray" size={40} />
-                                                                            <Text style={styles.grayText}>Front Picture</Text>
-                                                                        </TouchableOpacity>}
-                                                                    {backImage ?
-                                                                        <ImageBackground source={{ uri: frontImage }} imageStyle={{ borderRadius: 20 }} style={{ marginHorizontal: "2.5%", width: SCREEN_WIDTH * 0.35, height: 125 }}>
-                                                                            <View style={{ alignItems: "flex-end" }}>
-                                                                                <TouchableOpacity onPress={() => this.setState({ backImage: "" })} style={{ height: 30, width: 30, backgroundColor: themeStyle.DASH_DARK, margin: 5, borderRadius: 15, justifyContent: "center", alignItems: "center" }}>
-                                                                                    <Icon.Entypo name="cross" size={15} color={"white"} />
-                                                                                </TouchableOpacity>
-                                                                            </View>
-                                                                        </ImageBackground>
-                                                                        :
-                                                                        <TouchableOpacity onPress={() => this.chooseFile('backImage')} style={{ backgroundColor: "lightgray", borderRadius: 20, width: SCREEN_WIDTH * 0.35, marginHorizontal: "2.5%", justifyContent: "center", alignItems: "center", height: 125 }}>
-                                                                            <Icon.FontAwesome name="camera" color="gray" size={40} />
-                                                                            <Text style={styles.grayText}>Back Picture</Text>
-                                                                        </TouchableOpacity>}
-                                                                </View>
-                                                                <View style={{ flexDirection: "row", marginTop: "5%" }}>
-                                                                    {rightImage ?
-                                                                        <ImageBackground source={{ uri: frontImage }} imageStyle={{ borderRadius: 20 }} style={{ marginHorizontal: "2.5%", width: SCREEN_WIDTH * 0.35, height: 125 }}>
-                                                                            <View style={{ alignItems: "flex-end" }}>
-                                                                                <TouchableOpacity onPress={() => this.setState({ rightImage: "" })} style={{ height: 30, width: 30, backgroundColor: themeStyle.DASH_DARK, margin: 5, borderRadius: 15, justifyContent: "center", alignItems: "center" }}>
-                                                                                    <Icon.Entypo name="cross" size={15} color={"white"} />
-                                                                                </TouchableOpacity>
-                                                                            </View>
-                                                                        </ImageBackground>
-                                                                        :
-                                                                        <TouchableOpacity onPress={() => this.chooseFile('rightImage')
-                                                                        } style={{ backgroundColor: "lightgray", borderRadius: 20, width: SCREEN_WIDTH * 0.35, marginHorizontal: "2.5%", justifyContent: "center", alignItems: "center", height: 125 }}>
-                                                                            <Icon.FontAwesome name="camera" color="gray" size={40} />
-                                                                            <Text style={styles.grayText}>Right side Picture</Text>
-                                                                        </TouchableOpacity>}
-                                                                    {leftImage ?
-                                                                        <ImageBackground source={{ uri: frontImage }} imageStyle={{ borderRadius: 20 }} style={{ marginHorizontal: "2.5%", width: SCREEN_WIDTH * 0.35, height: 125 }}>
-                                                                            <View style={{ alignItems: "flex-end" }}>
-                                                                                <TouchableOpacity onPress={() => this.setState({ leftImage: "" })} style={{ height: 30, width: 30, backgroundColor: themeStyle.DASH_DARK, margin: 5, borderRadius: 15, justifyContent: "center", alignItems: "center" }}>
-                                                                                    <Icon.Entypo name="cross" size={15} color={"white"} />
-                                                                                </TouchableOpacity>
-                                                                            </View>
-                                                                        </ImageBackground>
-                                                                        :
-                                                                        <TouchableOpacity onPress={() => this.chooseFile('leftImage')
-                                                                        } style={{ backgroundColor: "lightgray", borderRadius: 20, width: SCREEN_WIDTH * 0.35, marginHorizontal: "2.5%", justifyContent: "center", alignItems: "center", height: 125 }}>
-                                                                            <Icon.FontAwesome name="camera" color="gray" size={40} />
-                                                                            <Text style={styles.grayText}>Left side Picture</Text>
-                                                                        </TouchableOpacity>}
-                                                                </View>
-                                                            </View>
-                                                            {/* 
+
+
                                                             <View>
                                                                 {item.options_array.length == 0 && item.ques_id == 16 ?
                                                                     <View>
@@ -437,7 +371,7 @@ class Feedback extends Component {
                                                                                     </View>
                                                                                 </ImageBackground>
                                                                                 :
-                                                                                <TouchableOpacity onPress={() => this.setState({ imageType: "frontImage", imageModal: true })} style={{ backgroundColor: "lightgray", borderRadius: 20, width: SCREEN_WIDTH * 0.35, marginHorizontal: "2.5%", justifyContent: "center", alignItems: "center", height: 125 }}>
+                                                                                <TouchableOpacity onPress={() => this.chooseFile('frontImage')} style={{ backgroundColor: "lightgray", borderRadius: 20, width: SCREEN_WIDTH * 0.35, marginHorizontal: "2.5%", justifyContent: "center", alignItems: "center", height: 125 }}>
                                                                                     <Icon.FontAwesome name="camera" color="gray" size={40} />
                                                                                     <Text style={styles.grayText}>Front Picture</Text>
                                                                                 </TouchableOpacity>}
@@ -450,7 +384,7 @@ class Feedback extends Component {
                                                                                     </View>
                                                                                 </ImageBackground>
                                                                                 :
-                                                                                <TouchableOpacity onPress={() => this.setState({ imageType: "backImage", imageModal: true })} style={{ backgroundColor: "lightgray", borderRadius: 20, width: SCREEN_WIDTH * 0.35, marginHorizontal: "2.5%", justifyContent: "center", alignItems: "center", height: 125 }}>
+                                                                                <TouchableOpacity onPress={() => this.chooseFile('backImage')} style={{ backgroundColor: "lightgray", borderRadius: 20, width: SCREEN_WIDTH * 0.35, marginHorizontal: "2.5%", justifyContent: "center", alignItems: "center", height: 125 }}>
                                                                                     <Icon.FontAwesome name="camera" color="gray" size={40} />
                                                                                     <Text style={styles.grayText}>Back Picture</Text>
                                                                                 </TouchableOpacity>}
@@ -465,7 +399,7 @@ class Feedback extends Component {
                                                                                     </View>
                                                                                 </ImageBackground>
                                                                                 :
-                                                                                <TouchableOpacity onPress={() => this.setState({ imageType: "rightImage", imageModal: true })} style={{ backgroundColor: "lightgray", borderRadius: 20, width: SCREEN_WIDTH * 0.35, marginHorizontal: "2.5%", justifyContent: "center", alignItems: "center", height: 125 }}>
+                                                                                <TouchableOpacity onPress={() => this.chooseFile('rightImage')} style={{ backgroundColor: "lightgray", borderRadius: 20, width: SCREEN_WIDTH * 0.35, marginHorizontal: "2.5%", justifyContent: "center", alignItems: "center", height: 125 }}>
                                                                                     <Icon.FontAwesome name="camera" color="gray" size={40} />
                                                                                     <Text style={styles.grayText}>Right side Picture</Text>
                                                                                 </TouchableOpacity>}
@@ -478,14 +412,13 @@ class Feedback extends Component {
                                                                                     </View>
                                                                                 </ImageBackground>
                                                                                 :
-                                                                                <TouchableOpacity onPress={() => this.setState({ imageType: "leftImage", imageModal: true })} style={{ backgroundColor: "lightgray", borderRadius: 20, width: SCREEN_WIDTH * 0.35, marginHorizontal: "2.5%", justifyContent: "center", alignItems: "center", height: 125 }}>
+                                                                                <TouchableOpacity onPress={() => this.chooseFile('leftImage')} style={{ backgroundColor: "lightgray", borderRadius: 20, width: SCREEN_WIDTH * 0.35, marginHorizontal: "2.5%", justifyContent: "center", alignItems: "center", height: 125 }}>
                                                                                     <Icon.FontAwesome name="camera" color="gray" size={40} />
                                                                                     <Text style={styles.grayText}>Left side Picture</Text>
                                                                                 </TouchableOpacity>}
                                                                         </View>
                                                                     </View>
                                                                     :
-
                                                                     item.options_array.length == 0 ?
                                                                         <View>
                                                                             <Input value={answer} keyboardType={index >= 7 ? "decimal-pad" : "default"} placeholder="Enter your answer" onChangeText={(text) => { if (index <= 14 && index >= 7) { this.handleAnswerOfMeasurements(text, index) } else { this.handleAnswerFunction(text, index) } }} />
@@ -516,7 +449,7 @@ class Feedback extends Component {
                                                                             )
                                                                         })
                                                                 }
-                                                            </View> */}
+                                                            </View>
                                                         </View>
                                                         <View style={{ marginTop: "30%" }}>
                                                             {submitEnabled ?
