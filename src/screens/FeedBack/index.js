@@ -91,7 +91,7 @@ class Feedback extends Component {
     }
 
     chooseFile = async (item) => {
-
+       
         var options = {
             title: 'Select Avatar',
             storageOptions: {
@@ -104,15 +104,19 @@ class Feedback extends Component {
             } else {
                 switch (item) {
                     case 'frontImage':
+                        this.setState({ imageModal: false })
                         this.setState({ frontImage: Platform.OS == 'ios' ? response.uri : response.assets[0].uri })
                         break;
                     case 'backImage':
+                        this.setState({ imageModal: false })
                         this.setState({ backImage: Platform.OS == 'ios' ? response.uri : response.assets[0].uri })
                         break;
                     case 'rightImage':
+                        this.setState({ imageModal: false })
                         this.setState({ rightImage: Platform.OS == 'ios' ? response.uri : response.assets[0].uri })
                         break;
                     case 'leftImage':
+                        this.setState({ imageModal: false })
                         this.setState({ leftImage: Platform.OS == 'ios' ? response.uri : response.assets[0].uri })
                         break;
                 }
@@ -561,7 +565,7 @@ class Feedback extends Component {
                     backImage={imageType == 'backImage' ? true : false}
                     rightImage={imageType == 'rightImage' ? true : false}
                     leftImage={imageType == 'leftImage' ? true : false}
-                    openCamera={(type) => this.setState({ imageModal: false }, () => this.chooseFile(type))}
+                    openCamera={(type) => this.chooseFile(type)}
                 />
             </Container >
         )
