@@ -238,13 +238,13 @@ class Home extends Component {
                         </ImageBackground>
                         <TouchableOpacity style={{}} onPress={() => navigate(route.POWER_OF_MIND)} style={{ alignItems: "center", justifyContent: "center" }} >
                             <ImageBackground source={require('../../assets/images/Power-of-Mind.png')} imageStyle={{ borderRadius: 25, }} style={styles.cardContainer1}>
-                                <View>
+                                <View style={{ backgroundColor: "gray", width: SCREEN_WIDTH * 0.35, paddingHorizontal: "2.5%" }}>
                                     <Text style={styles.backTextStyle1}>POWER OF THE MIND</Text>
                                     {/* <Text style={{ color: THEME.COLOR_WHITE }}>Lorem ipsum dolor sir</Text> */}
                                 </View>
-                                <View style={styles.starContainer}>
+                                {/* <View style={styles.starContainer}>
                                     <Blue />
-                                </View>
+                                </View> */}
                             </ImageBackground>
                         </TouchableOpacity>
                     </ScrollView>
