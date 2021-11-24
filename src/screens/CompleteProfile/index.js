@@ -620,7 +620,7 @@ class CompleteProfile extends Component {
                                     submit3 && !password ? <Text style={[themeStyle1.errorText,]}>Please fill this field</Text> : null
                                 }
                                 {
-                                    submit3 && password.length && !isPasswordValid(password) ? <Text style={[themeStyle1.errorText,]}>At lease 8 characters with 1 upper case letter, 1 digit, and 1 special character (Admin12$)</Text> : null
+                                    submit3 && password.length && !isPasswordValid(password) ? <Text style={[themeStyle1.errorText,]}>At least 8 characters with 1 upper case letter, 1 digit, and 1 special character (Admin12$)</Text> : null
                                 }
                             </View>
                             <Text style={styles.headingText}>Re-type your password</Text>
