@@ -214,14 +214,14 @@ class Feedback extends Component {
             "user_id": parseInt(user_id),
             "workout_user_id": parseInt(workout_user_id),
             "diet_user_id": 0,
-            "arm_size": parseInt(arm),
-            "chest_size": parseInt(chest),
-            "shoulder_size": parseInt(shoulder),
-            "waist_size": parseInt(waist),
-            "tummy_size": parseInt(tummy),
-            "hip_size": parseInt(hip),
-            "thigh_size": parseInt(thigh),
-            "calf_size": parseInt(calf),
+            "arm_size": parseFloat(arm),
+            "chest_size": parseFloat(chest),
+            "shoulder_size": parseFloat(shoulder),
+            "waist_size": parseFloat(waist),
+            "tummy_size": parseFloat(tummy),
+            "hip_size": parseFloat(hip),
+            "thigh_size": parseFloat(thigh),
+            "calf_size": parseFloat(calf),
         }
         console.log(data)
         SurveysServices.updateSurveyMeasurements(data, token)
@@ -421,7 +421,7 @@ class Feedback extends Component {
 
                                                                     item.options_array.length == 0 ?
                                                                         <View>
-                                                                            <Input value={answer} keyboardType={index >= 7 ? "number-pad" : "default"} placeholder="Enter your answer" onChangeText={(text) => { if (index <= 14 && index >= 7) { this.handleAnswerOfMeasurements(text, index) } else { this.handleAnswerFunction(text, index) } }} />
+                                                                            <Input value={answer} keyboardType={index >= 7 ? "decimal-pad" : "default"} placeholder="Enter your answer" onChangeText={(text) => { if (index <= 14 && index >= 7) { this.handleAnswerOfMeasurements(text, index) } else { this.handleAnswerFunction(text, index) } }} />
                                                                         </View>
                                                                         :
                                                                         item.options_array.map((element, i) => {

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { View, Text, ScrollView, TouchableOpacity, ActivityIndicator } from "react-native";
+import { View, Text, ScrollView, TouchableOpacity, ActivityIndicator, Platform } from "react-native";
 
-import { Container } from "../../components";
+import { Button, Container } from "../../components";
 import Profile from '../../assets/svg/Profile.svg'
 import Workout from '../../assets/svg/workout-setting.svg'
 import Edit from '../../assets/svg/edit-plan.svg';
@@ -20,6 +20,7 @@ import { connect } from "react-redux";
 import Login from "../Login";
 import { ProfileServices } from "../../services";
 import { getLocalData, LOCAL_STORAGE_KEYS } from "../../lib/utils/localstorage";
+import { launchCamera } from "react-native-image-picker";
 
 class Settings extends Component {
     constructor(props) {
@@ -51,6 +52,40 @@ class Settings extends Component {
                 }
             })
             .catch((error) => console.log(error.response))
+    }
+
+    chooseFile = () => {
+        var options = {
+            mediaType: 'photo',
+            includeBase64: false,
+            maxHeight: 200,
+            maxWidth: 200,
+            title: 'Select Avatar',
+            storageOptions: {
+                skipBackup: true,
+                path: 'images',
+            },
+        };
+        launchCamera(options, (response) => {
+            if (response.didCancel) {
+            } else {
+                console.log(response)
+                // switch (item) {
+                //     case 'frontImage':
+                //         this.setState({ frontImage: Platform.OS == 'ios' ? response.uri : response.assets[0].uri })
+                //         break;
+                //     case 'backImage':
+                //         this.setState({ backImage: Platform.OS == 'ios' ? response.uri : response.assets[0].uri })
+                //         break;
+                //     case 'rightImage':
+                //         this.setState({ rightImage: Platform.OS == 'ios' ? response.uri : response.assets[0].uri })
+                //         break;
+                //     case 'leftImage':
+                //         this.setState({ leftImage: Platform.OS == 'ios' ? response.uri : response.assets[0].uri })
+                //         break;
+                // }
+            }
+        });
     }
 
     render() {
@@ -154,6 +189,9 @@ class Settings extends Component {
                                         null
                                 }
 
+                            </View>
+                            <View style={{ marginVertical: "5%", marginHorizontal: "10%" }}>
+                                <Button title={"Open Camera"} onPress={this.chooseFile} />
                             </View>
                         </ScrollView>
                 }
