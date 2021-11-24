@@ -190,9 +190,9 @@ class Settings extends Component {
                                 }
 
                             </View>
-                            <View style={{ marginVertical: "5%", marginHorizontal: "10%" }}>
+                            {/* <View style={{ marginVertical: "5%", marginHorizontal: "10%" }}>
                                 <Button title={"Open Camera"} onPress={this.chooseFile} />
-                            </View>
+                            </View> */}
                         </ScrollView>
                 }
             </Container>
