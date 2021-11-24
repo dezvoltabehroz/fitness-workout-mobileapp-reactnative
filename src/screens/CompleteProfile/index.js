@@ -67,6 +67,7 @@ class CompleteProfile extends Component {
             submit: false,
             submit1: false,
             nextSkipLoading: false,
+            resendLoading: false,
             kilo: "",
             gram: "",
             submit3: false,
@@ -177,6 +178,7 @@ class CompleteProfile extends Component {
     }
 
     handleOnPressNext2 = async () => {
+        const { userData } = this.props.user;
         const { arm,
             chest,
             shoulder,
@@ -203,7 +205,12 @@ class CompleteProfile extends Component {
                 .then((response) => {
                     if (response.data.success) {
                         this.setState({ next2Loading: false, })
-                        this.props.navigation.replace(route.LOGIN)
+                        if (userData.email) {
+                            this.props.navigation.replace(route.MAIN, { screen: route.SETTING })
+                        } else {
+                            this.props.navigation.replace(route.LOGIN, { inAPP: true })
+
+                        }
                     }
                 })
                 .catch((err) => console.log(err.response))
@@ -234,9 +241,9 @@ class CompleteProfile extends Component {
                 if (response.data.success) {
                     this.setState({ nextSkipLoading: false, })
                     if (userData.email) {
-                        this.props.navigation.goBack()
+                        this.props.navigation.replace(route.MAIN, { screen: route.SETTING })
                     } else {
-                        this.props.navigation.navigate(route.LOGIN, { inAPP: true })
+                        this.props.navigation.replace(route.LOGIN, { inAPP: true })
 
                     }
                 }
@@ -269,7 +276,7 @@ class CompleteProfile extends Component {
                     if (res.data.success) {
                         this.setState({ submit: false, emailModal: false, btnLoading: false, sendedCode: res.data.data })
                         setTimeout(() => { this.setState({ confirmOtpModal: true, }) }, 350);
-                    }  else {
+                    } else {
                         Alert.alert(`${res.data.message}!`)
                         this.setState({ btnLoading: false, submit: false, })
                     }
@@ -279,6 +286,26 @@ class CompleteProfile extends Component {
         } else {
             this.setState({ submit1: true, btnLoading: false })
         }
+    }
+
+    handleResendCode = () => {
+        this.setState({ resendLoading: true })
+        const { email } = this.state;
+        let data = {
+            "email": email,
+        }
+        AuthServices.sendCodeOnEmail(data, this.props.user.userData.token)
+            .then((res) => {
+                console.log(res.data.data);
+                if (res.data.success) {
+                    this.setState({ sendedCode: res.data.data, resendLoading: false })
+                } else {
+                    Alert.alert(`${res.data.message}!`)
+                    this.setState({ btnLoading: false, submit: false, })
+                }
+
+            })
+            .catch((error) => console.log(error.response))
     }
 
     verifyCode = () => {
@@ -300,7 +327,7 @@ class CompleteProfile extends Component {
     }
 
     render() {
-        const { tab, name, date, dateValue, weight, height, email, kilo, gram,
+        const { tab, name, date, dateValue, weight, height, email, kilo, gram, resendLoading,
             feet, inch, nextLoading, arm, next2Loading, chest, btnLoading, code, error, confirmPassword, password, submit, submit1,
             shoulder, waist, hip, tummy, thigh, calft, emailModal, nextSkipLoading, confirmOtpModal, passwordModal, submit3 } = this.state
         const { userData } = this.props.user;
@@ -309,10 +336,7 @@ class CompleteProfile extends Component {
                 {
                     tab == 0 ?
                         <ScrollView>
-
-
                             <View style={styles.cardContainer}>
-
                                 <View style={styles.row}>
                                     <Icon.Octicons name="primitive-dot" color={tab == 0 ? themeStyle.BAR_COLOR : '#797B7B'} size={15} />
                                     <Icon.Octicons name="primitive-dot" color={tab == 1 ? themeStyle.BAR_COLOR : '#797B7B'} size={15} style={{ marginLeft: '5%' }} />
@@ -566,12 +590,14 @@ class CompleteProfile extends Component {
                     code={code}
                     submit={submit1}
                     error={error}
+                    resendLoading={resendLoading}
                     email={email}
+                    onResendCode={() => this.handleResendCode()}
                     btnLoading={btnLoading}
                     setError={(e) => this.setState({ error: e })}
                     setCode={(code) => this.setState({ code: code })}
                     onClose={() => {
-                        this.setState({ confirmOtpModal: false })
+                        this.setState({ confirmOtpModal: false, email: "", code: "" })
                     }}
                     verifyCode={() => this.setState({ submit1: true, btnLoading: true }, () => this.verifyCode())} />
                 <Modal isVisible={this.state.passwordModal} animationInTiming={400}

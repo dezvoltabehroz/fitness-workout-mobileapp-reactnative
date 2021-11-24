@@ -49,6 +49,7 @@ class CompleteProfile extends Component {
             btnLoading: false,
             passwordModal: false,
             confirmPasswordModal: false,
+            resendLoading: false,
             confirmOtpModal: false,
             submit1: false,
             sendedCode: ""
@@ -120,25 +121,46 @@ class CompleteProfile extends Component {
 
     sendCodeOnEmail = () => {
         const { email, submit, editEmail } = this.state;
-        if (editEmail && isEmailValid(editEmail) && submit) {
+        if (editEmail && isEmailValid(editEmail.trim()) && submit) {
             let data = {
-                "email": editEmail,
+                "email": editEmail.trim(),
             }
-            AuthServices.sendCodeOnEmail(data, this.props.user.userData.token)
+            AuthServices.sendCodeOnEmail(data)
                 .then((res) => {
-                    if(res.data.success){
+                    console.log(res.data);
+                    if (res.data.success) {
                         this.setState({ emailModal: false, btnLoading: false, submit: false, sendedCode: res.data.data })
                         setTimeout(() => { this.setState({ confirmOtpModal: true, }) }, 350);
                     } else {
                         Alert.alert(`${res.data.message}!`)
                         this.setState({ btnLoading: false, submit: false, })
                     }
-                    
+
                 })
                 .catch((error) => console.log(error.response))
         } else {
             this.setState({ submit: true, btnLoading: false })
         }
+    }
+
+    handleResendCode = () => {
+        this.setState({ resendLoading: true })
+        const { editEmail } = this.state;
+        let data = {
+            "email": editEmail.trim(),
+        }
+        AuthServices.sendCodeOnEmail(data, this.props.user.userData.token)
+            .then((res) => {
+                console.log(res.data.data);
+                if (res.data.success) {
+                    this.setState({ sendedCode: res.data.data, resendLoading: false })
+                } else {
+                    Alert.alert(`${res.data.message}!`)
+                    this.setState({ btnLoading: false, submit: false, })
+                }
+
+            })
+            .catch((error) => console.log(error.response))
     }
 
     verifyCode = () => {
@@ -161,6 +183,7 @@ class CompleteProfile extends Component {
                     .catch((err) => { console.log(err.response) })
             } else {
                 Alert.alert("Code is incorrect!", 'Please enter a valid code ')
+                this.setState({ code: "", btnLoading: false, submit1: false, })
             }
         } else {
             this.setState({ submit1: true, btnLoading: false })
@@ -169,7 +192,7 @@ class CompleteProfile extends Component {
 
     render() {
         const { tab, name, date, dateValue, weight, submit, submit1, error,
-            feet, inch, code, nextLoading, email, emailModal, btnLoading,
+            feet, inch, code, nextLoading, email, emailModal, btnLoading, resendLoading,
             password, confirmPassword, kilo, gram, editEmail } = this.state;
         const { userData } = this.props.user;
         return (
@@ -290,11 +313,13 @@ class CompleteProfile extends Component {
                     code={code}
                     submit={submit1}
                     error={error}
-                    email={email}
+                    email={editEmail}
                     btnLoading={btnLoading}
+                    onResendCode={() => this.handleResendCode()}
+                    resendLoading={resendLoading}
                     setError={(e) => this.setState({ error: e })}
                     setCode={(code) => this.setState({ code: code })}
-                    onClose={() => this.setState({ confirmOtpModal: false })}
+                    onClose={() => this.setState({ confirmOtpModal: false, code: "" })}
                     verifyCode={() => this.setState({ submit1: true, btnLoading: true }, () => this.verifyCode())} />
             </Container>
         )

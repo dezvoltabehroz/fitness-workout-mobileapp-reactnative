@@ -36,6 +36,7 @@ class Login extends Component {
             loading: false,
             btnLoading: false,
             secureTextEntry: true,
+            resendLoading: false,
             submit1: false,
             emailModal: false
         }
@@ -100,9 +101,9 @@ class Login extends Component {
 
     sendCodeOnEmail = () => {
         const { emailReset, submit1 } = this.state;
-        if (emailReset && submit1 && isEmailValid(emailReset)) {
+        if (emailReset && submit1 && isEmailValid(emailReset.trim())) {
             let userData = {
-                "email": emailReset,
+                "email": emailReset.trim(),
             }
             AuthServices.forgetPassword(userData)
                 .then((res) => {
@@ -125,6 +126,26 @@ class Login extends Component {
         }
     }
 
+    handleResendCode = () => {
+        this.setState({ resendLoading: true })
+        const { emailReset } = this.state;
+        let data = {
+            "email": emailReset.trim(),
+        }
+        AuthServices.forgetPassword(data)
+            .then((res) => {
+                console.log(res.data.data);
+                if (res.data.success) {
+                    this.setState({ sendedCode: res.data.data, resendLoading: false })
+                } else {
+                    Alert.alert(`${res.data.message}!`)
+                    this.setState({ btnLoading: false, submit: false, })
+                }
+
+            })
+            .catch((error) => console.log(error.response))
+    }
+
     verifyCode = () => {
         const { code, submit1, sendedCode } = this.state;
         if (code && code.length == 6 && submit1) {
@@ -143,6 +164,7 @@ class Login extends Component {
                         setTimeout(() => { this.setState({ passwordModal: true, }) }, 350);
                     } else {
                         Alert.alert("Code is incorrect!", 'Please enter a valid code ')
+                        this.setState({ code: "", btnLoading: false, submit1: false, })
                     }
                 })
                 .catch((error) => console.log(error.response))
@@ -152,16 +174,16 @@ class Login extends Component {
     }
 
     render() {
-        const { email, password, submit, submit1, btnLoading, emailReset, code, loading, error, emailModal, confirmOtpModal, newPassword, confirmPassword } = this.state
+        const { email, password, submit, submit1, btnLoading, emailReset, resendLoading, code, loading, error, emailModal, confirmOtpModal, newPassword, confirmPassword } = this.state
         return (
             <Container>
                 <View style={styles.container}>
-                <KeyboardAwareScrollView>
-                    <View style={styles.outLineContainer}>
-                        <Image source={require("../../assets/images/login.png")} resizeMode="contain" style={{ height: SCREEN_HEIGHT * 0.4 }} />
-                        <Text style={styles.heading}>Log In</Text>
-                    </View>
-                  
+                    <KeyboardAwareScrollView>
+                        <View style={styles.outLineContainer}>
+                            <Image source={require("../../assets/images/login.png")} resizeMode="contain" style={{ height: SCREEN_HEIGHT * 0.4 }} />
+                            <Text style={styles.heading}>Log In</Text>
+                        </View>
+
                         <View style={{ flex: 0.8, marginTop: "5%" }}>
                             <View style={{ marginHorizontal: "5%" }}>
                                 <Input value={email} label="Enter your email" onChangeText={(e) => this.setState({ email: e })} />
@@ -232,9 +254,11 @@ class Login extends Component {
                     error={error}
                     email={emailReset}
                     btnLoading={btnLoading}
+                    resendLoading={resendLoading}
+                    onResendCode={() => this.handleResendCode()}
                     setError={(e) => this.setState({ error: e })}
                     setCode={(code) => this.setState({ code: code })}
-                    onClose={() => this.setState({ confirmOtpModal: false })}
+                    onClose={() => this.setState({ confirmOtpModal: false, code: "", emailReset: "" })}
                     verifyCode={() => this.setState({ submit1: true, btnLoading: true }, () => this.verifyCode())} />
                 <Modal isVisible={this.state.passwordModal} animationInTiming={400}
                     animationOutTiming={200} >

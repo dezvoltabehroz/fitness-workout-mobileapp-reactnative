@@ -37,6 +37,7 @@ class Login extends Component {
             btnLoading: false,
             secureTextEntry: true,
             secureTextEntryConfirmPassword: true,
+            resendLoading: false,
             submit1: false,
             emailModal: false
         }
@@ -44,7 +45,8 @@ class Login extends Component {
 
     componentDidMount = () => {
         this.props.navigation.setOptions({
-             headerLeft: () => (<HeaderLeft navigation={this.props.navigation} login={true} />) });
+            headerLeft: () => (<HeaderLeft navigation={this.props.navigation} login={true} />)
+        });
 
     }
 
@@ -125,6 +127,25 @@ class Login extends Component {
         }
     }
 
+    handleResendCode = () => {
+        this.setState({ resendLoading: true })
+        const { email } = this.state;
+        let data = {
+            "email": email.trim(),
+        }
+        AuthServices.sendCodeOnEmail(data)
+            .then((res) => {
+                console.log(res.data.data);
+                if (res.data.success) {
+                    this.setState({ sendedCode: res.data.data, resendLoading: false })
+                } else {
+                    Alert.alert(`${res.data.message}!`)
+                    this.setState({ btnLoading: false, submit: false, })
+                }
+            })
+            .catch((error) => console.log(error.response))
+    }
+
     verifyCode = () => {
         const { code, submit1, sendedCode } = this.state;
         if (code && code.length == 6 && submit1) {
@@ -171,7 +192,7 @@ class Login extends Component {
     }
 
     render() {
-        const { email, password, submit, submit1, btnLoading, emailReset, code, loading, error, emailModal, confirmOtpModal, newPassword, confirmPassword } = this.state
+        const { email, password, submit, submit1, btnLoading, resendLoading, emailReset, code, loading, error, emailModal, confirmOtpModal, newPassword, confirmPassword } = this.state
         return (
             <Container>
                 <View style={styles.container}>
@@ -266,9 +287,11 @@ class Login extends Component {
                     error={error}
                     email={email}
                     btnLoading={btnLoading}
+                    onResendCode={() => this.handleResendCode()}
+                    resendLoading={resendLoading}
                     setError={(e) => this.setState({ error: e })}
                     setCode={(code) => this.setState({ code: code })}
-                    onClose={() => this.setState({ confirmOtpModal: false })}
+                    onClose={() => this.setState({ confirmOtpModal: false, email: "", code: "" })}
                     verifyCode={() => this.setState({ submit1: true, btnLoading: true }, () => this.verifyCode())} />
                 <Modal isVisible={this.state.passwordModal} animationInTiming={400}
                     animationOutTiming={200} >
