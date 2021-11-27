@@ -1,7 +1,7 @@
 import moment from 'moment';
 import React, { Component } from 'react';
 import { Alert, FlatList, Text, View, ActivityIndicator, TouchableOpacity, ScrollView, ImageBackground, Platform } from 'react-native';
-import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+import ImagePicker from 'react-native-image-crop-picker';
 
 import ProgressBarAnimated from 'react-native-progress-bar-animated';
 import { connect } from 'react-redux';
@@ -91,33 +91,34 @@ class Feedback extends Component {
     }
 
     chooseFile = async (item) => {
-
-        var options = {
-            title: 'Select Avatar',
-            storageOptions: {
-                skipBackup: true,
-                path: 'images',
-            },
-        };
-        launchCamera(options, (response) => {
-            if (response.didCancel) {
-            } else {
+        try {
+            ImagePicker.openCamera({
+                width: 300,
+                height: 400,
+                includeBase64: false,
+                compressImageQuality: 0.1
+            }).then(photos => {
+                console.log(photos)
                 switch (item) {
                     case 'frontImage':
-                        this.setState({ frontImage: response.assets[0].uri })
+                        this.setState({ frontImage: photos.path })
                         break;
                     case 'backImage':
-                        this.setState({ backImage: response.assets[0].uri })
+                        this.setState({ backImage: photos.path })
                         break;
                     case 'rightImage':
-                        this.setState({ rightImage: response.assets[0].uri })
+                        this.setState({ rightImage: photos.path })
                         break;
                     case 'leftImage':
-                        this.setState({ leftImage: response.assets[0].uri })
+                        this.setState({ leftImage: photos.path })
                         break;
                 }
-            }
-        });
+            }).catch(err => {
+                console.log(err)
+            });
+        } catch (error) {
+            console.log(error)
+        }
     };
 
     handleAnswerFunction = (text, index) => {
@@ -137,12 +138,12 @@ class Feedback extends Component {
 
     handleUpdateAnswers = (i) => {
         const { data, width } = this.state;
-        const { user_id, token, workout_user_id, diet_user_id } = this.props.user.userData;
+        const { user_id, token, old_workout_user_id, diet_user_id } = this.props.user.userData;
         this.setState({ uploading: true });
         let surveysAnswer = [...this.state.answers];
         let surveyData = {
             "user_id": parseInt(user_id),
-            "workout_user_id": parseInt(workout_user_id),
+            "workout_user_id": parseInt(old_workout_user_id),
             "diet_user_id": 0,
             "survey_answer": surveysAnswer
         }
@@ -171,7 +172,9 @@ class Feedback extends Component {
     }
 
     handleAnswerOfMeasurements = (text, index) => {
+        const { data, width } = this.state;
         console.log(text, index)
+        console.log(parseFloat(text))
         console.log(this.state.data[index].ques_statement)
         this.setState({ answer: text })
         switch (this.state.data[index].ques_statement) {
@@ -190,8 +193,14 @@ class Feedback extends Component {
             case "What is your tummy measurement?":
                 this.setState({ tummy: text })
                 break;
-            case "What is your hip measurement?":
+            case "What is your hip measurement? (Optional)":
                 this.setState({ hip: text })
+                if (text == '0.0')
+                    if ((index + 1) == data.length) { this.setState({ submitEnabled: true }) }
+                    else {
+                        this.setState({ question: index + 1, width: width + SCREEN_WIDTH })
+                        this.scroll.scrollTo({ x: (width + SCREEN_WIDTH) }); this.setState({ answer: "" })
+                    }
                 break;
             case "What is your thigh measurement?":
                 this.setState({ thigh: text })
@@ -205,14 +214,14 @@ class Feedback extends Component {
 
     handleUpdateMeasurement = (i) => {
         const { calf, tummy, waist, hip, thigh, shoulder, arm, chest, } = this.state;
-        const { user_id, token, workout_user_id, diet_user_id } = this.props.user.userData;
+        const { user_id, token, old_workout_user_id, diet_user_id } = this.props.user.userData;
         this.setState({ uploading: true });
         let surveysAnswer = [...this.state.answers];
         console.log("surveysAnswer : ", surveysAnswer);
         console.log("this.state.data : ", this.state.data);
         let data = {
             "user_id": parseInt(user_id),
-            "workout_user_id": parseInt(workout_user_id),
+            "workout_user_id": parseInt(old_workout_user_id),
             "diet_user_id": 0,
             "arm_size": parseFloat(arm),
             "chest_size": parseFloat(chest),
@@ -248,7 +257,7 @@ class Feedback extends Component {
     }
 
     handleUploadImages = (i) => {
-        const { user_id, token, workout_user_id, diet_user_id } = this.props.user.userData;
+        const { user_id, token, old_workout_user_id, diet_user_id } = this.props.user.userData;
         const { frontImage, backImage, rightImage, leftImage } = this.state;
         if (frontImage && backImage && rightImage && leftImage) {
             this.setState({ uploading: true })
@@ -290,15 +299,16 @@ class Feedback extends Component {
                 formData.append('survey_images', item)
             })
             formData.append("user_id", parseInt(user_id))
-            formData.append("workout_user_id", parseInt(workout_user_id))
+            formData.append("workout_user_id", parseInt(old_workout_user_id))
             formData.append("diet_user_id", 0)
+            console.log(formData);
             SurveysServices.uploadSurveyImages(formData, token)
                 .then((res) => {
                     console.log(res.data)
                     this.setState({ uploading: false })
                     this.props.navigation.goBack();
                 })
-                .catch((err) => console.log(err.response))
+                .catch((err) => { console.log(err); console.log(err.response) })
         } else {
             Alert.alert("Please select all images")
         }
@@ -308,7 +318,7 @@ class Feedback extends Component {
     }
 
     render() {
-        const { question, data, width, imageType, imageModal, loading, answers, submitEnabled, submitLoading, answer, frontImage, backImage, rightImage, leftImage } = this.state;
+        const { question, data, width, imageType, imageModal, loading, answers, submitEnabled, hip, submitLoading, answer, frontImage, backImage, rightImage, leftImage } = this.state;
         const progressCustomStyles = {
             borderRadius: 10,
             borderWidth: 0,
@@ -356,8 +366,6 @@ class Feedback extends Component {
                                                         <View style={{ flex: 0.8 }}>
                                                             <Text style={{ color: 'lightgray' }}>{item.ques_id == 16 && item.options_array.length == 0 ? "Capture Image" : item.options_array.length == 0 ? "Type Answer" : "Select Answer"}</Text>
                                                             <Text style={{ fontWeight: "bold", fontSize: 18 }}>{item.ques_statement}</Text>
-
-
                                                             <View>
                                                                 {item.options_array.length == 0 && item.ques_id == 16 ?
                                                                     <View>
@@ -376,7 +384,7 @@ class Feedback extends Component {
                                                                                     <Text style={styles.grayText}>Front Picture</Text>
                                                                                 </TouchableOpacity>}
                                                                             {backImage ?
-                                                                                <ImageBackground source={{ uri: frontImage }} imageStyle={{ borderRadius: 20 }} style={{ marginHorizontal: "2.5%", width: SCREEN_WIDTH * 0.35, height: 125 }}>
+                                                                                <ImageBackground source={{ uri: backImage }} imageStyle={{ borderRadius: 20 }} style={{ marginHorizontal: "2.5%", width: SCREEN_WIDTH * 0.35, height: 125 }}>
                                                                                     <View style={{ alignItems: "flex-end" }}>
                                                                                         <TouchableOpacity onPress={() => this.setState({ backImage: "" })} style={{ height: 30, width: 30, backgroundColor: themeStyle.DASH_DARK, margin: 5, borderRadius: 15, justifyContent: "center", alignItems: "center" }}>
                                                                                             <Icon.Entypo name="cross" size={15} color={"white"} />
@@ -391,7 +399,7 @@ class Feedback extends Component {
                                                                         </View>
                                                                         <View style={{ flexDirection: "row", marginTop: "5%" }}>
                                                                             {rightImage ?
-                                                                                <ImageBackground source={{ uri: frontImage }} imageStyle={{ borderRadius: 20 }} style={{ marginHorizontal: "2.5%", width: SCREEN_WIDTH * 0.35, height: 125 }}>
+                                                                                <ImageBackground source={{ uri: rightImage }} imageStyle={{ borderRadius: 20 }} style={{ marginHorizontal: "2.5%", width: SCREEN_WIDTH * 0.35, height: 125 }}>
                                                                                     <View style={{ alignItems: "flex-end" }}>
                                                                                         <TouchableOpacity onPress={() => this.setState({ rightImage: "" })} style={{ height: 30, width: 30, backgroundColor: themeStyle.DASH_DARK, margin: 5, borderRadius: 15, justifyContent: "center", alignItems: "center" }}>
                                                                                             <Icon.Entypo name="cross" size={15} color={"white"} />
@@ -404,7 +412,7 @@ class Feedback extends Component {
                                                                                     <Text style={styles.grayText}>Right side Picture</Text>
                                                                                 </TouchableOpacity>}
                                                                             {leftImage ?
-                                                                                <ImageBackground source={{ uri: frontImage }} imageStyle={{ borderRadius: 20 }} style={{ marginHorizontal: "2.5%", width: SCREEN_WIDTH * 0.35, height: 125 }}>
+                                                                                <ImageBackground source={{ uri: leftImage }} imageStyle={{ borderRadius: 20 }} style={{ marginHorizontal: "2.5%", width: SCREEN_WIDTH * 0.35, height: 125 }}>
                                                                                     <View style={{ alignItems: "flex-end" }}>
                                                                                         <TouchableOpacity onPress={() => this.setState({ leftImage: "" })} style={{ height: 30, width: 30, backgroundColor: themeStyle.DASH_DARK, margin: 5, borderRadius: 15, justifyContent: "center", alignItems: "center" }}>
                                                                                             <Icon.Entypo name="cross" size={15} color={"white"} />
@@ -421,7 +429,7 @@ class Feedback extends Component {
                                                                     :
                                                                     item.options_array.length == 0 ?
                                                                         <View>
-                                                                            <Input value={answer} keyboardType={index >= 7 ? "decimal-pad" : "default"} placeholder="Enter your answer" onChangeText={(text) => { if (index <= 14 && index >= 7) { this.handleAnswerOfMeasurements(text, index) } else { this.handleAnswerFunction(text, index) } }} />
+                                                                            <Input value={answer} keyboardType={index >= 7 ? "decimal-pad" : "default"} placeholder={index == 12 ? "0.0" : "Enter your answer"} onChangeText={(text) => { if (index <= 14 && index >= 7) { this.handleAnswerOfMeasurements(text, index) } else { this.handleAnswerFunction(text, index) } }} />
                                                                         </View>
                                                                         :
                                                                         item.options_array.map((element, i) => {
@@ -456,7 +464,7 @@ class Feedback extends Component {
                                                                 <Button loading={submitLoading} title={"Submit"} onPress={() => this.setState({ submitLoading: true }, () => this.handleSubmitFunction())} />
                                                                 :
                                                                 <>
-                                                                    <Button title={"NEXT"} disabled={data[index].options_array.length == 0 && data[index].ques_id == 16 ? false : answers.length - index == 0 && index <= 6 ? true : data[index].options_array.length == 0 && !answer ? true : false} onPress={() => {
+                                                                    <Button title={"NEXT"} disabled={index == 12 ? false : data[index].options_array.length == 0 && data[index].ques_id == 16 ? false : answers.length - index == 0 && index <= 6 ? true : data[index].options_array.length == 0 && !answer ? true : false} onPress={() => {
                                                                         if (index <= 6) {
                                                                             if (index == 6) {
                                                                                 this.handleUpdateAnswers(index);
@@ -468,7 +476,10 @@ class Feedback extends Component {
                                                                                 }
                                                                             }
                                                                         } else if (index <= 14 && index >= 7) {
-                                                                            if (index == 14) {
+                                                                            if (index == 12 && hip == '') {
+                                                                                this.handleAnswerOfMeasurements('0.0', index);
+
+                                                                            } else if (index == 14) {
                                                                                 this.handleUpdateMeasurement(index);
                                                                             } else if (index >= 7) {
                                                                                 if ((index + 1) == data.length) { this.setState({ submitEnabled: true }) }
@@ -481,10 +492,6 @@ class Feedback extends Component {
                                                                             this.handleUploadImages(index);
                                                                         }
                                                                     }} />
-                                                                    {/* <View style={{ marginTop: "5%" }}>
-                                                                        <Button title={"Skip"} onPress={() => { }} />
-                                                                    </View> */}
-
                                                                 </>}
                                                         </View>
                                                     </ScrollView>

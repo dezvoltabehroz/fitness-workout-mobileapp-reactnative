@@ -117,8 +117,15 @@ export default StyleSheet.create({
     },
     backTextStyle1: {
         fontSize: 12,
+        marginLeft: "15%",
+        marginBottom: "5%",
         fontFamily: THEME.FONT_BOLD,
         color: THEME.COLOR_WHITE,
+    },
+    blackTextStyle1:{
+        fontSize: 14,
+        fontFamily: THEME.FONT_MEDIUM,
+        color: THEME.COLOR_BLACK,
     },
     whiteTextStyle2: {
         fontSize: 13,

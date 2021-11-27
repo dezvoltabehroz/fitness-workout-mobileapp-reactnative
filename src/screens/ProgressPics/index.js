@@ -28,9 +28,12 @@ class ProgressPics extends Component {
         const { user_id, token } = this.props.user.userData;
         ProfileServices.getAllProgressPhoto({ user_id: user_id }, token)
             .then((res) => {
-                this.setState({ data: res.data.data, loading: false })
+                if (res.data.success)
+                    this.setState({ data: res.data.data, loading: false })
+                else
+                    this.setState({ data: [], loading: false })
             })
-            .catch((err) => console.log(err.response))
+            .catch((err) => { this.setState({ data: [], loading: false }); console.log(err.response) })
 
     }
 
