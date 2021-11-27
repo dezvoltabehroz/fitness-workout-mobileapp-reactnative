@@ -4,7 +4,7 @@ import { View, Text, TouchableOpacity, Alert, Image } from 'react-native';
 import Modal from 'react-native-modal';
 import { Container, Input, Button, Icon, EmailModal, VerifyOtpModal, HeaderLeft } from '../../components';
 
-import OutLine from '../../assets/svg/out-line.svg';
+import OutLine from '../../assets/svg/login_screen.svg';
 
 import styles from './style'
 import { AuthServices } from '../../services';
@@ -180,7 +180,8 @@ class Login extends Component {
                 <View style={styles.container}>
                     <KeyboardAwareScrollView>
                         <View style={styles.outLineContainer}>
-                            <Image source={require("../../assets/images/login.png")} resizeMode="contain" style={{ height: SCREEN_HEIGHT * 0.4 }} />
+                            <OutLine height={SCREEN_HEIGHT * 0.4}/>
+                            {/* <Image source={require("../../assets/images/login.png")} resizeMode="contain" style={{ height: SCREEN_HEIGHT * 0.4 }} /> */}
                             <Text style={styles.heading}>Log In</Text>
                         </View>
 

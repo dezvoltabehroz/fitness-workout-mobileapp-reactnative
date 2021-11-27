@@ -17,6 +17,9 @@ export default StyleSheet.create({
     },
     itemContainer: {
         flex: 1,
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems:"center",
         paddingVertical: "5%",
         marginLeft: "5%",
         borderBottomWidth: 0.5,

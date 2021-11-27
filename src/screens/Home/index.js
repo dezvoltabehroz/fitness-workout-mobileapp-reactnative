@@ -209,7 +209,7 @@ class Home extends Component {
                                 </View> */}
                             </View>
                         </View>
-                        <ImageBackground source={require('../../assets/images/workout.jpeg')} style={styles.workoutDayContainer}>
+                        <ImageBackground source={require('../../assets/images/Cover.jpeg')} style={styles.workoutDayContainer}>
                             <Text style={styles.whiteTextStyle}>30 DAY'S WORKOUT</Text>
                             <View style={styles.rowStyle}>
                                 {this.fitnessLevelFunction()}
@@ -230,18 +230,19 @@ class Home extends Component {
                             <Text style={[styles.whiteTextStyle, { color: THEME.COLOR_BLACK, margin: '5%' }]}>CHALLENGES</Text>
                             <HorizontalList video data={challenges} onPress={(item) => navigate(route.VIDEO, { uri: item.media_path })} />
                         </View>
-                        <ImageBackground source={require('../../assets/images/diet.png')} style={styles.cardContainer} >
-                            <Text style={styles.whiteTextStyle1}>YOUR DIET PLAN IS READY!</Text>
-                            <View style={styles.goButtonContainer}>
-                                <Button loading={this.state.dietLoading} title={'GO!'} onPress={() => this.handleStartDietPlan()} />
-                            </View>
-                        </ImageBackground>
+                        <View style={{ alignItems: "center", justifyContent: "center" }}>
+                            <ImageBackground source={require('../../assets/images/Diet-min.jpeg')} imageStyle={{ borderRadius: 25, }} style={styles.cardContainer1} >
+                                <Text style={styles.blackTextStyle1}>YOUR DIET PLAN IS READY!</Text>
+                                <View style={styles.goButtonContainer}>
+                                    <Button loading={this.state.dietLoading} title={'GO!'} onPress={() => this.handleStartDietPlan()} />
+                                </View>
+                            </ImageBackground>
+                        </View>
                         <TouchableOpacity style={{}} onPress={() => navigate(route.POWER_OF_MIND)} style={{ alignItems: "center", justifyContent: "center" }} >
                             <ImageBackground source={require('../../assets/images/Power-of-Mind.png')} imageStyle={{ borderRadius: 25, }} style={styles.cardContainer1}>
-                                <View style={{ backgroundColor: "gray", width: SCREEN_WIDTH * 0.35, paddingHorizontal: "2.5%" }}>
-                                    <Text style={styles.backTextStyle1}>POWER OF THE MIND</Text>
-                                    {/* <Text style={{ color: THEME.COLOR_WHITE }}>Lorem ipsum dolor sir</Text> */}
-                                </View>
+
+                                <Text style={styles.backTextStyle1}>Minpower</Text>
+
                                 {/* <View style={styles.starContainer}>
                                     <Blue />
                                 </View> */}

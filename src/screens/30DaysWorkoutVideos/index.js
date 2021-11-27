@@ -26,13 +26,15 @@ class DaysWorkoutVideos extends Component {
 
     componentDidMount = async () => {
 
-        const { user_id, token, fitness_goal, fitness_level, fitness_equipment } = this.props.user.userData;
+        const { user_id, token, fitness_goal, fitness_level, fitness_equipment,tags } = this.props.user.userData;
         let data = {
             "fitness_goal": fitness_goal,
             "fitness_level": fitness_level,
-            "video_tags": fitness_equipment,
+            "fitness_equipment":fitness_equipment,
+            "video_tags": tags,
             "video_day": this.props?.route?.params?.data?.day
         }
+        console.log(data)
         PlanServices.getWorkoutPlanVideos(data, token)
             .then((response) => {
                 if (response.data.success) {
@@ -55,6 +57,8 @@ class DaysWorkoutVideos extends Component {
             ProfileServices.updateDailyWorkout(data, token)
                 .then(async (response) => {
                     if (response.data.success) {
+                        await this.props.planActions.getWorkoutPlan();
+                    }else{
                         await this.props.planActions.getWorkoutPlan();
                     }
                 })

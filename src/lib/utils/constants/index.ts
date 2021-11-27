@@ -22,7 +22,7 @@ const screen = {
     APP_INTRO_DESCRIPTION_2: "Choose your current fitness level so we can create a personal plan that offers the right amount of challenge for you.",
     APP_INTRO_Heading_3: "SELECT EQUIPMENT",
     APP_INTRO_DESCRIPTION_3: "Select the equipment you would like to use in your personal workout program.",
-    APP_INTRO_Button_1_3: "Body Weights",
+    APP_INTRO_Button_1_3: "Body Weight",
     APP_INTRO_Button_2_3: "Dumbbell",
     APP_INTRO_Button_3_3: "Bands",
     APP_INTRO_Button_4_3: "Mixed equipment",

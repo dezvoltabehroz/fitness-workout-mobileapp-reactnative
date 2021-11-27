@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { View, Text, ScrollView, TouchableOpacity, ActivityIndicator, Platform } from "react-native";
 
-import { Button, Container } from "../../components";
+import { Button, Container, Icon } from "../../components";
 import Profile from '../../assets/svg/Profile.svg'
 import Workout from '../../assets/svg/workout-setting.svg'
 import Edit from '../../assets/svg/edit-plan.svg';
@@ -178,11 +178,12 @@ class Settings extends Component {
                                             </View>
                                         </TouchableOpacity>}
                                 {
-                                    this.props.user.userData.workout_user_id != null && this.props.user.userData.is_pro == 1 ?
+                                    this.props.user.userData.old_workout_user_id != 0 && this.props.user.userData.is_pro == 1 ?
                                         <TouchableOpacity onPress={() => this.props.navigation.navigate(route.FEEDBACK)} style={styles.rowContainer}>
                                             <Developer />
-                                            <View style={styles.itemContainer}>
+                                            <View style={{ ...styles.itemContainer }}>
                                                 <Text style={styles.text}>Surveys</Text>
+                                                <Icon.Octicons name="primitive-dot" color="red" size={20} />
                                             </View>
                                         </TouchableOpacity>
                                         :

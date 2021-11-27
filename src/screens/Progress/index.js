@@ -49,9 +49,13 @@ class Progress extends Component {
         const { user_id, token } = this.props.user.userData;
         ProfileServices.getAllProgressPhoto({ user_id: user_id }, token)
             .then((res) => {
-                this.setState({ data: res.data.data, loading: false })
+                console.log(res.data)
+                if (res.data.success)
+                    this.setState({ data: res.data.data, loading: false })
+                else
+                    this.setState({ data: [], loading: false })
             })
-            .catch((err) => console.log(err.response))
+            .catch((err) => { this.setState({ data: [], loading: false }); console.log(err) })
     }
 
     headerRight = () => {
@@ -356,19 +360,19 @@ class Progress extends Component {
                                             :
                                             <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-around" }}>
                                                 <View style={styles.container1} onPress={() => this.props.navigation.navigate(route.DIETPLAN)}>
-                                                    <ImageBackground resizeMode="contain" source={{ uri: this.state.data[0].pic_path }} style={{ height: SCREEN_HEIGHT * 0.3, width: SCREEN_WIDTH * 0.49 }} >
+                                                    <ImageBackground resizeMode="contain" source={{ uri: this.state.data[0] }} style={{ height: SCREEN_HEIGHT * 0.3, width: SCREEN_WIDTH * 0.49 }} >
                                                         <View style={styles.overlay} />
                                                         <View style={styles.dateContainer}>
-                                                            <Text style={styles.dateText}>{moment(this.state.data[0].created_at).format('ll')}</Text>
+                                                            <Text style={styles.dateText}>{moment().format('ll')}</Text>
                                                         </View>
                                                     </ImageBackground>
                                                 </View>
                                                 <View style={styles.container1} onPress={() => this.props.navigation.navigate(route.DIETPLAN)}>
-                                                    <ImageBackground resizeMode="contain" source={{ uri: this.state.data[1].pic_path }} style={{ height: SCREEN_HEIGHT * 0.3, width: SCREEN_WIDTH * 0.49 }}>
+                                                    <ImageBackground resizeMode="contain" source={{ uri: this.state.data[1] }} style={{ height: SCREEN_HEIGHT * 0.3, width: SCREEN_WIDTH * 0.49 }}>
 
                                                         <View style={styles.overlay} />
                                                         <View style={styles.dateContainer}>
-                                                            <Text style={styles.dateText}>{moment(this.state.data[1].created_at).format('ll')}</Text>
+                                                            <Text style={styles.dateText}>{moment().format('ll')}</Text>
                                                         </View>
                                                     </ImageBackground>
                                                 </View>
