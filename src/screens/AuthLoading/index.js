@@ -26,11 +26,11 @@ class AuthLoading extends Component {
         if (JSON.parse(user_id)) {
             setTimeout(async () => {
                 // storeLocalData(LOCAL_STORAGE_KEYS.user_id,JSON.stringify(5))
-                await this.props.authActions.userLogin("",this.props.navigation.replace)
+                await this.props.authActions.userLogin("", this.props.navigation.replace)
             }, 5000);
         } else {
             setTimeout(async () => {
-                await navigation.replace(route.APPINTROZERO)
+                await navigation.replace(route.GIFSCREEN)
             }, 5000);
         }
     };

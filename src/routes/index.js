@@ -3,7 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { View, Text, StyleSheet } from 'react-native';
 
 import { route, screen } from '../lib/utils/constants';
-import { AuthLoading, PaymentMethod, DaysWorkout, DaysWorkoutVideos, DayWorkoutVideoPlayer, PowerOfMindAudio, DietPlan, CompleteProfile, ProgressPics, Login, SelectEuipment, FocusArea, UpdatingPlan, FitnessGoal, FitnessLevel, AppIntroZero, FeedBack, Video, WorkoutSettings, AppIntro4th, GenerateUserWithEmailPassword } from '../screens';
+import { AuthLoading, PaymentMethod, DaysWorkout, DaysWorkoutVideos, DayWorkoutVideoPlayer, PowerOfMindAudio, DietPlan, CompleteProfile, ProgressPics, Login, SelectEuipment, FocusArea, UpdatingPlan, FitnessGoal, FitnessLevel, AppIntroZero, FeedBack, Video, WorkoutSettings, AppIntro4th, GenerateUserWithEmailPassword, GifScreen } from '../screens';
 import IntroRoutes from './Intro';
 import MainRoutes from './Main';
 import { HeaderLeft } from '../components';
@@ -36,7 +36,7 @@ function AppRoutes() {
             <Stack.Screen name={route.AUTH_LOADING} component={AuthLoading} options={{
                 headerShown: false
             }} />
-             <Stack.Screen name={route.GENERATEUSERWITHEMAILPASSWORD} component={GenerateUserWithEmailPassword}  options={({ navigation, route }) => ({
+            <Stack.Screen name={route.GENERATEUSERWITHEMAILPASSWORD} component={GenerateUserWithEmailPassword} options={({ navigation, route }) => ({
                 headerBackTitleVisible: false,
                 headerTitle: "",
                 headerTitleAlign: screen.SCREEN_TITLE_ALIGN_CENTER,
@@ -44,6 +44,9 @@ function AppRoutes() {
                 headerTransparent: true,
             })} />
             <Stack.Screen name={route.APPINTROZERO} component={AppIntroZero} options={({ navigation, route }) => ({
+                headerShown: false
+            })} />
+            <Stack.Screen name={route.GIFSCREEN} component={GifScreen} options={({ navigation, route }) => ({
                 headerShown: false
             })} />
             <Stack.Screen name={route.APPINTRO} component={IntroRoutes} options={{ headerShown: false }} />

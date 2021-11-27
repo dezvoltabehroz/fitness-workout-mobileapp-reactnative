@@ -98,6 +98,9 @@ export const SelectEuipment = _SelectEuipment;
 import _GetStarted from './GetStarted';
 export const AppIntroZero = _GetStarted;
 
+import _GifScreen from './GifScreen';
+export const GifScreen = _GifScreen;
+
 import _ChangePassword from './ChangePassword';
 export const ChangePassword = _ChangePassword;
 
