@@ -1,17 +1,14 @@
 import React, { Component } from 'react';
-import { View, StatusBar, Linking, Alert, } from 'react-native';
+import { View, Text, TouchableOpacity, StatusBar, Linking, ImageBackground, Alert } from 'react-native';
 
-import { Container, ClearButton } from '../../components';
-import { route, SCREEN_HEIGHT, } from '../../lib/utils/constants';
+import { Button, Container, ClearButton } from '../../components';
+import { route, screen, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../lib/utils/constants';
 
 import styles from './style';
+import themeStyle from '../../assets/styles/theme.style';
 import { AuthServices } from '../../services';
-import { LOCAL_STORAGE_KEYS, storeLocalData } from '../../lib/utils/localstorage';
+import { getLocalData, LOCAL_STORAGE_KEYS, storeLocalData } from '../../lib/utils/localstorage';
 import messaging from '@react-native-firebase/messaging';
-import AppIcon from '../../assets/svg/AppIcon.svg'
-import Brain from '../../assets/svg/GraphicElements.svg'
-import Modal from '../../assets/svg/modal.svg'
-
 class AppIntro extends Component {
     constructor(props) {
         super(props);
@@ -28,7 +25,7 @@ class AppIntro extends Component {
 
     showModal = () => {
         setTimeout(() => {
-            this.setState({ timer: true })
+            this.props.navigation.replace(route.APPINTROZERO)
         }, 2000);
     }
 
@@ -111,31 +108,11 @@ class AppIntro extends Component {
             <Container>
                 <StatusBar translucent={true} backgroundColor={"transparent"} barStyle={"light-content"} />
                 <View style={{ flex: 1, backgroundColor: '#15bceb' }}>
-                    <View style={{ marginTop: "5%", justifyContent: "center", alignItems: "center" }}>
-                        <AppIcon height={SCREEN_HEIGHT * 0.25} />
-                    </View>
-                    <View style={{ justifyContent: "center", alignItems: "center" }}>
-                        <Brain height={SCREEN_HEIGHT * 0.2} />
-                    </View>
-                    <View style={{ justifyContent: "center", alignItems: "center" }}>
-                        <Modal height={SCREEN_HEIGHT * 0.3} />
-                        {/* <Image source={require("../../assets/images/login.png")} resizeMode="contain" style={{ height: SCREEN_HEIGHT * 0.3 }} /> */}
-                    </View>
-
-                    <View style={styles.buttonContainer}>
-                        <ClearButton loading={this.state.btnLoading} title={'GET STARTED'} onPress={() => this.requestUserPermission()} />
-                        <View style={styles.buttonContainer1}>
-                            <ClearButton title={'LOG IN'} onPress={() => replace(route.LOGIN)} />
-                        </View>
-                    </View>
-                    {/* <ImageBackground
+                    <ImageBackground
                         style={{ height: SCREEN_HEIGHT, width: SCREEN_WIDTH }}
                         resizeMode={"contain"}
                         source={require('../../assets/images/Splash.gif')}>
-                        {timer ?
-                           
-                            : null
-                        }</ImageBackground> */}
+                       </ImageBackground>
                 </View>
 
 

@@ -71,7 +71,7 @@ const removeUser = (navigation) => {
         // navigate(route.APPINTROZERO)
         navigation.reset({
             index: 0,
-            routes: [{ name: route.APPINTROZERO }]
+            routes: [{ name: route.GIFSCREEN }]
        })
         setTimeout(() => {
             dispatch({ type: USER_LOGOUT_SUCCESS })

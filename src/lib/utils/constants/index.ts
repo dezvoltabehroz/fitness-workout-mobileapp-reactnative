@@ -62,6 +62,7 @@ const route = {
     CHANGEPASSWORD: "ChangePassword",
     FEEDBACK: "Feedback",
     GENERATEUSERWITHEMAILPASSWORD:"GenerateUserWithEmailPassword",
+    GIFSCREEN:"GifScreen",
     APPINTROZERO: "AppIntroZero",
     APPINTRO2nd: "AppIntro2nd",
     APPINTRO3rd: "AppIntro3rd",
