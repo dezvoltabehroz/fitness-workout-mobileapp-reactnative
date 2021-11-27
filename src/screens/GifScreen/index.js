@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, StatusBar, Linking, ImageBackground, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, StatusBar, Linking, ImageBackground, Alert, Platform } from 'react-native';
 
 import { Button, Container, ClearButton } from '../../components';
 import { route, screen, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../lib/utils/constants';
@@ -26,7 +26,7 @@ class AppIntro extends Component {
     showModal = () => {
         setTimeout(() => {
             this.props.navigation.replace(route.APPINTROZERO)
-        }, 2000);
+        }, Platform.OS == 'ios' ? 3000 : 2000);
     }
 
     requestUserPermission = async function () {
@@ -112,7 +112,7 @@ class AppIntro extends Component {
                         style={{ height: SCREEN_HEIGHT, width: SCREEN_WIDTH }}
                         resizeMode={"contain"}
                         source={require('../../assets/images/Splash.gif')}>
-                       </ImageBackground>
+                    </ImageBackground>
                 </View>
 
 
