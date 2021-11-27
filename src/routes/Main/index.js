@@ -17,6 +17,7 @@ import HomeRoutes from '../Home';
 import DietRoutes from '../Diet';
 import SettingRoutes from '../Setting';
 import ProgressRoutes from '../Progress';
+import { connect } from 'react-redux';
 const Bottom = createBottomTabNavigator();
 
 
@@ -89,10 +90,21 @@ function MainRoutes(props) {
                                 <Text style={styles.colorText}>{route.name}</Text>
                             </View>
                             :
-                            <View style={styles.simpleStyle} >
-                                <Setting height={20} width={20} fill={color} />
-                                <Text style={styles.grayColor}>{route.name}</Text>
+                            <View>
+                                {
+                                    props.user.userData.is_pro == 1 && props.user.userData.old_workout_id != 0 ?
+                                        <View style={{ position: "absolute", top: -15, left: 30, zIndex: 1 }}>
+                                            <Icon.Octicons name="primitive-dot" color="red" size={20} />
+                                        </View>
+                                        :
+                                        null
+                                }
+                                <View style={styles.simpleStyle} >
+                                    <Setting height={20} width={20} fill={color} />
+                                    <Text style={styles.grayColor}>{route.name}</Text>
+                                </View>
                             </View>
+
                     }
                     return icon;
                 },
@@ -143,5 +155,5 @@ const styles = StyleSheet.create({
         fontFamily: THEME.FONT_REGULAR,
     }
 })
-
-export default MainRoutes;
+const mapStateToProps = (state) => { return { user: state.authReducer || {} }; };
+export default connect(mapStateToProps)(MainRoutes);

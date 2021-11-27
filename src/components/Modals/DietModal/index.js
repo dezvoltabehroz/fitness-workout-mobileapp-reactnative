@@ -23,9 +23,9 @@ const UpgradeModal = (props) => {
                     <Vegitable />
                     <Text style={props.value == 'vegetarian' ? styles.rowTextStyleColor : styles.rowTextStyle}>Vegetarian/Vegan</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => props.onValue('standard')} style={props.value == 'standard' ? styles.rowContainer2 : styles.rowContainer1}>
+                <TouchableOpacity onPress={() => props.onValue('standard diet')} style={props.value == 'standard diet' ? styles.rowContainer2 : styles.rowContainer1}>
                     <Standard />
-                    <Text style={props.value == 'standard' ? styles.rowTextStyleColor : styles.rowTextStyle}>Standard Diet</Text>
+                    <Text style={props.value == 'standard diet' ? styles.rowTextStyleColor : styles.rowTextStyle}>Standard Diet</Text>
                 </TouchableOpacity>
                 <View style={styles.buttonContainer}>
                     <Button disabled={props.value ? false : true} loading={props.loading} title={'DONE'} onPress={() => props.onSkip()} />
