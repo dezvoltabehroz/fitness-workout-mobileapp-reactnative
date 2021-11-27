@@ -93,7 +93,7 @@ function MainRoutes(props) {
                             <View>
                                 {
                                     props.user.userData.is_pro == 1 && props.user.userData.old_workout_id != 0 ?
-                                        <View style={{ position: "absolute", top: -15, left: 30, zIndex: 1 }}>
+                                        <View style={{ position: "absolute", top: -7.5, left: 30, zIndex: 1 }}>
                                             <Icon.Octicons name="primitive-dot" color="red" size={20} />
                                         </View>
                                         :
