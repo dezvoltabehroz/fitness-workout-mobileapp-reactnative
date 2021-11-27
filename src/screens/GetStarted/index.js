@@ -11,7 +11,7 @@ import messaging from '@react-native-firebase/messaging';
 import AppIcon from '../../assets/svg/AppIcon.svg'
 import Brain from '../../assets/svg/GraphicElements.svg'
 import Modal from '../../assets/svg/modal.svg'
-
+import Text from '../../assets/svg/text.svg'
 class AppIntro extends Component {
     constructor(props) {
         super(props);
@@ -115,10 +115,14 @@ class AppIntro extends Component {
                         <AppIcon height={SCREEN_HEIGHT * 0.25} />
                     </View>
                     <View style={{ justifyContent: "center", alignItems: "center" }}>
-                        <Brain height={SCREEN_HEIGHT * 0.2} />
+                        <Brain height={SCREEN_HEIGHT * 0.15} />
                     </View>
-                    <View style={{ justifyContent: "center", alignItems: "center" }}>
-                        <Modal height={SCREEN_HEIGHT * 0.3} />
+                    <View style={{marginTop: "2.5%", justifyContent: "center", alignItems: "center" }}>
+                        <Text height={SCREEN_HEIGHT * 0.1} />
+                        {/* <Image source={require("../../assets/images/login.png")} resizeMode="contain" style={{ height: SCREEN_HEIGHT * 0.3 }} /> */}
+                    </View>
+                    <View style={{ marginTop: "2.5%", justifyContent: "center", alignItems: "center" }}>
+                        <Modal height={SCREEN_HEIGHT * 0.275} />
                         {/* <Image source={require("../../assets/images/login.png")} resizeMode="contain" style={{ height: SCREEN_HEIGHT * 0.3 }} /> */}
                     </View>
 

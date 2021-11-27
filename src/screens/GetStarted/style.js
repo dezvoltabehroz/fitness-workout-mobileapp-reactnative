@@ -27,10 +27,10 @@ export default StyleSheet.create({
         flexDirection: "row"
     },
     buttonContainer: {
-        marginTop: "5%",
+        // marginTop: "2.5%",
         marginHorizontal: "20%",
         justifyContent: "flex-end",
-        // marginBottom: "10%",
+        bottom: "2.5%",
     },
     buttonContainer1: {
         marginTop: "5%",
