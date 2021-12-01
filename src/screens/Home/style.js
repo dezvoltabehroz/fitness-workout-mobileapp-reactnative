@@ -88,7 +88,12 @@ export default StyleSheet.create({
     },
     goButtonContainer: {
         marginTop: "10%",
-        width: SCREEN_WIDTH * 0.3,
+        width: SCREEN_WIDTH * 0.25,
+    },
+    goButtonContainer1: {
+        marginTop: "10%",
+        marginRight:10,
+        width: SCREEN_WIDTH * 0.25,
     },
     rowStyle: {
         flexDirection: "row",
@@ -110,9 +115,9 @@ export default StyleSheet.create({
         fontFamily: THEME.FONT_MEDIUM,
     },
     whiteTextStyle1: {
-        fontSize: 14,
-        fontFamily: THEME.FONT_REGULAR,
-        color: THEME.COLOR_WHITE,
+        fontSize: 16,
+        fontFamily: THEME.FONT_MEDIUM,
+        color: THEME.COLOR_BLACK,
         // marginHorizontal: 5
     },
     backTextStyle1: {

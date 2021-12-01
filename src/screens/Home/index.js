@@ -6,8 +6,8 @@ import { bindActionCreators } from "redux";
 import { authActions } from '../../redux/actions/auth';
 import { Button, Container, HorizontalList, UpgradeModal } from '../../components';
 import { route, screen, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../lib/utils/constants';
-import GFire from '../../assets/svg/gray-fire.svg';
-import WFire from '../../assets/svg/white-fire.svg';
+import GFire from '../../assets/svg/Gfire.svg';
+import WFire from '../../assets/svg/Bfire.svg';
 import Fire from '../../assets/svg/fire.svg';
 import BMI from '../../assets/svg/bmi.svg';
 import Apple from '../../assets/svg/apple.svg';
@@ -166,7 +166,7 @@ class Home extends Component {
             borderRadius: 10,
             borderWidth: 0,
             justifyContent: "center",
-            backgroundColor: THEME.BAR_COLOR
+            backgroundColor: THEME.COLOR_BLACK
         };
         return (
             <Container>
@@ -209,12 +209,13 @@ class Home extends Component {
                                 </View> */}
                             </View>
                         </View>
-                        <ImageBackground source={require('../../assets/images/Cover.jpeg')} style={styles.workoutDayContainer}>
-                            <Text style={styles.whiteTextStyle}>30 DAY'S WORKOUT</Text>
+                        <ImageBackground source={require('../../assets/images/1/Cover.jpeg')} style={styles.workoutDayContainer}>
+                            <Text style={styles.whiteTextStyle1}>30 DAY'S WORKOUT</Text>
                             <View style={styles.rowStyle}>
                                 {this.fitnessLevelFunction()}
-                                <Text style={styles.whiteTextStyle1}>{this.props?.user?.userData?.daily_workout_count != undefined && this.props?.user?.userData?.daily_workout_count ? Math.floor(this.props?.user?.userData?.daily_workout_count / 30 * 100) : 0}%</Text>
+                                
                             </View>
+                            <Text style={styles.whiteTextStyle1}>{this.props?.user?.userData?.daily_workout_count != undefined && this.props?.user?.userData?.daily_workout_count ? Math.floor(this.props?.user?.userData?.daily_workout_count / 30 * 100) : 0}%</Text>
                             <ProgressBarAnimated
                                 width={SCREEN_WIDTH * 0.6}
                                 height={10}
@@ -231,23 +232,31 @@ class Home extends Component {
                             <HorizontalList video data={challenges} onPress={(item) => navigate(route.VIDEO, { uri: item.media_path })} />
                         </View>
                         <View style={{ alignItems: "center", justifyContent: "center" }}>
-                            <ImageBackground source={require('../../assets/images/Diet-min.jpeg')} imageStyle={{ borderRadius: 25, }} style={styles.cardContainer1} >
-                                <Text style={styles.blackTextStyle1}>YOUR DIET PLAN IS READY!</Text>
+                            <ImageBackground  source={require('../../assets/images/Diet-min.jpeg')} imageStyle={{ borderRadius: 25, }} style={styles.cardContainer1} >
+                                <Text style={styles.whiteTextStyle1}>YOUR DIET PLAN IS READY!</Text>
                                 <View style={styles.goButtonContainer}>
                                     <Button loading={this.state.dietLoading} title={'GO!'} onPress={() => this.handleStartDietPlan()} />
                                 </View>
                             </ImageBackground>
                         </View>
-                        <TouchableOpacity style={{}} onPress={() => navigate(route.POWER_OF_MIND)} style={{ alignItems: "center", justifyContent: "center" }} >
-                            <ImageBackground source={require('../../assets/images/Power-of-Mind.png')} imageStyle={{ borderRadius: 25, }} style={styles.cardContainer1}>
-
-                                <Text style={styles.backTextStyle1}>Minpower</Text>
-
-                                {/* <View style={styles.starContainer}>
-                                    <Blue />
-                                </View> */}
+                        <View style={{ alignItems: "center", justifyContent: "center" }}>
+                            <ImageBackground resizeMode="contain" source={require('../../assets/images/1/Power-of-Mind.png')}  style={styles.cardContainer1} >
+                                <Text style={styles.whiteTextStyle1}>MIND POWER</Text>
+                                <View style={styles.goButtonContainer1}>
+                                    <Button title={'GO!'} onPress={() => navigate(route.POWER_OF_MIND)} />
+                                </View>
                             </ImageBackground>
-                        </TouchableOpacity>
+                        </View>
+                        {/* <TouchableOpacity style={{}} onPress={() => navigate(route.POWER_OF_MIND)} style={{ alignItems: "center", justifyContent: "center" }} >
+                            <ImageBackground source={require('../../assets/images/1/Power-of-Mind.png')} imageStyle={{ borderRadius: 25, }} style={styles.cardContainer1}>
+
+                                <Text style={styles.whiteTextStyle1}>MIND POWER</Text>
+
+                                <View style={styles.starContainer}>
+                                    <Blue />
+                                </View>
+                            </ImageBackground>
+                        </TouchableOpacity> */}
                     </ScrollView>
                 </View>
                 <UpgradeModal visible={this.state.modal} onUpgrade={() => this.setState({ modal: false }, () => this.props.navigation.navigate(route.PAYMENTMETHOD, {}))} onSkip={() => this.setState({ modal: false })} />

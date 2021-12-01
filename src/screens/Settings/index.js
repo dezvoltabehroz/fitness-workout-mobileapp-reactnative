@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, ScrollView, TouchableOpacity, ActivityIndicator, Platform } from "react-native";
+import { View, Text, ScrollView, TouchableOpacity, ActivityIndicator, Platform, Linking } from "react-native";
 
 import { Button, Container, Icon } from "../../components";
 import Profile from '../../assets/svg/Profile.svg'
@@ -88,6 +88,19 @@ class Settings extends Component {
         });
     }
 
+    handleOpenUrl = (item) => {
+        switch (item) {
+            case 'term':
+                Linking.openURL("https://www.websitepolicies.com/policies/view/FQTwawgS")
+                break;
+            case 'privacy':
+                Linking.openURL("https://educogym.com/educogym-privacy-policy/")
+                break;
+            default:
+                break;
+        }
+    }
+
     render() {
         const { navigation } = this.props;
         const { full_name } = this.props.user.userData;
@@ -144,18 +157,18 @@ class Settings extends Component {
                                         <Text style={styles.text}>Email Us</Text>
                                     </View>
                                 </View>
-                                <View style={styles.rowContainer}>
+                                <TouchableOpacity onPress={() => this.handleOpenUrl('term')} style={styles.rowContainer}>
                                     <Terms />
                                     <View style={styles.itemContainer}>
                                         <Text style={styles.text}>Terms Of Service</Text>
                                     </View>
-                                </View>
-                                <View style={styles.rowContainer}>
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={() => this.handleOpenUrl('privacy')} style={styles.rowContainer}>
                                     <Policy />
                                     <View style={styles.itemContainer}>
                                         <Text style={styles.text}>Privacy policy</Text>
                                     </View>
-                                </View>
+                                </TouchableOpacity>
                                 <View style={styles.rowContainer}>
                                     <Developer />
                                     <View style={styles.itemContainer}>

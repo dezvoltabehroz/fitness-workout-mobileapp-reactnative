@@ -36,7 +36,7 @@ class AppIntro extends Component {
                     <ImageBackground
                         style={{ height: SCREEN_HEIGHT, width: SCREEN_WIDTH }}
                         resizeMode={"contain"}
-                        source={require('../../assets/images/Splash.gif')}>
+                        source={require('../../assets/images/gif.gif')}>
                     </ImageBackground>
                 </View>
 

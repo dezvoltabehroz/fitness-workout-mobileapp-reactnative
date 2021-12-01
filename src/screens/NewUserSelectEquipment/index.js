@@ -210,7 +210,7 @@ class AppIntro extends Component {
 
                 </View>
                 <View style={styles.buttonContainer}>
-                    <ClearButton title={screen.NEXT} disabled={this.state.nextBtn == false ? false : this.state.selectedEquipment.length == 2 ? false : true} onPress={() => {
+                    <ClearButton title={screen.NEXT} disabled={this.state.nextBtn == false ? false : this.state.selectedEquipment.length >=1 ? false : true} onPress={() => {
                         let equipmentString = "";
                         let selectedArray = [...this.state.selectedEquipment];
                         selectedArray.map((item, index) => { equipmentString = equipmentString.concat(`${item}${index == (selectedArray.length - 1) ? "" : ","}`) })
