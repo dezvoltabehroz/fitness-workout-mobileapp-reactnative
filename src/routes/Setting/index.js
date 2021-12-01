@@ -59,7 +59,7 @@ function SettingRoutes() {
                 headerTitleStyle: styles.headerTextStyle,
             })} />
             <Stack.Screen name={route.PAYMENTMETHOD} component={PaymentMethod} options={({ navigation, route }) => ({
-                headerLeft: () => (<HeaderLeft navigation={navigation} color />),
+                // headerLeft: () => (<HeaderLeft navigation={navigation} color payment />),
                 headerTitle: screen.PAYMENTMETHOD,
                 headerStyle: styles.headerStyle1,
                 headerTintColor: THEME.COLOR_WHITE,
