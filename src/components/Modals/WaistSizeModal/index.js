@@ -27,7 +27,7 @@ const WaistSizeModal = (props) => {
                     <Text style={styles.headingText}>Waist Size</Text>
                 </View>
                 <View style={{ marginBottom: "10%" }}>
-                    <Input keyboardType={"number-pad"} placeholder=' ' onChangeText={(e) => changeInches(4)} />
+                    <Input keyboardType={"number-pad"} placeholder=' ' onChangeText={(e) => changeInches(e)} />
                 </View>
 
 
