@@ -21,16 +21,12 @@ const WaistSizeModal = (props) => {
         <Modal isVisible={props.visible} animationInTiming={400}
             animationOutTiming={200} >
             <View style={styles.modalContainer} >
-
-
                 <View style={{ marginBottom: "10%" }}>
                     <Text style={styles.headingText}>Waist Size</Text>
                 </View>
                 <View style={{ marginBottom: "10%" }}>
                     <Input keyboardType={"number-pad"} placeholder=' ' onChangeText={(e) => changeInches(e)} />
                 </View>
-
-
                 <View style={styles.rowContainer}>
                     <TouchableOpacity style={{ marginHorizontal: 30 }} onPress={() => props.onClose()}>
                         <Text style={styles.blackText}>Cancel</Text>
@@ -38,9 +34,7 @@ const WaistSizeModal = (props) => {
                     <TouchableOpacity style={{ marginHorizontal: 15 }} onPress={() => props.onSave()}>
                         <Text style={styles.colorText}>Save</Text>
                     </TouchableOpacity>
-
                 </View>
-
             </View>
         </Modal>
     );

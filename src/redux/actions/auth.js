@@ -29,6 +29,7 @@ const setUserProfile = (userData, authData, navigate, isNewUser) => {
                 token: authData.token
             }
             await dispatch({ type: USER_LOGIN_SUCCESS, userData: userDataJson, userToken: data, loading: false });
+            console.log("States are updated");
             if (navigate != null)
                 if (isNewUser == 'intro')
                     navigate(route.APPINTRO);
@@ -46,8 +47,9 @@ const getUserProfile = (userData, navigate, isNewUser) => {
         }
         ProfileServices.getFullProfile({ user_id: userData.user_id }, userData.token)
             .then(async (responseData) => {
-
+              
                 if (responseData.data.success) {
+                    console.log("updating states");
                     await storeLocalData('USER', JSON.stringify(responseData.data.data))
                     await dispatch(setUserProfile(responseData.data.data, userData, navigate))
                 }
@@ -72,7 +74,7 @@ const removeUser = (navigation) => {
         navigation.reset({
             index: 0,
             routes: [{ name: route.GIFSCREEN }]
-       })
+        })
         setTimeout(() => {
             dispatch({ type: USER_LOGOUT_SUCCESS })
         }, 2000);

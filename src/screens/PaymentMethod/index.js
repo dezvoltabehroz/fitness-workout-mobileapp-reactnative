@@ -36,10 +36,33 @@ class PaymentMethod extends Component {
     }
 
     componentDidMount = () => {
+        this.props.navigation.setOptions({
+            headerLeft: () => this.headerLeft(),
+        });
         this.focusListener = this.props.navigation.addListener('focus', () => { this.handleIsEmailExist(); })
 
         this.handleIsEmailExist()
     }
+
+    headerLeft = () => {
+        const { user_id, token, full_name, email } = this.props.user.userData
+        return (
+            <TouchableOpacity
+                style={{ marginLeft: 15 }}
+                onPress={() => {
+                    let data = {
+                        user_id: user_id,
+                        token: token
+                    }
+                    this.props.authActions.getUserProfile(data);
+                    this.props.navigation.goBack();
+
+                }}>
+                <Icon.AntDesign name={"arrowleft"} size={25} color={"white"} />
+            </TouchableOpacity>
+        );
+    };
+
     handleIsEmailExist = async () => {
         this.setState({ loading: true })
         const user_id = await getLocalData(LOCAL_STORAGE_KEYS.user_id)
@@ -72,6 +95,7 @@ class PaymentMethod extends Component {
         const { user_id, token, full_name, email } = this.props.user.userData
 
         let paymentdata = {
+            "user_id": user_id,
             "email": email,
             "description": JSON.stringify(this.props.user.userData),
             "cardholderName": full_name
@@ -152,10 +176,11 @@ class PaymentMethod extends Component {
     }
 
     render() {
-        const { cardDetails, email, submit, btnLoading, loading ,sourceHtml} = this.state;
+        const { cardDetails, email, submit, btnLoading, loading, sourceHtml } = this.state;
 
         const source = {
-            html: `${sourceHtml}`     };
+            html: `${sourceHtml}`
+        };
         return (
             <Container>
                 {
