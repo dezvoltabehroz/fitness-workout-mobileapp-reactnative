@@ -13,7 +13,7 @@ const ArmSizeModal = (props) => {
         if (e <= 32) {
             props.onChangeText(e)
         } else {
-            alert("Please enter appropieate size of arm")
+            alert("Please enter an appropriate measurement in inches")
         }
     }
     return (
