@@ -15,7 +15,7 @@ const HipSizeModal = (props) => {
         if (e <= 70) {
             props.onChangeText(e)
         } else {
-            alert("Please enter appropieate inch")
+            alert("Please enter an appropriate measurement in inches")
         }
 
     }

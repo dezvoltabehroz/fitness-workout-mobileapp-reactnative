@@ -12,7 +12,7 @@ const Api = {
     updateSpecificPersonalInfo: function (data, token) {
         return axiosInstance.put('profile/updateSpecificPersonalInfo', data, apiHeaderConfiguration(token, TOKEN))
     },
-   
+
     updateMeasurement: function (data, token) {
         return axiosInstance.post('profile/updateUserMeasurement', data, apiHeaderConfiguration(token, TOKEN))
     },
@@ -52,8 +52,12 @@ const Api = {
     updateDailyWorkout: function (data, token) {
         return axiosInstance.post('profile/updateDayWorkout', data, apiHeaderConfiguration(token, TOKEN))
     },
-    getAllProgressPhoto:function(data,token){
+    getAllProgressPhoto: function (data, token) {
         return axiosInstance.post('profile/listAllPhotos', data, apiHeaderConfiguration(token, TOKEN))
+    },
+    getPaymentMethod: function (data, token) {
+        console.log("data to send : ",data)
+        return axiosInstance.post('payment/createPayment', data, apiHeaderConfiguration(token, TOKEN))
     }
 
 

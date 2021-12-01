@@ -14,7 +14,7 @@ const HeightModal = (props) => {
         if (e <= 11) {
             props.onChangeInches(e)
         } else {
-            alert("Please enter appropieate inch")
+            alert("Please enter an appropriate measurement in inches")
         }
 
     }

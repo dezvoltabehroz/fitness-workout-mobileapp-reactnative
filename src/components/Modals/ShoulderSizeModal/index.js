@@ -10,10 +10,10 @@ import Input from '../../Input';
 
 const ShoulderSizeModal = (props) => {
     const changeInches = (e) => {
-        if (e <= 25) {
+        if ( e <= 100) {
             props.onChangeText(e)
         } else {
-            alert("Please enter appropieate inch")
+            alert("Please enter an appropriate measurement in inches")
         }
 
     }

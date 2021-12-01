@@ -6,7 +6,7 @@ import THEME from '../../assets/styles/theme.style';
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../../lib/utils/constants';
 import { HorizontalSpacer } from '../../lib/utils/global';
 import Target from '../../assets/svg/white-fire.svg';
-import Dumbell from '../../assets/svg/gray-fire.svg';
+import Dumbbell from '../../assets/svg/gray-fire.svg';
 
 const CheckedBox = ({ data, onPress, video }) => {
     let array = [1, 2, 3, 4, 5]
@@ -16,10 +16,10 @@ const CheckedBox = ({ data, onPress, video }) => {
             case 1:
                 data = <View style={{ flexDirection: "row", justifyContent: "space-evenly", width: SCREEN_WIDTH * 0.25 }}>
                     <Target height={15} width={15} />
-                    <Dumbell height={15} width={15} />
-                    <Dumbell height={15} width={15} />
-                    <Dumbell height={15} width={15} />
-                    <Dumbell height={15} width={15} />
+                    <Dumbbell height={15} width={15} />
+                    <Dumbbell height={15} width={15} />
+                    <Dumbbell height={15} width={15} />
+                    <Dumbbell height={15} width={15} />
                 </View>
                 break;
 

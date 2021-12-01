@@ -13,7 +13,7 @@ const WaistSizeModal = (props) => {
         if (e >= 12.4 && e <= 92) {
             props.onChangeText(e)
         } else {
-            alert("Please enter appropieate inch")
+            alert("Please enter an appropriate measurement in inches")
         }
 
     }
