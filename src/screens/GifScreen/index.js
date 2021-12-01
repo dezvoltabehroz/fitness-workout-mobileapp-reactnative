@@ -21,7 +21,7 @@ class AppIntro extends Component {
     componentDidMount = () => {
         setTimeout(() => {
             this.props.navigation.replace(route.APPINTROZERO)
-        }, Platform.OS == 'ios' ? 3000 : 2000);
+        }, Platform.OS == 'ios' ? 4000 : 3000);
     }
  
     render() {
