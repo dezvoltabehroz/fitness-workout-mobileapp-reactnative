@@ -151,12 +151,12 @@ class Settings extends Component {
                                         <Text style={styles.text}>Help Center</Text>
                                     </View>
                                 </View>
-                                <View style={styles.rowContainer}>
+                                {/* <View style={styles.rowContainer}>
                                     <Email />
                                     <View style={styles.itemContainer}>
                                         <Text style={styles.text}>Email Us</Text>
                                     </View>
-                                </View>
+                                </View> */}
                                 <TouchableOpacity onPress={() => this.handleOpenUrl('term')} style={styles.rowContainer}>
                                     <Terms />
                                     <View style={styles.itemContainer}>
