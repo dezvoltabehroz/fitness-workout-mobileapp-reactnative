@@ -10,7 +10,7 @@ import Input from '../../Input';
 
 const WaistSizeModal = (props) => {
     const changeInches = (e) => {
-        if (e >= 12.4 && e <= 92) {
+        if (e <= 99) {
             props.onChangeText(e)
         } else {
             alert("Please enter an appropriate measurement in inches")
@@ -18,8 +18,8 @@ const WaistSizeModal = (props) => {
 
     }
     return (
-        <Modal isVisible={props.visible}  animationInTiming={400}
-        animationOutTiming={200} >
+        <Modal isVisible={props.visible} animationInTiming={400}
+            animationOutTiming={200} >
             <View style={styles.modalContainer} >
 
 
@@ -27,7 +27,7 @@ const WaistSizeModal = (props) => {
                     <Text style={styles.headingText}>Waist Size</Text>
                 </View>
                 <View style={{ marginBottom: "10%" }}>
-                    <Input keyboardType={"number-pad"} placeholder=' ' onChangeText={(e) =>    props.onChangeText(e)} />
+                    <Input keyboardType={"number-pad"} placeholder=' ' onChangeText={(e) => changeInches(4)} />
                 </View>
 
 
