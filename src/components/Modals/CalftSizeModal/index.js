@@ -10,7 +10,7 @@ import Input from '../../Input';
 
 const CalftSizeModal = (props) => {
     const changeInches = (e) => {
-        if (e >= 12.4 && e <= 100) {
+        if ( e <= 99) {
             props.onChangeText(e)
         } else {
             alert("Please enter an appropriate measurement in inches")
@@ -28,7 +28,7 @@ const CalftSizeModal = (props) => {
                     <Text style={styles.headingText}>Calft Size</Text>
                 </View>
                 <View style={{ marginBottom: "10%" }}>
-                    <Input keyboardType={"number-pad"} placeholder=' ' onChangeText={(e) => props.onChangeText(e)} />
+                    <Input keyboardType={"number-pad"} placeholder=' ' onChangeText={(e) => changeInches(e)} />
                 </View>
 
 

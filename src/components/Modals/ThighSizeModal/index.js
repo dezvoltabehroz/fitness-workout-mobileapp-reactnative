@@ -10,7 +10,7 @@ import Input from '../../Input';
 
 const ThighSizeModal = (props) => {
     const changeInches = (e) => {
-        if (e <= 100) {
+        if (e <= 99) {
             props.onChangeText(e)
         } else {
             alert("Please enter an appropriate measurement in inches")
