@@ -51,12 +51,9 @@ class PaymentMethod extends Component {
                 }
             }])
         } else {
-            this.props.navigation.setOptions({
-                headerLeft: () => this.headerLeft(),
-            });
+            this.props.navigation.setOptions({ headerLeft: () => this.headerLeft() });
             this.focusListener = this.props.navigation.addListener('focus', () => { this.handleIsEmailExist(); })
-
-            this.handleIsEmailExist()
+            this.handleIsEmailExist();
         }
 
 
@@ -118,11 +115,11 @@ class PaymentMethod extends Component {
         ProfileServices.isEmailExist(data, JSON.parse(userToken))
             .then((res) => {
                 const { full_name } = this.props.user.userData;
+                console.log(res.data);
                 if (res.data.success) {
                     if (res.data.data[0].email) {
-                        console.log("condition true");
                         this.setState({ modal: false, email: res.data.data[0].email }, () => {
-                            if (res.data.data[0].email && full_name != null && user_id)
+                            if (res.data.data[0].email && full_name != null && full_name != undefined)
                                 this.getPaymentMethod(user_id, userToken)
                             else
                                 this.setState({ loading: false, modal: true })

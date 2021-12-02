@@ -206,10 +206,11 @@ class CompleteProfile extends Component {
                     if (response.data.success) {
                         this.setState({ next2Loading: false, })
                         if (userData.email) {
+                            this.props.authActions.getUserProfile({user_id:user_id,token:userToken})
                             this.props.navigation.replace(route.MAIN, { screen: route.SETTING })
                         } else {
+                            this.props.authActions.getUserProfile({user_id:user_id,token:userToken})
                             this.props.navigation.replace(route.LOGIN, { inAPP: true })
-
                         }
                     }
                 })
@@ -241,8 +242,10 @@ class CompleteProfile extends Component {
                 if (response.data.success) {
                     this.setState({ nextSkipLoading: false, })
                     if (userData.email) {
+                        this.props.authActions.getUserProfile({user_id:user_id,token:userToken})
                         this.props.navigation.replace(route.MAIN, { screen: route.SETTING })
                     } else {
+                        this.props.authActions.getUserProfile({user_id:user_id,token:userToken})
                         this.props.navigation.replace(route.LOGIN, { inAPP: true })
 
                     }
@@ -492,16 +495,16 @@ class CompleteProfile extends Component {
                                 <View style={styles.rowMeasureContainer}>
                                     <View style={styles.rowStyle}>
                                         <Calf />
-                                        <Text style={styles.grayText}>{calf ? calf : "calf Size"}</Text>
+                                        <Text style={styles.grayText}>{calf ? calf : "Calf Size"}</Text>
                                     </View>
                                     <TouchableOpacity onPress={() => this.setState({ calfSizeModal: true })}>
                                         <Plus />
                                     </TouchableOpacity>
                                 </View>
-                                <View style={{ margin: "8%" }}>
+                                <View style={{ marginHorizontal: "8%",marginTop:"5%" }}>
                                     <Button loading={next2Loading} title={'Next'} onPress={() => { this.setState({ next2Loading: true }, () => this.handleOnPressNext2()) }} />
                                 </View>
-                                <View style={{ margin: "8%" }}>
+                                <View style={{ marginHorizontal: "8%",marginTop:"5%" }}>
                                     <ClearButton loading={nextSkipLoading} title={'Skip'} onPress={() => { this.setState({ nextSkipLoading: true }, () => this.handleOnSkip()) }} />
                                 </View>
                             </View>

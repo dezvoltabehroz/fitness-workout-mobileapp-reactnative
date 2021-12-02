@@ -121,7 +121,7 @@ class FocusArea extends Component {
                             <Text style={styles.headingTextStyle}>{screen.APP_INTRO_Heading_5}</Text>
                             <Text style={styles.decsTextStyle}>Select two focus areas so we could personalize your plan.</Text>
                         </View>
-                        <ImageBackground  style={this.props.route?.params?.gender == 'Male' ? styles.imageStyle : styles.imageStyleGirl} resizeMode="contain" source={this.props.route?.params?.gender == 'Male' ? require('../../assets/images/boy.png') : require('../../assets/images/girl.png')}>
+                        <ImageBackground  style={this.props.route?.params?.gender == 'Male' ? styles.imageStyle : styles.imageStyleGirl} resizeMode="contain" source={this.props.route?.params?.gender == 'Male' ? require('../../assets/images/male.jpeg') : require('../../assets/images/female.jpeg')}>
                             {
                                 this.props.route?.params?.gender == 'Male' ?
                                     <>
