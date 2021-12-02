@@ -38,7 +38,7 @@ class CreatingPlan extends Component {
         const gender = await getLocalData(LOCAL_STORAGE_KEYS.gender)
 
         let fitnessEuipment = JSON.parse(equipment) == "Mixed Equipment" ? "All Equipment" : JSON.parse(equipment)
-      
+
         let data = {
             "fitness_goal": JSON.parse(goal),
             "fitness_level": JSON.parse(level),
@@ -54,8 +54,13 @@ class CreatingPlan extends Component {
             "user_id": JSON.parse(user_id),
         }
         AuthServices.userPrefrences(data, JSON.parse(userToken))
-            .then((res) => {
+            .then(async (res) => {
                 console.log(res.data)
+                let userData = {
+                    user_id: JSON.parse(user_id),
+                    token: JSON.parse(userToken)
+                }
+                await this.props.authActions.getUserProfile(userData);
             })
             .catch((error) => console.log(error.response))
 
@@ -66,11 +71,15 @@ class CreatingPlan extends Component {
         const user_id = await getLocalData(LOCAL_STORAGE_KEYS.user_id)
         const userToken = await getLocalData(LOCAL_STORAGE_KEYS.userToken)
         storeLocalData(LOCAL_STORAGE_KEYS.appIntro, JSON.stringify({ data: true }))
-        let userData = {
-            user_id: JSON.parse(user_id),
-            token: JSON.parse(userToken)
-        }
-        await this.props.authActions.getUserProfile(userData, replace);
+        this.props.navigation.reset({
+            index: 0,
+            routes: [{ name: route.MAIN }]
+        })
+        // let userData = {
+        //     user_id: JSON.parse(user_id),
+        //     token: JSON.parse(userToken)
+        // }
+        // await this.props.authActions.getUserProfile(userData, replace);
     }
 
 
