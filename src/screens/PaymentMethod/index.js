@@ -31,6 +31,7 @@ class PaymentMethod extends Component {
             sourceHtml: ``,
             loading: false,
             email: "",
+            backLoading: false,
             cardDetails: {}
         }
     }
@@ -46,6 +47,7 @@ class PaymentMethod extends Component {
 
     headerLeft = () => {
         const { user_id, token, full_name, email } = this.props.user.userData
+        const { backLoading } = this.state;
         return (
             <TouchableOpacity
                 style={{ marginLeft: 15 }}
@@ -54,11 +56,19 @@ class PaymentMethod extends Component {
                         user_id: user_id,
                         token: token
                     }
+                    this.setState({ backLoading: true })
+                    this.props.navigation.setOptions({
+                        headerLeft: () => this.headerLeft(),
+                    });
                     this.props.authActions.getUserProfile(data);
-                    this.props.navigation.goBack();
+                    setTimeout(() => {
+                        this.setState({ backLoading: false })
+                        this.props.navigation.goBack();
+                    }, 3000);
+
 
                 }}>
-                <Icon.AntDesign name={"arrowleft"} size={25} color={"white"} />
+                {this.state.backLoading ? <ActivityIndicator size={"small"} color={"white"} /> : <Icon.AntDesign name={"arrowleft"} size={25} color={"white"} />}
             </TouchableOpacity>
         );
     };
@@ -80,10 +90,7 @@ class PaymentMethod extends Component {
                         )
                     } else {
                         console.log("false");
-                        this.setState({ loading: false, modal: true }
-                            , () => //{ }
-                                this.getPaymentMethod(user_id, userToken)
-                        )
+                        this.setState({ loading: false, modal: true })
                     }
                 }
             })
@@ -200,7 +207,7 @@ class PaymentMethod extends Component {
                             />
                             :
                             <View style={styles.container}>
-                                <View style={{ flex: 0.4, alignItems: "center" }}>
+                                {/* <View style={{ flex: 0.4, alignItems: "center" }}>
                                     <Image resizeMode={"contain"} source={require('../../assets/images/download.jpg')} style={{ justifyContent: "center", height: 200, width: SCREEN_WIDTH * 0.8 }} />
                                 </View>
 
@@ -234,11 +241,13 @@ class PaymentMethod extends Component {
                                             <ColorButton title={'CANCEL SUBSCRIPTION'} />
                                     }
 
-                                </View>
+                                </View> */}
                             </View>}
                 <Modal isVisible={this.state.modal}
                     animationInTiming={400}
-                    animationOutTiming={200}>
+                    animationOutTiming={200}
+                    backdropColor="#000"
+                >
                     <View style={styles.cardContainer}>
                         <View style={{ alignItems: "flex-end" }}>
                             <TouchableOpacity onPress={() => this.setState({ modal: false, }, () => this.props.navigation.goBack())}><Icon.AntDesign name="close" size={20} /></TouchableOpacity>

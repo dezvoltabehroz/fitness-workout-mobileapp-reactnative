@@ -22,6 +22,7 @@ function ProgressRoutes() {
         <Stack.Navigator initialRouteName={route.PROGRESSSCREEN} >
             <Stack.Screen name={route.PROGRESSSCREEN} component={Progress} options={{
                 headerTitle: () => (<HeaderWhiteLogo />),
+                headerLeft: () => {},
                 headerTitleAlign: screen.SCREEN_TITLE_ALIGN_CENTER,
                 headerStyle: styles.headerStyle1,
                 headerTintColor: THEME.COLOR_WHITE,

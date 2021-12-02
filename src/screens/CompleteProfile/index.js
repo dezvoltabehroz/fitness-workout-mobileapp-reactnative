@@ -36,7 +36,7 @@ class CompleteProfile extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            tab: 0,
+            tab: 1,
             nameModal: false,
             dateModal: false,
             weightModal: false,
@@ -215,7 +215,7 @@ class CompleteProfile extends Component {
                 })
                 .catch((err) => console.log(err.response))
         } else {
-            this.setState({ nextLoading: false })
+            this.setState({ next2Loading: false })
             alert('Please fill complete data')
         }
 

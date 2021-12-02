@@ -384,7 +384,7 @@ class Progress extends Component {
                         }
                     </ScrollView>
                 </View>
-                <UpgradeModal visible={this.state.modal} onUpgrade={() => this.props.navigation.navigate(route.PAYMENTMETHOD, {})} onSkip={() => this.setState({ modal: false })} />
+                <UpgradeModal visible={this.state.modal} onUpgrade={() => this.setState({modal: false},()=>this.props.navigation.navigate(route.PAYMENTMETHOD, {}))} onSkip={() => this.setState({ modal: false })} />
                 <UploadingModal visible={this.state.uploading} />
             </Container>
         )

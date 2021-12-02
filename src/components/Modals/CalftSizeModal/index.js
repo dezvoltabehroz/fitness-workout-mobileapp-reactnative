@@ -25,7 +25,7 @@ const CalftSizeModal = (props) => {
 
 
                 <View style={{ marginBottom: "10%" }}>
-                    <Text style={styles.headingText}>Calft Size</Text>
+                    <Text style={styles.headingText}>Calf Size</Text>
                 </View>
                 <View style={{ marginBottom: "10%" }}>
                     <Input keyboardType={"number-pad"} placeholder=' ' onChangeText={(e) => changeInches(e)} />

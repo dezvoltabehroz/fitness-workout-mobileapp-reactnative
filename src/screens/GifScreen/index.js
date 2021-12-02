@@ -35,7 +35,7 @@ class AppIntro extends Component {
                 <View style={{ flex: 1, backgroundColor: '#15bceb' }}>
                     <ImageBackground
                         style={{ height: SCREEN_HEIGHT, width: SCREEN_WIDTH }}
-                        resizeMode={"contain"}
+                        resizeMode={"stretch"}
                         source={require('../../assets/images/gif.gif')}>
                     </ImageBackground>
                 </View>

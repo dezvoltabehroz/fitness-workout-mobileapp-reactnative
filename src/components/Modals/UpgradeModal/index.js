@@ -9,7 +9,7 @@ import Button from '../../Button';
 
 const UpgradeModal = (props) => {
     return (
-        <Modal isVisible={props.visible}>
+        <Modal isVisible={props.visible} backdropColor={"rgba(0,0,0,0.9)"}>
             <View style={styles.modalContainer}>
                 <View style={styles.textContainer}>
                     <Text style={styles.headingText}>Upgrade Membership</Text>
@@ -19,20 +19,20 @@ const UpgradeModal = (props) => {
                 </View>
                 <View style={styles.rowContainer}>
                     <Tick />
-                    <Text style={styles.rowTextStyle}>High Quality Workout Music</Text>
+                    <Text style={styles.rowTextStyle}>Workout plans by Educogym</Text>
                 </View>
                 <View style={styles.rowContainer}>
                     <Tick />
-                    <Text style={styles.rowTextStyle}>High Quality Workout Music</Text>
+                    <Text style={styles.rowTextStyle}>Customized Diet plans by Educogym</Text>
                 </View>
                 <View style={styles.rowContainer}>
                     <Tick />
-                    <Text style={styles.rowTextStyle}>High Quality Workout Music</Text>
+                    <Text style={styles.rowTextStyle}>Specialized Audio for Power of Mind</Text>
                 </View>
                 <Text style={styles.textStyle}>Use Advance Features Only With</Text>
                 <View style={styles.rowContainer1}>
-                    <Text style={styles.color}>$10.00</Text>
-                    <Text style={styles.smallText}>For life time</Text>
+                    <Text style={styles.color}>€35.00</Text>
+                    <Text style={styles.smallText}>For 30 Days</Text>
                 </View>
                 <View style={styles.buttonContainer}>
                     <Button title={'UPGRADE'} onPress={() => props.onUpgrade()} />

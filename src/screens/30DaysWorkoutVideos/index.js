@@ -14,6 +14,7 @@ import { getLocalData, LOCAL_STORAGE_KEYS, storeLocalData } from '../../lib/util
 import moment from "moment";
 import { planActions } from "../../redux/actions/plan";
 import { bindActionCreators } from "redux";
+import { authActions } from "../../redux/actions/auth";
 class DaysWorkoutVideos extends Component {
     constructor(props) {
         super(props);
@@ -26,11 +27,11 @@ class DaysWorkoutVideos extends Component {
 
     componentDidMount = async () => {
 
-        const { user_id, token, fitness_goal, fitness_level, fitness_equipment,tags } = this.props.user.userData;
+        const { user_id, token, fitness_goal, fitness_level, fitness_equipment, tags } = this.props.user.userData;
         let data = {
             "fitness_goal": fitness_goal,
             "fitness_level": fitness_level,
-            "fitness_equipment":fitness_equipment,
+            "fitness_equipment": fitness_equipment,
             "video_tags": tags,
             "video_day": this.props?.route?.params?.data?.day
         }
@@ -45,7 +46,7 @@ class DaysWorkoutVideos extends Component {
     }
 
     handleUpdateDailyWorkout = (index, item) => {
-        const { token, workout_user_id } = this.props.user.userData;
+        const { token, workout_user_id, user_id } = this.props.user.userData;
         if ((index + 1) == this.state.videos.length) {
             let data = {
                 "workout_date": moment(this.props?.route?.params?.workoutDate).format('YYYY-MM-DD'),
@@ -58,8 +59,10 @@ class DaysWorkoutVideos extends Component {
                 .then(async (response) => {
                     if (response.data.success) {
                         await this.props.planActions.getWorkoutPlan();
-                    }else{
+                        await this.props.authActions.getUserProfile({ user_id: user_id, token: token });
+                    } else {
                         await this.props.planActions.getWorkoutPlan();
+                        await this.props.authActions.getUserProfile({ user_id: user_id, token: token });
                     }
                 })
                 .catch((err) => { console.log(err.response); this.setState({ loading: false }) })
@@ -123,7 +126,8 @@ class DaysWorkoutVideos extends Component {
 const mapStateToProps = (state) => { return { user: state.authReducer || {} }; };
 const mapDispatchToProps = dispatch => {
     return {
-        planActions: bindActionCreators(planActions, dispatch)
+        planActions: bindActionCreators(planActions, dispatch),
+        authActions: bindActionCreators(authActions, dispatch)
     };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(DaysWorkoutVideos);

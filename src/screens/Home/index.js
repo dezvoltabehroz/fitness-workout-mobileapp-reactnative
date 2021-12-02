@@ -210,7 +210,7 @@ class Home extends Component {
                             </View>
                         </View>
                         <ImageBackground source={require('../../assets/images/1/Cover.jpeg')} style={styles.workoutDayContainer}>
-                            <Text style={styles.whiteTextStyle1}>30 DAY'S WORKOUT</Text>
+                            <Text style={styles.whiteTextStyle1}>30 DAYS WORKOUT</Text>
                             <View style={styles.rowStyle}>
                                 {this.fitnessLevelFunction()}
                                 

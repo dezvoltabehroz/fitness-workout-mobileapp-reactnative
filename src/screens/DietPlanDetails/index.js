@@ -22,6 +22,7 @@ import RenderHTML from 'react-native-render-html';
 import { SCREEN_WIDTH } from '../../lib/utils/constants';
 import { planActions } from '../../redux/actions/plan';
 import { bindActionCreators } from 'redux';
+import { authActions } from '../../redux/actions/auth';
 
 class DietPlanDetails extends Component {
     constructor(props) {
@@ -30,7 +31,7 @@ class DietPlanDetails extends Component {
             finished: false,
             diet: [],
             loading: false,
-            finishLoading:false
+            finishLoading: false
         }
     }
 
@@ -54,7 +55,7 @@ class DietPlanDetails extends Component {
     }
 
     handleFinishedModal = () => {
-        this.setState({finishLoading:true})
+        this.setState({ finishLoading: true })
         const { user_id, token, diet_user_id } = this.props.user.userData;
         let week = this.props.route.params.dietData.weekName.split(' ')
         let data = {
@@ -69,8 +70,9 @@ class DietPlanDetails extends Component {
             .then(async (res) => {
                 if (res.data.success) {
                     await this.props.planActions.getDietPlan();
+                    await this.props.authActions.getUserProfile({ user_id: user_id, token: token });
                     setTimeout(() => {
-                        this.setState({ finished: false,finishLoading:true }); this.props.navigation.goBack();
+                        this.setState({ finished: false, finishLoading: true }); this.props.navigation.goBack();
                     }, 2000);
                 }
             })
@@ -164,7 +166,8 @@ class DietPlanDetails extends Component {
 const mapStateToProps = (state) => { return { user: state.authReducer || {} }; };
 const mapDispatchToProps = dispatch => {
     return {
-        planActions: bindActionCreators(planActions, dispatch)
+        planActions: bindActionCreators(planActions, dispatch),
+        authActions: bindActionCreators(authActions, dispatch)
     };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(DietPlanDetails);
