@@ -43,9 +43,12 @@ class Progress extends Component {
     }
 
     componentDidMount = () => {
-        this.props.navigation.setOptions({
-            headerRight: () => this.headerRight(),
-        });
+        this.focusListener = this.props.navigation.addListener('focus', () => {
+            this.props.navigation.setOptions({
+                headerRight: () => this.headerRight(),
+            });
+        })
+
         const { user_id, token } = this.props.user.userData;
         ProfileServices.getAllProgressPhoto({ user_id: user_id }, token)
             .then((res) => {
@@ -384,7 +387,7 @@ class Progress extends Component {
                         }
                     </ScrollView>
                 </View>
-                <UpgradeModal visible={this.state.modal} onUpgrade={() => this.setState({modal: false},()=>this.props.navigation.navigate(route.PAYMENTMETHOD, {}))} onSkip={() => this.setState({ modal: false })} />
+                <UpgradeModal visible={this.state.modal} onUpgrade={() => this.setState({ modal: false }, () => this.props.navigation.navigate(route.PAYMENTMETHOD, {}))} onSkip={() => this.setState({ modal: false })} />
                 <UploadingModal visible={this.state.uploading} />
             </Container>
         )

@@ -8,7 +8,7 @@ import themeStyle from '../../../assets/styles/theme.style';
 import Input from '../../Input';
 
 
-const CalftSizeModal = (props) => {
+const CalfSizeModal = (props) => {
     const changeInches = (e) => {
         if ( e <= 99) {
             props.onChangeText(e)
@@ -81,4 +81,4 @@ const styles = StyleSheet.create({
 
 })
 
-export default CalftSizeModal;
+export default CalfSizeModal;

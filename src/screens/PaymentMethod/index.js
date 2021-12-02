@@ -4,7 +4,7 @@ import { Image, View, Text, TouchableOpacity, ActivityIndicator, Alert } from 'r
 import { initStripe, useStripe, CardField, createToken } from '@stripe/stripe-react-native';
 import Modal from 'react-native-modal';
 import { connect } from 'react-redux';
-import { Button, ColorButton, Container, Icon, Input } from '../../components';
+import { Button, ColorButton, Container, Icon, Input, UploadingModal } from '../../components';
 import Run from '../../assets/svg/run.svg'
 import { route, SCREEN_WIDTH } from '../../lib/utils/constants';
 
@@ -30,6 +30,7 @@ class PaymentMethod extends Component {
             btnLoading: false,
             sourceHtml: ``,
             loading: false,
+            uploading: false,
             email: "",
             backLoading: false,
             cardDetails: {}
@@ -37,12 +38,46 @@ class PaymentMethod extends Component {
     }
 
     componentDidMount = () => {
-        this.props.navigation.setOptions({
-            headerLeft: () => this.headerLeft(),
-        });
-        this.focusListener = this.props.navigation.addListener('focus', () => { this.handleIsEmailExist(); })
+        const { userData } = this.props.user;
+        if (this.props.route.params.cancelSubscription) {
+            Alert.alert("Are you sure you want to cancel your subscription?", "", [{
+                onPress: () => this.props.navigation.goBack(),
+                style: "cancel",
+                text: "NO"
+            }, {
+                text: "Yes",
+                onPress: () => {
+                    this.cancelSubscription();
+                }
+            }])
+        } else {
+            this.props.navigation.setOptions({
+                headerLeft: () => this.headerLeft(),
+            });
+            this.focusListener = this.props.navigation.addListener('focus', () => { this.handleIsEmailExist(); })
 
-        this.handleIsEmailExist()
+            this.handleIsEmailExist()
+        }
+
+
+    }
+
+    cancelSubscription = () => {
+        this.setState({ uploading: true })
+        const { user_id, token } = this.props.user.userData;
+        ProfileServices.deactiveUser({ user_id: user_id }, token)
+            .then((res) => {
+                console.log(res.data)
+                let data = {
+                    user_id: user_id,
+                    token: token
+                }
+                this.props.authActions.getUserProfile(data);
+                setTimeout(() => {
+                    this.setState({ uploading: false }, () => this.props.navigation.goBack())
+                }, 3000);
+            })
+            .catch((err) => console.log(err.response))
     }
 
     headerLeft = () => {
@@ -82,12 +117,16 @@ class PaymentMethod extends Component {
         }
         ProfileServices.isEmailExist(data, JSON.parse(userToken))
             .then((res) => {
+                const { full_name } = this.props.user.userData;
                 if (res.data.success) {
                     if (res.data.data[0].email) {
                         console.log("condition true");
-                        this.setState({ modal: false, email: res.data.data[0].email }, () => //{ }
-                            this.getPaymentMethod(user_id, userToken)
-                        )
+                        this.setState({ modal: false, email: res.data.data[0].email }, () => {
+                            if (res.data.data[0].email && full_name != null && user_id)
+                                this.getPaymentMethod(user_id, userToken)
+                            else
+                                this.setState({ loading: false, modal: true })
+                        })
                     } else {
                         console.log("false");
                         this.setState({ loading: false, modal: true })
@@ -289,6 +328,7 @@ class PaymentMethod extends Component {
                     </View>
 
                 </Modal>
+                <UploadingModal visible={this.state.uploading} />
             </Container>
         )
     }

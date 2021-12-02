@@ -4,7 +4,7 @@ import Modal from 'react-native-modal'
 import themeStyle from "../../assets/styles/theme.style";
 import {
     Button, Container, Icon, NameModal, DateModal, HeightModal, WeightModal, Input,
-    ArmSizeModal, ChestSizeModal, CalftSizeModal, ShoulderSizeModal, ThighSizeModal, TummySizeModal, HipSizeModal, WaistSizeModal, VerifyOtpModal, EmailModal, ColorButton, ClearButton
+    ArmSizeModal, ChestSizeModal, CalfSizeModal, ShoulderSizeModal, ThighSizeModal, TummySizeModal, HipSizeModal, WaistSizeModal, VerifyOtpModal, EmailModal, ColorButton, ClearButton
 } from "../../components";
 
 import Plus from '../../assets/svg/plus.svg'
@@ -36,7 +36,7 @@ class CompleteProfile extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            tab: 1,
+            tab: 0,
             nameModal: false,
             dateModal: false,
             weightModal: false,
@@ -55,7 +55,7 @@ class CompleteProfile extends Component {
             hip: "",
             tummy: "",
             thigh: "",
-            calft: "",
+            calf: "",
             passwordModal: false,
             emailModal: false,
             confirmOtpModal: false,
@@ -186,10 +186,10 @@ class CompleteProfile extends Component {
             hip,
             tummy,
             thigh,
-            calft, } = this.state;
+            calf, } = this.state;
         const user_id = await getLocalData(LOCAL_STORAGE_KEYS.user_id);
         const userToken = await getLocalData(LOCAL_STORAGE_KEYS.userToken);
-        if (arm && chest && waist && hip && tummy && thigh && calft) {
+        if (arm && chest && waist && hip && tummy && thigh && calf) {
             let data = {
                 "arm_size": parseFloat(arm),
                 "chest_size": parseFloat(chest),
@@ -198,7 +198,7 @@ class CompleteProfile extends Component {
                 "tummy_size": parseFloat(tummy),
                 "hip_size": parseFloat(hip),
                 "thigh_size": parseFloat(thigh),
-                "calf_size": parseFloat(calft),
+                "calf_size": parseFloat(calf),
                 "user_id": JSON.parse(user_id)
             }
             ProfileServices.updateMeasurement(data, JSON.parse(userToken))
@@ -329,7 +329,7 @@ class CompleteProfile extends Component {
     render() {
         const { tab, name, date, dateValue, weight, height, email, kilo, gram, resendLoading,
             feet, inch, nextLoading, arm, next2Loading, chest, btnLoading, code, error, confirmPassword, password, submit, submit1,
-            shoulder, waist, hip, tummy, thigh, calft, emailModal, nextSkipLoading, confirmOtpModal, passwordModal, submit3 } = this.state
+            shoulder, waist, hip, tummy, thigh, calf, emailModal, nextSkipLoading, confirmOtpModal, passwordModal, submit3 } = this.state
         const { userData } = this.props.user;
         return (
             <Container>
@@ -492,9 +492,9 @@ class CompleteProfile extends Component {
                                 <View style={styles.rowMeasureContainer}>
                                     <View style={styles.rowStyle}>
                                         <Calf />
-                                        <Text style={styles.grayText}>{calft ? calft : "Calft Size"}</Text>
+                                        <Text style={styles.grayText}>{calf ? calf : "calf Size"}</Text>
                                     </View>
-                                    <TouchableOpacity onPress={() => this.setState({ calftSizeModal: true })}>
+                                    <TouchableOpacity onPress={() => this.setState({ calfSizeModal: true })}>
                                         <Plus />
                                     </TouchableOpacity>
                                 </View>
@@ -572,11 +572,11 @@ class CompleteProfile extends Component {
                     onChangeText={(name) => this.setState({ thigh: name })}
                     onClose={() => this.setState({ thighSizeModal: false })}
                     onSave={() => this.setState({ thighSizeModal: false })} />
-                <CalftSizeModal
-                    visible={this.state.calftSizeModal}
-                    onChangeText={(name) => this.setState({ calft: name })}
-                    onClose={() => this.setState({ calftSizeModal: false })}
-                    onSave={() => this.setState({ calftSizeModal: false })} />
+                <CalfSizeModal
+                    visible={this.state.calfSizeModal}
+                    onChangeText={(name) => this.setState({ calf: name })}
+                    onClose={() => this.setState({ calfSizeModal: false })}
+                    onSave={() => this.setState({ calfSizeModal: false })} />
                 <EmailModal isVisible={emailModal}
                     email={email}
                     submit={submit}

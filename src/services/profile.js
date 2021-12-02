@@ -56,8 +56,10 @@ const Api = {
         return axiosInstance.post('profile/listAllPhotos', data, apiHeaderConfiguration(token, TOKEN))
     },
     getPaymentMethod: function (data, token) {
-        console.log("data to send : ",data)
         return axiosInstance.post('payment/createPayment', data, apiHeaderConfiguration(token, TOKEN))
+    },
+    deactiveUser: function (data, token) {
+        return axiosInstance.post('admin/deactivateUser', data, apiHeaderConfiguration(token, TOKEN))
     }
 
 

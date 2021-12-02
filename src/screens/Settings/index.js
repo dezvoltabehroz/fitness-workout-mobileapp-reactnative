@@ -136,12 +136,13 @@ class Settings extends Component {
                                         <Text style={styles.text}>Change your Workout Settings</Text>
                                     </TouchableOpacity>
                                 </View>
-                                <TouchableOpacity onPress={() => navigation.navigate(route.PAYMENTMETHOD)} style={styles.rowContainer}>
-                                    <Edit />
-                                    <View style={styles.itemContainer}>
-                                        <Text style={styles.text}>Edit Plan</Text>
-                                    </View>
-                                </TouchableOpacity>
+                                {this.props.user.userData.is_pro == 1 ?
+                                    <TouchableOpacity onPress={() => navigation.navigate(route.PAYMENTMETHOD, { cancelSubscription: true })} style={styles.rowContainer}>
+                                        <Edit />
+                                        <View style={styles.itemContainer}>
+                                            <Text style={styles.text}>Edit Plan</Text>
+                                        </View>
+                                    </TouchableOpacity> : null}
                             </View>
                             <View style={styles.upperContainer}>
                                 <Text style={styles.heading} >Others</Text>

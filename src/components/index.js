@@ -91,8 +91,8 @@ export const HipSizeModal = _HipSizeModal;
 import _ThighSizeModal from './Modals/ThighSizeModal';
 export const ThighSizeModal = _ThighSizeModal;
 
-import _CalftSizeModal from './Modals/CalftSizeModal';
-export const CalftSizeModal = _CalftSizeModal;
+import _CalfSizeModal from './Modals/CalfSizeModal';
+export const CalfSizeModal = _CalfSizeModal;
 
 import _OtpInputs from './OtpInputs';
 export const OtpInputs = _OtpInputs;
