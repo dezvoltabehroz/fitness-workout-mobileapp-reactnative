@@ -381,7 +381,9 @@ class Feedback extends Component {
                                                                                     </View>
                                                                                 </ImageBackground>
                                                                                 :
-                                                                                <TouchableOpacity onPress={() => this.setState({ imageType: "", imageModal: true })} style={{ backgroundColor: "lightgray", borderRadius: 20, width: SCREEN_WIDTH * 0.35, marginHorizontal: "2.5%", justifyContent: "center", alignItems: "center", height: 125 }}>
+                                                                                <TouchableOpacity onPress={() => Platform.OS == 'android' ?
+                                                                                    this.setState({ imageType: "frontImage", imageModal: true })
+                                                                                    : this.chooseFile('frontImage')} style={{ backgroundColor: "lightgray", borderRadius: 20, width: SCREEN_WIDTH * 0.35, marginHorizontal: "2.5%", justifyContent: "center", alignItems: "center", height: 125 }}>
                                                                                     <Icon.FontAwesome name="camera" color="gray" size={40} />
                                                                                     <Text style={styles.grayText}>Front Picture</Text>
                                                                                 </TouchableOpacity>}
@@ -394,7 +396,9 @@ class Feedback extends Component {
                                                                                     </View>
                                                                                 </ImageBackground>
                                                                                 :
-                                                                                <TouchableOpacity onPress={() => this.chooseFile('backImage')} style={{ backgroundColor: "lightgray", borderRadius: 20, width: SCREEN_WIDTH * 0.35, marginHorizontal: "2.5%", justifyContent: "center", alignItems: "center", height: 125 }}>
+                                                                                <TouchableOpacity onPress={() => Platform.OS == 'android' ?
+                                                                                    this.setState({ imageType: "backImage", imageModal: true })
+                                                                                    : this.chooseFile('backImage')} style={{ backgroundColor: "lightgray", borderRadius: 20, width: SCREEN_WIDTH * 0.35, marginHorizontal: "2.5%", justifyContent: "center", alignItems: "center", height: 125 }}>
                                                                                     <Icon.FontAwesome name="camera" color="gray" size={40} />
                                                                                     <Text style={styles.grayText}>Back Picture</Text>
                                                                                 </TouchableOpacity>}
@@ -409,7 +413,9 @@ class Feedback extends Component {
                                                                                     </View>
                                                                                 </ImageBackground>
                                                                                 :
-                                                                                <TouchableOpacity onPress={() => this.chooseFile('rightImage')} style={{ backgroundColor: "lightgray", borderRadius: 20, width: SCREEN_WIDTH * 0.35, marginHorizontal: "2.5%", justifyContent: "center", alignItems: "center", height: 125 }}>
+                                                                                <TouchableOpacity onPress={() => Platform.OS == 'android' ?
+                                                                                    this.setState({ imageType: "rightImage", imageModal: true })
+                                                                                    : this.chooseFile('rightImage')} style={{ backgroundColor: "lightgray", borderRadius: 20, width: SCREEN_WIDTH * 0.35, marginHorizontal: "2.5%", justifyContent: "center", alignItems: "center", height: 125 }}>
                                                                                     <Icon.FontAwesome name="camera" color="gray" size={40} />
                                                                                     <Text style={styles.grayText}>Right side Picture</Text>
                                                                                 </TouchableOpacity>}
@@ -422,7 +428,9 @@ class Feedback extends Component {
                                                                                     </View>
                                                                                 </ImageBackground>
                                                                                 :
-                                                                                <TouchableOpacity onPress={() => this.chooseFile('leftImage')} style={{ backgroundColor: "lightgray", borderRadius: 20, width: SCREEN_WIDTH * 0.35, marginHorizontal: "2.5%", justifyContent: "center", alignItems: "center", height: 125 }}>
+                                                                                <TouchableOpacity onPress={() => Platform.OS == 'android' ?
+                                                                                    this.setState({ imageType: "leftImage", imageModal: true })
+                                                                                    : this.chooseFile('leftImage')} style={{ backgroundColor: "lightgray", borderRadius: 20, width: SCREEN_WIDTH * 0.35, marginHorizontal: "2.5%", justifyContent: "center", alignItems: "center", height: 125 }}>
                                                                                     <Icon.FontAwesome name="camera" color="gray" size={40} />
                                                                                     <Text style={styles.grayText}>Left side Picture</Text>
                                                                                 </TouchableOpacity>}

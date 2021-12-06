@@ -52,6 +52,9 @@ const Api = {
     updateDailyWorkout: function (data, token) {
         return axiosInstance.post('profile/updateDayWorkout', data, apiHeaderConfiguration(token, TOKEN))
     },
+    updateWorkoutGraph: function (data, token) {
+        return axiosInstance.post('plan/updateWorkoutGraph', data, apiHeaderConfiguration(token, TOKEN))
+    },
     getAllProgressPhoto: function (data, token) {
         return axiosInstance.post('profile/listAllPhotos', data, apiHeaderConfiguration(token, TOKEN))
     },

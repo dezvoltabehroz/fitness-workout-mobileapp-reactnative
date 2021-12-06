@@ -15,7 +15,7 @@ const UpgradeModal = (props) => {
         animationOutTiming={200}>
             <View style={styles.modalContainer}>
                 <Text style={styles.headingText}>DISCARD</Text>
-                <Text style={styles.rowTextStyle}>DUMBELL PULLOVER</Text>
+                <Text style={styles.rowTextStyle}>DUMBBELLS PULLOVER</Text>
                 <TouchableOpacity onPress={() => props.onRestart()} style={styles.restartContainer}>
                     <Text style={styles.rowTextStyle}>Restart this exercise</Text>
                 </TouchableOpacity>

@@ -28,15 +28,15 @@ class AppIntro extends Component {
     multiSliderValueCallback = async (values) => {
         switch (values) {
             case 0:
-                storeLocalData(LOCAL_STORAGE_KEYS.fitnessLevel, JSON.stringify('Not Fit'))
+                storeLocalData(LOCAL_STORAGE_KEYS.fitnessLevel, JSON.stringify('Unfit'))
                 this.setState({value:values})
                 break;
             case 1:
-                storeLocalData(LOCAL_STORAGE_KEYS.fitnessLevel, JSON.stringify('Average Fit'))
+                storeLocalData(LOCAL_STORAGE_KEYS.fitnessLevel, JSON.stringify('Somewhat Fit'))
                 this.setState({value:values})
                 break;
             case 2:
-                storeLocalData(LOCAL_STORAGE_KEYS.fitnessLevel, JSON.stringify('Good Fit'))
+                storeLocalData(LOCAL_STORAGE_KEYS.fitnessLevel, JSON.stringify('Fit'))
                 this.setState({value:values})
                 break;
             case 3:

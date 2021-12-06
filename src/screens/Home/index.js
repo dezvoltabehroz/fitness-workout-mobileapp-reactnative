@@ -58,7 +58,6 @@ class Home extends Component {
     }
 
     fitnessLevelFunction = () => {
-        console.log(this.props.user.userData.fitness_level)
         switch (this.props.user.userData.fitness_level) {
             case 'Very Fit':
                 return (
@@ -70,7 +69,7 @@ class Home extends Component {
                         <Text style={[styles.whiteTextStyle2, { marginHorizontal: 5 }]}>{this.state.fitnessLevel}</Text>
                     </View>
                 )
-            case 'Good Fit':
+            case 'Fit':
                 return (
                     <View style={styles.row}>
                         < WFire height={SVG_HEIGHT} width={SVG_WIDTH} />
@@ -80,7 +79,7 @@ class Home extends Component {
                         <Text style={[styles.whiteTextStyle2, { marginHorizontal: 5 }]}>{this.state.fitnessLevel}</Text>
                     </View>
                 )
-            case 'Average Fit':
+            case 'Somewhat Fit':
                 return (
                     <View style={styles.row}>
                         < WFire height={SVG_HEIGHT} width={SVG_WIDTH} />
@@ -90,7 +89,7 @@ class Home extends Component {
                         <Text style={[styles.whiteTextStyle2, { marginHorizontal: 5 }]}>{this.state.fitnessLevel}</Text>
                     </View>
                 )
-            case 'Not Fit':
+            case 'Unfit':
                 return (
                     <View style={styles.row}>
                         < WFire height={SVG_HEIGHT} width={SVG_WIDTH} />
