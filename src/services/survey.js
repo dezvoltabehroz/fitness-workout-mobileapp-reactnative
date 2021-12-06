@@ -9,7 +9,6 @@ const Api = {
     getQuestions: function (token) {
         return axiosInstance.post('survey/getQuestions', {}, apiHeaderConfiguration(token, TOKEN))
     },
-
     submitAnswers: function (data, token) {
         return axiosInstance.post('survey/submitAnswers', data, apiHeaderConfiguration(token, TOKEN))
     },
@@ -27,6 +26,9 @@ const Api = {
     },
     uploadSurveyImages: function (data, token) {
         return axios.post(`${BASE_URL}survey/uploadSurveyImages`, data, apiHeaderConfiguration(token, MULTIPART))
+    },
+    updateSurveyImages: function (data, token) {
+        return axiosInstance.post(`survey/updateSurveyImages`, data, apiHeaderConfiguration(token, TOKEN))
     }
 
 };

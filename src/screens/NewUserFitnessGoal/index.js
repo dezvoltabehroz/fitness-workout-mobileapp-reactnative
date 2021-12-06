@@ -27,7 +27,6 @@ class AppIntro extends Component {
         };
     }
     componentDidMount = async () => {
-        // this.requestUserPermission();
         storeLocalData(LOCAL_STORAGE_KEYS.focusAreaShoulder, JSON.stringify('0'))
         storeLocalData(LOCAL_STORAGE_KEYS.focusAreaArms, JSON.stringify('0'))
         storeLocalData(LOCAL_STORAGE_KEYS.focusAreaChest, JSON.stringify('0'))

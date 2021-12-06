@@ -52,18 +52,18 @@ class Home extends Component {
         let data = { category: "daily challenges" }
         PlanServices.getFreeVideos(data, token)
             .then(async (res) => {
-                let fitnessLevel = await getLocalData(LOCAL_STORAGE_KEYS.fitnessLevel);
-                this.setState({ fitnessLevel: JSON.parse(fitnessLevel), challenges: res.data.data })
+                this.setState({ challenges: res.data.data })
             })
             .catch((err) => { console.log(err.response) })
     }
 
     fitnessLevelFunction = () => {
-        switch (this.state.fitnessLevel) {
+        console.log(this.props.user.userData.fitness_level)
+        switch (this.props.user.userData.fitness_level) {
             case 'Very Fit':
                 return (
                     <View style={styles.row}>
-                        < WFire height={SVG_HEIGHT} width={SVG_WIDTH} />
+                        <WFire height={SVG_HEIGHT} width={SVG_WIDTH} />
                         <WFire height={SVG_HEIGHT} width={SVG_WIDTH} />
                         <WFire height={SVG_HEIGHT} width={SVG_WIDTH} />
                         <WFire height={SVG_HEIGHT} width={SVG_WIDTH} />
@@ -213,7 +213,7 @@ class Home extends Component {
                             <Text style={styles.whiteTextStyle1}>30 DAYS WORKOUT</Text>
                             <View style={styles.rowStyle}>
                                 {this.fitnessLevelFunction()}
-                                
+
                             </View>
                             <Text style={styles.whiteTextStyle1}>{this.props?.user?.userData?.daily_workout_count != undefined && this.props?.user?.userData?.daily_workout_count ? Math.floor(this.props?.user?.userData?.daily_workout_count / 30 * 100) : 0}%</Text>
                             <ProgressBarAnimated
@@ -232,7 +232,7 @@ class Home extends Component {
                             <HorizontalList video data={challenges} onPress={(item) => navigate(route.VIDEO, { uri: item.media_path })} />
                         </View>
                         <View style={{ alignItems: "center", justifyContent: "center" }}>
-                            <ImageBackground  source={require('../../assets/images/Diet-min.jpeg')} imageStyle={{ borderRadius: 25, }} style={styles.cardContainer1} >
+                            <ImageBackground source={require('../../assets/images/Diet-min.jpeg')} imageStyle={{ borderRadius: 25, }} style={styles.cardContainer1} >
                                 <Text style={styles.whiteTextStyle1}>YOUR DIET PLAN IS READY!</Text>
                                 <View style={styles.goButtonContainer}>
                                     <Button loading={this.state.dietLoading} title={'GO!'} onPress={() => this.handleStartDietPlan()} />
@@ -240,8 +240,8 @@ class Home extends Component {
                             </ImageBackground>
                         </View>
                         <View style={{ alignItems: "center", justifyContent: "center" }}>
-                            <ImageBackground resizeMode="contain" source={require('../../assets/images/1/Power-of-Mind.png')}  style={styles.cardContainer1} >
-                                <Text style={styles.whiteTextStyle1}>MIND POWER</Text>
+                            <ImageBackground resizeMode="contain" source={require('../../assets/images/card-power-of-mind.png')} style={styles.cardContainer1} >
+                                {/* <Text style={styles.whiteTextStyle1}>MIND POWER</Text> */}
                                 <View style={styles.goButtonContainer1}>
                                     <Button title={'GO!'} onPress={() => navigate(route.POWER_OF_MIND)} />
                                 </View>
