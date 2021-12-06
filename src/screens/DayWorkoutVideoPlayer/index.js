@@ -165,7 +165,7 @@ class DayWorkoutVideoPlayer extends Component {
 
     render() {
         const { video_path, video_title, video_description } = this.props?.route?.params?.data;
-        console.log(this.state.mute)
+        // console.log(this.state.mute)
         return (
             <Container>
 

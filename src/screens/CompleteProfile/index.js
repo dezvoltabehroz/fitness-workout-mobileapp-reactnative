@@ -206,10 +206,10 @@ class CompleteProfile extends Component {
                     if (response.data.success) {
                         this.setState({ next2Loading: false, })
                         if (userData.email) {
-                            this.props.authActions.getUserProfile({user_id:user_id,token:userToken})
+                            this.props.authActions.getUserProfile({user_id:JSON.parse(user_id),token:JSON.parse(userToken)})
                             this.props.navigation.replace(route.MAIN, { screen: route.SETTING })
                         } else {
-                            this.props.authActions.getUserProfile({user_id:user_id,token:userToken})
+                            this.props.authActions.getUserProfile({user_id:JSON.parse(user_id),token:JSON.parse(userToken)})
                             this.props.navigation.replace(route.LOGIN, { inAPP: true })
                         }
                     }
@@ -242,10 +242,10 @@ class CompleteProfile extends Component {
                 if (response.data.success) {
                     this.setState({ nextSkipLoading: false, })
                     if (userData.email) {
-                        this.props.authActions.getUserProfile({user_id:user_id,token:userToken})
+                        this.props.authActions.getUserProfile({user_id:JSON.parse(user_id),token:JSON.parse(userToken)})
                         this.props.navigation.replace(route.MAIN, { screen: route.SETTING })
                     } else {
-                        this.props.authActions.getUserProfile({user_id:user_id,token:userToken})
+                        this.props.authActions.getUserProfile({user_id:JSON.parse(user_id),token:JSON.parse(userToken)})
                         this.props.navigation.replace(route.LOGIN, { inAPP: true })
 
                     }

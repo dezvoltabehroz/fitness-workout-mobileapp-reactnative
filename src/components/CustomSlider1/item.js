@@ -7,13 +7,13 @@ export class Item extends Component {
         let style;
         switch (this.props.value) {
             case 1:
-                style = 'Not Fit ';
+                style = 'Unfit ';
                 break;
             case 2:
-                style = 'Average Fit ';
+                style = 'Somewhat Fit ';
                 break;
             case 3:
-                style = 'Good Fit ';
+                style = 'Fit ';
                 break;
             case 4:
                 style = 'Very Fit ';

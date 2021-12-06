@@ -11,14 +11,7 @@ import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../../../lib/utils/constants';
 
 
 const HipSizeModal = (props) => {
-    const changeInches = (e) => {
-        if (e <= 70) {
-            props.onChangeText(e)
-        } else {
-            alert("Please enter an appropriate measurement in inches")
-        }
-
-    }
+    console.log(props)
     return (
         <Modal isVisible={props.visible}
             animationInTiming={400}
@@ -38,7 +31,7 @@ const HipSizeModal = (props) => {
                             <>
                                 <Text style={{ fontSize: 16, fontWeight: "bold" }}>BACK PICTIRE</Text>
                                 <View style={{ marginVertical: "5%" }}>
-                                    <Image source={require('../../../assets/images/Back.jpg')} style={{ height: SCREEN_HEIGHT * 0.3, width: SCREEN_WIDTH * 0.6}} />
+                                    <Image source={require('../../../assets/images/Back.jpg')} style={{ height: SCREEN_HEIGHT * 0.3, width: SCREEN_WIDTH * 0.6 }} />
                                 </View>
                             </>
                             :

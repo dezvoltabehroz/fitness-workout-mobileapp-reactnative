@@ -25,17 +25,17 @@ class FitnessLevel extends Component {
     componentDidMount = async () => {
         console.log(this.props.user.userData.fitness_level)
         switch (this.props.user.userData.fitness_level) {
-            case 'Not Fit':
+            case 'Unfit':
                 this.setState({ seclectedValue: 1, value: 1 })
-                await storeLocalData(LOCAL_STORAGE_KEYS.fitnessLevel, JSON.stringify('Not Fit'))
+                await storeLocalData(LOCAL_STORAGE_KEYS.fitnessLevel, JSON.stringify('Unfit'))
                 break;
-            case 'Average Fit':
+            case 'Somewhat Fit':
                 this.setState({ seclectedValue: 2, value: 2 })
-                await storeLocalData(LOCAL_STORAGE_KEYS.fitnessLevel, JSON.stringify('Average Fit'))
+                await storeLocalData(LOCAL_STORAGE_KEYS.fitnessLevel, JSON.stringify('Somewhat Fit'))
                 break;
-            case 'Good Fit':
+            case 'Fit':
                 this.setState({ seclectedValue: 3, value: 3 })
-                await storeLocalData(LOCAL_STORAGE_KEYS.fitnessLevel, JSON.stringify('Good Fit'))
+                await storeLocalData(LOCAL_STORAGE_KEYS.fitnessLevel, JSON.stringify('Fit'))
                 break;
             case 'Very Fit':
                 this.setState({ seclectedValue: 4, value: 4 })
@@ -43,7 +43,7 @@ class FitnessLevel extends Component {
                 break;
             default:
                 this.setState({ seclectedValue: 1, value: 1 })
-                await storeLocalData(LOCAL_STORAGE_KEYS.fitnessLevel, JSON.stringify('Not Fit'))
+                await storeLocalData(LOCAL_STORAGE_KEYS.fitnessLevel, JSON.stringify('Unfit'))
                 break;
         }
         this.resetSlider;
@@ -55,17 +55,17 @@ class FitnessLevel extends Component {
         let goal;
         switch (values) {
             case 1:
-                await storeLocalData(LOCAL_STORAGE_KEYS.fitnessLevel, JSON.stringify('Not Fit'))
+                await storeLocalData(LOCAL_STORAGE_KEYS.fitnessLevel, JSON.stringify('Unfit'))
                 this.setState({ value: values })
                 goal = await getLocalData(LOCAL_STORAGE_KEYS.fitnessLevel)
                 break;
             case 2:
-                await storeLocalData(LOCAL_STORAGE_KEYS.fitnessLevel, JSON.stringify('Average Fit'))
+                await storeLocalData(LOCAL_STORAGE_KEYS.fitnessLevel, JSON.stringify('Somewhat Fit'))
                 this.setState({ value: values })
                 goal = await getLocalData(LOCAL_STORAGE_KEYS.fitnessLevel)
                 break;
             case 3:
-                await storeLocalData(LOCAL_STORAGE_KEYS.fitnessLevel, JSON.stringify('Good Fit'))
+                await storeLocalData(LOCAL_STORAGE_KEYS.fitnessLevel, JSON.stringify('Fit'))
                 this.setState({ value: values })
                 goal = await getLocalData(LOCAL_STORAGE_KEYS.fitnessLevel)
                 break;

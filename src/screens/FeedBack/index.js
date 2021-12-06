@@ -49,6 +49,7 @@ class Feedback extends Component {
         const { user_id, token } = this.props.user.userData;
         SurveysServices.getQuestions(token)
             .then((res) => {
+                console.log(res)
                 let questionArray = [...res.data.data]
                 questionArray.forEach((item, index) => {
                     let options_array = []
@@ -56,12 +57,11 @@ class Feedback extends Component {
                         options_array.push({ ...element, is_check: 0 })
                     })
                     questionArray[index] = { ...questionArray[index], options_array: options_array }
-
                 })
                 console.log('questionArray : ', questionArray)
                 this.setState({ data: questionArray, loading: false })
             })
-            .catch((err) => console.log(err.response))
+            .catch((err) => console.log("err.response : ", err.response))
     }
 
     handleSubmitFunction = () => {
@@ -91,6 +91,8 @@ class Feedback extends Component {
     }
 
     chooseFile = async (item) => {
+        if (Platform.OS == 'android')
+            this.setState({ imageModal: false })
         try {
             ImagePicker.openCamera({
                 width: 300,
@@ -98,19 +100,48 @@ class Feedback extends Component {
                 includeBase64: false,
                 compressImageQuality: 0.1
             }).then(photos => {
+                const { token } = this.props.user.userData;
                 console.log(photos)
+                let formData = new FormData();
+                formData.append('survey_images', {
+                    uri: photos.path,
+                    name: `${new Date().getTime().toString()}.jpg`,
+                    filename: new Date().getTime().toString() + '.jpg',
+                    type: photos.mime
+                })
+                this.setState({ uploading: true });
                 switch (item) {
                     case 'frontImage':
-                        this.setState({ frontImage: photos.path })
+                        SurveysServices.uploadSurveyImages(formData, token)
+                            .then((res) => {
+                                console.log(res.data)
+                                this.setState({ uploading: false, frontImage: res.data.data })
+                            })
+                            .catch((err) => { console.log(err); console.log(err.response) })
                         break;
                     case 'backImage':
-                        this.setState({ backImage: photos.path })
+                        SurveysServices.uploadSurveyImages(formData, token)
+                            .then((res) => {
+                                console.log(res.data)
+                                this.setState({ uploading: false, backImage: res.data.data })
+                            })
+                            .catch((err) => { console.log(err); console.log(err.response) })
                         break;
                     case 'rightImage':
-                        this.setState({ rightImage: photos.path })
+                        SurveysServices.uploadSurveyImages(formData, token)
+                            .then((res) => {
+                                console.log(res.data)
+                                this.setState({ uploading: false, rightImage: res.data.data })
+                            })
+                            .catch((err) => { console.log(err); console.log(err.response) })
                         break;
                     case 'leftImage':
-                        this.setState({ leftImage: photos.path })
+                        SurveysServices.uploadSurveyImages(formData, token)
+                            .then((res) => {
+                                console.log(res.data)
+                                this.setState({ uploading: false, leftImage: res.data.data })
+                            })
+                            .catch((err) => { console.log(err); console.log(err.response) })
                         break;
                 }
             }).catch(err => {
@@ -153,10 +184,12 @@ class Feedback extends Component {
                 console.log(res.data)
                 this.setState({ uploading: false })
                 if (res.data.success) {
+                    this.props.authActions.getUserProfile({ user_id: user_id, token: token })
                     if ((i + 1) == data.length) { this.setState({ submitEnabled: true }) }
                     else {
                         this.setState({ question: i + 1, width: width + SCREEN_WIDTH })
                         this.scroll.scrollTo({ x: this.state.width }); this.setState({ answer: "" })
+
                     }
                 } else {
                     Alert.alert(`${res.data.message}`)
@@ -262,47 +295,18 @@ class Feedback extends Component {
         if (frontImage && backImage && rightImage && leftImage) {
             this.setState({ uploading: true })
             let imagesArray = [];
+            imagesArray.push(frontImage);
+            imagesArray.push(backImage);
+            imagesArray.push(rightImage);
+            imagesArray.push(leftImage);
 
-            let front = {
-                uri: frontImage,
-                name: `${new Date().getTime().toString()}.jpg`,
-                filename: new Date().getTime().toString() + '.jpg',
-                type: 'image/jpg'
+            let formData = {
+                "user_id": parseInt(user_id),
+                "workout_user_id": parseInt(old_workout_user_id),
+                "diet_user_id": 0,
+                "files": imagesArray
             }
-            let back = {
-                uri: frontImage,
-                name: `${new Date().getTime().toString()}.jpg`,
-                filename: new Date().getTime().toString() + '.jpg',
-                type: 'image/jpg'
-            }
-
-            let right = {
-                uri: frontImage,
-                name: `${new Date().getTime().toString()}.jpg`,
-                filename: new Date().getTime().toString() + '.jpg',
-                type: 'image/jpg'
-            }
-            let left = {
-                uri: frontImage,
-                name: `${new Date().getTime().toString()}.jpg`,
-                filename: new Date().getTime().toString() + '.jpg',
-                type: 'image/jpg'
-            }
-            imagesArray.push(front);
-            imagesArray.push(back);
-            imagesArray.push(right);
-            imagesArray.push(left);
-
-            let formData = new FormData()
-
-            imagesArray.map((item) => {
-                formData.append('survey_images', item)
-            })
-            formData.append("user_id", parseInt(user_id))
-            formData.append("workout_user_id", parseInt(old_workout_user_id))
-            formData.append("diet_user_id", 0)
-            console.log(formData);
-            SurveysServices.uploadSurveyImages(formData, token)
+            SurveysServices.updateSurveyImages(formData, token)
                 .then((res) => {
                     console.log(res.data)
                     this.setState({ uploading: false })
@@ -312,10 +316,8 @@ class Feedback extends Component {
         } else {
             Alert.alert("Please select all images")
         }
-
-
-
     }
+
 
     render() {
         const { question, data, width, imageType, imageModal, loading, answers, submitEnabled, hip, submitLoading, answer, frontImage, backImage, rightImage, leftImage } = this.state;
@@ -379,7 +381,9 @@ class Feedback extends Component {
                                                                                     </View>
                                                                                 </ImageBackground>
                                                                                 :
-                                                                                <TouchableOpacity onPress={() => this.chooseFile('frontImage')} style={{ backgroundColor: "lightgray", borderRadius: 20, width: SCREEN_WIDTH * 0.35, marginHorizontal: "2.5%", justifyContent: "center", alignItems: "center", height: 125 }}>
+                                                                                <TouchableOpacity onPress={() => Platform.OS == 'android' ?
+                                                                                    this.setState({ imageType: "frontImage", imageModal: true })
+                                                                                    : this.chooseFile('frontImage')} style={{ backgroundColor: "lightgray", borderRadius: 20, width: SCREEN_WIDTH * 0.35, marginHorizontal: "2.5%", justifyContent: "center", alignItems: "center", height: 125 }}>
                                                                                     <Icon.FontAwesome name="camera" color="gray" size={40} />
                                                                                     <Text style={styles.grayText}>Front Picture</Text>
                                                                                 </TouchableOpacity>}
@@ -392,7 +396,9 @@ class Feedback extends Component {
                                                                                     </View>
                                                                                 </ImageBackground>
                                                                                 :
-                                                                                <TouchableOpacity onPress={() => this.chooseFile('backImage')} style={{ backgroundColor: "lightgray", borderRadius: 20, width: SCREEN_WIDTH * 0.35, marginHorizontal: "2.5%", justifyContent: "center", alignItems: "center", height: 125 }}>
+                                                                                <TouchableOpacity onPress={() => Platform.OS == 'android' ?
+                                                                                    this.setState({ imageType: "backImage", imageModal: true })
+                                                                                    : this.chooseFile('backImage')} style={{ backgroundColor: "lightgray", borderRadius: 20, width: SCREEN_WIDTH * 0.35, marginHorizontal: "2.5%", justifyContent: "center", alignItems: "center", height: 125 }}>
                                                                                     <Icon.FontAwesome name="camera" color="gray" size={40} />
                                                                                     <Text style={styles.grayText}>Back Picture</Text>
                                                                                 </TouchableOpacity>}
@@ -407,7 +413,9 @@ class Feedback extends Component {
                                                                                     </View>
                                                                                 </ImageBackground>
                                                                                 :
-                                                                                <TouchableOpacity onPress={() => this.chooseFile('rightImage')} style={{ backgroundColor: "lightgray", borderRadius: 20, width: SCREEN_WIDTH * 0.35, marginHorizontal: "2.5%", justifyContent: "center", alignItems: "center", height: 125 }}>
+                                                                                <TouchableOpacity onPress={() => Platform.OS == 'android' ?
+                                                                                    this.setState({ imageType: "rightImage", imageModal: true })
+                                                                                    : this.chooseFile('rightImage')} style={{ backgroundColor: "lightgray", borderRadius: 20, width: SCREEN_WIDTH * 0.35, marginHorizontal: "2.5%", justifyContent: "center", alignItems: "center", height: 125 }}>
                                                                                     <Icon.FontAwesome name="camera" color="gray" size={40} />
                                                                                     <Text style={styles.grayText}>Right side Picture</Text>
                                                                                 </TouchableOpacity>}
@@ -420,7 +428,9 @@ class Feedback extends Component {
                                                                                     </View>
                                                                                 </ImageBackground>
                                                                                 :
-                                                                                <TouchableOpacity onPress={() => this.chooseFile('leftImage')} style={{ backgroundColor: "lightgray", borderRadius: 20, width: SCREEN_WIDTH * 0.35, marginHorizontal: "2.5%", justifyContent: "center", alignItems: "center", height: 125 }}>
+                                                                                <TouchableOpacity onPress={() => Platform.OS == 'android' ?
+                                                                                    this.setState({ imageType: "leftImage", imageModal: true })
+                                                                                    : this.chooseFile('leftImage')} style={{ backgroundColor: "lightgray", borderRadius: 20, width: SCREEN_WIDTH * 0.35, marginHorizontal: "2.5%", justifyContent: "center", alignItems: "center", height: 125 }}>
                                                                                     <Icon.FontAwesome name="camera" color="gray" size={40} />
                                                                                     <Text style={styles.grayText}>Left side Picture</Text>
                                                                                 </TouchableOpacity>}

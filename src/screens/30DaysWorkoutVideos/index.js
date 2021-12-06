@@ -64,8 +64,29 @@ class DaysWorkoutVideos extends Component {
                         await this.props.planActions.getWorkoutPlan();
                         await this.props.authActions.getUserProfile({ user_id: user_id, token: token });
                     }
+                    let workdata = {
+                        "workout_user_id": workout_user_id,
+                        "video_id": item.id,
+                        "user_id": user_id
+                    }
+                    ProfileServices.updateWorkoutGraph(workdata, token)
+                        .then(async (response) => {
+                            console.log(response.data)
+                        })
+                        .catch((err) => { console.log(err.response); })
                 })
                 .catch((err) => { console.log(err.response); this.setState({ loading: false }) })
+        } else {
+            let workdata = {
+                "workout_user_id": workout_user_id,
+                "video_id": item.id,
+                "user_id": user_id
+            }
+            ProfileServices.updateWorkoutGraph(workdata, token)
+                .then(async (response) => {
+                    console.log(response.data)
+                })
+                .catch((err) => { console.log(err.response); })
         }
 
     }
@@ -82,7 +103,15 @@ class DaysWorkoutVideos extends Component {
                         {/* <Text style={styles.headingText3}>30S <Text style={styles.timeText}>Total Time</Text> </Text> */}
                     </View>
                     <View style={{ alignItems: "center" }}>
-                        <Icon.AntDesign onPress={() => { this.props.navigation.navigate(route.DAYSWORKOUTVIDEOPLAYER, { data: item, dayCompleted: index + 1 == this.state.videos ? true : false, workout_week: this.props.route.params.workout_week }); this.handleUpdateDailyWorkout(index, item) }} name='play' size={50} color={themeStyle.BAR_COLOR} />
+                        <Icon.AntDesign onPress={() => {
+                            this.props.navigation.navigate(route.DAYSWORKOUTVIDEOPLAYER, {
+                                data: item,
+                                dayCompleted: index + 1 == this.state.videos ? true : false,
+                                workout_week: this.props.route.params.workout_week
+                            });
+                            this.handleUpdateDailyWorkout(index, item)
+                        }}
+                            name='play' size={50} color={themeStyle.BAR_COLOR} />
                     </View>
                     <View style={styles.rowContentContainer} >
                         {/* <Text style={styles.headingText2}>00: 25</Text> */}
