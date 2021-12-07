@@ -25,8 +25,10 @@ export default StyleSheet.create({
     },
     rowContainer: {
         flexDirection: "row",
+        // paddingTop: "5%",
+        // height: 80,
         margin: "5%",
-        justifyContent: "space-between",
+        justifyContent: "space-evenly",
         alignItems: "center"
     },
     rowContainer1: {
@@ -89,7 +91,7 @@ export default StyleSheet.create({
     },
     textStyle1: {
         fontSize: 16,
-        marginRight: "12.5%",
+        // marginRight: "12.5%",
         fontFamily: THEME.FONT_MEDIUM,
         color: THEME.COLOR_BLACK,
         textTransform: "uppercase"
@@ -97,7 +99,7 @@ export default StyleSheet.create({
     },
     textStyle: {
         fontSize: 14,
-        marginRight: "12.5%",
+        // marginRight: "12.5%",
         fontFamily: THEME.FONT_MEDIUM,
         color: '#D4CFCF',
         textTransform: "uppercase"

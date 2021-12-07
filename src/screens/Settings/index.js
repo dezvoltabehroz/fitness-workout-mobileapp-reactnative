@@ -96,6 +96,10 @@ class Settings extends Component {
             case 'privacy':
                 Linking.openURL("https://educogym.com/educogym-privacy-policy/")
                 break;
+            case 'help':
+                Linking.openURL("https://sites.google.com/educogym.com/bodysculpt-help/home")
+                break;
+
             default:
                 break;
         }
@@ -146,12 +150,12 @@ class Settings extends Component {
                             </View>
                             <View style={styles.upperContainer}>
                                 <Text style={styles.heading} >Others</Text>
-                                <View style={styles.rowContainer}>
+                                <TouchableOpacity onPress={() => this.handleOpenUrl('help')} style={styles.rowContainer}>
                                     <Help />
                                     <View style={styles.itemContainer}>
                                         <Text style={styles.text}>Help Center</Text>
                                     </View>
-                                </View>
+                                </TouchableOpacity>
                                 {/* <View style={styles.rowContainer}>
                                     <Email />
                                     <View style={styles.itemContainer}>

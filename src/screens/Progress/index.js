@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, StatusBar, ScrollView, ImageBackground, Image, Platform, UIManager, LayoutAnimation } from 'react-native';
+import { View, Text, TouchableOpacity, StatusBar, ScrollView, ImageBackground, Image, Platform, UIManager, LayoutAnimation, ActivityIndicator } from 'react-native';
 import { LineChart } from "react-native-chart-kit";
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import { connect } from 'react-redux'
@@ -29,7 +29,9 @@ class Progress extends Component {
             timer: false,
             modal: false,
             value: 0,
+            graphData: [],
             expanded: false,
+            laoding: true,
             data: []
         };
         if (Platform.OS === "android") {
@@ -49,7 +51,22 @@ class Progress extends Component {
             });
         })
 
+
+
         const { user_id, token } = this.props.user.userData;
+        ProfileServices.userGraph(user_id, token)
+            .then((res) => {
+                console.log(res.data);
+                let array = [...res.data.data];
+                array.map((item, index) => {
+                    if (item.month == moment().format('MMMM'))
+                        array[index] = { ...array[index], selected: true }
+                    else
+                        array[index] = { ...array[index], selected: false }
+                })
+                this.setState({ graphData: array })
+            })
+            .catch((err) => console.log(err.response))
         ProfileServices.getAllProgressPhoto({ user_id: user_id }, token)
             .then((res) => {
                 console.log(res.data)
@@ -117,27 +134,32 @@ class Progress extends Component {
         return (
             <Container>
                 <StatusBar backgroundColor={THEME.BAR_COLOR} barStyle={"light-content"} />
-                <View style={styles.container}>
-                    <ScrollView contentContainerStyle={{ paddingBottom: "20%", backgroundColor: "white" }}>
+                {this.state.loading ?
+                    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+                        <ActivityIndicator color={'#44BDE8'} />
+                    </View>
+                    :
+                    <View style={styles.container}>
+                        <ScrollView contentContainerStyle={{ paddingBottom: "20%", backgroundColor: "white" }}>
 
-                        <View style={styles.headingContainer1}>
-                            <View style={styles.planContainer}>
-                                <View style={styles.alignItems}>
-                                    <View style={styles.row}>
-                                        <Fire height={SVG_HEIGHT} width={SVG_WIDTH} />
-                                        <Text style={styles.barTextStyle}>{daily_workout_count != undefined && daily_workout_count ? daily_workout_count : 0}</Text>
+                            <View style={styles.headingContainer1}>
+                                <View style={styles.planContainer}>
+                                    <View style={styles.alignItems}>
+                                        <View style={styles.row}>
+                                            <Fire height={SVG_HEIGHT} width={SVG_WIDTH} />
+                                            <Text style={styles.barTextStyle}>{daily_workout_count != undefined && daily_workout_count ? daily_workout_count : 0}</Text>
+                                        </View>
+                                        <Text style={styles.decsTextStyle}>WORKOUT DAYS</Text>
                                     </View>
-                                    <Text style={styles.decsTextStyle}>WORKOUT DAYS</Text>
-                                </View>
-                                <View style={styles.verticalLine} ></View>
-                                <View style={styles.alignItems}>
-                                    <View style={styles.row}>
-                                        <Apple height={SVG_HEIGHT} width={SVG_WIDTH} />
-                                        <Text style={styles.barTextStyle}>{daily_diet_count != undefined && daily_diet_count ? daily_diet_count : 0}</Text>
+                                    <View style={styles.verticalLine} ></View>
+                                    <View style={styles.alignItems}>
+                                        <View style={styles.row}>
+                                            <Apple height={SVG_HEIGHT} width={SVG_WIDTH} />
+                                            <Text style={styles.barTextStyle}>{daily_diet_count != undefined && daily_diet_count ? daily_diet_count : 0}</Text>
+                                        </View>
+                                        <Text style={styles.decsTextStyle}>DIET DAYS</Text>
                                     </View>
-                                    <Text style={styles.decsTextStyle}>DIET DAYS</Text>
-                                </View>
-                                {/* <View style={styles.verticalLine} ></View>
+                                    {/* <View style={styles.verticalLine} ></View>
                                 <View style={styles.alignItems}>
                                     <View style={styles.row}>
                                         <BMI height={SVG_HEIGHT} width={SVG_WIDTH} />
@@ -145,98 +167,108 @@ class Progress extends Component {
                                     </View>
                                     <Text style={styles.decsTextStyle}>BMI</Text>
                                 </View> */}
+                                </View>
                             </View>
-                        </View>
-                        {is_pro == 1 ?
-                            <>
-                                <View style={styles.rowContainer}>
-                                    <Text style={styles.textStyle1}>Current</Text>
-                                    <Text style={styles.textStyle}>May</Text>
-                                    <Text style={styles.textStyle}>June</Text>
-                                    <Text style={styles.textStyle}>July</Text>
-                                </View>
-                                <View style={{ justifyContent: 'center', alignItems: 'center', }}>
-                                    <LineChart
-                                        style={{
-                                            marginVertical: 8,
-                                            borderRadius: 16,
-                                        }}
-                                        data={{
-                                            labels: ["01", "02", "03", "04", "05", "06", "07", "08", "09"],
-                                            datasets: [
-                                                {
-                                                    data: [
-                                                        45,
-                                                        15,
-                                                        98,
-                                                        66,
-                                                        32,
-                                                        78
-                                                        // Math.random() * 100,
-                                                        // Math.random() * 100,
-                                                        // Math.random() * 100,
-                                                        // Math.random() * 100,
-                                                        // Math.random() * 100,
-                                                        // Math.random() * 100
-                                                    ]
-                                                }
-                                            ]
-                                        }}
-                                        width={SCREEN_WIDTH * 1.15}
-                                        height={220}
-                                        yAxisLabel=""
-                                        withHorizontalLines={true}
-                                        withVerticalLines={false}
-                                        withInnerLines={true}
-                                        withOuterLines={true}
-                                        withShadow={false}
-                                        yAxisInterval={0} // optional, defaults to 1
-                                        chartConfig={{
-                                            backgroundColor: 'white',
-                                            backgroundGradientFrom: "white",
-                                            backgroundGradientTo: "white",
-                                            decimalPlaces: 0, // optional, defaults to 2dp
-                                            color: () => `rgba(68, 189, 232, 1)`,
-                                            labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-                                            style: {
-                                                borderRadius: 16,
-                                            },
-                                            propsForDots: {
-                                                r: "3",
-                                                strokeWidth: "1",
-                                                stroke: "#44BDE8"
+                            {
+                                is_pro == 1 ?
+                                    <View style={styles.rowContainer}>
+                                        {this.state.graphData.map((item, index) => {
+                                            return (
+                                                <TouchableOpacity onPress={() => {
+                                                    let array = [...this.state.graphData];
+                                                    array.map((element, i) => {
+                                                        array[i] = { ...array[i], selected: false }
+                                                    })
+                                                    array[index] = { ...array[index], selected: true }
+                                                    this.setState({ graphData: array })
+                                                }} >
+                                                    <Text style={item.selected ? styles.textStyle1 : styles.textStyle}>{item.month}</Text>
+                                                </TouchableOpacity>
+                                            )
+                                        })}
+                                    </View>
+                                    :
+                                    null
+                            }
+                            {is_pro == 1 ?
+                                <>
+                                    {this.state.graphData.map((item, index) => {
+                                        return (
+                                            <>
+                                                {item.selected ?
+                                                    <View style={{ justifyContent: 'center', alignItems: 'center', }}>
+                                                        <LineChart
+                                                            style={{
+                                                                marginVertical: 8,
+                                                                borderRadius: 16,
+                                                            }}
+                                                            data={{
+                                                                labels: ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5"],
+                                                                datasets: [
+                                                                    {
+                                                                        data: item.data
+                                                                    }
+                                                                ]
+                                                            }}
+                                                            width={SCREEN_WIDTH * 1.15}
+                                                            height={220}
+                                                            yAxisLabel=""
+                                                            withHorizontalLines={true}
+                                                            withVerticalLines={false}
+                                                            withInnerLines={true}
+                                                            withOuterLines={true}
+                                                            withShadow={false}
+                                                            yAxisInterval={0} // optional, defaults to 1
+                                                            chartConfig={{
+                                                                backgroundColor: 'white',
+                                                                backgroundGradientFrom: "white",
+                                                                backgroundGradientTo: "white",
+                                                                decimalPlaces: 0, // optional, defaults to 2dp
+                                                                color: () => `rgba(68, 189, 232, 1)`,
+                                                                labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+                                                                style: {
+                                                                    borderRadius: 16,
+                                                                },
+                                                                propsForDots: {
+                                                                    r: "3",
+                                                                    strokeWidth: "1",
+                                                                    stroke: "#44BDE8"
 
-                                            },
-                                            propsForHorizontalLabels: {
-                                                alignmentBaseline: 'text-before-edge'
-                                            },
-                                            propsForBackgroundLines: {
-                                                strokeDasharray: '',
-                                                stroke: "lightgrey",
-                                                // strokeWidth: "1"
-                                            },
-                                        }}
-                                        // bezier
-                                        style={{
-                                            marginVertical: 8,
-                                            borderRadius: 16,
-                                            marginLeft: 0,
-                                            paddingLeft: 0
-                                        }}
-                                        verticalLabelRotation={0}
-                                    />
-                                </View>
-                                <View style={styles.divider}></View>
-                            </> : null}
+                                                                },
+                                                                propsForHorizontalLabels: {
+                                                                    alignmentBaseline: 'text-before-edge'
+                                                                },
+                                                                propsForBackgroundLines: {
+                                                                    strokeDasharray: '',
+                                                                    stroke: "lightgrey",
+                                                                    // strokeWidth: "1"
+                                                                },
+                                                            }}
+                                                            // bezier
+                                                            style={{
+                                                                marginVertical: 8,
+                                                                borderRadius: 16,
+                                                                marginLeft: 0,
+                                                                paddingLeft: 0
+                                                            }}
+                                                            verticalLabelRotation={0}
+                                                        />
+                                                    </View> : null}
+                                                <View style={styles.divider}></View>
+                                            </>
+                                        )
+                                    })}
+                                </>
+                                : null}
 
-                        <View style={styles.bmiContainer}>
-                            {/* <View style={styles.rowContainer}>
+                            <View style={styles.bmiContainer}>
+                                {/* <View style={styles.rowContainer}>
                                 <Text style={styles.blackheading}>BMI(kg/m2) : {parseFloat(bmi).toFixed(2)}</Text>
                                 <TouchableOpacity>
                                     <Text style={styles.colorText}>{screen.EDIT}</Text>
                                 </TouchableOpacity>
                             </View> */}
-                            {/* <View style={styles.row} >
+                                {/* <View style={styles.row} >
                                 <View style={{ height: 10, width: SCREEN_WIDTH * 0.15, backgroundColor: "#9BE5FF" }}></View>
                                 <View style={{ width: 5 }}></View>
                                 <View style={{ height: 10, width: SCREEN_WIDTH * 0.15, backgroundColor: "#4E44E0" }}></View>
@@ -259,134 +291,135 @@ class Progress extends Component {
                                 <View style={{ width: 5 }}></View>
                                 <View style={{ height: 10, width: SCREEN_WIDTH * 0.05, backgroundColor: "#D33946" }}></View>
                             </View> */}
-                            <View style={styles.rowContainer1}>
-                                <Text style={styles.blackText}>Height</Text>
-                                <Text style={[styles.grayText, { textDecorationLine: "underline" }]}>{`${height_feet != undefined && height_feet ? height_feet : 0} FT ${height_inches != undefined && height_inches ? height_inches : 0} IN`}</Text>
-                                {/* <TouchableOpacity>
+                                <View style={styles.rowContainer1}>
+                                    <Text style={styles.blackText}>Height</Text>
+                                    <Text style={[styles.grayText, { textDecorationLine: "underline" }]}>{`${height_feet != undefined && height_feet ? height_feet : 0} FT ${height_inches != undefined && height_inches ? height_inches : 0} IN`}</Text>
+                                    {/* <TouchableOpacity>
                                     <Text style={styles.colorText}>{screen.EDIT}</Text>
                                 </TouchableOpacity> */}
-                            </View>
-                            <View style={styles.rowContainer1}>
-                                <Text style={styles.blackText}>Weight</Text>
-                                <Text style={[styles.grayText, { textDecorationLine: "underline" }]}>{weight != undefined && weight ? weight : 0}</Text>
-                                {/* <TouchableOpacity>
+                                </View>
+                                <View style={styles.rowContainer1}>
+                                    <Text style={styles.blackText}>Weight</Text>
+                                    <Text style={[styles.grayText, { textDecorationLine: "underline" }]}>{weight != undefined && weight ? weight : 0}</Text>
+                                    {/* <TouchableOpacity>
                                     <Text style={styles.colorText}>{screen.EDIT}</Text>
                                 </TouchableOpacity> */}
-                            </View>
-                            {/* <View style={styles.rowContainer1}>
+                                </View>
+                                {/* <View style={styles.rowContainer1}>
                                 <Text style={styles.colorText}>Current</Text>
                                 <TouchableOpacity>
                                     <Text style={[styles.grayText, { textDecorationLine: "underline" }]}>{`${height_feet ? height_feet : 0} FT ${height_inches ? height_inches : 0} IN`}</Text>
                                 </TouchableOpacity>
                             </View> */}
-                        </View>
-                        <View style={styles.divider}></View>
-                        <View style={styles.bmiContainer}>
-                            <View style={styles.rowContainer}>
-                                <Text style={styles.blackheading}>MY MEASUREMENTS</Text>
-                                <TouchableOpacity onPress={this.changeMeasurements}>
-                                    <Text style={styles.colorText}>{this.state.expanded ? 'SEE LESS' : screen.SEEMORE}</Text>
-                                </TouchableOpacity>
                             </View>
-                            <View style={styles.rowMeasureContainer}>
-                                <Text style={styles.grayText}>Arm Size</Text>
-                                <TouchableOpacity>
-                                    <Text style={styles.colorText1}>{arm_size} IN</Text>
-                                </TouchableOpacity>
-                            </View>
-                            <View style={styles.rowMeasureContainer}>
-                                <Text style={styles.grayText}>Chest Size</Text>
-                                <TouchableOpacity>
-                                    <Text style={styles.colorText1}>{chest_size} IN</Text>
-                                </TouchableOpacity>
-                            </View>
-                            <View style={this.state.expanded ? styles.rowMeasureContainer : styles.rowContainer}>
-                                <Text style={styles.grayText}>Shoulder Size</Text>
-                                <TouchableOpacity>
-                                    <Text style={styles.colorText1}>{shoulder_size} IN</Text>
-                                </TouchableOpacity>
-                            </View>
-                            {this.state.expanded ?
-                                <>
-                                    <View style={styles.rowMeasureContainer}>
-                                        <Text style={styles.grayText}>Waist Size</Text>
-                                        <TouchableOpacity>
-                                            <Text style={styles.colorText1}>{waist_size} IN</Text>
-                                        </TouchableOpacity>
-                                    </View>
-                                    <View style={styles.rowMeasureContainer}>
-                                        <Text style={styles.grayText}>Tummy Size</Text>
-                                        <TouchableOpacity>
-                                            <Text style={styles.colorText1}>{tummy_size} IN</Text>
-                                        </TouchableOpacity>
-                                    </View>
-                                    <View style={styles.rowMeasureContainer}>
-                                        <Text style={styles.grayText}>Hip Size</Text>
-                                        <TouchableOpacity>
-                                            <Text style={styles.colorText1}>{hip_size} IN</Text>
-                                        </TouchableOpacity>
-                                    </View>
-                                    <View style={styles.rowMeasureContainer}>
-                                        <Text style={styles.grayText}>Thigh Size</Text>
-                                        <TouchableOpacity>
-                                            <Text style={styles.colorText1}>{thigh_size ? thigh_size : 0} IN</Text>
-                                        </TouchableOpacity>
-                                    </View>
-                                    <View style={styles.rowContainer}>
-                                        <Text style={styles.grayText}>Calf Size</Text>
-                                        <TouchableOpacity>
-                                            <Text style={styles.colorText1}>{calf_size ? calf_size : 0} IN</Text>
-                                        </TouchableOpacity>
-                                    </View>
-                                </>
-                                : null
-                            }
-                        </View>
-                        {
-                            is_pro == 1 ?
-                                <>
-                                    <View style={styles.divider}></View>
-                                    <View style={styles.bmiContainer}>
-                                        <View style={styles.rowContainer}>
-                                            <Text style={styles.blackheading}>PROGRESS PICS</Text>
-                                            <TouchableOpacity onPress={() => this.props.navigation.navigate(route.PROGRESSPICS)}>
-                                                <Text style={styles.colorText}>{screen.SEEMORE}</Text>
+                            <View style={styles.divider}></View>
+                            <View style={styles.bmiContainer}>
+                                <View style={styles.rowContainer}>
+                                    <Text style={styles.blackheading}>MY MEASUREMENTS</Text>
+                                    <TouchableOpacity onPress={this.changeMeasurements}>
+                                        <Text style={styles.colorText}>{this.state.expanded ? 'SEE LESS' : screen.SEEMORE}</Text>
+                                    </TouchableOpacity>
+                                </View>
+                                <View style={styles.rowMeasureContainer}>
+                                    <Text style={styles.grayText}>Arm Size</Text>
+                                    <TouchableOpacity>
+                                        <Text style={styles.colorText1}>{arm_size} IN</Text>
+                                    </TouchableOpacity>
+                                </View>
+                                <View style={styles.rowMeasureContainer}>
+                                    <Text style={styles.grayText}>Chest Size</Text>
+                                    <TouchableOpacity>
+                                        <Text style={styles.colorText1}>{chest_size} IN</Text>
+                                    </TouchableOpacity>
+                                </View>
+                                <View style={this.state.expanded ? styles.rowMeasureContainer : styles.rowContainer}>
+                                    <Text style={styles.grayText}>Shoulder Size</Text>
+                                    <TouchableOpacity>
+                                        <Text style={styles.colorText1}>{shoulder_size} IN</Text>
+                                    </TouchableOpacity>
+                                </View>
+                                {this.state.expanded ?
+                                    <>
+                                        <View style={styles.rowMeasureContainer}>
+                                            <Text style={styles.grayText}>Waist Size</Text>
+                                            <TouchableOpacity>
+                                                <Text style={styles.colorText1}>{waist_size} IN</Text>
                                             </TouchableOpacity>
                                         </View>
-                                    </View>
-
-                                    {
-                                        this.state.data.length == 0 ?
-                                            <View style={{ justifyContent: "center", alignItems: "center", height: SCREEN_HEIGHT * 0.3, width: SCREEN_WIDTH, backgroundColor: "#E4E4E4" }}>
-                                                <Text>No progress photo found!</Text>
+                                        <View style={styles.rowMeasureContainer}>
+                                            <Text style={styles.grayText}>Tummy Size</Text>
+                                            <TouchableOpacity>
+                                                <Text style={styles.colorText1}>{tummy_size} IN</Text>
+                                            </TouchableOpacity>
+                                        </View>
+                                        <View style={styles.rowMeasureContainer}>
+                                            <Text style={styles.grayText}>Hip Size</Text>
+                                            <TouchableOpacity>
+                                                <Text style={styles.colorText1}>{hip_size} IN</Text>
+                                            </TouchableOpacity>
+                                        </View>
+                                        <View style={styles.rowMeasureContainer}>
+                                            <Text style={styles.grayText}>Thigh Size</Text>
+                                            <TouchableOpacity>
+                                                <Text style={styles.colorText1}>{thigh_size ? thigh_size : 0} IN</Text>
+                                            </TouchableOpacity>
+                                        </View>
+                                        <View style={styles.rowContainer}>
+                                            <Text style={styles.grayText}>Calf Size</Text>
+                                            <TouchableOpacity>
+                                                <Text style={styles.colorText1}>{calf_size ? calf_size : 0} IN</Text>
+                                            </TouchableOpacity>
+                                        </View>
+                                    </>
+                                    : null
+                                }
+                            </View>
+                            {
+                                is_pro == 1 ?
+                                    <>
+                                        <View style={styles.divider}></View>
+                                        <View style={styles.bmiContainer}>
+                                            <View style={styles.rowContainer}>
+                                                <Text style={styles.blackheading}>PROGRESS PICS</Text>
+                                                <TouchableOpacity onPress={() => this.props.navigation.navigate(route.PROGRESSPICS)}>
+                                                    <Text style={styles.colorText}>{screen.SEEMORE}</Text>
+                                                </TouchableOpacity>
                                             </View>
-                                            :
-                                            <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-around" }}>
-                                                <View style={styles.container1} onPress={() => this.props.navigation.navigate(route.DIETPLAN)}>
-                                                    <ImageBackground resizeMode="contain" source={{ uri: this.state.data[0] }} style={{ height: SCREEN_HEIGHT * 0.3, width: SCREEN_WIDTH * 0.49 }} >
-                                                        <View style={styles.overlay} />
-                                                        <View style={styles.dateContainer}>
-                                                            <Text style={styles.dateText}>{moment().format('ll')}</Text>
-                                                        </View>
-                                                    </ImageBackground>
-                                                </View>
-                                                <View style={styles.container1} onPress={() => this.props.navigation.navigate(route.DIETPLAN)}>
-                                                    <ImageBackground resizeMode="contain" source={{ uri: this.state.data[1] }} style={{ height: SCREEN_HEIGHT * 0.3, width: SCREEN_WIDTH * 0.49 }}>
+                                        </View>
 
-                                                        <View style={styles.overlay} />
-                                                        <View style={styles.dateContainer}>
-                                                            <Text style={styles.dateText}>{moment().format('ll')}</Text>
-                                                        </View>
-                                                    </ImageBackground>
+                                        {
+                                            this.state.data.length == 0 ?
+                                                <View style={{ justifyContent: "center", alignItems: "center", height: SCREEN_HEIGHT * 0.3, width: SCREEN_WIDTH, backgroundColor: "#E4E4E4" }}>
+                                                    <Text>No progress photo found!</Text>
                                                 </View>
-                                            </View>
-                                    }
-                                </>
-                                :
-                                null
-                        }
-                    </ScrollView>
-                </View>
+                                                :
+                                                <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-around" }}>
+                                                    <View style={styles.container1} onPress={() => this.props.navigation.navigate(route.DIETPLAN)}>
+                                                        <ImageBackground resizeMode="contain" source={{ uri: this.state.data[0] }} style={{ height: SCREEN_HEIGHT * 0.3, width: SCREEN_WIDTH * 0.49 }} >
+                                                            <View style={styles.overlay} />
+                                                            <View style={styles.dateContainer}>
+                                                                <Text style={styles.dateText}>{moment().format('ll')}</Text>
+                                                            </View>
+                                                        </ImageBackground>
+                                                    </View>
+                                                    <View style={styles.container1} onPress={() => this.props.navigation.navigate(route.DIETPLAN)}>
+                                                        <ImageBackground resizeMode="contain" source={{ uri: this.state.data[1] }} style={{ height: SCREEN_HEIGHT * 0.3, width: SCREEN_WIDTH * 0.49 }}>
+
+                                                            <View style={styles.overlay} />
+                                                            <View style={styles.dateContainer}>
+                                                                <Text style={styles.dateText}>{moment().format('ll')}</Text>
+                                                            </View>
+                                                        </ImageBackground>
+                                                    </View>
+                                                </View>
+                                        }
+                                    </>
+                                    :
+                                    null
+                            }
+                        </ScrollView>
+                    </View>
+                }
                 <UpgradeModal visible={this.state.modal} onUpgrade={() => this.setState({ modal: false }, () => this.props.navigation.navigate(route.PAYMENTMETHOD, {}))} onSkip={() => this.setState({ modal: false })} />
                 <UploadingModal visible={this.state.uploading} />
             </Container>

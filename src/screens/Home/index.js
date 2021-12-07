@@ -4,7 +4,7 @@ import ProgressBarAnimated from 'react-native-progress-bar-animated';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 import { authActions } from '../../redux/actions/auth';
-import { Button, Container, HorizontalList, UpgradeModal } from '../../components';
+import { Button, Container, FocusAreaModal, HorizontalList, UpgradeModal } from '../../components';
 import { route, screen, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../lib/utils/constants';
 import GFire from '../../assets/svg/Gfire.svg';
 import WFire from '../../assets/svg/Bfire.svg';
@@ -12,6 +12,7 @@ import Fire from '../../assets/svg/fire.svg';
 import BMI from '../../assets/svg/bmi.svg';
 import Apple from '../../assets/svg/apple.svg';
 import Target from '../../assets/svg/pro-btn.svg';
+import Target1 from '../../assets/svg/help-1.svg';
 import Blue from '../../assets/svg/blue-bg-star.svg';
 
 import THEME from '../../assets/styles/theme.style';
@@ -31,6 +32,7 @@ class Home extends Component {
         this.state = {
             timer: false,
             value: 0,
+            focusModal: false,
             fitnessLevel: "Very Fit",
             challenges: [],
             dietLoading: false,
@@ -172,13 +174,33 @@ class Home extends Component {
                 <StatusBar backgroundColor={THEME.BAR_COLOR} barStyle={"light-content"} />
                 <View style={styles.container}>
                     <View style={styles.headingContainer}>
-                        <View style={{ ...styles.rowContainer, marginBottom: '2.5%' }}>
-                            <Text style={styles.whiteTextStyle}>YOUR PERSONALIZED PLAN</Text>
-                            {this.props?.user?.userData?.is_pro == 0 ?
-                                <TouchableOpacity onPress={() => this.setState({ modal: true })}>
-                                    <Target />
-                                </TouchableOpacity> : null}
-                        </View>
+                        {
+                            this.props?.user?.userData?.is_pro == 0 ?
+                                <View style={{ ...styles.rowContainer, marginBottom: '2.5%' }}>
+                                    <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
+
+                                        <Text style={styles.whiteTextStyle}>YOUR PERSONALIZED PLAN</Text>
+                                        <View style={{ width: SCREEN_WIDTH * 0.125 }} />
+                                        <TouchableOpacity onPress={() => this.setState({ focusModal: true })}>
+                                            <Target1 width={40} />
+                                        </TouchableOpacity>
+                                    </View>
+                                    {this.props?.user?.userData?.is_pro == 0 ?
+                                        <TouchableOpacity onPress={() => this.setState({ modal: true })}>
+                                            <Target />
+                                        </TouchableOpacity> : null}
+
+                                </View>
+                                :
+                                <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
+
+                                    <Text style={styles.whiteTextStyle}>YOUR PERSONALIZED PLAN</Text>
+                                    <View style={{ width: SCREEN_WIDTH * 0.125 }} />
+                                    <TouchableOpacity onPress={() => this.setState({ focusModal: true })}>
+                                        <Target1 width={40} />
+                                    </TouchableOpacity>
+                                </View>
+                        }
                     </View>
                     <ScrollView contentContainerStyle={{ marginBottom: 0 }}>
                         <View style={styles.headingContainer1}>
@@ -259,6 +281,7 @@ class Home extends Component {
                     </ScrollView>
                 </View>
                 <UpgradeModal visible={this.state.modal} onUpgrade={() => this.setState({ modal: false }, () => this.props.navigation.navigate(route.PAYMENTMETHOD, {}))} onSkip={() => this.setState({ modal: false })} />
+                <FocusAreaModal visible={this.state.focusModal} onGo={() => this.setState({ focusModal: false }, () => this.props.navigation.navigate(route.IMPORTANTNOTE))} onSkip={() => this.setState({ focusModal: false })} />
             </Container>
         )
     }

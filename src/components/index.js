@@ -105,3 +105,6 @@ export const EmailModal = _EmailModal;
 
 import _ImageStyleModal from './Modals/ImageStyleModal';
 export const ImageStyleModal = _ImageStyleModal;
+
+import _FocusAreaModal from './Modals/FocusAreaModal';
+export const FocusAreaModal = _FocusAreaModal;

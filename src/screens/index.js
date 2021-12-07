@@ -88,6 +88,11 @@ export const FitnessLevel = _FitnessLevel
 import _FocusArea from './FocusArea';
 export const FocusArea = _FocusArea
 
+import _ChangeFocusArea from './ChangeFocusArea';
+export const ChangeFocusArea = _ChangeFocusArea
+
+import _ImportantNote from './ImportantNote';
+export const ImportantNote = _ImportantNote
 
 import _UpdatingPlan from './UpdatingPlan';
 export const UpdatingPlan = _UpdatingPlan

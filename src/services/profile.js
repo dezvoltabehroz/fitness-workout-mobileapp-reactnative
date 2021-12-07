@@ -63,6 +63,12 @@ const Api = {
     },
     deactiveUser: function (data, token) {
         return axiosInstance.post('admin/deactivateUser', data, apiHeaderConfiguration(token, TOKEN))
+    },
+    userGraph: function (user_id, token) {
+        return axiosInstance.post('profile/userGraph', { user_id: user_id }, apiHeaderConfiguration(token, TOKEN))
+    },
+    updateFocusArea: function (data, token) {
+        return axiosInstance.put('profile/updateFocusArea', data, apiHeaderConfiguration(token, TOKEN))
     }
 
 

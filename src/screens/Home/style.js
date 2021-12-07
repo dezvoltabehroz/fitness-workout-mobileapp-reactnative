@@ -110,7 +110,7 @@ export default StyleSheet.create({
         marginHorizontal: 5
     },
     whiteTextStyle: {
-        fontSize: 18,
+        fontSize: 16,
         color: THEME.COLOR_WHITE,
         fontFamily: THEME.FONT_MEDIUM,
     },
