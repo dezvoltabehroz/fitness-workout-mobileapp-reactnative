@@ -67,8 +67,10 @@ class DaysWorkoutVideos extends Component {
                     let workdata = {
                         "workout_user_id": workout_user_id,
                         "video_id": item.id,
+                        "week": `Week ${this.props?.route?.params?.workout_week}`,
                         "user_id": user_id
                     }
+                    console.log(workdata);
                     ProfileServices.updateWorkoutGraph(workdata, token)
                         .then(async (response) => {
                             console.log(response.data)
@@ -80,8 +82,10 @@ class DaysWorkoutVideos extends Component {
             let workdata = {
                 "workout_user_id": workout_user_id,
                 "video_id": item.id,
+                "week": `Week ${this.props?.route?.params?.workout_week}`,
                 "user_id": user_id
             }
+            console.log(workdata);
             ProfileServices.updateWorkoutGraph(workdata, token)
                 .then(async (response) => {
                     console.log(response.data)
