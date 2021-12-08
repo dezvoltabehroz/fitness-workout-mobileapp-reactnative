@@ -1,5 +1,5 @@
-import { StyleSheet } from "react-native";
-import { SCREEN_WIDTH } from "../../lib/utils/constants";
+import { Platform, StyleSheet } from "react-native";
+import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../../lib/utils/constants";
 
 export default StyleSheet.create({
     container: {
@@ -42,5 +42,15 @@ export default StyleSheet.create({
     buttonContainer: {
         marginVertical: "10%",
         marginHorizontal: "15%"
-    }
+    },
+    dashContainer: {
+        flex: 1,
+        paddingTop: Platform.OS == 'ios' ? SCREEN_HEIGHT >= 812 ? '22.5%' : '15%' : '12.5%',
+        alignItems: "center",
+        flexDirection: "row",
+        justifyContent: "center"
+    },
+    rowContainer1: {
+        flexDirection: "row"
+    },
 })

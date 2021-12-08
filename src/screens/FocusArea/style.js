@@ -58,8 +58,8 @@ export default StyleSheet.create({
         width: 100,
              // borderLeftWidth: 2,
         height: 20,
-        right: "55%",
-        top: "42%"
+        right: "52%",
+        top: "50%"
     },
     chestStyle: {
         position: "absolute",

@@ -14,17 +14,15 @@ class AppIntro extends Component {
 
     render() {
         return (
-            <View onPress={this.props.goBack} style={styles.rowContainer}>
-              
+            <View onPress={this.props.goBack} style={styles.rowContainer1}>
                 <View style={styles.dashContainer}>
                     <Icon.AntDesign name="minus" size={55} color={THEME.DASH_DARK} />
                     <Icon.AntDesign name="minus" size={55} color={THEME.DASH_DARK} />
                     <Icon.AntDesign name="minus" size={55} color={THEME.DASH_DARK} />
-                    <Icon.AntDesign name="minus" size={55} color={THEME.DASH_LIGHT} />
-                    <Icon.AntDesign name="minus" size={55} color={THEME.DASH_LIGHT} />
+                    <Icon.AntDesign name="minus" size={55} color={THEME.DASH_DARK} />
+                    <Icon.AntDesign name="minus" size={55} color={THEME.DASH_DARK} />
                     <Icon.AntDesign name="minus" size={60} color={THEME.DASH_LIGHT} />
                 </View>
-                
             </View>
 
 

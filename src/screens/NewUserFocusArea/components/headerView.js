@@ -22,6 +22,7 @@ class AppIntro extends Component {
                     <Icon.AntDesign name="minus" size={55} color={THEME.COLOR_WHITE} />
                     <Icon.AntDesign name="minus" size={55} color={THEME.COLOR_WHITE} />
                     <Icon.AntDesign name="minus" size={55} color={THEME.COLOR_WHITE} />
+                    <Icon.AntDesign name="minus" size={55} color={THEME.COLOR_WHITE} />
                 </View>
          
             </View>

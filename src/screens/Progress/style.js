@@ -31,9 +31,18 @@ export default StyleSheet.create({
         justifyContent: "space-evenly",
         alignItems: "center"
     },
+    rowContainer2: {
+        flexDirection: "row",
+        // paddingTop: "5%",
+        // height: 80,
+        margin: "5%",
+        justifyContent: "space-evenly",
+        alignItems: "center"
+    },
     rowContainer1: {
         flexDirection: "row",
         marginHorizontal: "5%",
+        paddingTop: '5%',
         marginBottom: "2.5%",
         justifyContent: "space-between",
         alignItems: "center"
@@ -94,16 +103,16 @@ export default StyleSheet.create({
         // marginRight: "12.5%",
         fontFamily: THEME.FONT_MEDIUM,
         color: THEME.COLOR_BLACK,
-        textTransform: "uppercase"
-        // marginHorizontal: 5
+        textTransform: "uppercase",
+        marginHorizontal: 30
     },
     textStyle: {
         fontSize: 14,
         // marginRight: "12.5%",
         fontFamily: THEME.FONT_MEDIUM,
         color: '#D4CFCF',
-        textTransform: "uppercase"
-        // marginHorizontal: 5
+        textTransform: "uppercase",
+        marginHorizontal: 30
     },
     blackText: {
         fontSize: 14,

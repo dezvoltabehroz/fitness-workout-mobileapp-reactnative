@@ -1,6 +1,6 @@
 import moment from 'moment';
 import React, { Component } from 'react';
-import { Alert, FlatList, Text, View, ActivityIndicator, TouchableOpacity, ScrollView, ImageBackground, Platform } from 'react-native';
+import { Alert, FlatList, Text, View, ActivityIndicator, TouchableOpacity, ScrollView, ImageBackground, Platform, Linking } from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
 
 import ProgressBarAnimated from 'react-native-progress-bar-animated';
@@ -318,6 +318,10 @@ class Feedback extends Component {
         }
     }
 
+    handleOpenUrl = () => {
+        Linking.openURL("https://sites.google.com/educogym.com/bodysculpt-meassurements/home")
+
+    }
 
     render() {
         const { question, data, width, imageType, imageModal, loading, answers, submitEnabled, hip, submitLoading, answer, frontImage, backImage, rightImage, leftImage } = this.state;
@@ -435,6 +439,7 @@ class Feedback extends Component {
                                                                                     <Text style={styles.grayText}>Left side Picture</Text>
                                                                                 </TouchableOpacity>}
                                                                         </View>
+                                                                        <Text style={{ marginTop: "15%", textAlign: "center", color: "blue", textDecorationLine: "underline" }} onPress={() => this.handleOpenUrl()}>How to measure yourself?</Text>
                                                                     </View>
                                                                     :
                                                                     item.options_array.length == 0 ?
@@ -469,7 +474,7 @@ class Feedback extends Component {
                                                                 }
                                                             </View>
                                                         </View>
-                                                        <View style={{ marginTop: "30%" }}>
+                                                        <View style={{ marginTop: "20%" }}>
                                                             {submitEnabled ?
                                                                 <Button loading={submitLoading} title={"Submit"} onPress={() => this.setState({ submitLoading: true }, () => this.handleSubmitFunction())} />
                                                                 :

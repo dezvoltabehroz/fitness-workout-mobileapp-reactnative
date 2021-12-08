@@ -172,20 +172,22 @@ class Progress extends Component {
                             {
                                 is_pro == 1 ?
                                     <View style={styles.rowContainer}>
-                                        {this.state.graphData.map((item, index) => {
-                                            return (
-                                                <TouchableOpacity onPress={() => {
-                                                    let array = [...this.state.graphData];
-                                                    array.map((element, i) => {
-                                                        array[i] = { ...array[i], selected: false }
-                                                    })
-                                                    array[index] = { ...array[index], selected: true }
-                                                    this.setState({ graphData: array })
-                                                }} >
-                                                    <Text style={item.selected ? styles.textStyle1 : styles.textStyle}>{item.month}</Text>
-                                                </TouchableOpacity>
-                                            )
-                                        })}
+                                        <ScrollView horizontal={true} contentContainerStyle={{ paddingRight: "10%" }}>
+                                            {this.state.graphData.map((item, index) => {
+                                                return (
+                                                    <TouchableOpacity onPress={() => {
+                                                        let array = [...this.state.graphData];
+                                                        array.map((element, i) => {
+                                                            array[i] = { ...array[i], selected: false }
+                                                        })
+                                                        array[index] = { ...array[index], selected: true }
+                                                        this.setState({ graphData: array })
+                                                    }}  >
+                                                        <Text style={item.selected ? styles.textStyle1 : styles.textStyle}>{item.month}</Text>
+                                                    </TouchableOpacity>
+                                                )
+                                            })}
+                                        </ScrollView>
                                     </View>
                                     :
                                     null
@@ -314,7 +316,7 @@ class Progress extends Component {
                             </View>
                             <View style={styles.divider}></View>
                             <View style={styles.bmiContainer}>
-                                <View style={styles.rowContainer}>
+                                <View style={styles.rowContainer1}>
                                     <Text style={styles.blackheading}>MY MEASUREMENTS</Text>
                                     <TouchableOpacity onPress={this.changeMeasurements}>
                                         <Text style={styles.colorText}>{this.state.expanded ? 'SEE LESS' : screen.SEEMORE}</Text>
@@ -332,7 +334,7 @@ class Progress extends Component {
                                         <Text style={styles.colorText1}>{chest_size} IN</Text>
                                     </TouchableOpacity>
                                 </View>
-                                <View style={this.state.expanded ? styles.rowMeasureContainer : styles.rowContainer}>
+                                <View style={this.state.expanded ? styles.rowMeasureContainer : styles.rowContainer1}>
                                     <Text style={styles.grayText}>Shoulder Size</Text>
                                     <TouchableOpacity>
                                         <Text style={styles.colorText1}>{shoulder_size} IN</Text>
@@ -364,7 +366,7 @@ class Progress extends Component {
                                                 <Text style={styles.colorText1}>{thigh_size ? thigh_size : 0} IN</Text>
                                             </TouchableOpacity>
                                         </View>
-                                        <View style={styles.rowContainer}>
+                                        <View style={styles.rowContainer1}>
                                             <Text style={styles.grayText}>Calf Size</Text>
                                             <TouchableOpacity>
                                                 <Text style={styles.colorText1}>{calf_size ? calf_size : 0} IN</Text>
@@ -379,7 +381,7 @@ class Progress extends Component {
                                     <>
                                         <View style={styles.divider}></View>
                                         <View style={styles.bmiContainer}>
-                                            <View style={styles.rowContainer}>
+                                            <View style={styles.rowContainer1}>
                                                 <Text style={styles.blackheading}>PROGRESS PICS</Text>
                                                 <TouchableOpacity onPress={() => this.props.navigation.navigate(route.PROGRESSPICS)}>
                                                     <Text style={styles.colorText}>{screen.SEEMORE}</Text>

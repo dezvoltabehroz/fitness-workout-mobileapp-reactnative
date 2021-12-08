@@ -48,9 +48,9 @@ class AppIntro extends Component {
                             storeLocalData(LOCAL_STORAGE_KEYS.gender, JSON.stringify('Male'))
                             setTimeout(() => {
                                 if (this.props.route?.params?.update) {
-                                    navigate(route.FOCUSAREA, { gender: 'Male' })
+                                    navigate(route.IMPORTANTNOTE, { gender: 'Male', newUser: false })
                                 } else {
-                                    navigate(route.APPINTRO5th, { gender: 'male' })
+                                    navigate(route.IMPORTANTNOTE, { gender: 'male', newUser: true })
                                 }
                             }, 500)
                         })} >
@@ -69,9 +69,9 @@ class AppIntro extends Component {
                             storeLocalData(LOCAL_STORAGE_KEYS.gender, JSON.stringify('Female'))
                             setTimeout(() => {
                                 if (this.props.route?.params?.update) {
-                                    navigate(route.FOCUSAREA, { gender: 'Female' })
+                                    navigate(route.IMPORTANTNOTE, { gender: 'Female', newUser: false })
                                 } else {
-                                    navigate(route.APPINTRO5th, { gender: 'female' })
+                                    navigate(route.IMPORTANTNOTE, { gender: 'female', newUser: true })
                                 }
                             }, 500)
                         })}>

@@ -28,7 +28,7 @@ const HipSizeModal = (props) => {
                     <Text style={styles.headingText}>Hip Size</Text>
                 </View>
                 <View style={{ marginBottom: "10%" }}>
-                    <Input keyboardType={"number-pad"} placeholder=' ' onChangeText={(e) => changeInches(e)} />
+                    <Input keyboardType={"number-pad"} placeholder='0.0' onChangeText={(e) => changeInches(e)} />
                 </View>
 
 

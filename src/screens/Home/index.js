@@ -281,7 +281,7 @@ class Home extends Component {
                     </ScrollView>
                 </View>
                 <UpgradeModal visible={this.state.modal} onUpgrade={() => this.setState({ modal: false }, () => this.props.navigation.navigate(route.PAYMENTMETHOD, {}))} onSkip={() => this.setState({ modal: false })} />
-                <FocusAreaModal visible={this.state.focusModal} onGo={() => this.setState({ focusModal: false }, () => this.props.navigation.navigate(route.IMPORTANTNOTE))} onSkip={() => this.setState({ focusModal: false })} />
+                <FocusAreaModal visible={this.state.focusModal} onGo={() => this.setState({ focusModal: false }, () => this.props.navigation.navigate(route.IMPORTANTNOTE, { newUser: null }))} onSkip={() => this.setState({ focusModal: false })} />
             </Container>
         )
     }
