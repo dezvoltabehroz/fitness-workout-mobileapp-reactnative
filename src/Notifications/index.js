@@ -165,6 +165,7 @@ class Notifications {
             channelId: 'reminders',
             title: '🔔 Reminder!',
             message: this.GFG_Fun(),
+            // repeatType:"minute",
             date,
         });
     }

@@ -59,23 +59,26 @@ class Progress extends Component {
                 console.log(res.data);
                 let array = [...res.data.data];
                 array.map((item, index) => {
-                    if (item.month == moment().format('MMMM'))
+                    if (item.workout_user_id == this.props.user.userData.workout_user_id) {
                         array[index] = { ...array[index], selected: true }
-                    else
+                        console.log(array[index]?.user_images);
+                        this.setState({ data: array[index]?.user_images ? array[index]?.user_images : [] })
+                    } else
                         array[index] = { ...array[index], selected: false }
+
                 })
-                this.setState({ graphData: array })
+                this.setState({ graphData: array, loading: false })
             })
-            .catch((err) => console.log(err.response))
-        ProfileServices.getAllProgressPhoto({ user_id: user_id }, token)
-            .then((res) => {
-                console.log(res.data)
-                if (res.data.success)
-                    this.setState({ data: res.data.data, loading: false })
-                else
-                    this.setState({ data: [], loading: false })
-            })
-            .catch((err) => { this.setState({ data: [], loading: false }); console.log(err) })
+            .catch((err) => { this.setState({ loading: false }); console.log(err) })
+        // ProfileServices.getAllProgressPhoto({ user_id: user_id }, token)
+        //     .then((res) => {
+        //         console.log(res.data)
+        //         if (res.data.success)
+        //             this.setState({ data: res.data.data, loading: false })
+        //         else
+        //             this.setState({ data: [], loading: false })
+        //     })
+        //     .catch((err) => { this.setState({ data: [], loading: false }); console.log(err) })
     }
 
     headerRight = () => {
@@ -136,7 +139,7 @@ class Progress extends Component {
                 <StatusBar backgroundColor={THEME.BAR_COLOR} barStyle={"light-content"} />
                 {this.state.loading ?
                     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-                        <ActivityIndicator color={'#44BDE8'} />
+                        <ActivityIndicator color={'#44BDE8'} size="small" />
                     </View>
                     :
                     <View style={styles.container}>
@@ -172,7 +175,7 @@ class Progress extends Component {
                             {
                                 is_pro == 1 ?
                                     <View style={styles.rowContainer}>
-                                        <ScrollView horizontal={true} contentContainerStyle={{ paddingRight: "10%" }}>
+                                        <ScrollView showsHorizontalScrollIndicator={false} horizontal={true} contentContainerStyle={{ paddingRight: "10%" }}>
                                             {this.state.graphData.map((item, index) => {
                                                 return (
                                                     <TouchableOpacity onPress={() => {
@@ -181,9 +184,9 @@ class Progress extends Component {
                                                             array[i] = { ...array[i], selected: false }
                                                         })
                                                         array[index] = { ...array[index], selected: true }
-                                                        this.setState({ graphData: array })
+                                                        this.setState({ graphData: array, data: array[index]?.user_images ? array[index]?.user_images : [] })
                                                     }}  >
-                                                        <Text style={item.selected ? styles.textStyle1 : styles.textStyle}>{item.month}</Text>
+                                                        <Text style={item.selected ? styles.textStyle1 : styles.textStyle}>Month {index + 1}</Text>
                                                     </TouchableOpacity>
                                                 )
                                             })}
