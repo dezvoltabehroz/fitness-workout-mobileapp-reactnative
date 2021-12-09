@@ -1299,6 +1299,13 @@
   resolved "https://registry.yarnpkg.com/@react-native-community/masked-view/-/masked-view-0.1.11.tgz#2f4c6e10bee0786abff4604e39a37ded6f3980ce"
   integrity sha512-rQfMIGSR/1r/SyN87+VD8xHHzDYeHaJq6elOSCAD+0iLagXkSI2pfA0LmSXP21uw5i3em7GkkRjfJ8wpqWXZNw==
 
+"@react-native-community/push-notification-ios@^1.10.1":
+  version "1.10.1"
+  resolved "https://registry.yarnpkg.com/@react-native-community/push-notification-ios/-/push-notification-ios-1.10.1.tgz#d52a6d69ac1112df0f79e1d17978077629b76784"
+  integrity sha512-k6bZWUKLif4GjenyTD3aQLwA2VT3bNmt22INO/34lexnpmqkPDZF7nreqbckTHG0Zso9wDTe4N/AZJUC/d8iRg==
+  dependencies:
+    invariant "^2.2.4"
+
 "@react-native-firebase/app@^12.7.4":
   version "12.7.4"
   resolved "https://registry.yarnpkg.com/@react-native-firebase/app/-/app-12.7.4.tgz#aa41a8b68881c7ced3a9b9125306bc3935b12fb6"
@@ -6468,6 +6475,11 @@ react-native-progress-bar-animated@^1.0.6:
   integrity sha512-UPAAwxtBVV+sPwhgVd78SA7QybPshV5CydaV0GJyM+eZ89ikkZQSasAUAgIQwVVCW1Tj6XNrgizimXM9JdczeA==
   dependencies:
     prop-types "^15.6.0"
+
+react-native-push-notification@^8.1.1:
+  version "8.1.1"
+  resolved "https://registry.yarnpkg.com/react-native-push-notification/-/react-native-push-notification-8.1.1.tgz#a41d20c70ea5a7709417e96261b225461f8dc73a"
+  integrity sha512-XpBtG/w+a6WXTxu6l1dNYyTiHnbgnvjoc3KxPTxYkaIABRmvuJZkFxqruyGvfCw7ELAlZEAJO+dthdTabCe1XA==
 
 react-native-ratings@8.0.4:
   version "8.0.4"

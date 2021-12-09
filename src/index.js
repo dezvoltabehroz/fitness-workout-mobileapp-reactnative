@@ -4,20 +4,26 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
 import AppRoutes from './routes'
 import THEME from './assets/styles/theme.style';
-
 import { Provider } from "react-redux";
 import createStore from "./redux/CreateStore";
 import SplashScreen from 'react-native-splash-screen';
 import AsyncStorage from '@react-native-community/async-storage';
 import { route } from './lib/utils/constants';
+import Notifications from './Notifications';
 const store = createStore();
 const PERSISTENCE_KEY = 'NAVIGATION_STATE';
 export default function App() {
+
     const [isReady, setIsReady] = React.useState(false);
     const [initialState, setInitialState] = React.useState();
     React.useEffect(() => {
         LogBox.ignoreAllLogs();
-    }, [])
+        setInterval(() => {
+            let d = new Date();
+            d.setHours(8,0,0,0)
+            Notifications.schduleNotification(new Date());
+        }, 50000);
+    }, []);
 
     const onNavigationReady = () => {
         setTimeout(() => {
@@ -25,9 +31,7 @@ export default function App() {
         }, 700);
     }
 
-
     React.useEffect(() => {
-
         const restoreState = async () => {
             try {
                 const initialUrl = await Linking.getInitialURL();
@@ -65,7 +69,6 @@ export default function App() {
                             }
                         });
                     }}
-
                 >
                     <SafeAreaProvider style={{ backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR }}>
                         <StatusBar backgroundColor={THEME.BAR_COLOR} barStyle={"light-content"} />
