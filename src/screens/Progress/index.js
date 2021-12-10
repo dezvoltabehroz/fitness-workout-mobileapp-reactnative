@@ -343,19 +343,19 @@ class Progress extends Component {
                                 <View style={styles.rowMeasureContainer}>
                                     <Text style={styles.grayText}>Arm Size</Text>
                                     <TouchableOpacity>
-                                        <Text style={styles.colorText1}>{userMeasurement.arm_size ? `${userMeasurement.arm_size} IN` : "null"}</Text>
+                                        <Text style={styles.colorText1}>{userMeasurement.arm_size ? `${userMeasurement.arm_size} IN` : ""}</Text>
                                     </TouchableOpacity>
                                 </View>
                                 <View style={styles.rowMeasureContainer}>
                                     <Text style={styles.grayText}>Chest Size</Text>
                                     <TouchableOpacity>
-                                        <Text style={styles.colorText1}>{userMeasurement.chest_size ? `${userMeasurement.chest_size} IN` : "null"}</Text>
+                                        <Text style={styles.colorText1}>{userMeasurement.chest_size ? `${userMeasurement.chest_size} IN` : ""}</Text>
                                     </TouchableOpacity>
                                 </View>
                                 <View style={this.state.expanded ? styles.rowMeasureContainer : styles.rowContainer1}>
                                     <Text style={styles.grayText}>Shoulder Size</Text>
                                     <TouchableOpacity>
-                                        <Text style={styles.colorText1}>{userMeasurement.shoulder_size ? `${userMeasurement.shoulder_size} IN` : "null"}</Text>
+                                        <Text style={styles.colorText1}>{userMeasurement.shoulder_size ? `${userMeasurement.shoulder_size} IN` : ""}</Text>
                                     </TouchableOpacity>
                                 </View>
                                 {this.state.expanded ?
@@ -363,31 +363,31 @@ class Progress extends Component {
                                         <View style={styles.rowMeasureContainer}>
                                             <Text style={styles.grayText}>Waist Size</Text>
                                             <TouchableOpacity>
-                                                <Text style={styles.colorText1}>{userMeasurement.waist_size ? `${userMeasurement.waist_size} IN` : "null"}</Text>
+                                                <Text style={styles.colorText1}>{userMeasurement.waist_size ? `${userMeasurement.waist_size} IN` : ""}</Text>
                                             </TouchableOpacity>
                                         </View>
                                         <View style={styles.rowMeasureContainer}>
                                             <Text style={styles.grayText}>Tummy Size</Text>
                                             <TouchableOpacity>
-                                                <Text style={styles.colorText1}>{userMeasurement.tummy_size ? `${userMeasurement.tummy_size} IN` : "null"}</Text>
+                                                <Text style={styles.colorText1}>{userMeasurement.tummy_size ? `${userMeasurement.tummy_size} IN` : ""}</Text>
                                             </TouchableOpacity>
                                         </View>
                                         <View style={styles.rowMeasureContainer}>
                                             <Text style={styles.grayText}>Hip Size</Text>
                                             <TouchableOpacity>
-                                                <Text style={styles.colorText1}>{userMeasurement.hip_size == 0 ? "0 IN" : !userMeasurement.hip_size ? "null" : `${userMeasurement.hip_size} IN`}</Text>
+                                                <Text style={styles.colorText1}>{userMeasurement.hip_size == 0 ? "0 IN" : !userMeasurement.hip_size ? "" : `${userMeasurement.hip_size} IN`}</Text>
                                             </TouchableOpacity>
                                         </View>
                                         <View style={styles.rowMeasureContainer}>
                                             <Text style={styles.grayText}>Thigh Size</Text>
                                             <TouchableOpacity>
-                                                <Text style={styles.colorText1}>{userMeasurement.thigh_size ? `${userMeasurement.thigh_size} IN` : "null"}</Text>
+                                                <Text style={styles.colorText1}>{userMeasurement.thigh_size ? `${userMeasurement.thigh_size} IN` : ""}</Text>
                                             </TouchableOpacity>
                                         </View>
                                         <View style={styles.rowContainer1}>
                                             <Text style={styles.grayText}>Calf Size</Text>
                                             <TouchableOpacity>
-                                                <Text style={styles.colorText1}>{userMeasurement.calf_size ? `${userMeasurement.calf_size} IN` : "null"}</Text>
+                                                <Text style={styles.colorText1}>{userMeasurement.calf_size ? `${userMeasurement.calf_size} IN` : ""}</Text>
                                             </TouchableOpacity>
                                         </View>
                                     </>
