@@ -10,19 +10,23 @@ import SplashScreen from 'react-native-splash-screen';
 import AsyncStorage from '@react-native-community/async-storage';
 import { route } from './lib/utils/constants';
 import Notifications from './Notifications';
+import moment from 'moment';
 const store = createStore();
 const PERSISTENCE_KEY = 'NAVIGATION_STATE';
 export default function App() {
 
     const [isReady, setIsReady] = React.useState(false);
     const [initialState, setInitialState] = React.useState();
+    LogBox.ignoreAllLogs();
+
     React.useEffect(() => {
-        LogBox.ignoreAllLogs();
         setInterval(() => {
-            let d = new Date();
-            d.setHours(8,0,0,0)
-            Notifications.schduleNotification(new Date());
-        }, 50000);
+            // if (moment().format('HH:mm').toString() > "08:00") {
+            //     console.log("Scheduled Notification has been called at : ", new Date(Date.now() + 10 * 1000))
+            //     Notifications.schduleNotification(new Date(Date.now() + 10 * 1000));
+            // }
+            Notifications.schduleNotification(new Date(Date.now() + 10 * 1000));
+        }, 300000);
     }, []);
 
     const onNavigationReady = () => {

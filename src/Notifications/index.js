@@ -126,11 +126,10 @@ const data = [
 
 class Notifications {
     constructor() {
-
         PushNotification.configure({
             // (optional) Called when Token is generated (iOS and Android)
             onRegister: function (token) {
-                console.log('TOKEN:', token);
+                console.log('Notification TOKEN:', token);
             },
             onNotification: function (notification) {
                 console.log('NOTIFICATION:', notification);
