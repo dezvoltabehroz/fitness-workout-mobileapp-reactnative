@@ -134,7 +134,7 @@ class Notifications {
             },
             onNotification: function (notification) {
                 console.log('NOTIFICATION:', notification);
-                // notification.finish(PushNotificationIOS.FetchResult.NoData);
+                notification.finish(PushNotificationIOS.FetchResult.NoData);
             },
             popInitialNotification: true,
             requestPermissions: true,
