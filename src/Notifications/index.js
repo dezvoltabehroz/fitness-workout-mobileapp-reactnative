@@ -140,8 +140,8 @@ class Notifications {
             // IOS ONLY (optional): default: all - Permissions to register.
             permissions: {
                 alert: true,
-                badge: false,
-                sound: false,
+                badge: true,
+                sound: true,
             },
         });
 
