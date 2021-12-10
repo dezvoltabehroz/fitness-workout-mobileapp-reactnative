@@ -31,6 +31,7 @@ class Progress extends Component {
             value: 0,
             graphData: [],
             expanded: false,
+            userMeasurement: {},
             laoding: true,
             data: []
         };
@@ -68,7 +69,12 @@ class Progress extends Component {
 
                 })
                 array[array.length - 1] = { ...array[array.length - 1], selected: true }
-                this.setState({ data: array[array.length - 1]?.user_images ? array[array.length - 1]?.user_images : [], graphData: array, loading: false })
+                this.setState({
+                    data: array[array.length - 1]?.user_images ? array[array.length - 1]?.user_images : [],
+                    graphData: array,
+                    userMeasurement: array[array.length - 1].user_measurement,
+                    loading: false
+                })
 
 
             })
@@ -132,7 +138,7 @@ class Progress extends Component {
     render() {
 
         const { navigate } = this.props.navigation;
-        const { value, data } = this.state;
+        const { value, data, userMeasurement } = this.state;
         const { height_feet, height_inches, bmi, daily_diet_count, weight, daily_workout_count, is_pro } = this.props.user.userData;
         const { arm_size, chest_size, shoulder_size, waist_size, tummy_size, hip_size, thigh_size, calf_size } = this.props.user.userData.bodyMeasurementDetails;
 
@@ -187,7 +193,12 @@ class Progress extends Component {
                                                             array[i] = { ...array[i], selected: false }
                                                         })
                                                         array[index] = { ...array[index], selected: true }
-                                                        this.setState({ graphData: array, data: array[index]?.user_images ? array[index]?.user_images : [] })
+                                                        console.log(array[index].user_measurement.hip_size);
+                                                        this.setState({
+                                                            graphData: array,
+                                                            userMeasurement: array[index].user_measurement,
+                                                            data: array[index]?.user_images ? array[index]?.user_images : []
+                                                        })
                                                     }}  >
                                                         <Text style={item.selected ? styles.textStyle1 : styles.textStyle}>Month {index + 1}</Text>
                                                     </TouchableOpacity>
@@ -266,10 +277,10 @@ class Progress extends Component {
                                             </>
                                         )
                                     })}
-                                      <View style={styles.divider}></View>
+                                    <View style={styles.divider}></View>
                                 </>
                                 : null}
-                          
+
                             <View style={styles.bmiContainer}>
                                 {/* <View style={styles.rowContainer}>
                                 <Text style={styles.blackheading}>BMI(kg/m2) : {parseFloat(bmi).toFixed(2)}</Text>
@@ -332,19 +343,19 @@ class Progress extends Component {
                                 <View style={styles.rowMeasureContainer}>
                                     <Text style={styles.grayText}>Arm Size</Text>
                                     <TouchableOpacity>
-                                        <Text style={styles.colorText1}>{arm_size} IN</Text>
+                                        <Text style={styles.colorText1}>{userMeasurement.arm_size ? `${userMeasurement.arm_size} IN` : "null"}</Text>
                                     </TouchableOpacity>
                                 </View>
                                 <View style={styles.rowMeasureContainer}>
                                     <Text style={styles.grayText}>Chest Size</Text>
                                     <TouchableOpacity>
-                                        <Text style={styles.colorText1}>{chest_size} IN</Text>
+                                        <Text style={styles.colorText1}>{userMeasurement.chest_size ? `${userMeasurement.chest_size} IN` : "null"}</Text>
                                     </TouchableOpacity>
                                 </View>
                                 <View style={this.state.expanded ? styles.rowMeasureContainer : styles.rowContainer1}>
                                     <Text style={styles.grayText}>Shoulder Size</Text>
                                     <TouchableOpacity>
-                                        <Text style={styles.colorText1}>{shoulder_size} IN</Text>
+                                        <Text style={styles.colorText1}>{userMeasurement.shoulder_size ? `${userMeasurement.shoulder_size} IN` : "null"}</Text>
                                     </TouchableOpacity>
                                 </View>
                                 {this.state.expanded ?
@@ -352,31 +363,31 @@ class Progress extends Component {
                                         <View style={styles.rowMeasureContainer}>
                                             <Text style={styles.grayText}>Waist Size</Text>
                                             <TouchableOpacity>
-                                                <Text style={styles.colorText1}>{waist_size} IN</Text>
+                                                <Text style={styles.colorText1}>{userMeasurement.waist_size ? `${userMeasurement.waist_size} IN` : "null"}</Text>
                                             </TouchableOpacity>
                                         </View>
                                         <View style={styles.rowMeasureContainer}>
                                             <Text style={styles.grayText}>Tummy Size</Text>
                                             <TouchableOpacity>
-                                                <Text style={styles.colorText1}>{tummy_size} IN</Text>
+                                                <Text style={styles.colorText1}>{userMeasurement.tummy_size ? `${userMeasurement.tummy_size} IN` : "null"}</Text>
                                             </TouchableOpacity>
                                         </View>
                                         <View style={styles.rowMeasureContainer}>
                                             <Text style={styles.grayText}>Hip Size</Text>
                                             <TouchableOpacity>
-                                                <Text style={styles.colorText1}>{hip_size} IN</Text>
+                                                <Text style={styles.colorText1}>{userMeasurement.hip_size == 0 ? "0 IN" : !userMeasurement.hip_size ? "null" : `${userMeasurement.hip_size} IN`}</Text>
                                             </TouchableOpacity>
                                         </View>
                                         <View style={styles.rowMeasureContainer}>
                                             <Text style={styles.grayText}>Thigh Size</Text>
                                             <TouchableOpacity>
-                                                <Text style={styles.colorText1}>{thigh_size ? thigh_size : 0} IN</Text>
+                                                <Text style={styles.colorText1}>{userMeasurement.thigh_size ? `${userMeasurement.thigh_size} IN` : "null"}</Text>
                                             </TouchableOpacity>
                                         </View>
                                         <View style={styles.rowContainer1}>
                                             <Text style={styles.grayText}>Calf Size</Text>
                                             <TouchableOpacity>
-                                                <Text style={styles.colorText1}>{calf_size ? calf_size : 0} IN</Text>
+                                                <Text style={styles.colorText1}>{userMeasurement.calf_size ? `${userMeasurement.calf_size} IN` : "null"}</Text>
                                             </TouchableOpacity>
                                         </View>
                                     </>
@@ -390,7 +401,7 @@ class Progress extends Component {
                                         <View style={styles.bmiContainer}>
                                             <View style={styles.rowContainer1}>
                                                 <Text style={styles.blackheading}>PROGRESS PICS</Text>
-                                                <TouchableOpacity onPress={() => this.props.navigation.navigate(route.PROGRESSPICS)}>
+                                                <TouchableOpacity onPress={() => this.props.navigation.navigate(route.PROGRESSPICS, { data: data })}>
                                                     <Text style={styles.colorText}>{screen.SEEMORE}</Text>
                                                 </TouchableOpacity>
                                             </View>
@@ -431,7 +442,7 @@ class Progress extends Component {
                 }
                 <UpgradeModal visible={this.state.modal} onUpgrade={() => this.setState({ modal: false }, () => this.props.navigation.navigate(route.PAYMENTMETHOD, {}))} onSkip={() => this.setState({ modal: false })} />
                 <UploadingModal visible={this.state.uploading} />
-            </Container>
+            </Container >
         )
     }
 }
