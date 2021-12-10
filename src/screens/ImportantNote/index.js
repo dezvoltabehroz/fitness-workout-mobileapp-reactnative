@@ -52,17 +52,17 @@ class ChangeFocusArea extends Component {
                             <View style={styles.rowContainer}>
                                 <Text style={styles.textStyle}>3.</Text>
                                 <View style={styles.gap} />
-                                <Text style={styles.textStyle1}>You will get to choose your focus areas on the next screen. It is important that you read the instructions to know how this works!</Text>
+                                <Text style={styles.textStyle1}>It is important to train all focus areas every week to build or sculpt a balanced body.</Text>
                             </View>
                             <View style={styles.rowContainer}>
                                 <Text style={styles.textStyle}>4.</Text>
                                 <View style={styles.gap} />
-                                <Text style={styles.textStyle1}>You will get to choose your focus areas on the next screen. It is important that you read the instructions to know how this works!</Text>
+                                <Text style={styles.textStyle1}>If you have areas that you want to focus extra on you can train them more than once within the scope of a week.</Text>
                             </View>
                             <View style={styles.rowContainer}>
                                 <Text style={styles.textStyle}>5.</Text>
                                 <View style={styles.gap} />
-                                <Text style={styles.textStyle1}>You will get to choose your focus areas on the next screen. It is important that you read the instructions to know how this works!</Text>
+                                <Text style={styles.textStyle1}>When you feel it's time to change your Fitness goal, Fitness level or Equipment, go into Settings then Change Workout Settings.</Text>
                             </View>
                             <View style={styles.buttonContainer}>
                                 <ClearButton title={screen.NEXT} onPress={() => {

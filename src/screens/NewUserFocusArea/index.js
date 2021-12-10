@@ -71,7 +71,7 @@ class AppIntro extends Component {
                         </View>
                         <View style={styles.headingContainer}>
                             <Text style={styles.headingTextStyle}>{screen.APP_INTRO_Heading_5}</Text>
-                            <Text style={styles.decsTextStyle}>Select two focus areas so we could personalize your plan.</Text>
+                            <Text style={styles.decsTextStyle}>Select two focus areas so we can personalize your plan.</Text>
                         </View>
                         <ImageBackground style={gender == 'male' ? styles.imageStyle : styles.imageStyleGirl} resizeMode="contain" source={gender == 'male' ? require('../../assets/images/male.jpeg') : require('../../assets/images/female.png')}>
                             {
