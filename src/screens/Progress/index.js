@@ -59,15 +59,18 @@ class Progress extends Component {
                 console.log(res.data);
                 let array = [...res.data.data];
                 array.map((item, index) => {
-                    if (item.workout_user_id == this.props.user.userData.workout_user_id) {
-                        array[index] = { ...array[index], selected: true }
-                        console.log(array[index]?.user_images);
-                        this.setState({ data: array[index]?.user_images ? array[index]?.user_images : [] })
-                    } else
-                        array[index] = { ...array[index], selected: false }
+                    // if (item.workout_user_id == this.props.user.userData.workout_user_id) {
+                    //     array[index] = { ...array[index], selected: true }
+                    //     console.log(array[index]?.user_images);
+                    //     this.setState({ data: array[index]?.user_images ? array[index]?.user_images : [] })
+                    // } else
+                    array[index] = { ...array[index], selected: false }
 
                 })
-                this.setState({ graphData: array, loading: false })
+                array[array.length - 1] = { ...array[array.length - 1], selected: true }
+                this.setState({ data: array[array.length - 1]?.user_images ? array[array.length - 1]?.user_images : [], graphData: array, loading: false })
+
+
             })
             .catch((err) => { this.setState({ loading: false }); console.log(err) })
         // ProfileServices.getAllProgressPhoto({ user_id: user_id }, token)
@@ -259,13 +262,14 @@ class Progress extends Component {
                                                             verticalLabelRotation={0}
                                                         />
                                                     </View> : null}
-                                                <View style={styles.divider}></View>
+
                                             </>
                                         )
                                     })}
+                                      <View style={styles.divider}></View>
                                 </>
                                 : null}
-
+                          
                             <View style={styles.bmiContainer}>
                                 {/* <View style={styles.rowContainer}>
                                 <Text style={styles.blackheading}>BMI(kg/m2) : {parseFloat(bmi).toFixed(2)}</Text>
