@@ -370,7 +370,13 @@ class Feedback extends Component {
                                                 <View style={{ backgroundColor: "white", padding: "5%", borderRadius: 20, marginHorizontal: "5%" }}>
                                                     <ScrollView showsVerticalScrollIndicator={false}>
                                                         <View style={{ flex: 0.8 }}>
+                                                            {
+                                                                index > 6 && index <= 14 && item.options_array.length == 0 ?
+                                                                    <Text style={{ textAlign: "center", color: "blue", textDecorationLine: "underline", marginBottom: 5 }} onPress={() => this.handleOpenUrl()}>How to measure yourself?</Text>
+                                                                    : null
+                                                            }
                                                             <Text style={{ color: 'lightgray' }}>{item.ques_id == 16 && item.options_array.length == 0 ? "Capture Image" : item.options_array.length == 0 ? "Type Answer" : "Select Answer"}</Text>
+
                                                             <Text style={{ fontWeight: "bold", fontSize: 18 }}>{item.ques_statement}</Text>
                                                             <View>
                                                                 {item.options_array.length == 0 && item.ques_id == 16 ?
@@ -439,7 +445,7 @@ class Feedback extends Component {
                                                                                     <Text style={styles.grayText}>Left side Picture</Text>
                                                                                 </TouchableOpacity>}
                                                                         </View>
-                                                                        <Text style={{ marginTop: "15%", textAlign: "center", color: "blue", textDecorationLine: "underline" }} onPress={() => this.handleOpenUrl()}>How to measure yourself?</Text>
+
                                                                     </View>
                                                                     :
                                                                     item.options_array.length == 0 ?
