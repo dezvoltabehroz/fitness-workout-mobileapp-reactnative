@@ -19,6 +19,7 @@ import WebView from 'react-native-webview';
 class PaymentMethod extends Component {
     constructor(props) {
         super(props);
+     
         this.state = {
             modal: false,
             emailModal: false,
@@ -170,44 +171,6 @@ class PaymentMethod extends Component {
                 this.setState({ btnLoading: false, emailModal: false })
             })
             .catch((error) => console.log(error.response))
-    }
-
-    handleStripeCheckout = async () => {
-        console.log(this.state.cardDetails)
-        const user_id = await getLocalData(LOCAL_STORAGE_KEYS.user_id)
-        const userToken = await getLocalData(LOCAL_STORAGE_KEYS.userToken)
-
-        if (token) {
-            console.log(" ======================")
-            console.log(" Token : ", token)
-            console.log(" ======================")
-            let data = {
-                "name": "Subscription for Pro",
-                "price": "500",
-                "token": {
-                    "id": token.id,
-                    "email": this.state.email
-                }
-            }
-            console.log(data)
-            ProfileServices.stripeCheckOut(data, JSON.parse(userToken))
-                .then((res) => {
-                    if (res.data.success) {
-                        this.setState({ btnLoading: false, })
-                        this.props.authActions.userLogin("", this.props.navigation.replace)
-                    } else {
-                        this.setState({ btnLoading: false, })
-                    }
-                    console.log(res.data)
-
-                })
-                .catch((error) => console.log(error.response))
-        } else {
-            console.log("Error : ", error)
-            this.setState({ btnLoading: false, })
-            Alert.alert("Error", "Please Enter Your Card Details Correctly!")
-        }
-
     }
 
     render() {
