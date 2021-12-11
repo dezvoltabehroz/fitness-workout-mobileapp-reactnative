@@ -271,6 +271,7 @@ class Feedback extends Component {
                 console.log(res.data)
                 this.setState({ uploading: false })
                 if (res.data.success) {
+                    this.props.authActions.getUserProfile({ user_id: user_id, token: token })
                     if ((i + 1) == this.state.data.length) { this.setState({ submitEnabled: true }) }
                     else {
                         this.setState({ question: i + 1, width: this.state.width + SCREEN_WIDTH })
@@ -309,6 +310,7 @@ class Feedback extends Component {
             SurveysServices.updateSurveyImages(formData, token)
                 .then((res) => {
                     console.log(res.data)
+                    this.props.authActions.getUserProfile({ user_id: user_id, token: token })
                     this.setState({ uploading: false })
                     this.props.navigation.goBack();
                 })
