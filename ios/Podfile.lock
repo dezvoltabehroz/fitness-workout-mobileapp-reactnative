@@ -453,15 +453,6 @@ PODS:
     - React
   - RNVectorIcons (8.1.0):
     - React-Core
-  - Stripe (21.7.0):
-    - Stripe/Stripe3DS2 (= 21.7.0)
-    - StripeCore (= 21.7.0)
-  - stripe-react-native (0.2.0):
-    - React
-    - Stripe (~> 21.7.0)
-  - Stripe/Stripe3DS2 (21.7.0):
-    - StripeCore (= 21.7.0)
-  - StripeCore (21.7.0)
   - TOCropViewController (2.6.0)
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
@@ -535,7 +526,6 @@ DEPENDENCIES:
   - RNSound (from `../node_modules/react-native-sound`)
   - RNSVG (from `../node_modules/react-native-svg`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
-  - "stripe-react-native (from `../node_modules/@stripe/stripe-react-native`)"
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -560,8 +550,6 @@ SPEC REPOS:
     - nanopb
     - OpenSSL-Universal
     - PromisesObjC
-    - Stripe
-    - StripeCore
     - TOCropViewController
     - YogaKit
 
@@ -658,8 +646,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-svg"
   RNVectorIcons:
     :path: "../node_modules/react-native-vector-icons"
-  stripe-react-native:
-    :path: "../node_modules/@stripe/stripe-react-native"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -730,9 +716,6 @@ SPEC CHECKSUMS:
   RNSound: da030221e6ac7e8290c6b43f2b5f2133a8e225b0
   RNSVG: 551acb6562324b1d52a4e0758f7ca0ec234e278f
   RNVectorIcons: 31cebfcf94e8cf8686eb5303ae0357da64d7a5a4
-  Stripe: 90596971ef49bade169f68bc59369a796b30a045
-  stripe-react-native: 656ddaac81d6b4b66e68858de0f7493bd3ffb6b8
-  StripeCore: c09b492efc3b269a6ff875ad738ca366db97e03b
   TOCropViewController: 3105367e808b7d3d886a74ff59bf4804e7d3ab38
   Yoga: 575c581c63e0d35c9a83f4b46d01d63abc1100ac
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
