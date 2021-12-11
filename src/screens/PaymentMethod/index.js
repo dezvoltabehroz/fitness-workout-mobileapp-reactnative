@@ -1,7 +1,6 @@
 
 import React, { Component } from 'react';
 import { Image, View, Text, TouchableOpacity, ActivityIndicator, Alert } from 'react-native';
-import { initStripe, useStripe, CardField, createToken } from '@stripe/stripe-react-native';
 import Modal from 'react-native-modal';
 import { connect } from 'react-redux';
 import { Button, ColorButton, Container, Icon, Input, UploadingModal } from '../../components';
@@ -20,9 +19,6 @@ import WebView from 'react-native-webview';
 class PaymentMethod extends Component {
     constructor(props) {
         super(props);
-        initStripe({
-            publishableKey: 'pk_test_51IVaauJYCYbx3gzyXHFSWqkzjQourDKiOCqDybwCgC1DxjXf7ilt5jEeyoHDJWo9SkdD6uIGasM9SomiSTl2HRPQ002trNTCop'
-        });
         this.state = {
             modal: false,
             emailModal: false,
@@ -180,10 +176,6 @@ class PaymentMethod extends Component {
         console.log(this.state.cardDetails)
         const user_id = await getLocalData(LOCAL_STORAGE_KEYS.user_id)
         const userToken = await getLocalData(LOCAL_STORAGE_KEYS.userToken)
-        const { token, error } = await createToken({
-            type: "Card",
-            currency: "USD"
-        });
 
         if (token) {
             console.log(" ======================")
