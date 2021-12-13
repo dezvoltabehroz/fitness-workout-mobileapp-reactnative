@@ -20,13 +20,19 @@ export default function App() {
     LogBox.ignoreAllLogs();
 
     React.useEffect(() => {
-        setInterval(() => {
-            if (moment().format('HH:mm').toString() > "08:00" && moment().format('HH:mm').toString() < "09:00") {
-                console.log("Scheduled Notification has been called at : ", new Date(Date.now() + 10 * 1000))
-                Notifications.schduleNotification(new Date(Date.now() + 10 * 1000));
-            }
-            // Notifications.schduleNotification(new Date(Date.now() + 10 * 1000));
-        }, 3600000);
+        // setInterval(() => {
+        if (moment().format('HH:mm').toString() > "08:00") {
+            var now = new Date();
+            now.setDate(now.getDate() + 1)
+            now.setHours(8);
+            now.setMinutes(0);
+            now.setMilliseconds(0);
+            // console.log("moment : ",moment(new Date(now)).format('HH:mm'));
+            console.log("Scheduled Notification has been called at : ", new Date(Date.now() + 10 * 1000))
+            Notifications.schduleNotification(new Date(now));
+        }
+        // Notifications.schduleNotification(new Date(Date.now() + 10 * 1000));
+        // }, 3600000);
     }, []);
 
     const onNavigationReady = () => {

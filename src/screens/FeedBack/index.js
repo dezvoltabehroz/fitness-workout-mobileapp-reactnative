@@ -312,9 +312,11 @@ class Feedback extends Component {
                     console.log(res.data)
                     this.props.authActions.getUserProfile({ user_id: user_id, token: token })
                     this.setState({ uploading: false })
-                    this.props.navigation.goBack();
+                    setTimeout(() => {
+                        this.props.navigation.goBack();
+                    }, 3000);
                 })
-                .catch((err) => { console.log(err); console.log(err.response) })
+                .catch((err) => { this.setState({ uploading: false }); console.log(err); console.log(err.response) })
         } else {
             Alert.alert("Please select all images")
         }

@@ -184,7 +184,6 @@ class Login extends Component {
                             {/* <Image source={require("../../assets/images/login.png")} resizeMode="contain" style={{ height: SCREEN_HEIGHT * 0.4 }} /> */}
                             <Text style={styles.heading}>Log In</Text>
                         </View>
-
                         <View style={{ flex: 0.8, marginTop: "5%" }}>
                             <View style={{ marginHorizontal: "5%" }}>
                                 <Input value={email} label="Enter your email" onChangeText={(e) => this.setState({ email: e })} />
