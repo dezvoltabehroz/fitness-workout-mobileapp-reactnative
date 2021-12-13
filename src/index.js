@@ -21,12 +21,12 @@ export default function App() {
 
     React.useEffect(() => {
         setInterval(() => {
-            if (moment().format('HH:mm').toString() > "08:00") {
+            if (moment().format('HH:mm').toString() > "08:00" && moment().format('HH:mm').toString() < "09:00") {
                 console.log("Scheduled Notification has been called at : ", new Date(Date.now() + 10 * 1000))
                 Notifications.schduleNotification(new Date(Date.now() + 10 * 1000));
             }
             // Notifications.schduleNotification(new Date(Date.now() + 10 * 1000));
-        }, 300000);
+        }, 3600000);
     }, []);
 
     const onNavigationReady = () => {
