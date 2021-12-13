@@ -192,7 +192,7 @@ class Login extends Component {
                                     submit && !email ? <Text style={[themeStyle1.errorText, { marginBottom: 10 }]}>Please fill this field</Text> : null
                                 }
                                 {
-                                    submit && email.length && !isEmailValid(email) ? <Text style={[themeStyle1.errorText, { marginBottom: 10 }]}>Email is invalid</Text> : null
+                                    submit && email.length && !isEmailValid(email.trim()) ? <Text style={[themeStyle1.errorText, { marginBottom: 10 }]}>Email is invalid</Text> : null
                                 }
                             </View>
                             <View style={{ marginHorizontal: "5%", marginTop: "5%" }}>
