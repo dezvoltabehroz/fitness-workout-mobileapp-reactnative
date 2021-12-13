@@ -70,8 +70,6 @@ const Api = {
     updateFocusArea: function (data, token) {
         return axiosInstance.put('profile/updateFocusArea', data, apiHeaderConfiguration(token, TOKEN))
     }
-
-
 };
 
 export default Api;

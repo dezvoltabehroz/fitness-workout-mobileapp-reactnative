@@ -110,10 +110,11 @@ class DaysWorkoutVideos extends Component {
                         <Icon.AntDesign onPress={() => {
                             this.props.navigation.navigate(route.DAYSWORKOUTVIDEOPLAYER, {
                                 data: item,
-                                dayCompleted: index + 1 == this.state.videos ? true : false,
+                                workoutDate: this.props?.route?.params?.workoutDate,
+                                dayCompleted: index + 1 == this.state.videos.length ? true : false,
                                 workout_week: this.props.route.params.workout_week
                             });
-                            this.handleUpdateDailyWorkout(index, item)
+                            // this.handleUpdateDailyWorkout(index, item)
                         }}
                             name='play' size={50} color={themeStyle.BAR_COLOR} />
                     </View>

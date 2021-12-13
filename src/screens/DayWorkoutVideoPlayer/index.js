@@ -14,6 +14,9 @@ import themeStyle from '../../assets/styles/theme.style';
 import { ProfileServices } from '../../services';
 import moment from 'moment';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { authActions } from '../../redux/actions/auth';
+import { planActions } from '../../redux/actions/plan';
 
 class DayWorkoutVideoPlayer extends Component {
     constructor(props) {
@@ -138,11 +141,55 @@ class DayWorkoutVideoPlayer extends Component {
 
     onSeeking = (currentTime) => this.setState({ currentTime });
 
-    handleUpdateDailyWorkout = (index) => {
-        this.setState({ completedModal: false, })
-        this.props.navigation.goBack()
-        const { feedback } = this.state;
-        // const { user_id, token, fitness_goal, fitness_level, fitness_equipment } = this.props.user.userData;
+    handleUpdateDailyWorkout = () => {
+        // this.props.navigation.goBack()
+        const { user_id, token, workout_user_id, } = this.props.user.userData;
+        if (this.props?.route?.params?.dayCompleted) {
+            let data = {
+                "workout_date": moment(this.props?.route?.params?.workoutDate).format('YYYY-MM-DD'),
+                "workout_week": this.props?.route?.params?.workout_week,
+                "workout_day": moment(this.props?.route?.params?.workoutDate).format('dddd'),
+                "feedback": "Satisfied",
+                "workout_user_id": workout_user_id
+            }
+            ProfileServices.updateDailyWorkout(data, token)
+                .then(async (response) => {
+                    if (response.data.success) {
+                        await this.props.planActions.getWorkoutPlan();
+                        await this.props.authActions.getUserProfile({ user_id: user_id, token: token });
+                    } else {
+                        await this.props.planActions.getWorkoutPlan();
+                        await this.props.authActions.getUserProfile({ user_id: user_id, token: token });
+                    }
+                    let workdata = {
+                        "workout_user_id": workout_user_id,
+                        "video_id": item.id,
+                        "week": `Week ${this.props?.route?.params?.workout_week}`,
+                        "user_id": user_id
+                    }
+                    console.log(workdata);
+                    ProfileServices.updateWorkoutGraph(workdata, token)
+                        .then(async (response) => {
+                            console.log(response.data)
+                        })
+                        .catch((err) => { console.log(err.response); })
+                })
+                .catch((err) => { console.log(err.response); this.setState({ loading: false }) })
+        }
+        else {
+            let workdata = {
+                "workout_user_id": workout_user_id,
+                "video_id": this.props?.route?.params?.data?.id,
+                "week": `Week ${this.props?.route?.params?.workout_week}`,
+                "user_id": user_id
+            }
+            console.log(workdata);
+            ProfileServices.updateWorkoutGraph(workdata, token)
+                .then(async (response) => {
+                    console.log(response.data)
+                })
+                .catch((err) => { console.log(err.response); })
+        }
         // if (this.props.route.params.dayCompleted) {
 
         //     let data = {
@@ -327,17 +374,26 @@ class DayWorkoutVideoPlayer extends Component {
                 <CompleteModal visible={this.state.completeModal}
                     onReplay={() => this.setState({ completeModal: false, playerState: PLAYER_STATES.PLAYING }, () => this.videoPlayer.seek(0))}
                     onComplete={() => {
-                        this.setState({ completeModal: false, }, () => setTimeout(() => {
-                            this.setState({ completedModal: true, })
-                        }, 350));
+                        this.setState({ completeModal: false, }, () => {
+                            this.handleUpdateDailyWorkout()
+                            setTimeout(() => {
+                                this.setState({ completedModal: true, })
+                            }, 350)
+                        });
                     }} />
                 <CompletedModal visible={this.state.completedModal}
-                    onSelect={(value) => this.setState({ feedback: value }, () => this.handleUpdateDailyWorkout())}
-                    onComplete={() => this.setState({ completedModal: false })} />
+                    onSelect={(value) => this.setState({ feedback: value })}
+                    onComplete={() => this.setState({ completedModal: false }, () => this.props.navigation.goBack())} />
             </Container >
         )
     }
 }
 
 const mapStateToProps = (state) => { return { user: state.authReducer || {} }; };
-export default connect(mapStateToProps)(DayWorkoutVideoPlayer);
+const mapDispatchToProps = dispatch => {
+    return {
+        planActions: bindActionCreators(planActions, dispatch),
+        authActions: bindActionCreators(authActions, dispatch)
+    };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(DayWorkoutVideoPlayer);

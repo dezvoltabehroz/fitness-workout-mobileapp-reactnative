@@ -47,6 +47,7 @@ class Progress extends Component {
 
     componentDidMount = () => {
         this.focusListener = this.props.navigation.addListener('focus', () => {
+            this.getGraphData();
             this.props.navigation.setOptions({
                 headerRight: () => this.headerRight(),
             });
@@ -54,6 +55,19 @@ class Progress extends Component {
 
 
 
+        this.getGraphData();
+        // ProfileServices.getAllProgressPhoto({ user_id: user_id }, token)
+        //     .then((res) => {
+        //         console.log(res.data)
+        //         if (res.data.success)
+        //             this.setState({ data: res.data.data, loading: false })
+        //         else
+        //             this.setState({ data: [], loading: false })
+        //     })
+        //     .catch((err) => { this.setState({ data: [], loading: false }); console.log(err) })
+    }
+
+    getGraphData = () => {
         const { user_id, token } = this.props.user.userData;
         ProfileServices.userGraph(user_id, token)
             .then((res) => {
@@ -79,15 +93,6 @@ class Progress extends Component {
 
             })
             .catch((err) => { this.setState({ loading: false }); console.log(err) })
-        // ProfileServices.getAllProgressPhoto({ user_id: user_id }, token)
-        //     .then((res) => {
-        //         console.log(res.data)
-        //         if (res.data.success)
-        //             this.setState({ data: res.data.data, loading: false })
-        //         else
-        //             this.setState({ data: [], loading: false })
-        //     })
-        //     .catch((err) => { this.setState({ data: [], loading: false }); console.log(err) })
     }
 
     headerRight = () => {
