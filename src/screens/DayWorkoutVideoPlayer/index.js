@@ -155,6 +155,7 @@ class DayWorkoutVideoPlayer extends Component {
             console.log('data : ', data);
             ProfileServices.updateDailyWorkout(data, token)
                 .then(async (response) => {
+                    console.log("response.data : ", response.data)
                     if (response.data.success) {
                         await this.props.planActions.getWorkoutPlan();
                         await this.props.authActions.getUserProfile({ user_id: user_id, token: token });
