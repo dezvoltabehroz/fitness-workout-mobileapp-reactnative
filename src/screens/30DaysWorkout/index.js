@@ -198,7 +198,7 @@ class PowerOfMind extends Component {
                         let timeInHour = moment.utc().hours(h).minutes(m).second(s).format("HH:mm:ss")
                         return (
                             <TouchableOpacity disabled={moment().format('YYYY-MM-DD') >= moment(element.date).format("YYYY-MM-DD") ? false : true} onPress={() => {
-                                this.props.navigation.navigate(route.DAYSWORKOUTVIDEOS, { data: element, workout_week: week[1] })
+                                this.props.navigation.navigate(route.DAYSWORKOUTVIDEOS, { data: element, workout_week: week[1], workoutDate: element.date })
                             }} style={styles.itemContainer} >
                                 <View style={styles.textContainer1}>
                                     <Text style={styles.greyText}>{'Day'}</Text>
@@ -251,7 +251,7 @@ class PowerOfMind extends Component {
                                                     // element?.completed ?
                                                     //     <Icon.MaterialIcons name={element?.completed ? "check-circle" : "check-circle-outline"} size={25} color={element?.completed ? themeStyle.DASH_DARK : 'gray'} />
                                                     //     :
-                                                        <Icon.SimpleLineIcons name={"check"} size={25} color={element?.completed ? themeStyle.DASH_DARK : 'gray'} />
+                                                    <Icon.SimpleLineIcons name={"check"} size={25} color={element?.completed ? themeStyle.DASH_DARK : 'gray'} />
                                                     // <CircularProgress
                                                     //     value={element?.completed ? 100 : 0}
                                                     //     duration={50}
