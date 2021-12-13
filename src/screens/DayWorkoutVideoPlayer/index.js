@@ -152,6 +152,7 @@ class DayWorkoutVideoPlayer extends Component {
                 "feedback": "Satisfied",
                 "workout_user_id": workout_user_id
             }
+            console.log('data : ', data);
             ProfileServices.updateDailyWorkout(data, token)
                 .then(async (response) => {
                     if (response.data.success) {
@@ -163,7 +164,7 @@ class DayWorkoutVideoPlayer extends Component {
                     }
                     let workdata = {
                         "workout_user_id": workout_user_id,
-                        "video_id": item.id,
+                        "video_id": this.props?.route?.params?.data.id,
                         "week": `Week ${this.props?.route?.params?.workout_week}`,
                         "user_id": user_id
                     }
@@ -382,7 +383,7 @@ class DayWorkoutVideoPlayer extends Component {
                         });
                     }} />
                 <CompletedModal visible={this.state.completedModal}
-                    onSelect={(value) => this.setState({ feedback: value })}
+                    onSelect={(value) => this.setState({ feedback: value, completedModal: false }, () => this.props.navigation.goBack())}
                     onComplete={() => this.setState({ completedModal: false }, () => this.props.navigation.goBack())} />
             </Container >
         )
