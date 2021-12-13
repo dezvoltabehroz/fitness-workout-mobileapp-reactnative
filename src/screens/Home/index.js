@@ -173,16 +173,16 @@ class Home extends Component {
             <Container>
                 <StatusBar backgroundColor={THEME.BAR_COLOR} barStyle={"light-content"} />
                 <View style={styles.container}>
-                    <View style={styles.headingContainer}>
+                    <View style={{ width: SCREEN_WIDTH, ...styles.headingContainer }}>
                         {
                             this.props?.user?.userData?.is_pro == 0 ?
-                                <View style={{ ...styles.rowContainer, marginBottom: '2.5%' }}>
+                                <View style={{ ...styles.rowContainer, marginBottom: '2.5%', }}>
                                     <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
 
                                         <Text style={styles.whiteTextStyle}>YOUR PERSONALIZED PLAN</Text>
                                         <View style={{ width: SCREEN_WIDTH * 0.125 }} />
                                         <TouchableOpacity onPress={() => this.setState({ focusModal: true })}>
-                                            <Target1 width={40} />
+                                            <Target1 />
                                         </TouchableOpacity>
                                     </View>
                                     {this.props?.user?.userData?.is_pro == 0 ?
@@ -193,7 +193,6 @@ class Home extends Component {
                                 </View>
                                 :
                                 <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
-
                                     <Text style={styles.whiteTextStyle}>YOUR PERSONALIZED PLAN</Text>
                                     <View style={{ width: SCREEN_WIDTH * 0.125 }} />
                                     <TouchableOpacity onPress={() => this.setState({ focusModal: true })}>

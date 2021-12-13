@@ -248,7 +248,10 @@ class PowerOfMind extends Component {
                                         <View style={{ flex: 0.2, alignItems: "center" }} >
                                             {
                                                 moment().format('YYYY-MM-DD') >= moment(element.date).format("YYYY-MM-DD") ?
-                                                    <Icon.Ionicons name="checkmark" size={25} color={element?.completed ? themeStyle.DASH_DARK : 'gray'} />
+                                                    // element?.completed ?
+                                                    //     <Icon.MaterialIcons name={element?.completed ? "check-circle" : "check-circle-outline"} size={25} color={element?.completed ? themeStyle.DASH_DARK : 'gray'} />
+                                                    //     :
+                                                        <Icon.SimpleLineIcons name={"check"} size={25} color={element?.completed ? themeStyle.DASH_DARK : 'gray'} />
                                                     // <CircularProgress
                                                     //     value={element?.completed ? 100 : 0}
                                                     //     duration={50}

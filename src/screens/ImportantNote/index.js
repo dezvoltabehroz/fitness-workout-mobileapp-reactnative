@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import { ImageBackground, ScrollView, StatusBar, Text, View } from "react-native"
+import { Image, ImageBackground, ScrollView, StatusBar, Text, View } from "react-native"
 import themeStyle from "../../assets/styles/theme.style";
 import { ClearButton, Container } from "../../components";
 import { screen, SCREEN_HEIGHT, SCREEN_WIDTH, route } from "../../lib/utils/constants";
 import Focus from '../../assets/svg/focus-1.svg';
-import Vie from '../../assets/svg/view.svg';
+// import Vie from '../../assets/svg/combination.svg';
 import HeaderView from './components/headerView';
 import styles from './style';
 import { connect } from "react-redux";
@@ -47,7 +47,7 @@ class ChangeFocusArea extends Component {
                                 <Text style={styles.textStyle1}>This is how to combine your focus areas for optimum results: </Text>
                             </View>
                             <View style={{ alignItems: "center", marginTop: "5%" }}>
-                                <Vie />
+                                <Image source={require('../../assets/images/combination.png')} />
                             </View>
                             <View style={styles.rowContainer}>
                                 <Text style={styles.textStyle}>3.</Text>

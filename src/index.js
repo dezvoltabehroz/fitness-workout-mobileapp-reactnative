@@ -21,11 +21,11 @@ export default function App() {
 
     React.useEffect(() => {
         setInterval(() => {
-            // if (moment().format('HH:mm').toString() > "08:00") {
-            //     console.log("Scheduled Notification has been called at : ", new Date(Date.now() + 10 * 1000))
-            //     Notifications.schduleNotification(new Date(Date.now() + 10 * 1000));
-            // }
-            Notifications.schduleNotification(new Date(Date.now() + 10 * 1000));
+            if (moment().format('HH:mm').toString() > "08:00") {
+                console.log("Scheduled Notification has been called at : ", new Date(Date.now() + 10 * 1000))
+                Notifications.schduleNotification(new Date(Date.now() + 10 * 1000));
+            }
+            // Notifications.schduleNotification(new Date(Date.now() + 10 * 1000));
         }, 300000);
     }, []);
 
