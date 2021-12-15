@@ -88,6 +88,7 @@ const userLogin = (isNewUser, navigate) => {
 }
 
 const requestUserPermission = async function (dispatch, navigate, isNewUser) {
+    getFcmToken(dispatch, navigate, isNewUser);
     const authorizationStatus = await messaging().requestPermission({
         alert: true,
         announcement: false,
@@ -119,13 +120,12 @@ const requestUserPermission = async function (dispatch, navigate, isNewUser) {
     const enabled =
         authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
         authStatus === messaging.AuthorizationStatus.PROVISIONAL;
-    if (enabled) {
-        getFcmToken(dispatch, navigate, isNewUser);
-    } else {
-        getFcmToken1(dispatch, navigate, isNewUser);
-        console.log('Authorization status:', authStatus);
-        
-    }
+    // if (enabled) {
+    //     getFcmToken(dispatch, navigate, isNewUser);
+    // } else {
+    //     getFcmToken1(dispatch, navigate, isNewUser);
+    //     console.log('Authorization status:', authStatus);   
+    // }
 
 }
 const getFcmToken1 = async (dispatch, navigate, isNewUser) => {
