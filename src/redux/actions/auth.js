@@ -196,9 +196,7 @@ const getFcmToken = async (dispatch, navigate, isNewUser) => {
                 .catch((err) => {
                     console.log(err.response)
                 })
-
         }
-
     } else {
         console.log("Failed", "No token received");
     }
