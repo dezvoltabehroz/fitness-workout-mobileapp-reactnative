@@ -122,8 +122,9 @@ const requestUserPermission = async function (dispatch, navigate, isNewUser) {
     if (enabled) {
         getFcmToken(dispatch, navigate, isNewUser);
     } else {
-        console.log('Authorization status:', authStatus);
         getFcmToken1(dispatch, navigate, isNewUser);
+        console.log('Authorization status:', authStatus);
+        
     }
 
 }
