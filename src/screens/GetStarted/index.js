@@ -47,10 +47,17 @@ class AppIntro extends Component {
         } else if (authorizationStatus === messaging.AuthorizationStatus.PROVISIONAL) {
             console.log('User has provisional notification permissions.');
         } else {
-            Alert.alert("Attension", "You need to allow push notification from settings",
-                [
-                    { text: "OK", onPress: () => Linking.openSettings() }
-                ])
+            // Alert.alert("Attention", "You need to allow push notification from settings",
+            //     [
+            //         {
+            //             text: "Don't Allow",
+            //             onPress: () => { },
+            //             style: "cancel"
+            //         }
+            //     ],
+            //     [
+            //         { text: "Allow", onPress: () => Linking.openSettings() }
+            //     ])
             console.log('User has notification permissions disabled');
         }
 
@@ -81,7 +88,6 @@ class AppIntro extends Component {
                         storeLocalData(LOCAL_STORAGE_KEYS.userToken, JSON.stringify(res.data.data.token))
                     }
                     else {
-
                         this.setState({ btnLoading: false })
                         Alert.alert("Error", `This device is already registered`, [{
                             text: "Cancel",
@@ -117,7 +123,7 @@ class AppIntro extends Component {
                     <View style={{ justifyContent: "center", alignItems: "center" }}>
                         <Brain height={SCREEN_HEIGHT * 0.15} />
                     </View>
-                    <View style={{marginTop: "2.5%", justifyContent: "center", alignItems: "center" }}>
+                    <View style={{ marginTop: "2.5%", justifyContent: "center", alignItems: "center" }}>
                         <Text height={SCREEN_HEIGHT * 0.1} />
                         {/* <Image source={require("../../assets/images/login.png")} resizeMode="contain" style={{ height: SCREEN_HEIGHT * 0.3 }} /> */}
                     </View>

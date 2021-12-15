@@ -105,7 +105,6 @@ class PowerOfMind extends Component {
 
     _renderItem = ({ item, index }) => {
         const { is_pro, user_id } = this.props.user.userData
-        console.log(user_id)
         let week = item.weekName.split(" ");
         let workoutWeekDate = [];
         let progressCount = []

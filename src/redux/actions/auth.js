@@ -47,7 +47,7 @@ const getUserProfile = (userData, navigate, isNewUser) => {
         }
         ProfileServices.getFullProfile({ user_id: userData.user_id }, userData.token)
             .then(async (responseData) => {
-              
+
                 if (responseData.data.success) {
                     console.log("updating states");
                     await storeLocalData('USER', JSON.stringify(responseData.data.data))
@@ -101,10 +101,17 @@ const requestUserPermission = async function (dispatch, navigate, isNewUser) {
     } else if (authorizationStatus === messaging.AuthorizationStatus.PROVISIONAL) {
         console.log('User has provisional notification permissions.');
     } else {
-        Alert.alert("Attension", "You need to allow push notification from settings",
-            [
-                { text: "OK", onPress: () => Linking.openSettings() }
-            ])
+        // Alert.alert("Attention", "You need to allow push notification from settings",
+        //     [
+        //         {
+        //             text: "Don't Allow",
+        //             onPress: () => { },
+        //             style: "cancel"
+        //         }
+        //     ],
+        //     [
+        //         { text: "Allow", onPress: () => Linking.openSettings() }
+        //     ])
         console.log('User has notification permissions disabled');
     }
 
@@ -116,10 +123,28 @@ const requestUserPermission = async function (dispatch, navigate, isNewUser) {
         getFcmToken(dispatch, navigate, isNewUser);
     } else {
         console.log('Authorization status:', authStatus);
+        getFcmToken1(dispatch, navigate, isNewUser);
     }
 
 }
+const getFcmToken1 = async (dispatch, navigate, isNewUser) => {
 
+    const user_id = await getLocalData(LOCAL_STORAGE_KEYS.user_id)
+    AuthServices.refreshToken({ user_id: user_id })
+        .then((res) => {
+            if (res.data.success) {
+                storeLocalData(LOCAL_STORAGE_KEYS.fcmToken, JSON.stringify(fcmToken))
+                storeLocalData(LOCAL_STORAGE_KEYS.userToken, JSON.stringify(res.data.data))
+                dispatch(getUserProfile({ user_id: user_id, token: res.data.data }, navigate, isNewUser))
+                // navigate(route.MAIN);
+            } else {
+                navigate(route.APPINTRO)
+            }
+        })
+        .catch((err) => {
+            console.log(err.response)
+        })
+}
 const getFcmToken = async (dispatch, navigate, isNewUser) => {
     const fcmToken = await messaging().getToken();
     if (fcmToken) {
@@ -137,7 +162,6 @@ const getFcmToken = async (dispatch, navigate, isNewUser) => {
                     } else {
                         navigate(route.APPINTRO)
                     }
-
                 })
                 .catch((err) => {
                     console.log(err.response)

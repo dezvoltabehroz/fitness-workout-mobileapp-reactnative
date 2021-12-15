@@ -62,6 +62,7 @@ class DietScreen extends Component {
             dietVideos: [],
             value: "",
             isServey: "",
+            showModal: false
         }
         if (Platform.OS === "android") {
             UIManager.setLayoutAnimationEnabledExperimental(true);
@@ -210,6 +211,13 @@ class DietScreen extends Component {
 
     }
 
+    handleShowModal = (count, date) => {
+        console.log(count, date)
+        if (count == 7 && moment(date).format("YYYY-MM-DD") == moment().format('YYYY-MM-DD')) {
+            this.setState({ showModal: true })
+        }
+    }
+
     render() {
         const { is_pro } = this.props.user.userData
         const { isServey, loading, dietVideos, dietPlans, dietModal,
@@ -287,6 +295,7 @@ class DietScreen extends Component {
                                                     {element.expanded ?
                                                         <View style={styles.descriptionContainer}>
                                                             {element.dietDays.map((item, i) => {
+                                                                { this.handleShowModal(progressCount.length, item.date) }
                                                                 return (
                                                                     <>
                                                                         <View style={styles.itemContainer1}>
@@ -298,7 +307,8 @@ class DietScreen extends Component {
                                                                                     <Icon.AntDesign name={"right"} size={20} color={"#9B9B9B"} />
                                                                                 </View>}
                                                                         </View>
-                                                                        <Modal isVisible={progressCount.length == 7 && moment(item.date).format("YYYY-MM-DD") == moment().format('YYYY-MM-DD') && isServey && isServey == "Survey has not attempted" ? true : false}>
+
+                                                                        <Modal isVisible={this.state.showModal}>
                                                                             <View style={styles.cardContainer}>
                                                                                 <View style={{ marginTop: "5%", alignItems: "center" }}>
                                                                                     <BigCup />
@@ -307,14 +317,14 @@ class DietScreen extends Component {
                                                                                 </View>
 
                                                                                 <View style={{ marginHorizontal: "15%", marginVertical: "5%" }}>
-                                                                                    <Button title={'Continue'} onPress={() => this.setState({ modal: false, completed: true }, () => this.props.navigation.navigate(route.FEEDBACK))} />
+                                                                                    <Button title={'Continue'} onPress={() => this.setState({ showModal: false, modal: false })} />
                                                                                 </View>
                                                                             </View>
                                                                         </Modal>
                                                                     </>
                                                                 )
                                                             })}
-                                                            <TouchableOpacity onPress={() => this.setState({ modal: true })} style={{ marginLeft: '2%', }}>
+                                                            <TouchableOpacity disabled={progressCount.length == 7 ? false : true} onPress={() => this.setState({ showModal: true, modal: true })} style={{ marginLeft: '2%', }}>
                                                                 {progressCount.length == 7 ? <Trophy /> : <Cup />}
                                                             </TouchableOpacity>
                                                         </View> : null

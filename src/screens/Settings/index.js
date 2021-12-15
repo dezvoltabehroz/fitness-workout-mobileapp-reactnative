@@ -94,7 +94,7 @@ class Settings extends Component {
                 Linking.openURL("https://www.websitepolicies.com/policies/view/FQTwawgS")
                 break;
             case 'privacy':
-                Linking.openURL("https://educogym.com/educogym-privacy-policy/")
+                Linking.openURL("https://www.websitepolicies.com/policies/view/g3dHgub9")
                 break;
             case 'help':
                 Linking.openURL("https://sites.google.com/educogym.com/bodysculpt-help/home")
@@ -107,8 +107,8 @@ class Settings extends Component {
 
     render() {
         const { navigation } = this.props;
-        const { full_name } = this.props.user.userData;
-        console.log(full_name);
+        const { full_name,workout_user_id } = this.props.user.userData;
+        console.log(workout_user_id);
         return (
             <Container>
                 {
