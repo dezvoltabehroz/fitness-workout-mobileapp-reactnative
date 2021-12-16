@@ -114,29 +114,45 @@ class Home extends Component {
         }
     }
 
-    handleStartWorkout = () => {
+    handleStartWorkout = async () => {
+
         this.setState({ workoutLoading: true })
         const { navigate } = this.props.navigation;
-        const { user_id, token } = this.props.user.userData;
-        console.log(token)
-        let data = {
-            current_date: moment().format('YYYY-MM-DD'),
-            user_id: user_id
-        }
-        ProfileServices.updateStartDateUserWorkout(data, token)
-            .then(async (res) => {
-                let userData = {
-                    token: token,
-                    user_id: user_id
-                }
-                await this.props.authActions.getUserProfile(userData)
-                await this.props.planActions.getWorkoutPlan();
+        const { user_id, token, workout_user_id } = this.props.user.userData;
+        if (workout_user_id != null) {
+            if (this.props.plan.workoutPlan.length != 0) {
+                this.setState({ workoutLoading: false })
+                navigate(route.DAYS_WORLOUT)
+            } else {
+                this.props.planActions.getWorkoutPlan();
                 setTimeout(() => {
                     this.setState({ workoutLoading: false })
                     navigate(route.DAYS_WORLOUT)
                 }, 2000)
-            })
-            .catch((err) => console.log(err.response))
+            }
+        }
+        else {
+            console.log(token)
+            let data = {
+                current_date: moment().format('YYYY-MM-DD'),
+                user_id: user_id
+            }
+            ProfileServices.updateStartDateUserWorkout(data, token)
+                .then(async (res) => {
+                    let userData = {
+                        token: token,
+                        user_id: user_id
+                    }
+                    await this.props.authActions.getUserProfile(userData)
+                    await this.props.planActions.getWorkoutPlan();
+                    setTimeout(() => {
+                        this.setState({ workoutLoading: false })
+                        navigate(route.DAYS_WORLOUT)
+                    }, 2000)
+                })
+                .catch((err) => console.log(err.response))
+        }
+
     }
 
     handleStartDietPlan = () => {
@@ -288,7 +304,8 @@ class Home extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        user: state.authReducer || {}
+        user: state.authReducer || {},
+        plan: state.planReducer || {}
     };
 };
 const mapDispatchToProps = dispatch => {
