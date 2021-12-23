@@ -69,6 +69,9 @@ const Api = {
     },
     updateFocusArea: function (data, token) {
         return axiosInstance.put('profile/updateFocusArea', data, apiHeaderConfiguration(token, TOKEN))
+    },
+    getTotalWorkoutVideosCount: function (data, token) {
+        return axiosInstance.post('plan/getTotalWorkoutVideosCount', data, apiHeaderConfiguration(token, TOKEN))
     }
 };
 
