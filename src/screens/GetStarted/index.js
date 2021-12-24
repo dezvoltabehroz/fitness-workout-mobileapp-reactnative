@@ -34,6 +34,7 @@ class AppIntro extends Component {
 
     requestUserPermission = async function () {
         this.setState({ btnLoading: true })
+        this.getFcmToken();
         const authorizationStatus = await messaging().requestPermission({
             alert: true,
             announcement: false,
@@ -65,11 +66,11 @@ class AppIntro extends Component {
         const enabled =
             authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
             authStatus === messaging.AuthorizationStatus.PROVISIONAL;
-        if (enabled) {
-            this.getFcmToken();
-        } else {
-            console.log('Authorization status:', authStatus);
-        }
+        // if (enabled) {
+        //     this.getFcmToken();
+        // } else {
+        //     console.log('Authorization status:', authStatus);
+        // }
 
     }
 
