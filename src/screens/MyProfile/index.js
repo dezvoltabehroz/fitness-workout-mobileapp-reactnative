@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import { Button, Container, UploadingModal } from '../../components';
-import Workout from '../../assets/svg/workout-setting.svg'
+import Workout from '../../assets/svg/DOB1.svg'
+import Height from '../../assets/svg/Height1.svg'
+import Weight from '../../assets/svg/Weight.svg'
 import AddProfile from '../../assets/svg/AddProfile.svg'
 import { bindActionCreators } from "redux";
 import { authActions } from '../../redux/actions/auth';
@@ -92,14 +94,14 @@ class MyProfile extends Component {
                                 </View>
                             </View>
                             <View style={styles.rowContainer}>
-                                <Workout />
+                                <Height />
                                 <View style={styles.itemStyle}>
                                     <Text style={styles.text}>Height</Text>
                                     <Text style={styles.colortext}>{height_feet ? height_feet : "0"} FT {height_inches ? height_inches : "0"} IN</Text>
                                 </View>
                             </View>
                             <View style={styles.rowContainer}>
-                                <Workout />
+                                <Weight />
                                 <View style={styles.itemStyle}>
                                     <Text style={styles.text}>Weight</Text>
                                     <Text style={styles.colortext}>{weight}</Text>

@@ -30,8 +30,10 @@ class Progress extends Component {
             modal: false,
             value: 0,
             graphData: [],
+            isCurrentMonth: true,
             expanded: false,
             userMeasurement: {},
+            count: null,
             loading: true,
             data: []
         };
@@ -53,18 +55,21 @@ class Progress extends Component {
             });
         })
 
-
+        const { token, fitness_equipment, fitness_goal, fitness_level, tags } = this.props.user.userData;
+        let data = {
+            "fitness_goal": fitness_goal,
+            "fitness_level": fitness_level,
+            "fitness_equipment": fitness_equipment,
+            "video_tags": tags
+        }
+        ProfileServices.getTotalWorkoutVideosCount(data, token)
+            .then((res) => {
+                this.setState({ count: res.data.data[0].total_workout_count })
+            })
+            .catch((err) => { console.log(err) })
 
         this.getGraphData();
-        // ProfileServices.getAllProgressPhoto({ user_id: user_id }, token)
-        //     .then((res) => {
-        //         console.log(res.data)
-        //         if (res.data.success)
-        //             this.setState({ data: res.data.data, loading: false })
-        //         else
-        //             this.setState({ data: [], loading: false })
-        //     })
-        //     .catch((err) => { this.setState({ data: [], loading: false }); console.log(err) })
+
     }
 
     getGraphData = () => {
@@ -73,15 +78,7 @@ class Progress extends Component {
             .then((res) => {
                 console.log(res.data);
                 let array = [...res.data.data];
-                array.map((item, index) => {
-                    // if (item.workout_user_id == this.props.user.userData.workout_user_id) {
-                    //     array[index] = { ...array[index], selected: true }
-                    //     console.log(array[index]?.user_images);
-                    //     this.setState({ data: array[index]?.user_images ? array[index]?.user_images : [] })
-                    // } else
-                    array[index] = { ...array[index], selected: false }
-
-                })
+                array.map((item, index) => { array[index] = { ...array[index], selected: false } })
                 array[array.length - 1] = { ...array[array.length - 1], selected: true }
                 this.setState({
                     data: array[array.length - 1]?.user_images ? array[array.length - 1]?.user_images : [],
@@ -141,13 +138,11 @@ class Progress extends Component {
     };
 
     render() {
-
+        const minValue = 0;
+        const maxValue = 10;
         const { navigate } = this.props.navigation;
-        const { value, data, userMeasurement } = this.state;
+        const { data, userMeasurement, isCurrentMonth, count } = this.state;
         const { height_feet, height_inches, bmi, daily_diet_count, weight, daily_workout_count, is_pro } = this.props.user.userData;
-        // const { arm_size, chest_size, shoulder_size, waist_size, tummy_size, hip_size, thigh_size, calf_size } = this.props.user.userData.bodyMeasurementDetails;
-
-
         return (
             <Container>
                 <StatusBar backgroundColor={THEME.BAR_COLOR} barStyle={"light-content"} />
@@ -176,14 +171,6 @@ class Progress extends Component {
                                         </View>
                                         <Text style={styles.decsTextStyle}>DIET DAYS</Text>
                                     </View>
-                                    {/* <View style={styles.verticalLine} ></View>
-                                <View style={styles.alignItems}>
-                                    <View style={styles.row}>
-                                        <BMI height={SVG_HEIGHT} width={SVG_WIDTH} />
-                                        <Text style={styles.barTextStyle}>{parseFloat(bmi).toFixed(2)}</Text>
-                                    </View>
-                                    <Text style={styles.decsTextStyle}>BMI</Text>
-                                </View> */}
                                 </View>
                             </View>
                             {
@@ -191,18 +178,33 @@ class Progress extends Component {
                                     <View style={styles.rowContainer}>
                                         <ScrollView showsHorizontalScrollIndicator={false} horizontal={true} contentContainerStyle={{ paddingRight: "10%" }}>
                                             {this.state.graphData.map((item, index) => {
+
                                                 return (
                                                     <TouchableOpacity onPress={() => {
                                                         let array = [...this.state.graphData];
-                                                        array.map((element, i) => {
-                                                            array[i] = { ...array[i], selected: false }
-                                                        })
-                                                        array[index] = { ...array[index], selected: true }
-                                                        this.setState({
-                                                            graphData: array,
-                                                            userMeasurement: array[index].user_measurement,
-                                                            data: array[index]?.user_images ? array[index]?.user_images : []
-                                                        })
+                                                        if (index != (array.length - 1)) {
+                                                            this.setState({ isCurrentMonth: false })
+                                                            array.map((element, i) => {
+                                                                array[i] = { ...array[i], selected: false }
+                                                            })
+                                                            array[index] = { ...array[index], selected: true }
+                                                            this.setState({
+                                                                graphData: array,
+                                                                userMeasurement: array[index].user_measurement,
+                                                                data: array[index]?.user_images ? array[index]?.user_images : []
+                                                            })
+                                                        } else {
+                                                            this.setState({ isCurrentMonth: true })
+                                                            array.map((element, i) => {
+                                                                array[i] = { ...array[i], selected: false }
+                                                            })
+                                                            array[index] = { ...array[index], selected: true }
+                                                            this.setState({
+                                                                graphData: array,
+                                                                userMeasurement: array[index].user_measurement,
+                                                                data: array[index]?.user_images ? array[index]?.user_images : []
+                                                            })
+                                                        }
                                                     }}  >
                                                         <Text style={item.selected ? styles.textStyle1 : styles.textStyle}>Month {index + 1}</Text>
                                                     </TouchableOpacity>
@@ -220,7 +222,129 @@ class Progress extends Component {
                                             <>
                                                 {item.selected ?
                                                     <View style={{ justifyContent: 'center', alignItems: 'center', }}>
-                                                        <LineChart
+                                                        {
+                                                            isCurrentMonth ?
+                                                                <LineChart
+                                                                    style={{
+                                                                        marginVertical: 8,
+                                                                        borderRadius: 16,
+                                                                    }}
+                                                                    data={{
+                                                                        labels: ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5"],
+                                                                        datasets: [
+                                                                            {
+                                                                                data: item.data,
+                                                                            },
+                                                                            {
+                                                                                data: [0] // min
+                                                                            },
+                                                                            {
+                                                                                data: [count] // max
+                                                                            },
+                                                                        ]
+
+                                                                    }}
+                                                                    width={SCREEN_WIDTH * 1.15}
+                                                                    height={220}
+                                                                    yAxisLabel=""
+                                                                    withHorizontalLines={true}
+                                                                    withVerticalLines={false}
+                                                                    withInnerLines={true}
+                                                                    withOuterLines={true}
+                                                                    withShadow={false}
+                                                                    yAxisInterval={0} // optional, defaults to 1
+                                                                    chartConfig={{
+                                                                        backgroundColor: 'white',
+                                                                        backgroundGradientFrom: "white",
+                                                                        backgroundGradientTo: "white",
+                                                                        decimalPlaces: 0, // optional, defaults to 2dp
+                                                                        color: () => `rgba(68, 189, 232, 1)`,
+                                                                        labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+                                                                        style: {
+                                                                            borderRadius: 16,
+                                                                        },
+                                                                        propsForDots: {
+                                                                            r: "3",
+                                                                            strokeWidth: "1",
+                                                                            stroke: "#44BDE8"
+
+                                                                        },
+                                                                        propsForHorizontalLabels: {
+                                                                            alignmentBaseline: 'text-before-edge'
+                                                                        },
+                                                                        propsForBackgroundLines: {
+                                                                            strokeDasharray: '',
+                                                                            stroke: "lightgrey",
+                                                                            // strokeWidth: "1"
+                                                                        },
+                                                                    }}
+                                                                    // bezier
+                                                                    style={{
+                                                                        marginVertical: 8,
+                                                                        borderRadius: 16,
+                                                                        marginLeft: 0,
+                                                                        paddingLeft: 0
+                                                                    }}
+                                                                    verticalLabelRotation={0}
+                                                                /> : <LineChart
+                                                                    style={{
+                                                                        marginVertical: 8,
+                                                                        borderRadius: 16,
+                                                                    }}
+                                                                    data={{
+                                                                        labels: ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5"],
+                                                                        datasets: [
+                                                                            {
+                                                                                data: item.data,
+                                                                            },
+                                                                        ]
+
+                                                                    }}
+                                                                    width={SCREEN_WIDTH * 1.15}
+                                                                    height={220}
+                                                                    yAxisLabel=""
+                                                                    withHorizontalLines={true}
+                                                                    withVerticalLines={false}
+                                                                    withInnerLines={true}
+                                                                    withOuterLines={true}
+                                                                    withShadow={false}
+                                                                    yAxisInterval={0} // optional, defaults to 1
+                                                                    chartConfig={{
+                                                                        backgroundColor: 'white',
+                                                                        backgroundGradientFrom: "white",
+                                                                        backgroundGradientTo: "white",
+                                                                        decimalPlaces: 0, // optional, defaults to 2dp
+                                                                        color: () => `rgba(68, 189, 232, 1)`,
+                                                                        labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+                                                                        style: {
+                                                                            borderRadius: 16,
+                                                                        },
+                                                                        propsForDots: {
+                                                                            r: "3",
+                                                                            strokeWidth: "1",
+                                                                            stroke: "#44BDE8"
+
+                                                                        },
+                                                                        propsForHorizontalLabels: {
+                                                                            alignmentBaseline: 'text-before-edge'
+                                                                        },
+                                                                        propsForBackgroundLines: {
+                                                                            strokeDasharray: '',
+                                                                            stroke: "lightgrey",
+                                                                            // strokeWidth: "1"
+                                                                        },
+                                                                    }}
+                                                                    // bezier
+                                                                    style={{
+                                                                        marginVertical: 8,
+                                                                        borderRadius: 16,
+                                                                        marginLeft: 0,
+                                                                        paddingLeft: 0
+                                                                    }}
+                                                                    verticalLabelRotation={0}
+                                                                />
+                                                        }
+                                                        {/* <LineChart
                                                             style={{
                                                                 marginVertical: 8,
                                                                 borderRadius: 16,
@@ -229,9 +353,16 @@ class Progress extends Component {
                                                                 labels: ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5"],
                                                                 datasets: [
                                                                     {
-                                                                        data: item.data
-                                                                    }
+                                                                        data: item.data,
+                                                                    },
+                                                                    {
+                                                                        data: [0] // min
+                                                                    },
+                                                                    {
+                                                                        data: [10] // max
+                                                                    },
                                                                 ]
+
                                                             }}
                                                             width={SCREEN_WIDTH * 1.15}
                                                             height={220}
@@ -275,7 +406,7 @@ class Progress extends Component {
                                                                 paddingLeft: 0
                                                             }}
                                                             verticalLabelRotation={0}
-                                                        />
+                                                        /> */}
                                                     </View> : null}
 
                                             </>
