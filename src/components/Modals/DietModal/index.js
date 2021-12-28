@@ -30,7 +30,7 @@ const UpgradeModal = (props) => {
 
                 <View style={styles.buttonContainer}>
                     <View style={{ flex: 0.6, justifyContent: "center" }}>
-                        <Button title={'RECOMMENDATION'} onPress={() =>{Linking.openURL("https://sites.google.com/educogym.com/tony-quinn-health-centres/home")}} />
+                        <Button title={'CONSENT'} onPress={() =>{Linking.openURL("https://sites.google.com/educogym.com/tony-quinn-health-centres/home")}} />
                     </View>
                     <View style={{ flex: 0.3, justifyContent: "center" }}>
                         <Button disabled={props.value ? false : true} loading={props.loading} title={'DONE'} onPress={() => props.onSkip()} />

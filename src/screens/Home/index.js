@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, StatusBar, ScrollView, ImageBackground } from 'react-native';
+import { View, Text, TouchableOpacity, StatusBar, ScrollView, ImageBackground, Linking } from 'react-native';
 import ProgressBarAnimated from 'react-native-progress-bar-animated';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 import { authActions } from '../../redux/actions/auth';
-import { Button, Container, FocusAreaModal, HorizontalList, UpgradeModal } from '../../components';
+import { Button, Container, FocusAreaModal, HorizontalList, UpgradeModal, Icon } from '../../components';
 import { route, screen, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../lib/utils/constants';
 import GFire from '../../assets/svg/Gfire.svg';
 import WFire from '../../assets/svg/Bfire.svg';
@@ -22,6 +22,7 @@ import { getLocalData, LOCAL_STORAGE_KEYS } from '../../lib/utils/localstorage';
 import { PlanServices, ProfileServices } from '../../services';
 import moment from 'moment';
 import { planActions } from '../../redux/actions/plan';
+// import { Icon } from 'react-native-elements/dist/icons/Icon';
 
 const SVG_HEIGHT = 15;
 const SVG_WIDTH = 15;
@@ -196,7 +197,11 @@ class Home extends Component {
                                     <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
 
                                         <Text style={styles.whiteTextStyle}>YOUR PERSONALIZED PLAN</Text>
-                                        <View style={{ width: SCREEN_WIDTH * 0.125 }} />
+                                        <View style={{ width: 10 }} />
+                                        <TouchableOpacity style={{ paddingTop: 3 }} onPress={() =>{Linking.openURL("https://sites.google.com/educogym.com/tony-quinn-health-centres/home")}}>
+                                            <Icon.MaterialCommunityIcons name="clipboard-text-outline" size={35} color={"white"} />
+                                        </TouchableOpacity>
+                                        <View style={{ width: 10 }} />
                                         <TouchableOpacity onPress={() => this.setState({ focusModal: true })}>
                                             <Target1 />
                                         </TouchableOpacity>
@@ -210,10 +215,15 @@ class Home extends Component {
                                 :
                                 <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
                                     <Text style={styles.whiteTextStyle}>YOUR PERSONALIZED PLAN</Text>
-                                    <View style={{ width: SCREEN_WIDTH * 0.125 }} />
+                                    <View style={{ width: 50 }} />
+                                    <TouchableOpacity style={{ paddingTop: 3 }} onPress={() =>{Linking.openURL("https://sites.google.com/educogym.com/tony-quinn-health-centres/home")}}>
+                                        <Icon.MaterialCommunityIcons name="clipboard-text-outline" size={35} color={"white"} />
+                                    </TouchableOpacity>
                                     <TouchableOpacity onPress={() => this.setState({ focusModal: true })}>
                                         <Target1 width={40} />
                                     </TouchableOpacity>
+                                    {/* <View style={{ width: 10 }} /> */}
+
                                 </View>
                         }
                     </View>

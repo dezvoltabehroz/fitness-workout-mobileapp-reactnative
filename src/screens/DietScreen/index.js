@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { ScrollView, View, Text, TouchableOpacity, RefreshControl, Image, Platform, UIManager, LayoutAnimation, ActivityIndicator } from "react-native";
+import { ScrollView, View, Text, TouchableOpacity, Linking, RefreshControl, Image, Platform, UIManager, LayoutAnimation, ActivityIndicator } from "react-native";
 import ProgressBarAnimated from 'react-native-progress-bar-animated';
 import Calender from '../../assets/svg/calendarColor.svg';
 import moment from 'moment';
@@ -168,7 +168,13 @@ class DietScreen extends Component {
 
     headerRight = () => {
         return (
-            <TouchableOpacity style={{ paddingRight: 25, width: 100, alignItems: "flex-end" }} onPress={() => { this.setState({ dietModal: !this.state.dietModal }) }} ><More /></TouchableOpacity>
+            <View style={{ flexDirection: "row", alignItems: "center", }}>
+                <TouchableOpacity style={{ paddingTop: 3 }} onPress={() => { Linking.openURL("https://sites.google.com/educogym.com/tony-quinn-health-centres/home") }}>
+                    <Icon.MaterialCommunityIcons name="clipboard-text-outline" size={35} color={"white"} />
+                </TouchableOpacity>
+                <TouchableOpacity style={{ paddingRight: 25, width: 50, alignItems: "flex-end" }} onPress={() => { this.setState({ dietModal: !this.state.dietModal }) }} ><More /></TouchableOpacity>
+            </View>
+
         )
     }
 
