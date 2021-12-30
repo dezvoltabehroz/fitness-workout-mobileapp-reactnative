@@ -27,7 +27,6 @@ const UpgradeModal = (props) => {
                     <Standard />
                     <Text style={props.value == 'standard diet' ? styles.rowTextStyleColor : styles.rowTextStyle}>Standard Diet</Text>
                 </TouchableOpacity>
-
                 <View style={styles.buttonContainer}>
                     <View style={{ flex: 0.6, justifyContent: "center" }}>
                         <Button title={'CONSENT'} onPress={() =>{Linking.openURL("https://sites.google.com/educogym.com/tony-quinn-health-centres/home")}} />
