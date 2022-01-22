@@ -208,7 +208,7 @@ class Home extends Component {
                                     </View>
                                     {this.props?.user?.userData?.is_pro == 0 ?
                                         <TouchableOpacity onPress={() => this.setState({ modal: true })}>
-                                            <Target />
+                                            <Target width={70} />
                                         </TouchableOpacity> : null}
 
                                 </View>
