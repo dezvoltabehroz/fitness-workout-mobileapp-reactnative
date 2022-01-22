@@ -17,7 +17,7 @@ export default StyleSheet.create({
     headingContainer: {
         paddingTop: Platform.OS == 'ios' ? '10%' : '5%',
         backgroundColor: THEME.BAR_COLOR,
-        paddingHorizontal: "5%",
+        paddingHorizontal: "2.5%",
     },
     headingContainer1: {
         backgroundColor: THEME.BAR_COLOR,

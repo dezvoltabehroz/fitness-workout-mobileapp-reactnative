@@ -199,11 +199,11 @@ class Home extends Component {
                                         <Text style={styles.whiteTextStyle}>YOUR PERSONALIZED PLAN</Text>
                                         <View style={{ width: 10 }} />
                                         <TouchableOpacity style={{ paddingTop: 3 }} onPress={() =>{Linking.openURL("https://sites.google.com/educogym.com/tony-quinn-health-centres/home")}}>
-                                            <Icon.MaterialCommunityIcons name="clipboard-text-outline" size={35} color={"white"} />
+                                            <Icon.MaterialCommunityIcons name="clipboard-text-outline" size={30} color={"white"} />
                                         </TouchableOpacity>
                                         <View style={{ width: 10 }} />
                                         <TouchableOpacity onPress={() => this.setState({ focusModal: true })}>
-                                            <Target1 />
+                                            <Target1 width={25} />
                                         </TouchableOpacity>
                                     </View>
                                     {this.props?.user?.userData?.is_pro == 0 ?

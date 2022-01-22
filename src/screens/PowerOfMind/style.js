@@ -12,6 +12,7 @@ export default StyleSheet.create({
     headingText: {
         fontFamily: THEME.FONT_MEDIUM,
         color: '#1F2729',
+        fontSize: 12,
         textTransform: "capitalize"
     },
     contentContainer: {
@@ -22,16 +23,14 @@ export default StyleSheet.create({
         paddingLeft: "5.5%"
     },
     contentContainer1: {
-        
-       
-        width: SCREEN_WIDTH * 0.4,
+        width: "100%",
         height: SCREEN_HEIGHT * 0.2,
     },
     opacity: {
         flex: 1,
         borderRadius: 10,
         backgroundColor: '#00000059',
-        
+
     },
     itemContainer: {
         backgroundColor: THEME.COLOR_WHITE,
@@ -42,10 +41,10 @@ export default StyleSheet.create({
     textContainer: {
         flexDirection: "column",
         justifyContent: "space-between",
-        padding: "5%"
+        paddingVertical: "5%"
     },
     greyText: {
-        fontSize:THEME.FONT_SIZE_SMALL,
+        fontSize: THEME.FONT_SIZE_SMALL,
         fontFamily: THEME.FONT_MEDIUM,
         color: '#9B9B9B',
     }

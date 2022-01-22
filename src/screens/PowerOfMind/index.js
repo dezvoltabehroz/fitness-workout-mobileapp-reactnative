@@ -48,15 +48,15 @@ class PowerOfMind extends Component {
     }
 
     _renderMenuItem = ({ item, index }) => {
+        console.log(item);
         return (
             <TouchableOpacity onPress={() => { this.props.navigation.navigate(route.POWEROFMINDAUDIO, { data: item }) }} style={styles.itemContainer} >
-                <ImageBackground imageStyle={{ overflow: "hidden", borderRadius: 10, }} source={require('../../assets/images/you.png')} style={styles.contentContainer1}>
+                <ImageBackground imageStyle={{ overflow: "hidden", borderRadius: 10, }} source={{ uri: item.media_thumbnail }} style={styles.contentContainer1}>
                     <View style={styles.opacity}>
 
                     </View>
                 </ImageBackground>
                 <View style={styles.textContainer}>
-                    {/* <Text style={styles.greyText}>{'5min'}</Text> */}
                     <Text style={styles.headingText}>{item.media_title}</Text>
                 </View>
             </TouchableOpacity >
@@ -86,7 +86,7 @@ class PowerOfMind extends Component {
                                             <Text style={styles.headingText}>Audios</Text>
                                         </View>
                                         <FlatList
-                                            data={this.state.mindBodyAudio.slice(0, 99)}
+                                            data={[...this.state.mindBodyAudio]}
                                             numColumns={2}
                                             renderItem={this._renderMenuItem}
                                             contentContainerStyle={styles.contentContainer}
