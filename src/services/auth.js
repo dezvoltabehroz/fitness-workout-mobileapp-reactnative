@@ -3,8 +3,9 @@ import axiosInstance from './Interceptor';
 import { apiHeaderConfiguration } from '../lib/utils/global'
 import { EMPTY, TOKEN } from '../lib/utils/constants'
 const Api = {
-    generateUserId: function (token) {
-        return axiosInstance.post('registration/generateUserId', { fcm_token: token }, apiHeaderConfiguration(EMPTY, EMPTY))
+    generateUserId: function (data) {
+        console.log(data);
+        return axiosInstance.post('registration/generateUserId', { fcm_token: data.fcmToken, time_zone: data.time_zone }, apiHeaderConfiguration(EMPTY, EMPTY))
     },
     userPrefrences: function (data, token) {
         return axiosInstance.post('registration/updateUserPref', data, apiHeaderConfiguration(token, TOKEN))
@@ -30,9 +31,13 @@ const Api = {
     changePassword: function (data, token) {
         return axiosInstance.post('auth/changePassword', data, apiHeaderConfiguration(token, TOKEN))
     },
-    createUserWithEmailPassword:function (data) {
+    createUserWithEmailPassword: function (data) {
         return axiosInstance.post('registration/registerEmailPassword', data, apiHeaderConfiguration(EMPTY, EMPTY))
     },
+    updateTimeZone: function (data, token) {
+        console.log(data);
+        return axiosInstance.post('registration/updateUserTimeZone', data, apiHeaderConfiguration(token, TOKEN))
+    }
 };
 
 export default Api;

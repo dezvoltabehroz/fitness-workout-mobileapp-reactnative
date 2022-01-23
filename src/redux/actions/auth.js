@@ -16,6 +16,7 @@ import messaging from '@react-native-firebase/messaging';
 import { clearAllLocalData, getLocalData, LOCAL_STORAGE_KEYS, storeLocalData } from '../../lib/utils/localstorage';
 import { LOGO, route } from '../../lib/utils/constants';
 
+import * as RNLocalize from "react-native-localize";
 import { CommonActions } from '@react-navigation/native';
 
 const setUserProfile = (userData, authData, navigate, isNewUser) => {
@@ -152,10 +153,16 @@ const getFcmToken = async (dispatch, navigate, isNewUser) => {
         console.log(fcmToken)
         const localFcm = await getLocalData(LOCAL_STORAGE_KEYS.fcmToken)
         if (fcmToken == JSON.parse(localFcm)) {
+
+
             const user_id = await getLocalData(LOCAL_STORAGE_KEYS.user_id)
             AuthServices.refreshToken({ user_id: user_id })
                 .then((res) => {
                     if (res.data.success) {
+                        AuthServices.updateTimeZone({ fcm_token: fcmToken, time_zone: RNLocalize.getTimeZone() }, res.data.data)
+                            .then((resp) => { console.log("res.data : ",resp.data); })
+                            .catch((err) => { console.log(err); })
+
                         storeLocalData(LOCAL_STORAGE_KEYS.fcmToken, JSON.stringify(fcmToken))
                         storeLocalData(LOCAL_STORAGE_KEYS.userToken, JSON.stringify(res.data.data))
                         dispatch(getUserProfile({ user_id: user_id, token: res.data.data }, navigate, isNewUser))
@@ -173,6 +180,11 @@ const getFcmToken = async (dispatch, navigate, isNewUser) => {
             AuthServices.refreshToken({ user_id: user_id })
                 .then((res) => {
                     if (res.data.success) {
+
+                        AuthServices.updateTimeZone({ fcm_token: fcmToken, time_zone: RNLocalize.getTimeZone() }, res.data.data)
+                            .then((resp) => { console.log("res.data : ",resp.data); })
+                            .catch((err) => { console.log(err); })
+
                         let data = {
                             "user_id": JSON.parse(user_id),
                             "fcm_token": fcmToken

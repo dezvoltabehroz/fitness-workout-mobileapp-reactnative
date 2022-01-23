@@ -16,7 +16,7 @@ import { isEmailValid, isPasswordValid } from '../../lib/utils/global';
 import themeStyle1 from '../../assets/styles/common.style';
 import { LOCAL_STORAGE_KEYS, storeLocalData } from '../../lib/utils/localstorage';
 import themeStyle from '../../assets/styles/theme.style';
-
+import * as RNLocalize from "react-native-localize";
 class Login extends Component {
     constructor(props) {
         super(props);
@@ -169,6 +169,7 @@ class Login extends Component {
             let userData = {
                 "email": email.trim(),
                 "password": password,
+                "time_zone":RNLocalize.getTimeZone()
             }
             AuthServices.createUserWithEmailPassword(userData)
                 .then(async (res) => {

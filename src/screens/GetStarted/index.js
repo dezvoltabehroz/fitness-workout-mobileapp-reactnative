@@ -12,6 +12,9 @@ import AppIcon from '../../assets/svg/AppIcon.svg'
 import Brain from '../../assets/svg/GraphicElements.svg'
 import Modal from '../../assets/svg/modal.svg'
 import Text from '../../assets/svg/text.svg'
+
+import * as RNLocalize from "react-native-localize";
+
 class AppIntro extends Component {
     constructor(props) {
         super(props);
@@ -78,7 +81,7 @@ class AppIntro extends Component {
         const { navigate, replace } = this.props.navigation;
         const fcmToken = await messaging().getToken();
         if (fcmToken) {
-            AuthServices.generateUserId(fcmToken)
+            AuthServices.generateUserId({ fcmToken, time_zone: RNLocalize.getTimeZone() })
                 .then((res) => {
                     if (res.data.success) {
                         this.setState({ btnLoading: false })
