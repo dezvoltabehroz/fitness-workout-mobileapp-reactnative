@@ -54,7 +54,7 @@ class Login extends Component {
         const { email, password, submit } = this.state;
         if (email && password && submit && isEmailValid(email.trim())) {
             let userData = {
-                "email": email.trim(),
+                "email": (email.trim()).toLocaleLowerCase(),
                 "password": password,
             }
             AuthServices.userLogin(userData)
