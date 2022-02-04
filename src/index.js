@@ -9,8 +9,8 @@ import createStore from "./redux/CreateStore";
 import SplashScreen from 'react-native-splash-screen';
 import AsyncStorage from '@react-native-community/async-storage';
 import { route } from './lib/utils/constants';
-import Notifications from './Notifications';
-import moment from 'moment';
+// import Notifications from './Notifications';
+// import moment from 'moment';
 const store = createStore();
 const PERSISTENCE_KEY = 'NAVIGATION_STATE';
 export default function App() {
@@ -20,25 +20,23 @@ export default function App() {
     LogBox.ignoreAllLogs();
 
     // React.useEffect(() => {
-        // setInterval(() => {
-        // if (moment().format('HH:mm').toString() > "08:00") {
-        //     var now = new Date();
-        //     now.setDate(now.getDate() + 1)
-        //     now.setHours(8);
-        //     now.setMinutes(0);
-        //     now.setMilliseconds(0);
-        //     // console.log("moment : ",moment(new Date(now)).format('HH:mm'));
-        //     console.log("Scheduled Notification has been called at : ", new Date(Date.now() + 10 * 1000))
-        //     Notifications.schduleNotification(new Date(now));
-        // }
-        // Notifications.schduleNotification(new Date(Date.now() + 10 * 1000));
-        // }, 3600000);
+    // setInterval(() => {
+    // if (moment().format('HH:mm').toString() > "08:00") {
+    //     var now = new Date();
+    //     now.setDate(now.getDate() + 1)
+    //     now.setHours(8);
+    //     now.setMinutes(0);
+    //     now.setMilliseconds(0);
+    //     // console.log("moment : ",moment(new Date(now)).format('HH:mm'));
+    //     console.log("Scheduled Notification has been called at : ", new Date(Date.now() + 10 * 1000))
+    //     Notifications.schduleNotification(new Date(now));
+    // }
+    // Notifications.schduleNotification(new Date(Date.now() + 10 * 1000));
+    // }, 3600000);
     // }, []);
 
     const onNavigationReady = () => {
-        setTimeout(() => {
-            SplashScreen.hide();
-        }, 700);
+        setTimeout(() => { SplashScreen.hide(); }, 700);
     }
 
     React.useEffect(() => {
@@ -48,22 +46,15 @@ export default function App() {
                 if (Platform.OS !== 'web' && initialUrl == null) {
                     const savedStateString = await AsyncStorage.getItem(PERSISTENCE_KEY);
                     const state = savedStateString ? JSON.parse(savedStateString) : undefined;
-                    if (state !== undefined) {
-                        setInitialState(state);
-                    }
+                    if (state !== undefined) { setInitialState(state); }
                 }
-            } finally {
-                setIsReady(true);
-            }
+            } finally { setIsReady(true); }
         };
-        if (!isReady) {
-            restoreState();
-        }
+        if (!isReady) { restoreState(); }
     }, [isReady]);
 
-    if (!isReady) {
-        return null;
-    }
+    if (!isReady) { return null; }
+
     return (
         <>
             <Provider store={store}>
@@ -78,8 +69,7 @@ export default function App() {
                                 AsyncStorage.setItem(PERSISTENCE_KEY, JSON.stringify(null))
                             }
                         });
-                    }}
-                >
+                    }}>
                     <SafeAreaProvider style={{ backgroundColor: THEME.PRIMARY_BACKGROUND_COLOR }}>
                         <StatusBar backgroundColor={THEME.BAR_COLOR} barStyle={"light-content"} />
                         <AppRoutes />

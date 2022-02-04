@@ -10,8 +10,8 @@ const ClearButton = (props) => {
         buttonStyle = {},
         disabledTitleStyle = {},
         titleStyle = {},
-        loadingProps = {color:'#44BDE8'},
-        loadingStyle={},
+        loadingProps = { color: '#44BDE8' },
+        loadingStyle = {},
         icon = {},
         iconRight = false,
         onPress = () => { },
@@ -19,7 +19,7 @@ const ClearButton = (props) => {
         title = "",
         raised = false,
         containerStyle = {},
-        iconContainerStyle={}
+        iconContainerStyle = {}
     } = props;
     return (
         <BT
@@ -38,7 +38,7 @@ const ClearButton = (props) => {
             type={type}
             icon={icon}
             iconRight={iconRight}
-            iconContainerStyle={{...iconContainerStyle&&styles.iconContainerStyle}}
+            iconContainerStyle={{ ...iconContainerStyle && styles.iconContainerStyle }}
             titleStyle={{ ...titleStyle && styles.clearBtnPrimaryText }}
         />
     )

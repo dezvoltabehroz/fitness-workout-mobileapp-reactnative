@@ -69,6 +69,7 @@ class Login extends Component {
                     }
                 })
                 .catch((err) => {
+                    Alert.alert("err.response : ", JSON.stringify(err))
                     console.log(err.response)
                 })
 
@@ -139,11 +140,11 @@ class Login extends Component {
                     this.setState({ sendedCode: res.data.data, resendLoading: false })
                 } else {
                     Alert.alert(`${res.data.message}!`)
-                    this.setState({ btnLoading: false, submit: false,resendLoading: false })
+                    this.setState({ btnLoading: false, submit: false, resendLoading: false })
                 }
 
             })
-            .catch((error) => {console.log(error.response);this.setState({ resendLoading: false })})
+            .catch((error) => { console.log(error.response); this.setState({ resendLoading: false }) })
     }
 
     verifyCode = () => {
@@ -180,7 +181,7 @@ class Login extends Component {
                 <View style={styles.container}>
                     <KeyboardAwareScrollView>
                         <View style={styles.outLineContainer}>
-                            <OutLine height={SCREEN_HEIGHT * 0.4}/>
+                            <OutLine height={SCREEN_HEIGHT * 0.4} />
                             {/* <Image source={require("../../assets/images/login.png")} resizeMode="contain" style={{ height: SCREEN_HEIGHT * 0.4 }} /> */}
                             <Text style={styles.heading}>Log In</Text>
                         </View>
